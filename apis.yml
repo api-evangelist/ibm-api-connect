@@ -1,0 +1,50 @@
+aid: ibm-api-connect
+name: IBM API Connect
+description: >-
+  IBM API Connect is a comprehensive end-to-end API management solution that
+  enables organizations to create, secure, manage, share, monetize, and analyze
+  APIs across clouds. It provides an API gateway, developer portal, and
+  lifecycle management capabilities.
+type: Index
+image: https://kinlane-productions.s3.amazonaws.com/apis-json/apis-json-logo.jpg
+tags:
+  - API Management
+  - API Gateway
+  - Developer Portal
+  - IBM
+url: >-
+  https://raw.githubusercontent.com/api-evangelist/ibm-api-connect/refs/heads/main/apis.yml
+created: '2026-03-16'
+modified: '2026-03-16'
+specificationVersion: '0.19'
+apis:
+  - aid: ibm-api-connect:ibm-api-connect-management-api
+    name: IBM API Connect Management API
+    description: >-
+      The IBM API Connect Management API provides programmatic access to
+      manage APIs, products, catalogs, organizations, and other platform
+      resources in the API Connect platform.
+    humanURL: https://cloud.ibm.com/apidocs/apiconnect/apic-management-api
+    baseURL: https://api.us-south.apiconnect.cloud.ibm.com
+    tags:
+      - API Management
+      - REST
+    properties:
+      - type: Documentation
+        url: https://cloud.ibm.com/apidocs/apiconnect/apic-management-api
+      - type: Getting Started
+        url: https://cloud.ibm.com/docs/apiconnect?topic=apiconnect-getting-started
+common:
+  - type: Website
+    url: https://www.ibm.com/products/api-connect
+  - type: Documentation
+    url: https://www.ibm.com/docs/en/api-connect/
+  - type: Getting Started
+    url: https://cloud.ibm.com/docs/apiconnect?topic=apiconnect-getting-started
+  - type: Support
+    url: https://www.ibm.com/mysupport
+  - type: Pricing
+    url: https://www.ibm.com/products/api-connect/pricing
+maintainers:
+  - FN: Kin Lane
+    email: kin@apievangelist.com
