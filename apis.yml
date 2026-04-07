@@ -8,8 +8,8 @@ description: >-
 type: Index
 image: https://kinlane-productions.s3.amazonaws.com/apis-json/apis-json-logo.jpg
 tags:
-  - API Management
   - API Gateway
+  - API Management
   - Developer Portal
   - IBM
 url: >-
@@ -29,10 +29,10 @@ apis:
     humanURL: https://cloud.ibm.com/apidocs/apiconnect/apic-management-api
     baseURL: https://api.us-south.apiconnect.cloud.ibm.com
     tags:
-      - API Management
-      - REST API
       - Administration
+      - API Management
       - Lifecycle
+      - REST API
     properties:
       - type: Documentation
         url: https://cloud.ibm.com/apidocs/apiconnect/apic-management-api
@@ -55,8 +55,8 @@ apis:
     tags:
       - Consumer
       - Developer Portal
-      - Subscriptions
       - REST API
+      - Subscriptions
     properties:
       - type: Documentation
         url: https://cloud.ibm.com/apidocs/apiconnect/apic-consumer-api
@@ -73,8 +73,8 @@ apis:
     baseURL: https://api.us-south.apiconnect.cloud.ibm.com
     tags:
       - API Management
-      - REST API
       - Legacy
+      - REST API
       - V1
     properties:
       - type: Documentation
