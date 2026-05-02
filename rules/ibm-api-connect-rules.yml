@@ -1,0 +1,39 @@
+aid: ibm-api-connect:ibm-api-connect-rules
+name: IBM API Connect Rules
+description: >-
+  Governance and operational rules for the IBM API Connect API artifacts
+  maintained in this repository.
+tags:
+  - Governance
+  - Rules
+  - IBM
+  - API Connect
+rules:
+  - name: Specification Format
+    description: >-
+      All API descriptions in this repository must use OpenAPI 3.0 or later in
+      YAML format and live under the openapi/ directory; legacy Swagger 2.0
+      sources from IBM should be converted before being committed.
+  - name: Authentication
+    description: >-
+      The Management and Consumer APIs require IBM Cloud IAM bearer tokens or
+      platform-issued API keys; anonymous access is not supported.
+  - name: Backward Compatibility
+    description: >-
+      The V1 API is retained for backward compatibility only; new integrations
+      should target the current Management API.
+  - name: Environment URLs
+    description: >-
+      The default base URL targets the IBM Cloud us-south region; consumers
+      operating in other regions must override the host.
+  - name: Versioning
+    description: >-
+      API artifacts should track the version published in IBM Cloud apidocs and
+      be refreshed when IBM publishes a new revision.
+  - name: APIs.yml Sync
+    description: >-
+      The apis.yml index in this repository must reference all OpenAPI files
+      under openapi/ and be updated when artifacts change.
+maintainers:
+  - FN: Kin Lane
+    email: kin@apievangelist.com

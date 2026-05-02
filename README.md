@@ -16,7 +16,7 @@ IBM API Connect is a comprehensive end-to-end API management solution that enabl
 ## Timestamps
 
 - **Created:** 2026-03-16 
-- **Modified:** 2026-03-18 
+- **Modified:** 2026-04-28 
 
 ## APIs
 
@@ -83,6 +83,7 @@ The IBM API Connect V1 API is the earlier generation management REST API for the
 - [Terms of Service](https://www.ibm.com/support/customer/csol/terms/)
 - [Privacy Policy](https://www.ibm.com/privacy)
 - [Status](https://cloud.ibm.com/status)
+- [Rules](rules/ibm-api-connect-rules.yml)
 
 ## Maintainers
 
