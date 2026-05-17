@@ -36,7 +36,7 @@ apis:
     properties:
       - type: Documentation
         url: https://cloud.ibm.com/apidocs/apiconnect/apic-management-api
-      - type: Getting Started
+      - type: GettingStarted
         url: https://cloud.ibm.com/docs/apiconnect?topic=apiconnect-getting-started
       - type: Reference
         url: https://cloud.ibm.com/apidocs/apiconnect/apic-management-api
@@ -86,7 +86,7 @@ common:
     url: https://www.ibm.com/products/api-connect
   - type: Documentation
     url: https://www.ibm.com/docs/en/api-connect/
-  - type: Getting Started
+  - type: GettingStarted
     url: https://cloud.ibm.com/docs/apiconnect?topic=apiconnect-getting-started
   - type: Support
     url: https://www.ibm.com/mysupport
@@ -94,21 +94,21 @@ common:
     url: https://www.ibm.com/products/api-connect/pricing
   - type: Blog
     url: https://developer.ibm.com/blogs/
-  - type: Change Log
+  - type: ChangeLog
     url: https://www.ibm.com/docs/en/api-connect/saas?topic=overview-whats-new
-  - type: GitHub Organization
+  - type: GitHubOrganization
     url: https://github.com/ibm-apiconnect
   - type: Community
     url: https://community.ibm.com/community/user/integration/communities/community-home?CommunityKey=2106cca0-a9f9-45c6-9b28-01a28f39ce47
-  - type: Stack Overflow
+  - type: StackOverflow
     url: https://stackoverflow.com/questions/tagged/ibm-api-connect
   - type: YouTube
     url: https://www.youtube.com/@IBMTechnology
-  - type: Terms of Service
+  - type: TermsOfService
     url: https://www.ibm.com/support/customer/csol/terms/
-  - type: Privacy Policy
+  - type: PrivacyPolicy
     url: https://www.ibm.com/privacy
-  - type: Status
+  - type: StatusPage
     url: https://cloud.ibm.com/status
   - type: Rules
     url: rules/ibm-api-connect-rules.yml
