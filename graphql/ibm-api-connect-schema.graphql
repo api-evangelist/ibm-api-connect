@@ -1,0 +1,788 @@
+"""
+IBM API Connect GraphQL Schema
+Derived from IBM API Connect REST API (Management, Consumer, and V1 APIs)
+covering API design, lifecycle management, developer portal, security enforcement,
+analytics, application registration, and IBM Cloud integration.
+"""
+
+# ─── Scalars ──────────────────────────────────────────────────────────────────
+
+scalar DateTime
+scalar JSON
+scalar URL
+
+# ─── Enumerations ─────────────────────────────────────────────────────────────
+
+enum LifecycleState {
+  DRAFT
+  STAGED
+  PUBLISHED
+  DEPRECATED
+  RETIRED
+  ARCHIVED
+}
+
+enum VisibilityType {
+  PUBLIC
+  AUTHENTICATED
+  CUSTOM
+}
+
+enum SubscriptionState {
+  ENABLED
+  DISABLED
+  PENDING
+  REJECTED
+}
+
+enum OAuthFlowType {
+  AUTHORIZATION_CODE
+  IMPLICIT
+  CLIENT_CREDENTIALS
+  PASSWORD
+}
+
+enum GatewayType {
+  DATAPOWER_API_GATEWAY
+  DATAPOWER_GATEWAY
+}
+
+enum PlanRateUnit {
+  SECOND
+  MINUTE
+  HOUR
+  DAY
+  WEEK
+  MONTH
+}
+
+enum AnalyticsPeriod {
+  LAST_HOUR
+  LAST_DAY
+  LAST_WEEK
+  LAST_MONTH
+  LAST_YEAR
+}
+
+enum AlertSeverity {
+  INFO
+  WARNING
+  ERROR
+  CRITICAL
+}
+
+enum WebhookState {
+  ENABLED
+  DISABLED
+}
+
+enum CredentialType {
+  CLIENT_ID_SECRET
+  API_KEY
+  OAUTH2
+}
+
+# ─── Core Organization & Access ───────────────────────────────────────────────
+
+"""A provider organization that owns APIs, catalogs, and products."""
+type Organization {
+  id: ID!
+  name: String!
+  title: String
+  summary: String
+  owner: User
+  members: [OrganizationMember!]
+  catalogs: [Catalog!]
+  spaces: [Space!]
+  createdAt: DateTime!
+  updatedAt: DateTime!
+}
+
+"""A consumer organization that subscribes to API products."""
+type ConsumerOrganization {
+  id: ID!
+  name: String!
+  title: String
+  owner: ConsumerUser
+  members: [ConsumerMember!]
+  applications: [Application!]
+  subscriptions: [Subscription!]
+  createdAt: DateTime!
+  updatedAt: DateTime!
+}
+
+"""A member of a provider organization."""
+type OrganizationMember {
+  id: ID!
+  user: User!
+  roles: [Role!]!
+  organization: Organization!
+  createdAt: DateTime!
+}
+
+"""A member of a consumer organization."""
+type ConsumerMember {
+  id: ID!
+  user: ConsumerUser!
+  roles: [Role!]!
+  consumerOrganization: ConsumerOrganization!
+  createdAt: DateTime!
+}
+
+"""A platform user (provider side)."""
+type User {
+  id: ID!
+  username: String!
+  email: String!
+  firstName: String
+  lastName: String
+  roles: [Role!]
+  organization: Organization
+  createdAt: DateTime!
+  updatedAt: DateTime!
+}
+
+"""A consumer-side developer user."""
+type ConsumerUser {
+  id: ID!
+  username: String!
+  email: String!
+  firstName: String
+  lastName: String
+  consumerOrganizations: [ConsumerOrganization!]
+  createdAt: DateTime!
+  updatedAt: DateTime!
+}
+
+"""A role granting permissions within an organization."""
+type Role {
+  id: ID!
+  name: String!
+  title: String
+  permissions: [Permission!]
+}
+
+"""A granular permission associated with a role."""
+type Permission {
+  id: ID!
+  name: String!
+  description: String
+}
+
+# ─── Catalog & Space ──────────────────────────────────────────────────────────
+
+"""A catalog within a provider organization for publishing products."""
+type Catalog {
+  id: ID!
+  name: String!
+  title: String
+  description: String
+  organization: Organization!
+  spaces: [Space!]
+  products: [Product!]
+  consumerOrgs: [ConsumerOrganization!]
+  gateway: Gateway
+  portalConfig: PortalConfig
+  settings: CatalogSettings
+  createdAt: DateTime!
+  updatedAt: DateTime!
+}
+
+"""A space within a catalog for team-level isolation."""
+type Space {
+  id: ID!
+  name: String!
+  title: String
+  catalog: Catalog!
+  products: [Product!]
+  createdAt: DateTime!
+  updatedAt: DateTime!
+}
+
+"""Developer portal configuration for a catalog."""
+type PortalConfig {
+  id: ID!
+  portalType: String!
+  endpoint: URL
+  catalog: Catalog!
+}
+
+"""Settings for a catalog, including visibility and approvals."""
+type CatalogSettings {
+  appLifecycleApproval: Boolean
+  subscriptionApproval: Boolean
+  productVisibility: VisibilityType
+  apiVisibility: VisibilityType
+}
+
+# ─── API Design ───────────────────────────────────────────────────────────────
+
+"""An API definition managed in IBM API Connect."""
+type API {
+  id: ID!
+  name: String!
+  version: String!
+  title: String
+  description: String
+  state: LifecycleState!
+  organization: Organization!
+  catalog: Catalog
+  type: String
+  basePath: String
+  openApiDocument: JSON
+  gatewayPolicies: [Policy!]
+  securitySchemes: [SecurityScheme!]
+  paths: [APIPath!]
+  tags: [APITag!]
+  createdAt: DateTime!
+  updatedAt: DateTime!
+}
+
+"""A path defined in an API."""
+type APIPath {
+  id: ID!
+  path: String!
+  operations: [APIOperation!]!
+  api: API!
+}
+
+"""An operation (method + path) on an API."""
+type APIOperation {
+  id: ID!
+  method: String!
+  summary: String
+  description: String
+  operationId: String
+  parameters: [APIParameter!]
+  requestBody: APIRequestBody
+  responses: [APIResponse!]
+  security: [JSON]
+  policies: [Policy!]
+  path: APIPath!
+}
+
+"""A parameter for an API operation."""
+type APIParameter {
+  name: String!
+  in: String!
+  required: Boolean
+  description: String
+  schema: JSON
+}
+
+"""A request body definition for an API operation."""
+type APIRequestBody {
+  required: Boolean
+  description: String
+  content: JSON
+}
+
+"""A response definition for an API operation."""
+type APIResponse {
+  statusCode: String!
+  description: String
+  content: JSON
+}
+
+"""A tag grouping APIs or operations."""
+type APITag {
+  name: String!
+  description: String
+}
+
+# ─── Product & Plans ──────────────────────────────────────────────────────────
+
+"""A published product bundling one or more APIs with plans."""
+type Product {
+  id: ID!
+  name: String!
+  version: String!
+  title: String
+  description: String
+  state: LifecycleState!
+  visibility: Visibility!
+  organization: Organization!
+  catalog: Catalog
+  apis: [ProductAPI!]
+  plans: [Plan!]
+  subscriptions: [Subscription!]
+  createdAt: DateTime!
+  updatedAt: DateTime!
+}
+
+"""An API bundled within a product."""
+type ProductAPI {
+  api: API!
+  name: String!
+}
+
+"""A plan within a product, defining rate limits and pricing."""
+type Plan {
+  id: ID!
+  name: String!
+  title: String
+  description: String
+  product: Product!
+  rateLimits: [RateLimit!]
+  approvalRequired: Boolean
+  subscriptions: [Subscription!]
+  createdAt: DateTime!
+  updatedAt: DateTime!
+}
+
+"""A rate limit definition for a plan."""
+type RateLimit {
+  id: ID!
+  name: String!
+  value: Int!
+  unit: PlanRateUnit!
+  hardLimit: Boolean
+  plan: Plan
+}
+
+"""Visibility settings for a product or API."""
+type Visibility {
+  type: VisibilityType!
+  tags: [String!]
+  orgs: [String!]
+}
+
+# ─── Applications & Subscriptions ─────────────────────────────────────────────
+
+"""A consumer application registered in the developer portal."""
+type Application {
+  id: ID!
+  name: String!
+  title: String
+  description: String
+  state: String
+  consumerOrganization: ConsumerOrganization!
+  credentials: [Credential!]
+  subscriptions: [Subscription!]
+  redirectEndpoints: [URL!]
+  oauthRedirectUri: URL
+  createdAt: DateTime!
+  updatedAt: DateTime!
+}
+
+"""An application's API credentials."""
+type Credential {
+  id: ID!
+  name: String!
+  type: CredentialType!
+  clientId: String!
+  clientSecret: String
+  application: Application!
+  createdAt: DateTime!
+  updatedAt: DateTime!
+}
+
+"""A subscription linking an application to a product plan."""
+type Subscription {
+  id: ID!
+  state: SubscriptionState!
+  application: Application!
+  plan: Plan!
+  product: Product!
+  consumerOrganization: ConsumerOrganization!
+  createdAt: DateTime!
+  updatedAt: DateTime!
+}
+
+# ─── Gateway & Policies ───────────────────────────────────────────────────────
+
+"""A gateway instance for enforcing API policies."""
+type Gateway {
+  id: ID!
+  name: String!
+  title: String
+  type: GatewayType!
+  endpoint: URL!
+  apiEndpointBase: URL
+  catalogs: [Catalog!]
+  createdAt: DateTime!
+  updatedAt: DateTime!
+}
+
+"""A gateway policy applied to an API or operation."""
+type Policy {
+  id: ID!
+  name: String!
+  title: String
+  description: String
+  type: String!
+  configuration: JSON
+}
+
+"""A policy assembly (sequence of policies for an operation)."""
+type PolicyAssembly {
+  id: ID!
+  api: API!
+  operation: APIOperation
+  policies: [Policy!]!
+  onError: [Policy!]
+}
+
+# ─── Security ─────────────────────────────────────────────────────────────────
+
+"""A security scheme defined in an API (OAuth2, API key, Basic, etc.)."""
+type SecurityScheme {
+  id: ID!
+  name: String!
+  type: String!
+  description: String
+  in: String
+  apiKeyName: String
+  flows: [OAuthFlow!]
+  api: API!
+}
+
+"""An OAuth2 flow configuration."""
+type OAuthFlow {
+  type: OAuthFlowType!
+  authorizationUrl: URL
+  tokenUrl: URL
+  refreshUrl: URL
+  scopes: [OAuthScope!]
+}
+
+"""An OAuth2 scope."""
+type OAuthScope {
+  name: String!
+  description: String
+}
+
+"""A TLS client profile for securing API connections."""
+type TLSClientProfile {
+  id: ID!
+  name: String!
+  title: String
+  ciphers: [String!]
+  protocols: [String!]
+  organization: Organization!
+  createdAt: DateTime!
+  updatedAt: DateTime!
+}
+
+# ─── Analytics ────────────────────────────────────────────────────────────────
+
+"""Aggregated analytics summary for APIs, products, or catalogs."""
+type AnalyticsSummary {
+  period: AnalyticsPeriod!
+  totalRequests: Int!
+  successRequests: Int!
+  errorRequests: Int!
+  averageResponseTime: Float!
+  p99ResponseTime: Float!
+  topApis: [APIUsageStat!]
+  topPlans: [PlanUsageStat!]
+  topApplications: [AppUsageStat!]
+}
+
+"""API-level usage statistics."""
+type APIUsageStat {
+  api: API!
+  totalRequests: Int!
+  errorRate: Float!
+  averageResponseTime: Float!
+}
+
+"""Plan-level usage statistics."""
+type PlanUsageStat {
+  plan: Plan!
+  totalRequests: Int!
+  subscriptionCount: Int!
+}
+
+"""Application-level usage statistics."""
+type AppUsageStat {
+  application: Application!
+  totalRequests: Int!
+  errorRate: Float!
+}
+
+"""A time-series data point for analytics charts."""
+type AnalyticsDataPoint {
+  timestamp: DateTime!
+  value: Float!
+  label: String
+}
+
+"""An analytics event log entry."""
+type AnalyticsEvent {
+  id: ID!
+  timestamp: DateTime!
+  apiId: String
+  operationId: String
+  statusCode: Int!
+  responseTime: Float!
+  clientIp: String
+  applicationId: String
+  planId: String
+  catalogId: String
+}
+
+# ─── Notifications & Webhooks ─────────────────────────────────────────────────
+
+"""An alert configured for threshold breaches or system events."""
+type Alert {
+  id: ID!
+  name: String!
+  severity: AlertSeverity!
+  condition: String!
+  threshold: Float
+  enabled: Boolean!
+  organization: Organization!
+  createdAt: DateTime!
+  updatedAt: DateTime!
+}
+
+"""A webhook for event-driven integration."""
+type Webhook {
+  id: ID!
+  name: String!
+  url: URL!
+  state: WebhookState!
+  events: [String!]!
+  secret: String
+  organization: Organization!
+  createdAt: DateTime!
+  updatedAt: DateTime!
+}
+
+# ─── Lifecycle & Publishing ────────────────────────────────────────────────────
+
+"""A lifecycle history entry for an API or product."""
+type LifecycleEvent {
+  id: ID!
+  resourceType: String!
+  resourceId: String!
+  fromState: LifecycleState
+  toState: LifecycleState!
+  triggeredBy: User
+  notes: String
+  occurredAt: DateTime!
+}
+
+"""A staged product pending publication."""
+type StagedProduct {
+  id: ID!
+  product: Product!
+  catalog: Catalog!
+  stagedAt: DateTime!
+  stagedBy: User
+}
+
+"""A publication task result."""
+type PublishResult {
+  success: Boolean!
+  product: Product
+  errors: [String!]
+}
+
+# ─── Topology & Cloud ─────────────────────────────────────────────────────────
+
+"""An IBM Cloud availability zone or region for deployment."""
+type CloudRegion {
+  id: ID!
+  name: String!
+  location: String!
+  endpoint: URL
+}
+
+"""A cluster of gateway services backing a deployment."""
+type GatewayCluster {
+  id: ID!
+  name: String!
+  type: GatewayType!
+  gateways: [Gateway!]
+  region: CloudRegion
+  createdAt: DateTime!
+  updatedAt: DateTime!
+}
+
+"""A custom property definition attached to an API or product."""
+type CustomProperty {
+  id: ID!
+  name: String!
+  value: String
+  resourceType: String!
+  resourceId: String!
+}
+
+"""An invitation to join an organization or consumer organization."""
+type Invitation {
+  id: ID!
+  email: String!
+  role: Role
+  organization: Organization
+  consumerOrganization: ConsumerOrganization
+  expiresAt: DateTime!
+  createdAt: DateTime!
+}
+
+"""A draft API definition not yet staged or published."""
+type Draft {
+  id: ID!
+  api: API!
+  organization: Organization!
+  createdAt: DateTime!
+  updatedAt: DateTime!
+}
+
+# ─── Query ────────────────────────────────────────────────────────────────────
+
+type Query {
+  # Organizations
+  organization(id: ID!): Organization
+  organizations(limit: Int, offset: Int): [Organization!]!
+
+  consumerOrganization(id: ID!): ConsumerOrganization
+  consumerOrganizations(catalogId: ID!, limit: Int, offset: Int): [ConsumerOrganization!]!
+
+  # Users
+  user(id: ID!): User
+  users(organizationId: ID!, limit: Int, offset: Int): [User!]!
+
+  # Catalogs
+  catalog(id: ID!): Catalog
+  catalogs(organizationId: ID!, limit: Int, offset: Int): [Catalog!]!
+
+  # Spaces
+  space(id: ID!): Space
+  spaces(catalogId: ID!, limit: Int, offset: Int): [Space!]!
+
+  # APIs
+  api(id: ID!): API
+  apis(organizationId: ID!, catalogId: ID, state: LifecycleState, limit: Int, offset: Int): [API!]!
+
+  # Products
+  product(id: ID!): Product
+  products(organizationId: ID!, catalogId: ID, state: LifecycleState, limit: Int, offset: Int): [Product!]!
+
+  # Plans
+  plan(id: ID!): Plan
+  plans(productId: ID!, limit: Int, offset: Int): [Plan!]!
+
+  # Applications
+  application(id: ID!): Application
+  applications(consumerOrgId: ID!, limit: Int, offset: Int): [Application!]!
+
+  # Subscriptions
+  subscription(id: ID!): Subscription
+  subscriptions(applicationId: ID, planId: ID, limit: Int, offset: Int): [Subscription!]!
+
+  # Gateways
+  gateway(id: ID!): Gateway
+  gateways(limit: Int, offset: Int): [Gateway!]!
+
+  # Analytics
+  analyticsSummary(organizationId: ID!, catalogId: ID, period: AnalyticsPeriod!): AnalyticsSummary
+  analyticsTimeSeries(organizationId: ID!, catalogId: ID, period: AnalyticsPeriod!, metric: String!): [AnalyticsDataPoint!]!
+  analyticsEvents(organizationId: ID!, catalogId: ID, limit: Int, offset: Int): [AnalyticsEvent!]!
+
+  # Security
+  securityScheme(id: ID!): SecurityScheme
+  tlsClientProfile(id: ID!): TLSClientProfile
+  tlsClientProfiles(organizationId: ID!, limit: Int, offset: Int): [TLSClientProfile!]!
+
+  # Alerts & Webhooks
+  alert(id: ID!): Alert
+  alerts(organizationId: ID!, limit: Int, offset: Int): [Alert!]!
+  webhook(id: ID!): Webhook
+  webhooks(organizationId: ID!, limit: Int, offset: Int): [Webhook!]!
+
+  # Lifecycle
+  lifecycleEvents(resourceType: String!, resourceId: ID!, limit: Int, offset: Int): [LifecycleEvent!]!
+
+  # Cloud
+  cloudRegions: [CloudRegion!]!
+  gatewayCluster(id: ID!): GatewayCluster
+  gatewayClusters(limit: Int, offset: Int): [GatewayCluster!]!
+
+  # Roles & Permissions
+  roles(organizationId: ID): [Role!]!
+  permissions: [Permission!]!
+}
+
+# ─── Mutation ─────────────────────────────────────────────────────────────────
+
+type Mutation {
+  # Organizations
+  createOrganization(name: String!, title: String, summary: String): Organization!
+  updateOrganization(id: ID!, title: String, summary: String): Organization!
+  deleteOrganization(id: ID!): Boolean!
+
+  # Consumer Organizations
+  createConsumerOrganization(catalogId: ID!, name: String!, title: String): ConsumerOrganization!
+  deleteConsumerOrganization(id: ID!): Boolean!
+
+  # Catalogs
+  createCatalog(organizationId: ID!, name: String!, title: String): Catalog!
+  updateCatalog(id: ID!, title: String, description: String): Catalog!
+  deleteCatalog(id: ID!): Boolean!
+
+  # Spaces
+  createSpace(catalogId: ID!, name: String!, title: String): Space!
+  deleteSpace(id: ID!): Boolean!
+
+  # APIs
+  createAPI(organizationId: ID!, name: String!, version: String!, title: String, openApiDocument: JSON): API!
+  updateAPI(id: ID!, title: String, openApiDocument: JSON): API!
+  deleteAPI(id: ID!): Boolean!
+
+  # Products
+  createProduct(organizationId: ID!, name: String!, version: String!, title: String): Product!
+  updateProduct(id: ID!, title: String, description: String): Product!
+  stageProduct(productId: ID!, catalogId: ID!): StagedProduct!
+  publishProduct(productId: ID!, catalogId: ID!): PublishResult!
+  deprecateProduct(productId: ID!): Product!
+  retireProduct(productId: ID!): Product!
+  deleteProduct(id: ID!): Boolean!
+
+  # Plans
+  createPlan(productId: ID!, name: String!, title: String, approvalRequired: Boolean): Plan!
+  updatePlan(id: ID!, title: String, approvalRequired: Boolean): Plan!
+  deletePlan(id: ID!): Boolean!
+
+  # Rate Limits
+  addRateLimit(planId: ID!, name: String!, value: Int!, unit: PlanRateUnit!, hardLimit: Boolean): RateLimit!
+  removeRateLimit(id: ID!): Boolean!
+
+  # Applications
+  createApplication(consumerOrgId: ID!, name: String!, title: String, description: String): Application!
+  updateApplication(id: ID!, title: String, description: String): Application!
+  deleteApplication(id: ID!): Boolean!
+
+  # Credentials
+  addCredential(applicationId: ID!, name: String!, type: CredentialType!): Credential!
+  resetCredentialSecret(id: ID!): Credential!
+  deleteCredential(id: ID!): Boolean!
+
+  # Subscriptions
+  createSubscription(applicationId: ID!, planId: ID!): Subscription!
+  updateSubscriptionState(id: ID!, state: SubscriptionState!): Subscription!
+  deleteSubscription(id: ID!): Boolean!
+
+  # Gateways
+  registerGateway(name: String!, type: GatewayType!, endpoint: URL!, apiEndpointBase: URL): Gateway!
+  deleteGateway(id: ID!): Boolean!
+
+  # TLS Profiles
+  createTLSClientProfile(organizationId: ID!, name: String!, ciphers: [String!], protocols: [String!]): TLSClientProfile!
+  deleteTLSClientProfile(id: ID!): Boolean!
+
+  # Alerts
+  createAlert(organizationId: ID!, name: String!, severity: AlertSeverity!, condition: String!, threshold: Float): Alert!
+  updateAlert(id: ID!, enabled: Boolean, threshold: Float): Alert!
+  deleteAlert(id: ID!): Boolean!
+
+  # Webhooks
+  createWebhook(organizationId: ID!, name: String!, url: URL!, events: [String!]!, secret: String): Webhook!
+  updateWebhook(id: ID!, state: WebhookState, events: [String!]): Webhook!
+  deleteWebhook(id: ID!): Boolean!
+
+  # Members
+  addOrganizationMember(organizationId: ID!, userId: ID!, roleIds: [ID!]!): OrganizationMember!
+  removeOrganizationMember(memberId: ID!): Boolean!
+}
