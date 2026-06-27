@@ -3,19 +3,12 @@
   "feeds": [
     {
       "source": "https://developer.ibm.com/blogs/",
-      "feed_url": "https://developer.ibm.com/blogs/",
-      "title": "",
+      "feed_url": "",
       "saved": 0,
-      "method": "none"
-    },
-    {
-      "source": "https://www.ibm.com/products/api-connect/pricing",
-      "feed_url": "https://www.ibm.com/products/api-connect/pricing",
-      "title": "",
-      "saved": 0,
-      "method": "none"
+      "error": "HTTP 403 Forbidden",
+      "method": "agent-scrape"
     }
   ],
-  "fetched": "2026-06-14T20:42:17Z",
+  "fetched": "2026-06-27T12:47:42Z",
   "post_count": 0
 }
