@@ -82,6 +82,10 @@ apis:
       - type: Reference
         url: https://cloud.ibm.com/apidocs/apiconnect/apiconnect-v1
 common:
+  - type: VulnerabilityDisclosure
+    url: security/ibm-api-connect-vulnerability-disclosure.yml
+  - type: DomainSecurity
+    url: security/ibm-api-connect-domain-security.yml
   - type: Website
     url: https://www.ibm.com/products/api-connect
   - type: Documentation
