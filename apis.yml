@@ -94,6 +94,8 @@ apis:
       - type: Reference
         url: https://cloud.ibm.com/apidocs/apiconnect/apiconnect-v1
 common:
+  - type: SignUp
+    url: https://www.ibm.com/account/reg/signup?formid=urx-53961
   - type: VulnerabilityDisclosure
     url: security/ibm-api-connect-vulnerability-disclosure.yml
   - type: DomainSecurity
