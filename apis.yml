@@ -6,6 +6,17 @@ description: >-
   APIs across clouds. It provides an API gateway, developer portal, and
   lifecycle management capabilities.
 type: Index
+deliveryModel:
+  model: saas
+  open_source: false
+  commercial: true
+  callable_host: false
+  label: Hosted service · you call their endpoint
+  confidence: medium
+  source:
+  - pricing
+  generated: '2026-08-11'
+  method: derived
 accessModel:
   pricing: freemium
   onboarding: unknown
@@ -94,7 +105,7 @@ apis:
       - type: Reference
         url: https://cloud.ibm.com/apidocs/apiconnect/apiconnect-v1
 common:
-  - type: SignUp
+  - type: Signup
     url: https://www.ibm.com/account/reg/signup?formid=urx-53961
   - type: VulnerabilityDisclosure
     url: security/ibm-api-connect-vulnerability-disclosure.yml
