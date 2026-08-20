@@ -79,6 +79,11 @@ apis:
       - Consumer
       - Developer Portal
       - REST API
+      - Subscription
+    tags_raw:
+      - Consumer
+      - Developer Portal
+      - REST API
       - Subscriptions
     properties:
       - type: Documentation
@@ -95,6 +100,11 @@ apis:
     humanURL: https://cloud.ibm.com/apidocs/apiconnect/apiconnect-v1
     baseURL: https://api.us-south.apiconnect.cloud.ibm.com
     tags:
+      - API Management
+      - Legacy
+      - REST API
+      - v1
+    tags_raw:
       - API Management
       - Legacy
       - REST API
