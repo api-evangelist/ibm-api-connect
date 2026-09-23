@@ -1,9 +1,9 @@
-aid: ibm-api-connect:ibm-api-connect-rules
-name: IBM API Connect Rules
+x-aid: ibm-api-connect:ibm-api-connect-rules
+x-name: IBM API Connect Rules
 description: >-
   Governance and operational rules for the IBM API Connect API artifacts
   maintained in this repository.
-tags:
+x-tags:
   - Governance
   - Rules
   - IBM
@@ -34,6 +34,6 @@ rules:
     description: >-
       The apis.yml index in this repository must reference all OpenAPI files
       under openapi/ and be updated when artifacts change.
-maintainers:
+x-maintainers:
   - FN: Kin Lane
     email: kin@apievangelist.com
