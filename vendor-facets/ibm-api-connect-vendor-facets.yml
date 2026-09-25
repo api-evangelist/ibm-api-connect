@@ -1,0 +1,219 @@
+# Vendor facets — IBM API Connect. Products bundle APIs with Plans that carry rate limits, published to a
+# Drupal-based Developer Portal where developers browse, test and subscribe; the DataPower API Gateway
+# returns X-RateLimit-* headers with an IBM-specific "name=<plan>,<n>" value. Capability-only and thin:
+# IBM's documentation pages refused our fetcher (403) or returned only indexes, so several rows rest on
+# the product page and a community tutorial. What it cannot reach: headers in the provider's OpenAPI,
+# served OAuth discovery, SDKs; MCP generation could not be verified.
+vendor: ibm-api-connect
+name: IBM API Connect
+website: https://www.ibm.com/products/api-connect
+areas:
+- api-gateway
+registry_keys:
+- ibm-api-connect
+rubric_schema_version: 0.22.0
+generated: '2026-09-25'
+features_refreshed: '2026-09-25'
+basis: capability
+summary: >-
+  API Connect's lift sits on the developer portal and on plans: the Drupal portal lets developers browse,
+  explore, test and subscribe to Products, and Plans carry rate limits a provider can publish — so the
+  portal set, and possibly plans and rate-limit documentation, land once the provider declares and publishes
+  them. The gateway's X-RateLimit-* headers match the rubric's header pattern, but only count when declared
+  in the provider's OpenAPI. MCP tooling appears in IBM's documentation index but no page we could fetch
+  described it, so it is not mapped.
+features:
+- id: developer-portal
+  name: Drupal-based Developer Portal
+  description: >-
+    Developers browse, explore, test and subscribe to API Products; customizable Drupal theme, blogs,
+    forums, ratings, consumer organizations and usage dashboards.
+  source: https://www.ibm.com/products/api-connect/developer-portal
+  tier: paid
+- id: products-plans
+  name: Products and Plans with rate limits
+  description: >-
+    Products group APIs and Plans; lifecycle managers choose which Plans developers can subscribe to in
+    the portal, a developer subscribes to one Plan per Product, and different Plans implement different
+    rate limits (with monetization referenced).
+  source: https://www.ibm.com/docs/en/api-connect/software/10.0.8_lts?topic=applications-working-products
+  tier: paid
+- id: ratelimit-headers
+  name: X-RateLimit-* headers on plan rate limits
+  description: >-
+    A community tutorial shows the gateway returning X-RateLimit-Limit, X-RateLimit-Remaining and X-RateLimit-Reset
+    with values in the form name=rate-limit,10.
+  source: https://github.com/ozairs/apiconnect/blob/master/rate-limit/README.md
+  tier: paid
+- id: portal-community
+  name: Portal blogs, forums and ratings
+  description: Community engagement features built into the portal.
+  source: https://www.ibm.com/products/api-connect/developer-portal
+  tier: paid
+maps:
+- feature: developer-portal
+  check: portal_present
+  layer: composite
+  provider_must: Declare the portal URL as a DeveloperPortal entry in apis.yml common[].
+  catalog_pass_rate: 0.228
+  facet: developer_ergonomics
+  points: 4
+  baseline_pass_rate: 0.633
+- feature: developer-portal
+  check: console_or_sandbox
+  layer: composite
+  provider_must: Declare the portal's test/explore page as a Console entry in apis.yml common[].
+  catalog_pass_rate: 0.089
+  facet: developer_ergonomics
+  points: 3
+  baseline_pass_rate: 0.332
+- feature: developer-portal
+  check: api_reference_present
+  layer: composite
+  provider_must: Declare the Product API pages as an APIReference entry in apis.yml common[].
+  catalog_pass_rate: 0.222
+  facet: developer_ergonomics
+  points: 3
+  baseline_pass_rate: 0.942
+  saturated: true
+  saturated_note: >-
+    94% of providers with a contract, docs and a reference already earn this; the vendor cannot move it
+    for most of its buyers.
+- feature: portal-community
+  check: support_channel
+  layer: composite
+  provider_must: Enable and staff the forums, and declare them as a Community entry in apis.yml common[].
+  catalog_pass_rate: 0.45
+  facet: developer_ergonomics
+  points: 2
+  baseline_pass_rate: 0.69
+- feature: products-plans
+  check: plans_present
+  layer: composite
+  conditional: true
+  condition: >-
+    Only if the Plans are visible on public portal pages — we could not fetch a page showing whether anonymous
+    visitors see Plans, and the plans artifact is harvested from public pages.
+  catalog_pass_rate: 0.172
+  facet: access_clarity
+  points: 8
+  baseline_pass_rate: 0.44
+- feature: products-plans
+  check: rate_limits_documented
+  layer: composite
+  conditional: true
+  condition: Only if the Plan rate limits are displayed publicly so the rate_limits artifact can be harvested.
+  catalog_pass_rate: 0.145
+  facet: operational_transparency
+  points: 8
+  baseline_pass_rate: 0.438
+- feature: ratelimit-headers
+  check: rate_limit_signal
+  layer: agent_readiness
+  grade: documented
+  partial: true
+  partial_note: >-
+    The header names match score.rb's /\A(x-)?ratelimit/ pattern, but `verified` reads them from the provider's
+    OpenAPI responses, and nothing fetched shows API Connect writing them into the published spec. The
+    vendor alone reaches the `documented` fallback through published plan limits.
+  points: 7
+  baseline_pass_rate: 0.381
+earns_nothing:
+- feature: products-plans
+  check: pricing_link
+  why: Plans are access and rate tiers; nothing fetched shows a public pricing page generated from them.
+out_of_reach:
+  checks:
+  - sdk_count_1
+  - sdk_count_3
+  - cli_present
+  - idempotency
+  - dry_run_mode
+  - reversibility_documented
+  - auth_clarity
+  - delegated_identity
+  - dynamic_client_registration
+  - protected_resource_metadata
+  - well_known_published
+  - mcp_server
+  - llms_txt_published
+  - agent_card
+  note: >-
+    Nothing we could fetch shows API Connect serving discovery or protected-resource documents, llms.txt
+    or an MCP server on the provider's host; mcp_server is listed here because it is unverified, not because
+    IBM lacks it.
+unscored_practice:
+- feature: ratelimit-headers
+  why: >-
+    The name=<policy>,<n> value format carries the policy name inside the header value; a client expecting
+    a bare integer has to parse it. No check reads header values, only names.
+surface:
+  operational_transparency:
+    reachable: 8.0
+    total: 38
+  developer_ergonomics:
+    reachable: 12.0
+    total: 42
+  access_clarity:
+    reachable: 8.0
+    total: 38
+  agent_readiness:
+    reachable: 3.5
+    total: 139
+hard_rule: >-
+  A model, not a score. Adopting this vendor changes a provider's Kin Score only when the provider publishes
+  the resulting artifacts on its own surface; nothing here writes a score, and no sponsorship or partnership
+  can.
+method: searched
+source:
+- https://github.com/ozairs/apiconnect/blob/master/rate-limit/README.md
+- https://www.ibm.com/docs/en/api-connect/software/10.0.8_lts?topic=applications-working-products
+- https://www.ibm.com/products/api-connect/developer-portal
+measured:
+  cohort:
+    method: vendors-catalog.json detections (CNAME / header / URL shape / markup), never a name match
+    detected: 0
+    in_baseline: 0
+  control:
+    basis: providers earning contract_present + documentation_present + api_reference_present, minus the
+      cohort
+    n: 5216
+  metric: >-
+    cohort_pct / control_pct = mean share of the check's points earned (derived and platform credit weighted),
+    x100
+  measured_on: '2026-09-25'
+  status: 'not measurable: 0 detected customers clear the baseline (need 20)'
+simulation:
+  simulated_on: '2026-09-25'
+  rubric: 0.23.0
+  population: providers publishing a contract (contract_present earned), replayable exactly
+  providers: 8977
+  providers_unreplayable: 987
+  providers_moved: 8221
+  conditional_rows: excluded (they depend on what the API already does)
+  composite_lift:
+    median: 3.1
+    p75: 4.7
+    p90: 5.7
+    max: 5.8
+    mean_among_movers: 3.4
+  agent_readiness_lift:
+    median: 0.0
+    p75: 0.0
+    p90: 2.5
+    max: 3.0
+    mean_among_movers: 2.5
+  facet_lift_median_among_movers:
+    developer_ergonomics: 16.7
+  composite_band_moves:
+    thin -> developing: 1265
+    developing -> strong: 416
+    emerging -> thin: 302
+    strong -> exemplar: 80
+    minimal -> emerging: 3
+  agent_readiness_band_moves:
+    agent-aware -> agent-ready: 284
+    agent-ready -> agent-native: 24
+  method: >-
+    each provider's own kin/checks file, the vendor's maps at their stated credit, the scorer's composite
+    formula; from -> to, nothing written

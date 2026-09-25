@@ -105,6 +105,8 @@ apis:
   - type: Reference
     url: https://cloud.ibm.com/apidocs/apiconnect/apiconnect-v1
 common:
+- type: VendorFacets
+  url: vendor-facets/ibm-api-connect-vendor-facets.yml
 - type: ParentCompany
   url: https://apis.io/providers/ibm/
   name: Ibm
