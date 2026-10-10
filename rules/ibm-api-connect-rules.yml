@@ -16,20 +16,27 @@ rules:
       sources from IBM should be converted before being committed.
   - name: Authentication
     description: >-
-      The Management and Consumer APIs require IBM Cloud IAM bearer tokens or
-      platform-issued API keys; anonymous access is not supported.
+      The v12 platform REST APIs require a bearer token from the /api/token
+      endpoint (/consumer-api/token for consumer calls), requested with an
+      app client_id and client_secret plus a platform API key or user
+      credentials. Consumer API calls also need the X-IBM-Consumer-Context
+      header. Anonymous access is limited to public portal content.
   - name: Backward Compatibility
     description: >-
-      The V1 API is retained for backward compatibility only; new integrations
-      should target the current Management API.
+      Profiles track the current v12 platform REST APIs (version 2.0.0, Portal
+      Admin 1.0.0). Retired IBM Cloud-era APIs such as the V1 API are not
+      listed; new integrations should target the v12 APIs.
   - name: Environment URLs
     description: >-
-      The default base URL targets the IBM Cloud us-south region; consumers
-      operating in other regions must override the host.
+      There is no shared public host. Each API Connect instance, SaaS or
+      self-managed, has its own platform, consumer, governance and discovery
+      endpoints, listed in the toolkit credentials.json downloaded from API
+      Manager. Base URLs in apis.yml are templates to fill with those values.
   - name: Versioning
     description: >-
-      API artifacts should track the version published in IBM Cloud apidocs and
-      be refreshed when IBM publishes a new revision.
+      API artifacts should track the API Connect v12 API Explorer
+      (https://apic-api.apiconnect.ibmcloud.com/v12/) and be refreshed when IBM
+      publishes a new revision.
   - name: APIs.yml Sync
     description: >-
       The apis.yml index in this repository must reference all OpenAPI files

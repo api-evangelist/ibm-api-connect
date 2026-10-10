@@ -36,7 +36,7 @@ features:
     Products group APIs and Plans; lifecycle managers choose which Plans developers can subscribe to in
     the portal, a developer subscribes to one Plan per Product, and different Plans implement different
     rate limits (with monetization referenced).
-  source: https://www.ibm.com/docs/en/api-connect/software/10.0.8_lts?topic=applications-working-products
+  source: https://www.ibm.com/docs/en/api-connect/software/12.1.1?topic=apis-working-products
   tier: paid
 - id: ratelimit-headers
   name: X-RateLimit-* headers on plan rate limits
@@ -167,7 +167,7 @@ hard_rule: >-
 method: searched
 source:
 - https://github.com/ozairs/apiconnect/blob/master/rate-limit/README.md
-- https://www.ibm.com/docs/en/api-connect/software/10.0.8_lts?topic=applications-working-products
+- https://www.ibm.com/docs/en/api-connect/software/12.1.1?topic=apis-working-products
 - https://www.ibm.com/products/api-connect/developer-portal
 measured:
   cohort:

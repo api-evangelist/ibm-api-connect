@@ -30,9 +30,10 @@
  *        (DevTools → Network → Authorization: Bearer ...). Fine for a quick run.
  *
  * Env vars:
- *   APIC_PORTAL_URL          Required. Consumer-api base, e.g.
- *                            https://api.<region>.apiconnect.ibmcloud.com  (SaaS) or
- *                            https://consumer.<your-portal-host>            (self-managed).
+ *   APIC_PORTAL_URL          Required. Consumer API host: the consumer_toolkit endpoint
+ *                            in the credentials.json downloaded from API Manager
+ *                            (Download toolkit > Toolkit credentials), without
+ *                            the trailing /consumer-api.
  *                            We call {APIC_PORTAL_URL}/consumer-api/...
  *   APIC_CONSUMER_ORG        Required. Consumer org name (or id) that owns the app.
  *   APIC_CATALOG             Required. Catalog name (e.g. "sandbox", "production").
@@ -46,10 +47,10 @@
  * Node.js 18+ stdlib only. No npm install.
  *
  * Docs:
- *   https://cloud.ibm.com/apidocs/apiconnect/apic-consumer-api
- *   https://www.ibm.com/docs/en/api-connect/saas?topic=portal-calling-api
+ *   https://apic-api.apiconnect.ibmcloud.com/v12/  (API Explorer: Consumer API 2.0.0)
+ *   https://www.ibm.com/docs/en/api-connect/software/12.1.1?topic=reference-api-connect-rest-apis
+ *   https://www.ibm.com/docs/en/api-connect/cloud/12.1.1_saas?topic=reference-api-connect-rest-apis
  *   https://community.ibm.com/community/user/integration/blogs/nick-cawood/2023/02/23/api-connect-v10-rest-api-calls-consumer-api-genera
- *   https://www.ibm.com/docs/en/api-connect/cloud/10.0.x_saas?topic=reference-api-connect-rest-apis
  */
 import { parseArgs } from "node:util";
 import process from "node:process";
