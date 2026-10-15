@@ -81,66 +81,190 @@ IBM API Connect is a comprehensive end-to-end API management solution that enabl
 ## Timestamps
 
 - **Created:** 2026-03-16 
-- **Modified:** 2026-04-28 
+- **Modified:** 2026-10-10 
 
 ## APIs
 
-### IBM API Connect Management API
-The IBM API Connect Management API provides programmatic access to manage APIs, products, catalogs, organizations, and other platform resources in the API Connect platform. It is used to automate API lifecycle management tasks including publishing, versioning, and subscription management.
+### IBM API Connect Platform - Cloud Management API
+Cloud-scoped operations for managing the IBM API Connect cloud configuration: user registries, provider organizations, availability zones, registered clients and cloud settings. Calls require a bearer token issued to a member of the admin organization. OpenAPI 3.0, version 2.0.0.
 
-**Human URL:** [https://cloud.ibm.com/apidocs/apiconnect/apic-management-api](https://cloud.ibm.com/apidocs/apiconnect/apic-management-api)
+**Human URL:** [https://apic-api.apiconnect.ibmcloud.com/v12/](https://apic-api.apiconnect.ibmcloud.com/v12/)
 
-
-#### Tags:
-
- - API Management, REST API, Administration, Lifecycle
-
-#### Properties
-
-- [Documentation](https://cloud.ibm.com/apidocs/apiconnect/apic-management-api)
-- [Getting Started](https://cloud.ibm.com/docs/apiconnect?topic=apiconnect-getting-started)
-- [Reference](https://cloud.ibm.com/apidocs/apiconnect/apic-management-api)
-- [Authentication](https://cloud.ibm.com/docs/apiconnect?topic=apiconnect-getting-started#getting-started-prereqs)
-
-### IBM API Connect Consumer API
-The IBM API Connect Consumer API provides programmatic access to the developer portal capabilities, allowing consumer organizations and applications to discover APIs, manage subscriptions, and retrieve credentials. It is used by application developers who consume APIs published through the API Connect platform.
-
-**Human URL:** [https://cloud.ibm.com/apidocs/apiconnect/apic-consumer-api](https://cloud.ibm.com/apidocs/apiconnect/apic-consumer-api)
+**Base URL:** `https://{platform-api-endpoint}/api`
 
 
 #### Tags:
 
- - Consumer, Developer Portal, Subscriptions, REST API
+ - Administration, API Management, Cloud, REST API
 
 #### Properties
 
-- [Documentation](https://cloud.ibm.com/apidocs/apiconnect/apic-consumer-api)
-- [Reference](https://cloud.ibm.com/apidocs/apiconnect/apic-consumer-api)
+- [Reference](https://apic-api.apiconnect.ibmcloud.com/v12/)
+- [Documentation](https://www.ibm.com/docs/en/api-connect/software/12.1.1?topic=reference-api-connect-rest-apis)
+- [Getting Started](https://www.ibm.com/docs/en/api-connect/software/12.1.1?topic=reference-api-connect-rest-apis)
+- [Authentication](https://www.ibm.com/docs/en/api-connect/software/12.1.1?topic=cli-managing-platform-rest-api-keys)
 
-### IBM API Connect V1 API
-The IBM API Connect V1 API is the earlier generation management REST API for the API Connect platform, providing access to organizations, catalogs, APIs, and products. It is retained for backward compatibility with integrations built against the v1 interface.
+### IBM API Connect Platform - Provider API
+Provider-organization operations covering the API lifecycle: draft APIs and products, catalogs, spaces, staging and publishing, consumer organizations, apps and subscriptions. Formerly listed here as the Management API. OpenAPI 3.0, version 2.0.0.
 
-**Human URL:** [https://cloud.ibm.com/apidocs/apiconnect/apiconnect-v1](https://cloud.ibm.com/apidocs/apiconnect/apiconnect-v1)
+**Human URL:** [https://apic-api.apiconnect.ibmcloud.com/v12/](https://apic-api.apiconnect.ibmcloud.com/v12/)
+
+**Base URL:** `https://{platform-api-endpoint}/api`
 
 
 #### Tags:
 
- - API Management, REST API, Legacy, V1
+ - Administration, API Management, Lifecycle, REST API
 
 #### Properties
 
-- [Documentation](https://cloud.ibm.com/apidocs/apiconnect/apiconnect-v1)
-- [Reference](https://cloud.ibm.com/apidocs/apiconnect/apiconnect-v1)
+- [Reference](https://apic-api.apiconnect.ibmcloud.com/v12/)
+- [Documentation](https://www.ibm.com/docs/en/api-connect/software/12.1.1?topic=reference-api-connect-rest-apis)
+- [Getting Started](https://www.ibm.com/docs/en/api-connect/software/12.1.1?topic=reference-api-connect-rest-apis)
+- [Authentication](https://www.ibm.com/docs/en/api-connect/software/12.1.1?topic=cli-managing-platform-rest-api-keys)
+
+### IBM API Connect Platform - Consumer API
+Consumer-organization operations used by application developers: profile, apps, credentials and subscriptions to published products. Calls require the X-IBM-Consumer-Context header naming the provider organization and catalog. OpenAPI 3.0, version 2.0.0.
+
+**Human URL:** [https://apic-api.apiconnect.ibmcloud.com/v12/](https://apic-api.apiconnect.ibmcloud.com/v12/)
+
+**Base URL:** `https://{consumer-api-endpoint}/consumer-api`
+
+
+#### Tags:
+
+ - Consumer, Developer Portal, REST API, Subscription
+
+#### Properties
+
+- [Reference](https://apic-api.apiconnect.ibmcloud.com/v12/)
+- [Documentation](https://www.ibm.com/docs/en/api-connect/software/12.1.1?topic=reference-api-connect-rest-apis)
+- [Getting Started](https://www.ibm.com/docs/en/api-connect/software/12.1.1?topic=reference-api-connect-rest-apis)
+- [Authentication](https://www.ibm.com/docs/en/api-connect/software/12.1.1?topic=cli-managing-platform-rest-api-keys)
+
+### IBM API Connect Analytics API
+Retrieves API event data stored in API Connect Analytics, dashboard data, and the filter parameters supported at cloud, provider organization, catalog and space scope. OpenAPI 3.0, version 2.0.0.
+
+**Human URL:** [https://apic-api.apiconnect.ibmcloud.com/v12/](https://apic-api.apiconnect.ibmcloud.com/v12/)
+
+**Base URL:** `https://{platform-api-endpoint}/analytics`
+
+
+#### Tags:
+
+ - Analytics, API Management, REST API
+
+#### Properties
+
+- [Reference](https://apic-api.apiconnect.ibmcloud.com/v12/)
+- [Documentation](https://www.ibm.com/docs/en/api-connect/software/12.1.1?topic=reference-api-connect-rest-apis)
+- [Getting Started](https://www.ibm.com/docs/en/api-connect/software/12.1.1?topic=reference-api-connect-rest-apis)
+- [Authentication](https://www.ibm.com/docs/en/api-connect/software/12.1.1?topic=cli-managing-platform-rest-api-keys)
+- [Documentation](https://www.ibm.com/docs/en/api-connect/software/12.1.1?topic=ui-analytics-rest-api)
+
+### IBM API Connect Consumer Analytics API
+Returns consumer-organization and per-app analytics dashboard data for application developers. OpenAPI 3.0, version 2.0.0.
+
+**Human URL:** [https://apic-api.apiconnect.ibmcloud.com/v12/](https://apic-api.apiconnect.ibmcloud.com/v12/)
+
+**Base URL:** `https://{consumer-api-endpoint}/consumer-analytics`
+
+
+#### Tags:
+
+ - Analytics, Consumer, REST API
+
+#### Properties
+
+- [Reference](https://apic-api.apiconnect.ibmcloud.com/v12/)
+- [Documentation](https://www.ibm.com/docs/en/api-connect/software/12.1.1?topic=reference-api-connect-rest-apis)
+- [Getting Started](https://www.ibm.com/docs/en/api-connect/software/12.1.1?topic=reference-api-connect-rest-apis)
+- [Authentication](https://www.ibm.com/docs/en/api-connect/software/12.1.1?topic=cli-managing-platform-rest-api-keys)
+- [Documentation](https://www.ibm.com/docs/en/api-connect/software/12.1.1?topic=ui-analytics-rest-api)
+
+### IBM API Connect Engagement API
+Manages engagement configuration and rules evaluated against API Connect Analytics data for a provider organization. OpenAPI 3.0, version 2.0.0.
+
+**Human URL:** [https://apic-api.apiconnect.ibmcloud.com/v12/](https://apic-api.apiconnect.ibmcloud.com/v12/)
+
+
+#### Tags:
+
+ - Analytics, Alerting, REST API
+
+#### Properties
+
+- [Reference](https://apic-api.apiconnect.ibmcloud.com/v12/)
+- [Documentation](https://www.ibm.com/docs/en/api-connect/software/12.1.1?topic=reference-api-connect-rest-apis)
+- [Getting Started](https://www.ibm.com/docs/en/api-connect/software/12.1.1?topic=reference-api-connect-rest-apis)
+- [Authentication](https://www.ibm.com/docs/en/api-connect/software/12.1.1?topic=cli-managing-platform-rest-api-keys)
+
+### API Connect Portal Admin API
+Administers the content of a catalog's developer portal: the APIs, products and related content it exposes. OpenAPI 3.0, version 1.0.0.
+
+**Human URL:** [https://apic-api.apiconnect.ibmcloud.com/v12/](https://apic-api.apiconnect.ibmcloud.com/v12/)
+
+
+#### Tags:
+
+ - Administration, Developer Portal, REST API
+
+#### Properties
+
+- [Reference](https://apic-api.apiconnect.ibmcloud.com/v12/)
+- [Documentation](https://www.ibm.com/docs/en/api-connect/software/12.1.1?topic=reference-api-connect-rest-apis)
+- [Getting Started](https://www.ibm.com/docs/en/api-connect/software/12.1.1?topic=reference-api-connect-rest-apis)
+- [Authentication](https://www.ibm.com/docs/en/api-connect/software/12.1.1?topic=cli-managing-platform-rest-api-keys)
+
+### IBM API Connect Discovery API
+Processes API call records collected from gateways and proxies to discover APIs that are not yet managed in API Connect. OpenAPI 3.0, version 2.0.0.
+
+**Human URL:** [https://apic-api.apiconnect.ibmcloud.com/v12/](https://apic-api.apiconnect.ibmcloud.com/v12/)
+
+**Base URL:** `https://{discovery-endpoint}/discovery`
+
+
+#### Tags:
+
+ - API Discovery, Governance, REST API
+
+#### Properties
+
+- [Reference](https://apic-api.apiconnect.ibmcloud.com/v12/)
+- [Documentation](https://www.ibm.com/docs/en/api-connect/software/12.1.1?topic=reference-api-connect-rest-apis)
+- [Getting Started](https://www.ibm.com/docs/en/api-connect/software/12.1.1?topic=reference-api-connect-rest-apis)
+- [Authentication](https://www.ibm.com/docs/en/api-connect/software/12.1.1?topic=cli-managing-platform-rest-api-keys)
+
+### IBM API Connect Governance API
+Validates API definitions against governance rulesets at cloud and provider organization scope. OpenAPI 3.0, version 2.0.0.
+
+**Human URL:** [https://apic-api.apiconnect.ibmcloud.com/v12/](https://apic-api.apiconnect.ibmcloud.com/v12/)
+
+**Base URL:** `https://{governance-endpoint}/governance`
+
+
+#### Tags:
+
+ - Governance, Linting, REST API
+
+#### Properties
+
+- [Reference](https://apic-api.apiconnect.ibmcloud.com/v12/)
+- [Documentation](https://www.ibm.com/docs/en/api-connect/software/12.1.1?topic=reference-api-connect-rest-apis)
+- [Getting Started](https://www.ibm.com/docs/en/api-connect/software/12.1.1?topic=reference-api-connect-rest-apis)
+- [Authentication](https://www.ibm.com/docs/en/api-connect/software/12.1.1?topic=cli-managing-platform-rest-api-keys)
 
 ## Common Properties
 
 - [Website](https://www.ibm.com/products/api-connect)
 - [Documentation](https://www.ibm.com/docs/en/api-connect/)
-- [Getting Started](https://cloud.ibm.com/docs/apiconnect?topic=apiconnect-getting-started)
+- [Getting Started](https://www.ibm.com/docs/en/api-connect/cloud/12.1.1_saas?topic=overview-getting-started)
+- [API Reference](https://apic-api.apiconnect.ibmcloud.com/v12/)
+- [Authentication](https://www.ibm.com/docs/en/api-connect/software/12.1.1?topic=reference-api-connect-rest-apis)
 - [Support](https://www.ibm.com/mysupport)
 - [Pricing](https://www.ibm.com/products/api-connect/pricing)
 - [Blog](https://developer.ibm.com/blogs/)
-- [Change Log](https://www.ibm.com/docs/en/api-connect/saas?topic=overview-whats-new)
+- [Change Log](https://www.ibm.com/docs/en/api-connect/cloud/12.1.1_saas?topic=aceaso-whats-new-in-api-connect-enterprise-as-service)
 - [GitHub Organization](https://github.com/ibm-apiconnect)
 - [Community](https://community.ibm.com/community/user/integration/communities/community-home?CommunityKey=2106cca0-a9f9-45c6-9b28-01a28f39ce47)
 - [Stack Overflow](https://stackoverflow.com/questions/tagged/ibm-api-connect)
@@ -149,6 +273,8 @@ The IBM API Connect V1 API is the earlier generation management REST API for the
 - [Privacy Policy](https://www.ibm.com/privacy)
 - [Status](https://cloud.ibm.com/status)
 - [Rules](rules/ibm-api-connect-rules.yml)
+- [MCP Server](https://github.com/ibm-apiconnect/apic-mcp-server)
+- [API Connect Flow Pilot (agent skills and MCP servers)](https://www.ibm.com/docs/en/api-connect/software/12.1.1?topic=studio-api-connect-flow-pilot-api-development)
 
 ## Maintainers
 
