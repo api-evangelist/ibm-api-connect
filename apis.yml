@@ -16,17 +16,18 @@ deliveryModel:
   generated: '2026-08-28'
   method: derived
 accessModel:
-  pricing: freemium
-  onboarding: unknown
-  trial: false
+  pricing: paid
+  onboarding: signup
+  trial: true
   try_now: false
   public: false
-  label: Freemium
-  confidence: medium
+  label: Paid · 30-day free trial
+  confidence: high
   source:
   - plans
-  generated: '2026-07-22'
-  method: derived
+  - https://www.ibm.com/products/api-connect/pricing
+  generated: '2026-10-10'
+  method: searched
 image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/icons/ibm-api-connect.png
 tags:
 - API Gateway
@@ -36,7 +37,7 @@ tags:
 - IBM
 url: https://raw.githubusercontent.com/api-evangelist/ibm-api-connect/refs/heads/main/apis.yml
 created: '2026-03-16'
-modified: '2026-10-10'
+modified: '2026-10-15'
 specificationVersion: '0.23'
 apis:
 - aid: ibm-api-connect:ibm-api-connect-cloud-management-api
@@ -53,6 +54,8 @@ apis:
   - Cloud
   - REST API
   properties:
+  - type: OpenAPI
+    url: openapi/ibm-api-connect-cloud-management-api-openapi.yml
   - type: Reference
     url: https://apic-api.apiconnect.ibmcloud.com/v12/
   - type: Documentation
@@ -75,6 +78,8 @@ apis:
   - Lifecycle
   - REST API
   properties:
+  - type: OpenAPI
+    url: openapi/ibm-api-connect-management-api-openapi.yml
   - type: Reference
     url: https://apic-api.apiconnect.ibmcloud.com/v12/
   - type: Documentation
@@ -97,6 +102,8 @@ apis:
   - REST API
   - Subscription
   properties:
+  - type: OpenAPI
+    url: openapi/ibm-api-connect-consumer-api-openapi.yml
   - type: Reference
     url: https://apic-api.apiconnect.ibmcloud.com/v12/
   - type: Documentation
@@ -117,6 +124,8 @@ apis:
   - API Management
   - REST API
   properties:
+  - type: OpenAPI
+    url: openapi/ibm-api-connect-analytics-api-openapi.yml
   - type: Reference
     url: https://apic-api.apiconnect.ibmcloud.com/v12/
   - type: Documentation
@@ -139,6 +148,8 @@ apis:
   - Consumer
   - REST API
   properties:
+  - type: OpenAPI
+    url: openapi/ibm-api-connect-consumer-analytics-api-openapi.yml
   - type: Reference
     url: https://apic-api.apiconnect.ibmcloud.com/v12/
   - type: Documentation
@@ -160,6 +171,8 @@ apis:
   - Alerting
   - REST API
   properties:
+  - type: OpenAPI
+    url: openapi/ibm-api-connect-engagement-api-openapi.yml
   - type: Reference
     url: https://apic-api.apiconnect.ibmcloud.com/v12/
   - type: Documentation
@@ -179,6 +192,8 @@ apis:
   - Developer Portal
   - REST API
   properties:
+  - type: OpenAPI
+    url: openapi/ibm-api-connect-portal-admin-api-openapi.yml
   - type: Reference
     url: https://apic-api.apiconnect.ibmcloud.com/v12/
   - type: Documentation
@@ -199,6 +214,8 @@ apis:
   - Governance
   - REST API
   properties:
+  - type: OpenAPI
+    url: openapi/ibm-api-connect-discovery-api-openapi.yml
   - type: Reference
     url: https://apic-api.apiconnect.ibmcloud.com/v12/
   - type: Documentation
@@ -219,6 +236,8 @@ apis:
   - Linting
   - REST API
   properties:
+  - type: OpenAPI
+    url: openapi/ibm-api-connect-governance-api-openapi.yml
   - type: Reference
     url: https://apic-api.apiconnect.ibmcloud.com/v12/
   - type: Documentation
@@ -255,6 +274,14 @@ common:
   url: https://www.ibm.com/docs/en/api-connect/cloud/12.1.1_saas?topic=overview-getting-started
 - type: APIReference
   url: https://apic-api.apiconnect.ibmcloud.com/v12/
+- type: LLMsTxt
+  url: https://apic-api.apiconnect.ibmcloud.com/llms.txt
+- type: LLMsTxt
+  name: IBM API Connect 12.1.LATEST
+  url: https://apic-api.apiconnect.ibmcloud.com/v12/12.1.LATEST/openapi/llms.txt
+- type: OpenAPI
+  name: OpenAPI index (12.1.LATEST)
+  url: https://apic-api.apiconnect.ibmcloud.com/v12/12.1.LATEST/openapi/index.json
 - type: Authentication
   url: https://www.ibm.com/docs/en/api-connect/software/12.1.1?topic=reference-api-connect-rest-apis
 - type: Support

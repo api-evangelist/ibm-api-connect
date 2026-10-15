@@ -4,10 +4,16 @@ schema: https://raw.githubusercontent.com/api-evangelist/interface-research/main
 provider: IBM API Connect
 providerId: ibm-api-connect
 created: '2026-05-04'
-# Provenance stamped 2026-08-11: this artifact was written by the API Evangelist
-# bulk sweep dated 2026-05-04, not harvested from the provider. See roadmap#35.
-method: generated
-modified: '2026-05-04'
+# Rewritten 2026-10-10 from IBM's published subscription terms, replacing the
+# 2026-05-04 sweep scaffold (whose per-minute and monthly figures were defaults).
+# IBM does not publish request-rate limits for the platform REST APIs; the limits
+# below are the documented API-call volumes for hosted API Connect subscriptions.
+method: searched
+modified: '2026-10-10'
+source:
+  - https://www.ibm.com/docs/en/api-connect/cloud/12.1.1_saas?topic=overview-purchase-subscription-upgrade-information
+  - https://www.ibm.com/products/api-connect/pricing
+  - https://www.ibm.com/docs/en/api-connect/software/12.1.1?topic=bip-rate-limit
 tags:
   - API Gateway
   - API Management
@@ -15,87 +21,52 @@ tags:
   - IBM
   - Rate Limiting
   - Quotas
-  - Throttling
-description: Machine-readable rate limit definitions for the IBM API Connect API surface. Captures per-tier
-  quotas, burst behavior, response signaling, and recovery semantics. Defaults are scaffold values to
-  be replaced with published provider limits.
-headers:
-  limit: X-RateLimit-Limit
-  remaining: X-RateLimit-Remaining
-  reset: X-RateLimit-Reset
-  retryAfter: Retry-After
-  policy: RateLimit-Policy
-responseCodes:
-  throttled: 429
-  quotaExceeded: 429
-  serviceUnavailable: 503
+description: >-
+  Documented API-call limits for hosted IBM API Connect. Limits apply to API calls
+  processed by the gateway for a subscription, counted for every response code (1xx to
+  5xx). There is no overage: once the contracted volume is reached, further calls are
+  stopped until the tier is upgraded. API providers set their own rate, burst and count
+  limits on the APIs they publish through Plans and the Rate Limit policy.
 limits:
-  - tier: free
-    name: Free Tier Default
-    scope: api-key
-    metric: requests_per_minute
-    limit: 10
-    burst: 20
-    timeFrame: minute
-    applies:
-      - IBM API Connect Management API
-      - IBM API Connect Consumer API
-      - IBM API Connect V1 API
-  - tier: free
-    name: Free Tier Monthly Quota
-    scope: api-key
-    metric: requests_per_month
-    limit: 1000
-    timeFrame: month
-    applies:
-      - IBM API Connect Management API
-      - IBM API Connect Consumer API
-      - IBM API Connect V1 API
-  - tier: professional
-    name: Professional Tier Default
-    scope: api-key
-    metric: requests_per_minute
-    limit: 100
-    burst: 200
-    timeFrame: minute
-    applies:
-      - IBM API Connect Management API
-      - IBM API Connect Consumer API
-      - IBM API Connect V1 API
-  - tier: professional
-    name: Professional Tier Monthly Quota
-    scope: api-key
-    metric: requests_per_month
+  - tier: trial
+    name: Trial API Call Limit
+    scope: subscription
+    metric: requests
     limit: 100000
-    timeFrame: month
-    applies:
-      - IBM API Connect Management API
-      - IBM API Connect Consumer API
-      - IBM API Connect V1 API
-  - tier: enterprise
-    name: Enterprise Negotiated Limit
-    scope: contract
-    metric: requests_per_minute
-    limit: 1000
-    burst: 5000
-    timeFrame: minute
-    applies:
-      - IBM API Connect Management API
-      - IBM API Connect Consumer API
-      - IBM API Connect V1 API
+    timeFrame: trial
+    description: Total API calls during the 30-day trial. After the limit, access is view-only.
+  - tier: standard
+    name: Standard Contracted Volume
+    scope: subscription
+    metric: requests_per_year
+    limit: 1200000000
+    timeFrame: year
+    description: >-
+      Highest self-service tier on AWS Marketplace; higher volumes through IBM sales.
+      Calls stop at 105% of the purchased volume across all instances. Unused calls do
+      not roll over.
+  - tier: premium
+    name: Premium Contracted Volume
+    scope: subscription
+    metric: requests_per_year
+    limit: 1200000000
+    timeFrame: year
+    description: Contracted from a minimum of 100 million calls per year.
 policies:
-  - name: Backoff Strategy
-    description: Clients should implement exponential backoff with jitter, honoring the Retry-After header
-      when present.
-  - name: Burst Handling
-    description: Short bursts above the steady-state limit are tolerated up to the documented burst ceiling
-      before throttling engages.
-  - name: Quota Reset
-    description: Monthly quotas reset at the start of each calendar month in UTC. Per-minute and per-second
-      windows reset on a sliding-window basis.
-  - name: Fair Use
-    description: Even on uncapped enterprise tiers, sustained usage that materially impacts shared infrastructure
-      may be subject to fair-use throttling.
+  - name: No Overage
+    description: >-
+      IBM does not charge overage. When the contracted limit is reached, calls are
+      stopped; upgrading mid-contract is pro-rated and subtracts calls already used.
+  - name: Limit Notifications
+    description: >-
+      Paid subscriptions get call-limit email notifications at 50%, 80%, 100% and
+      105%.
+  - name: Contract Year Reset
+    description: Limits apply to the current contract year and reset on renewal.
+  - name: Provider-Defined Limits
+    description: >-
+      Rate, burst and count limits on published APIs are configured by the API provider
+      in Plans or with the Rate Limit assembly policy, and differ per API.
 maintainers:
   - FN: Kin Lane
     email: kin@apievangelist.com

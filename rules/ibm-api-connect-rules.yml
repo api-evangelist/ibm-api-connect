@@ -31,12 +31,18 @@ rules:
       There is no shared public host. Each API Connect instance, SaaS or
       self-managed, has its own platform, consumer, governance and discovery
       endpoints, listed in the toolkit credentials.json downloaded from API
-      Manager. Base URLs in apis.yml are templates to fill with those values.
+      Manager. On SaaS the hosts vary by region, for example
+      platform-api.us-east-b.apiconnect.automation.ibm.com; self-managed
+      deployments use whatever hosts the customer configured. Base URLs in
+      apis.yml are templates to fill with those values, and IBM publishes the
+      specs with an empty servers URL for the same reason.
   - name: Versioning
     description: >-
       API artifacts should track the API Connect v12 API Explorer
       (https://apic-api.apiconnect.ibmcloud.com/v12/) and be refreshed when IBM
-      publishes a new revision.
+      publishes a new revision. The OpenAPI files under openapi/ are YAML
+      conversions of the JSON specs listed in
+      https://apic-api.apiconnect.ibmcloud.com/v12/12.1.LATEST/openapi/index.json.
   - name: APIs.yml Sync
     description: >-
       The apis.yml index in this repository must reference all OpenAPI files

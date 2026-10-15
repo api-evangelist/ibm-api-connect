@@ -12,7 +12,7 @@ created: '2026-05-04'
 # Provenance stamped 2026-08-11: this artifact was written by the API Evangelist
 # bulk sweep dated 2026-05-04, not harvested from the provider. See roadmap#35.
 method: generated
-modified: '2026-05-04'
+modified: '2026-10-10'
 tags:
   - API Gateway
   - API Management
@@ -64,8 +64,23 @@ domains:
       - Onboarding Workloads
       - Intersecting Disciplines
 billingModel:
+  # Read from IBM's pricing page and subscription terms (2026-10-10): hosted plans are
+  # metered on gateway API calls, sold in increments of 100,000 calls, billed through
+  # AWS Marketplace or IBM; annual contracts (Standard, Premium, Reserved Instance) or
+  # monthly usage (Pay-As-You-Go). No overage is charged. Software is licensed with
+  # annual Subscription and Support.
+  x-sources:
+    - https://www.ibm.com/products/api-connect/pricing
+    - https://www.ibm.com/docs/en/api-connect/cloud/12.1.1_saas?topic=overview-purchase-subscription-upgrade-information
   pricingCategory: Usage-Based
-  billingFrequency: Monthly
+  pricingUnit: API call
+  pricingIncrement: 100000
+  overage: none
+  billingFrequency: Annual or monthly (Pay-As-You-Go)
+  billingChannels:
+    - AWS Marketplace
+    - IBM Marketplace
+    - IBM Sales
   billingCurrency: USD
   chargeCategories:
     - Usage
@@ -112,32 +127,32 @@ meters:
       - endpoint
       - tier
 apis:
-  - name: IBM API Connect Management API
-    baseURL: https://api.us-south.apiconnect.cloud.ibm.com
-    tags:
-      - Administration
-      - API Management
-      - Lifecycle
-      - REST API
-    serviceName: IBM API Connect Management API
+  - name: IBM API Connect Platform - Cloud Management API
+    serviceName: IBM API Connect Platform - Cloud Management API
     serviceCategory: API
-  - name: IBM API Connect Consumer API
-    baseURL: https://api.us-south.apiconnect.cloud.ibm.com
-    tags:
-      - Consumer
-      - Developer Portal
-      - REST API
-      - Subscriptions
-    serviceName: IBM API Connect Consumer API
+  - name: IBM API Connect Platform - Provider API
+    serviceName: IBM API Connect Platform - Provider API
     serviceCategory: API
-  - name: IBM API Connect V1 API
-    baseURL: https://api.us-south.apiconnect.cloud.ibm.com
-    tags:
-      - API Management
-      - Legacy
-      - REST API
-      - V1
-    serviceName: IBM API Connect V1 API
+  - name: IBM API Connect Platform - Consumer API
+    serviceName: IBM API Connect Platform - Consumer API
+    serviceCategory: API
+  - name: IBM API Connect Analytics API
+    serviceName: IBM API Connect Analytics API
+    serviceCategory: API
+  - name: IBM API Connect Consumer Analytics API
+    serviceName: IBM API Connect Consumer Analytics API
+    serviceCategory: API
+  - name: IBM API Connect Engagement API
+    serviceName: IBM API Connect Engagement API
+    serviceCategory: API
+  - name: API Connect Portal Admin API
+    serviceName: API Connect Portal Admin API
+    serviceCategory: API
+  - name: IBM API Connect Discovery API
+    serviceName: IBM API Connect Discovery API
+    serviceCategory: API
+  - name: IBM API Connect Governance API
+    serviceName: IBM API Connect Governance API
     serviceCategory: API
 unitEconomics:
   - name: Cost per 1K Requests
