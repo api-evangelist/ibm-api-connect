@@ -2,6 +2,13 @@
   "repo": "ibm-api-connect",
   "feeds": [
     {
+      "source": "https://developer.ibm.com/blogs/",
+      "feed_url": "https://developer.ibm.com/blogs/",
+      "title": "",
+      "saved": 0,
+      "method": "none"
+    },
+    {
       "source": "https://www.ibm.com/products/api-connect/pricing",
       "feed_url": "https://www.ibm.com/products/api-connect/pricing",
       "title": "",
@@ -16,6 +23,6 @@
       "method": "none"
     }
   ],
-  "fetched": "2026-10-03T12:30:02Z",
+  "fetched": "2026-10-10T13:15:00Z",
   "post_count": 0
 }
