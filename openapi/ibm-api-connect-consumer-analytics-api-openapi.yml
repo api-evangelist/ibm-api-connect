@@ -1,10 +1,9 @@
-openapi: 3.0.0
+openapi: 3.2.0
 info:
   x-ibm-name: consumer-analytics
   version: 2.0.0
   title: IBM API Connect Consumer Analytics API
-  description: |
-    ## API for the API Connect Consumer Analytics dashboard
+  description: '## API for the API Connect Consumer Analytics dashboard'
   termsOfService: https://ww.ibm.com/terms-of-service
   contact:
     name: IBM
@@ -13,14 +12,17 @@ info:
 servers:
 - url: ''
   description: Consumer analytics V2 base path
+tags:
+- name: Consumer Analytics
 paths:
   /orgs/{org}/dashboard:
-    description: |
-      GET data needed to populate the consumer analytics dashboard.
+    description: 'GET data needed to populate the consumer analytics dashboard.
+
+      '
     parameters:
     - $ref: '#/components/parameters/org'
     get:
-      summary: Get data to populate the consumer analytics dashboard.
+      summary: Get data to populate the consumer analytics dashboard
       description: Get data to populate the consumer analytics dashboard.
       operationId: dashboard_get
       security:
@@ -51,15 +53,15 @@ paths:
           $ref: '#/components/responses/Error'
       tags:
       - Consumer Analytics
-      - Analytics
   /orgs/{org}/apps/{app}/dashboard:
-    description: |
-      GET data needed to populate the consumer analytics dashboard by app id.
+    description: 'GET data needed to populate the consumer analytics dashboard by app id.
+
+      '
     parameters:
     - $ref: '#/components/parameters/app'
     - $ref: '#/components/parameters/org'
     get:
-      summary: Get data to populate the consumer analytics dashboard by app id.
+      summary: Get data to populate the consumer analytics dashboard by app id
       description: Get data to populate the consumer analytics dashboard by app id.
       operationId: dashboard_getByApp
       security:
@@ -89,270 +91,25 @@ paths:
           $ref: '#/components/responses/Error'
       tags:
       - Consumer Analytics
-      - Analytics
 components:
-  parameters:
-    accept_language_optional:
-      name: accept-language
-      in: header
-      description: Natural language and locale that the client prefers.
-      required: false
-      schema:
-        type: string
-        example: en
-    api_name_optional:
-      name: api_name
-      in: query
-      description: Filter results by API name.
-      required: false
-      schema:
-        type: string
-        example: custom_api
-    api_version_optional:
-      name: api_version
-      in: query
-      description: Filters results by API version.
-      required: false
-      schema:
-        type: string
-        example: 1.0.0
-    app:
-      name: app
-      in: path
-      description: Consumer organization app.
-      required: true
-      schema:
-        type: string
-    app_name_optional:
-      name: app_name
-      in: query
-      description: Filters results by application name.
-      required: false
-      schema:
-        type: string
-        example: custom_app
-    status_code_optional:
-      name: status_code
-      in: query
-      description: |
-        If set, only return events that match this response code e.g. 200 OK, 404 Not Found.  It is also possible to use wildcard based values 10x, 20x, 30x, 40x, 50x.  The values 'error' and 'success' can also be used to filter for all errors or all successful calls.
-      required: false
-      schema:
-        type: string
-        example: 404 Not Found
-    end_time_optional:
-      name: end
-      in: query
-      description: |
-        If set, the API will only return events with a datetime equal or older than this. The value must follow the date-time notation as defined by RFC 3339, section 5.6, for example, 2017-07-21T17:32:28Z. See https://datatracker.ietf.org/doc/html/rfc3339#section-5.6.
-      required: false
-      schema:
-        type: string
-        format: date-time
-    limit_optional:
-      name: limit
-      in: query
-      description: 'If set, the number of items to return when requesting a list. Maximum: 200'
-      required: false
-      schema:
-        type: string
-        example: '50'
-    offset_optional:
-      name: offset
-      in: query
-      description: If set, the offset to be applied when requesting a list. e.g. return events starting from the 100th result
-      required: false
-      schema:
-        type: string
-        example: '100'
-    org:
-      name: org
-      in: path
-      description: Consumer organization name or ID.
-      required: true
-      schema:
-        type: string
-    operation_path_optional:
-      name: operation_path
-      in: query
-      description: Filter results by operation path.
-      required: false
-      schema:
-        type: string
-        example: /path/to/something
-    plan_name_optional:
-      name: plan_name
-      in: query
-      description: Filter results by plan name.
-      required: false
-      schema:
-        type: string
-        example: default_plan
-    product_name_optional:
-      name: product_name
-      in: query
-      description: Filters results by product name.
-      required: false
-      schema:
-        type: string
-        example: custom_product
-    product_version_optional:
-      name: product_version
-      in: query
-      description: Filters results by product version.
-      required: false
-      schema:
-        type: string
-        example: 2.0.0
-    start_time_optional:
-      name: start
-      in: query
-      description: |
-        If set, the API will only return events with a datetime equal or newer than this. The value must follow the date-time notation as defined by RFC 3339, section 5.6, for example, 2017-07-21T17:32:28Z. See https://datatracker.ietf.org/doc/html/rfc3339#section-5.6.
-      required: false
-      schema:
-        type: string
-        format: date-time
-    timeframe_optional:
-      name: timeframe
-      in: query
-      description: |
-        If set, the API will only return events within the indicated timeframe. This parameter will be ignored if either start or end have been specified.
-      required: false
-      schema:
-        type: string
-        enum:
-        - last1minute
-        - last5minutes
-        - last15minutes
-        - last30minutes
-        - last1hour
-        - last4hours
-        - last12hours
-        - last24hours
-        - last7days
-        - last30days
-    x_ibm_consumer_context:
-      name: X-IBM-Consumer-Context
-      in: header
-      description: |
-        Consumer context in the form of {provider-org}.{catalog}, e.g. myorg.mycat
-      required: true
-      schema:
-        type: string
-        example: myorg.mycat
-  responses:
-    ConsumerDashboardResponse:
-      description: Data needed to populate the consumer analytics Dashboard
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/ConsumerDashboardResponse'
-        application/yaml:
-          schema:
-            $ref: '#/components/schemas/ConsumerDashboardResponse'
-    Error:
-      description: Unexpected error.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
-        application/yaml:
-          schema:
-            $ref: '#/components/schemas/Error'
   schemas:
-    ApiCallsList:
+    GroupDateValueItem:
       type: object
       properties:
-        total:
-          $ref: '#/components/schemas/NonNegativeInteger'
-        data:
-          $ref: '#/components/schemas/EventArray'
-    ConsumerDashboardResponse:
-      type: object
-      description: Data to display on the consumer analytics Dashboard.
-      properties:
-        search_time:
-          $ref: '#/components/schemas/NonNegativeInteger'
-        status_codes:
-          $ref: '#/components/schemas/GroupValueDataList'
-        min_response_time:
-          $ref: '#/components/schemas/DataItem'
-        avg_response_time:
-          $ref: '#/components/schemas/DataItem'
-        max_response_time:
-          $ref: '#/components/schemas/DataItem'
-        total_api_calls:
-          $ref: '#/components/schemas/DataItem'
-        total_errors:
-          $ref: '#/components/schemas/DataItem'
-        errors:
-          $ref: '#/components/schemas/GroupDateValueItemData'
-        throttled_calls:
-          $ref: '#/components/schemas/GroupDateValueItemData'
-        api_calls_per_day:
-          $ref: '#/components/schemas/GroupDateValueItemData'
-        last_api_calls:
-          $ref: '#/components/schemas/ApiCallsList'
-        top_apis_over_time:
-          $ref: '#/components/schemas/GroupDateValueItemData'
-        top_products_over_time:
-          $ref: '#/components/schemas/GroupDateValueItemData'
-        top_api_paths_by_calls:
-          $ref: '#/components/schemas/GroupValueDataList'
-        apis_with_slowest_response_time:
-          $ref: '#/components/schemas/GroupKeyValueDataList'
-        apis_with_fastest_response_time:
-          $ref: '#/components/schemas/GroupKeyValueDataList'
-    DataItem:
-      type: object
-      properties:
-        data:
+        group:
+          type: string
+        date:
+          type: string
+        value:
           type: number
-    Error:
-      type: object
-      description: Generic error response.
-      additionalProperties: true
-      properties:
-        status:
-          $ref: '#/components/schemas/Status'
-        message:
-          $ref: '#/components/schemas/Message'
-        errors:
-          $ref: '#/components/schemas/ErrorModels'
-    ErrorModels:
+    GroupValueItemList:
       type: array
-      description: Array of more detailed error information.
       items:
-        type: object
-        properties:
-          code:
-            type: string
-            description: A snake case string succinctly identifying the problem.
-          message:
-            type: string
-            description: A plainly-written, developer-oriented explanation of the solution to the problem in complete, well-formed
-              sentences.
-          more_info:
-            type: string
-            description: A publicly-accessible URL where information about the error can be read.
-          target:
-            $ref: '#/components/schemas/ErrorTargetModel'
-    ErrorTargetModel:
-      type: object
-      description: Contains information about specific error targets.
-      properties:
-        type:
-          type: string
-          description: Either field, parameter, or header.
-        name:
-          type: string
-          description: The name of the problematic field (with dot-syntax if necessary), query parameter, or header.
-    EventArray:
+        $ref: '#/components/schemas/GroupValueItem'
+    GroupDateValueItemList:
       type: array
-      description: Array of API events
       items:
-        $ref: '#/components/schemas/EventBody'
+        $ref: '#/components/schemas/GroupDateValueItem'
     EventBody:
       type: object
       description: The API Event logged by the gateway
@@ -404,8 +161,7 @@ components:
         http_user_agent:
           type: string
           description: The caller user agent string
-          example: Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/98.0.4758.102
-            Safari/537.36
+          example: Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/98.0.4758.102 Safari/537.36
         org_name:
           type: string
           description: The provider organization name
@@ -482,29 +238,28 @@ components:
       - api_name
       - api_version
       - api_id
-    GroupDateValueItem:
-      type: object
-      properties:
-        group:
-          type: string
-        date:
-          type: string
-        value:
-          type: number
-    GroupDateValueItemData:
-      type: object
-      properties:
-        data:
-          $ref: '#/components/schemas/GroupDateValueItemList'
-    GroupDateValueItemList:
+    ErrorModels:
       type: array
+      description: Array of more detailed error information.
       items:
-        $ref: '#/components/schemas/GroupDateValueItem'
-    GroupValueDataList:
-      type: object
-      properties:
-        data:
-          $ref: '#/components/schemas/GroupValueItemList'
+        type: object
+        properties:
+          code:
+            type: string
+            description: A snake case string succinctly identifying the problem.
+          message:
+            type: string
+            description: A plainly-written, developer-oriented explanation of the solution to the problem in complete, well-formed sentences.
+          more_info:
+            type: string
+            description: A publicly-accessible URL where information about the error can be read.
+          target:
+            $ref: '#/components/schemas/ErrorTargetModel'
+    EventArray:
+      type: array
+      description: Array of API events
+      items:
+        $ref: '#/components/schemas/EventBody'
     GroupKeyValueItem:
       type: object
       properties:
@@ -514,10 +269,17 @@ components:
           type: number
         key:
           type: string
-    GroupKeyValueItemList:
-      type: array
-      items:
-        $ref: '#/components/schemas/GroupKeyValueItem'
+    Error:
+      type: object
+      description: Generic error response.
+      additionalProperties: true
+      properties:
+        status:
+          $ref: '#/components/schemas/Status'
+        message:
+          $ref: '#/components/schemas/Message'
+        errors:
+          $ref: '#/components/schemas/ErrorModels'
     GroupKeyValueDataList:
       type: object
       properties:
@@ -525,6 +287,48 @@ components:
           type: integer
         data:
           $ref: '#/components/schemas/GroupKeyValueItemList'
+    GroupDateValueItemData:
+      type: object
+      properties:
+        data:
+          $ref: '#/components/schemas/GroupDateValueItemList'
+    GroupKeyValueItemList:
+      type: array
+      items:
+        $ref: '#/components/schemas/GroupKeyValueItem'
+    DataItem:
+      type: object
+      properties:
+        data:
+          type: number
+    ApiCallsList:
+      type: object
+      properties:
+        total:
+          $ref: '#/components/schemas/NonNegativeInteger'
+        data:
+          $ref: '#/components/schemas/EventArray'
+    ErrorTargetModel:
+      type: object
+      description: Contains information about specific error targets.
+      properties:
+        type:
+          type: string
+          description: Either field, parameter, or header.
+        name:
+          type: string
+          description: The name of the problematic field (with dot-syntax if necessary), query parameter, or header.
+    GroupValueDataList:
+      type: object
+      properties:
+        data:
+          $ref: '#/components/schemas/GroupValueItemList'
+    Message:
+      type: array
+      items:
+        type: string
+      description: Detailed error message.
+      example: Invalid request payload JSON format.
     GroupValueItem:
       type: object
       properties:
@@ -532,30 +336,230 @@ components:
           type: string
         value:
           type: integer
-    GroupValueItemList:
-      type: array
-      items:
-        $ref: '#/components/schemas/GroupValueItem'
     HeaderItem:
       type: object
       description: An HTTP header
       additionalProperties: true
-    Message:
-      type: array
-      items:
-        type: string
-      description: Detailed error message.
-      example: Invalid request payload JSON format.
-    NonNegativeInteger:
-      type: integer
-      description: Integer greater than or equal to zero.
-      minimum: 0
     Status:
       type: integer
       description: Status code of the error.
       minimum: 400
       maximum: 599
       example: 400
+    ConsumerDashboardResponse:
+      type: object
+      description: Data to display on the consumer analytics Dashboard.
+      properties:
+        search_time:
+          $ref: '#/components/schemas/NonNegativeInteger'
+        status_codes:
+          $ref: '#/components/schemas/GroupValueDataList'
+        min_response_time:
+          $ref: '#/components/schemas/DataItem'
+        avg_response_time:
+          $ref: '#/components/schemas/DataItem'
+        max_response_time:
+          $ref: '#/components/schemas/DataItem'
+        total_api_calls:
+          $ref: '#/components/schemas/DataItem'
+        total_errors:
+          $ref: '#/components/schemas/DataItem'
+        errors:
+          $ref: '#/components/schemas/GroupDateValueItemData'
+        throttled_calls:
+          $ref: '#/components/schemas/GroupDateValueItemData'
+        api_calls_per_day:
+          $ref: '#/components/schemas/GroupDateValueItemData'
+        last_api_calls:
+          $ref: '#/components/schemas/ApiCallsList'
+        top_apis_over_time:
+          $ref: '#/components/schemas/GroupDateValueItemData'
+        top_products_over_time:
+          $ref: '#/components/schemas/GroupDateValueItemData'
+        top_api_paths_by_calls:
+          $ref: '#/components/schemas/GroupValueDataList'
+        apis_with_slowest_response_time:
+          $ref: '#/components/schemas/GroupKeyValueDataList'
+        apis_with_fastest_response_time:
+          $ref: '#/components/schemas/GroupKeyValueDataList'
+    NonNegativeInteger:
+      type: integer
+      description: Integer greater than or equal to zero.
+      minimum: 0
+  parameters:
+    limit_optional:
+      name: limit
+      in: query
+      description: 'If set, the number of items to return when requesting a list. Maximum: 200'
+      required: false
+      schema:
+        type: string
+        example: '50'
+    offset_optional:
+      name: offset
+      in: query
+      description: If set, the offset to be applied when requesting a list. e.g. return events starting from the 100th result
+      required: false
+      schema:
+        type: string
+        example: '100'
+    status_code_optional:
+      name: status_code
+      in: query
+      description: 'If set, only return events that match this response code e.g. 200 OK, 404 Not Found.  It is also possible to use wildcard based values 10x, 20x, 30x, 40x, 50x.  The values ''error'' and ''success'' can also be used to filter for all errors or all successful calls.
+
+        '
+      required: false
+      schema:
+        type: string
+        example: 404 Not Found
+    org:
+      name: org
+      in: path
+      description: Consumer organization name or ID.
+      required: true
+      schema:
+        type: string
+    api_name_optional:
+      name: api_name
+      in: query
+      description: Filter results by API name.
+      required: false
+      schema:
+        type: string
+        example: custom_api
+    product_name_optional:
+      name: product_name
+      in: query
+      description: Filters results by product name.
+      required: false
+      schema:
+        type: string
+        example: custom_product
+    operation_path_optional:
+      name: operation_path
+      in: query
+      description: Filter results by operation path.
+      required: false
+      schema:
+        type: string
+        example: /path/to/something
+    x_ibm_consumer_context:
+      name: X-IBM-Consumer-Context
+      in: header
+      description: 'Consumer context in the form of {provider-org}.{catalog}, e.g. myorg.mycat
+
+        '
+      required: true
+      schema:
+        type: string
+        example: myorg.mycat
+    end_time_optional:
+      name: end
+      in: query
+      description: 'If set, the API will only return events with a datetime equal or older than this. The value must follow the date-time notation as defined by RFC 3339, section 5.6, for example, 2017-07-21T17:32:28Z. See https://datatracker.ietf.org/doc/html/rfc3339#section-5.6.
+
+        '
+      required: false
+      schema:
+        type: string
+        format: date-time
+    app:
+      name: app
+      in: path
+      description: Consumer organization app.
+      required: true
+      schema:
+        type: string
+    plan_name_optional:
+      name: plan_name
+      in: query
+      description: Filter results by plan name.
+      required: false
+      schema:
+        type: string
+        example: default_plan
+    start_time_optional:
+      name: start
+      in: query
+      description: 'If set, the API will only return events with a datetime equal or newer than this. The value must follow the date-time notation as defined by RFC 3339, section 5.6, for example, 2017-07-21T17:32:28Z. See https://datatracker.ietf.org/doc/html/rfc3339#section-5.6.
+
+        '
+      required: false
+      schema:
+        type: string
+        format: date-time
+    api_version_optional:
+      name: api_version
+      in: query
+      description: Filters results by API version.
+      required: false
+      schema:
+        type: string
+        example: 1.0.0
+    app_name_optional:
+      name: app_name
+      in: query
+      description: Filters results by application name.
+      required: false
+      schema:
+        type: string
+        example: custom_app
+    timeframe_optional:
+      name: timeframe
+      in: query
+      description: 'If set, the API will only return events within the indicated timeframe. This parameter will be ignored if either start or end have been specified.
+
+        '
+      required: false
+      schema:
+        type: string
+        enum:
+        - last1minute
+        - last5minutes
+        - last15minutes
+        - last30minutes
+        - last1hour
+        - last4hours
+        - last12hours
+        - last24hours
+        - last7days
+        - last30days
+    product_version_optional:
+      name: product_version
+      in: query
+      description: Filters results by product version.
+      required: false
+      schema:
+        type: string
+        example: 2.0.0
+    accept_language_optional:
+      name: accept-language
+      in: header
+      description: Natural language and locale that the client prefers.
+      required: false
+      schema:
+        type: string
+        example: en
+  responses:
+    ConsumerDashboardResponse:
+      description: Data needed to populate the consumer analytics Dashboard
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ConsumerDashboardResponse'
+        application/yaml:
+          schema:
+            $ref: '#/components/schemas/ConsumerDashboardResponse'
+    Error:
+      description: Unexpected error.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+        application/yaml:
+          schema:
+            $ref: '#/components/schemas/Error'
   securitySchemes:
     oauth:
       type: oauth2

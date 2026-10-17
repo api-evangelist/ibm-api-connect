@@ -43,9 +43,9 @@ apis:
 - aid: ibm-api-connect:ibm-api-connect-cloud-management-api
   name: IBM API Connect Platform - Cloud Management API
   description: >-
-    Cloud-scoped operations for managing the IBM API Connect cloud configuration: user registries,
-    provider organizations, availability zones, registered clients and cloud settings. Calls require a
-    bearer token issued to a member of the admin organization. OpenAPI 3.0, version 2.0.0.
+    Cloud-scoped operations for managing the IBM API Connect cloud configuration: user registries, provider
+    organizations, availability zones, registered clients and cloud settings. Calls require a bearer token
+    issued to a member of the admin organization. OpenAPI 3.0, version 2.0.0.
   humanURL: https://apic-api.apiconnect.ibmcloud.com/v12/
   baseURL: https://{platform-api-endpoint}/api
   tags:
@@ -59,59 +59,14 @@ apis:
   - type: Reference
     url: https://apic-api.apiconnect.ibmcloud.com/v12/
   - type: Documentation
-    url: https://www.ibm.com/docs/en/api-connect/software/12.1.1?topic=reference-api-connect-rest-apis
+    url: >-
+      https://www.ibm.com/docs/en/api-connect/software/12.1.1?topic=reference-api-connect-rest-apis
   - type: GettingStarted
-    url: https://www.ibm.com/docs/en/api-connect/software/12.1.1?topic=reference-api-connect-rest-apis
+    url: >-
+      https://www.ibm.com/docs/en/api-connect/software/12.1.1?topic=reference-api-connect-rest-apis
   - type: Authentication
-    url: https://www.ibm.com/docs/en/api-connect/software/12.1.1?topic=cli-managing-platform-rest-api-keys
-- aid: ibm-api-connect:ibm-api-connect-management-api
-  name: IBM API Connect Platform - Provider API
-  description: >-
-    Provider-organization operations covering the API lifecycle: draft APIs and products, catalogs,
-    spaces, staging and publishing, consumer organizations, apps and subscriptions. Formerly listed
-    here as the Management API. OpenAPI 3.0, version 2.0.0.
-  humanURL: https://apic-api.apiconnect.ibmcloud.com/v12/
-  baseURL: https://{platform-api-endpoint}/api
-  tags:
-  - Administration
-  - API Management
-  - Lifecycle
-  - REST API
-  properties:
-  - type: OpenAPI
-    url: openapi/ibm-api-connect-management-api-openapi.yml
-  - type: Reference
-    url: https://apic-api.apiconnect.ibmcloud.com/v12/
-  - type: Documentation
-    url: https://www.ibm.com/docs/en/api-connect/software/12.1.1?topic=reference-api-connect-rest-apis
-  - type: GettingStarted
-    url: https://www.ibm.com/docs/en/api-connect/software/12.1.1?topic=reference-api-connect-rest-apis
-  - type: Authentication
-    url: https://www.ibm.com/docs/en/api-connect/software/12.1.1?topic=cli-managing-platform-rest-api-keys
-- aid: ibm-api-connect:ibm-api-connect-consumer-api
-  name: IBM API Connect Platform - Consumer API
-  description: >-
-    Consumer-organization operations used by application developers: profile, apps, credentials and
-    subscriptions to published products. Calls require the X-IBM-Consumer-Context header naming the
-    provider organization and catalog. OpenAPI 3.0, version 2.0.0.
-  humanURL: https://apic-api.apiconnect.ibmcloud.com/v12/
-  baseURL: https://{consumer-api-endpoint}/consumer-api
-  tags:
-  - Consumer
-  - Developer Portal
-  - REST API
-  - Subscription
-  properties:
-  - type: OpenAPI
-    url: openapi/ibm-api-connect-consumer-api-openapi.yml
-  - type: Reference
-    url: https://apic-api.apiconnect.ibmcloud.com/v12/
-  - type: Documentation
-    url: https://www.ibm.com/docs/en/api-connect/software/12.1.1?topic=reference-api-connect-rest-apis
-  - type: GettingStarted
-    url: https://www.ibm.com/docs/en/api-connect/software/12.1.1?topic=reference-api-connect-rest-apis
-  - type: Authentication
-    url: https://www.ibm.com/docs/en/api-connect/software/12.1.1?topic=cli-managing-platform-rest-api-keys
+    url: >-
+      https://www.ibm.com/docs/en/api-connect/software/12.1.1?topic=cli-managing-platform-rest-api-keys
 - aid: ibm-api-connect:ibm-api-connect-analytics-api
   name: IBM API Connect Analytics API
   description: >-
@@ -129,18 +84,21 @@ apis:
   - type: Reference
     url: https://apic-api.apiconnect.ibmcloud.com/v12/
   - type: Documentation
-    url: https://www.ibm.com/docs/en/api-connect/software/12.1.1?topic=reference-api-connect-rest-apis
+    url: >-
+      https://www.ibm.com/docs/en/api-connect/software/12.1.1?topic=reference-api-connect-rest-apis
   - type: GettingStarted
-    url: https://www.ibm.com/docs/en/api-connect/software/12.1.1?topic=reference-api-connect-rest-apis
+    url: >-
+      https://www.ibm.com/docs/en/api-connect/software/12.1.1?topic=reference-api-connect-rest-apis
   - type: Authentication
-    url: https://www.ibm.com/docs/en/api-connect/software/12.1.1?topic=cli-managing-platform-rest-api-keys
+    url: >-
+      https://www.ibm.com/docs/en/api-connect/software/12.1.1?topic=cli-managing-platform-rest-api-keys
   - type: Documentation
     url: https://www.ibm.com/docs/en/api-connect/software/12.1.1?topic=ui-analytics-rest-api
 - aid: ibm-api-connect:ibm-api-connect-consumer-analytics-api
   name: IBM API Connect Consumer Analytics API
   description: >-
-    Returns consumer-organization and per-app analytics dashboard data for application developers.
-    OpenAPI 3.0, version 2.0.0.
+    Returns consumer-organization and per-app analytics dashboard data for application developers. OpenAPI
+    3.0, version 2.0.0.
   humanURL: https://apic-api.apiconnect.ibmcloud.com/v12/
   baseURL: https://{consumer-api-endpoint}/consumer-analytics
   tags:
@@ -153,18 +111,21 @@ apis:
   - type: Reference
     url: https://apic-api.apiconnect.ibmcloud.com/v12/
   - type: Documentation
-    url: https://www.ibm.com/docs/en/api-connect/software/12.1.1?topic=reference-api-connect-rest-apis
+    url: >-
+      https://www.ibm.com/docs/en/api-connect/software/12.1.1?topic=reference-api-connect-rest-apis
   - type: GettingStarted
-    url: https://www.ibm.com/docs/en/api-connect/software/12.1.1?topic=reference-api-connect-rest-apis
+    url: >-
+      https://www.ibm.com/docs/en/api-connect/software/12.1.1?topic=reference-api-connect-rest-apis
   - type: Authentication
-    url: https://www.ibm.com/docs/en/api-connect/software/12.1.1?topic=cli-managing-platform-rest-api-keys
+    url: >-
+      https://www.ibm.com/docs/en/api-connect/software/12.1.1?topic=cli-managing-platform-rest-api-keys
   - type: Documentation
     url: https://www.ibm.com/docs/en/api-connect/software/12.1.1?topic=ui-analytics-rest-api
 - aid: ibm-api-connect:ibm-api-connect-engagement-api
   name: IBM API Connect Engagement API
   description: >-
-    Manages engagement configuration and rules evaluated against API Connect Analytics data for a
-    provider organization. OpenAPI 3.0, version 2.0.0.
+    Manages engagement configuration and rules evaluated against API Connect Analytics data for a provider
+    organization. OpenAPI 3.0, version 2.0.0.
   humanURL: https://apic-api.apiconnect.ibmcloud.com/v12/
   tags:
   - Analytics
@@ -176,37 +137,19 @@ apis:
   - type: Reference
     url: https://apic-api.apiconnect.ibmcloud.com/v12/
   - type: Documentation
-    url: https://www.ibm.com/docs/en/api-connect/software/12.1.1?topic=reference-api-connect-rest-apis
+    url: >-
+      https://www.ibm.com/docs/en/api-connect/software/12.1.1?topic=reference-api-connect-rest-apis
   - type: GettingStarted
-    url: https://www.ibm.com/docs/en/api-connect/software/12.1.1?topic=reference-api-connect-rest-apis
+    url: >-
+      https://www.ibm.com/docs/en/api-connect/software/12.1.1?topic=reference-api-connect-rest-apis
   - type: Authentication
-    url: https://www.ibm.com/docs/en/api-connect/software/12.1.1?topic=cli-managing-platform-rest-api-keys
-- aid: ibm-api-connect:ibm-api-connect-portal-admin-api
-  name: API Connect Portal Admin API
-  description: >-
-    Administers the content of a catalog's developer portal: the APIs, products and related content
-    it exposes. OpenAPI 3.0, version 1.0.0.
-  humanURL: https://apic-api.apiconnect.ibmcloud.com/v12/
-  tags:
-  - Administration
-  - Developer Portal
-  - REST API
-  properties:
-  - type: OpenAPI
-    url: openapi/ibm-api-connect-portal-admin-api-openapi.yml
-  - type: Reference
-    url: https://apic-api.apiconnect.ibmcloud.com/v12/
-  - type: Documentation
-    url: https://www.ibm.com/docs/en/api-connect/software/12.1.1?topic=reference-api-connect-rest-apis
-  - type: GettingStarted
-    url: https://www.ibm.com/docs/en/api-connect/software/12.1.1?topic=reference-api-connect-rest-apis
-  - type: Authentication
-    url: https://www.ibm.com/docs/en/api-connect/software/12.1.1?topic=cli-managing-platform-rest-api-keys
+    url: >-
+      https://www.ibm.com/docs/en/api-connect/software/12.1.1?topic=cli-managing-platform-rest-api-keys
 - aid: ibm-api-connect:ibm-api-connect-discovery-api
   name: IBM API Connect Discovery API
   description: >-
-    Processes API call records collected from gateways and proxies to discover APIs that are not yet
-    managed in API Connect. OpenAPI 3.0, version 2.0.0.
+    Processes API call records collected from gateways and proxies to discover APIs that are not yet managed
+    in API Connect. OpenAPI 3.0, version 2.0.0.
   humanURL: https://apic-api.apiconnect.ibmcloud.com/v12/
   baseURL: https://{discovery-endpoint}/discovery
   tags:
@@ -219,33 +162,827 @@ apis:
   - type: Reference
     url: https://apic-api.apiconnect.ibmcloud.com/v12/
   - type: Documentation
-    url: https://www.ibm.com/docs/en/api-connect/software/12.1.1?topic=reference-api-connect-rest-apis
+    url: >-
+      https://www.ibm.com/docs/en/api-connect/software/12.1.1?topic=reference-api-connect-rest-apis
   - type: GettingStarted
-    url: https://www.ibm.com/docs/en/api-connect/software/12.1.1?topic=reference-api-connect-rest-apis
+    url: >-
+      https://www.ibm.com/docs/en/api-connect/software/12.1.1?topic=reference-api-connect-rest-apis
   - type: Authentication
-    url: https://www.ibm.com/docs/en/api-connect/software/12.1.1?topic=cli-managing-platform-rest-api-keys
-- aid: ibm-api-connect:ibm-api-connect-governance-api
-  name: IBM API Connect Governance API
-  description: >-
-    Validates API definitions against governance rulesets at cloud and provider organization scope.
-    OpenAPI 3.0, version 2.0.0.
+    url: >-
+      https://www.ibm.com/docs/en/api-connect/software/12.1.1?topic=cli-managing-platform-rest-api-keys
+- aid: ibm-api-connect:ibm-api-connect-ai-assets-api
+  name: IBM API Connect AI Assets API
+  description: The AI Assets API from IBM API Connect — 8 operation(s) for ai assets.
   humanURL: https://apic-api.apiconnect.ibmcloud.com/v12/
-  baseURL: https://{governance-endpoint}/governance
+  baseURL: https://{platform-api-endpoint}/api
   tags:
-  - Governance
-  - Linting
-  - REST API
+  - AI Assets
   properties:
   - type: OpenAPI
-    url: openapi/ibm-api-connect-governance-api-openapi.yml
+    url: openapi/ibm-api-connect-ai-assets-api-openapi.yml
   - type: Reference
     url: https://apic-api.apiconnect.ibmcloud.com/v12/
   - type: Documentation
-    url: https://www.ibm.com/docs/en/api-connect/software/12.1.1?topic=reference-api-connect-rest-apis
+    url: >-
+      https://www.ibm.com/docs/en/api-connect/software/12.1.1?topic=reference-api-connect-rest-apis
   - type: GettingStarted
-    url: https://www.ibm.com/docs/en/api-connect/software/12.1.1?topic=reference-api-connect-rest-apis
+    url: >-
+      https://www.ibm.com/docs/en/api-connect/software/12.1.1?topic=reference-api-connect-rest-apis
   - type: Authentication
-    url: https://www.ibm.com/docs/en/api-connect/software/12.1.1?topic=cli-managing-platform-rest-api-keys
+    url: >-
+      https://www.ibm.com/docs/en/api-connect/software/12.1.1?topic=cli-managing-platform-rest-api-keys
+- aid: ibm-api-connect:ibm-api-connect-application-strategy-management-api
+  name: IBM API Connect Application Strategy management API
+  description: >-
+    The Application Strategy management API from IBM API Connect — 2 operation(s) for application strategy
+    management.
+  humanURL: https://apic-api.apiconnect.ibmcloud.com/v12/
+  baseURL: https://{platform-api-endpoint}/api
+  tags:
+  - Application Strategy management
+  properties:
+  - type: OpenAPI
+    url: openapi/ibm-api-connect-application-strategy-management-api-openapi.yml
+  - type: Reference
+    url: https://apic-api.apiconnect.ibmcloud.com/v12/
+  - type: Documentation
+    url: >-
+      https://www.ibm.com/docs/en/api-connect/software/12.1.1?topic=reference-api-connect-rest-apis
+  - type: GettingStarted
+    url: >-
+      https://www.ibm.com/docs/en/api-connect/software/12.1.1?topic=reference-api-connect-rest-apis
+  - type: Authentication
+    url: >-
+      https://www.ibm.com/docs/en/api-connect/software/12.1.1?topic=cli-managing-platform-rest-api-keys
+- aid: ibm-api-connect:ibm-api-connect-billing-management-api
+  name: IBM API Connect Billing Management API
+  description: The Billing Management API from IBM API Connect — 2 operation(s) for billing management.
+  humanURL: https://apic-api.apiconnect.ibmcloud.com/v12/
+  baseURL: https://{platform-api-endpoint}/api
+  tags:
+  - Billing Management
+  properties:
+  - type: OpenAPI
+    url: openapi/ibm-api-connect-billing-management-api-openapi.yml
+  - type: Reference
+    url: https://apic-api.apiconnect.ibmcloud.com/v12/
+  - type: Documentation
+    url: >-
+      https://www.ibm.com/docs/en/api-connect/software/12.1.1?topic=reference-api-connect-rest-apis
+  - type: GettingStarted
+    url: >-
+      https://www.ibm.com/docs/en/api-connect/software/12.1.1?topic=reference-api-connect-rest-apis
+  - type: Authentication
+    url: >-
+      https://www.ibm.com/docs/en/api-connect/software/12.1.1?topic=cli-managing-platform-rest-api-keys
+- aid: ibm-api-connect:ibm-api-connect-catalog-management-api
+  name: IBM API Connect Catalog Management API
+  description: >-
+    The Catalog Management API from IBM API Connect — 35 operation(s) for catalog management.
+  humanURL: https://apic-api.apiconnect.ibmcloud.com/v12/
+  baseURL: https://{platform-api-endpoint}/api
+  tags:
+  - Catalog Management
+  properties:
+  - type: OpenAPI
+    url: openapi/ibm-api-connect-catalog-management-api-openapi.yml
+  - type: Reference
+    url: https://apic-api.apiconnect.ibmcloud.com/v12/
+  - type: Documentation
+    url: >-
+      https://www.ibm.com/docs/en/api-connect/software/12.1.1?topic=reference-api-connect-rest-apis
+  - type: GettingStarted
+    url: >-
+      https://www.ibm.com/docs/en/api-connect/software/12.1.1?topic=reference-api-connect-rest-apis
+  - type: Authentication
+    url: >-
+      https://www.ibm.com/docs/en/api-connect/software/12.1.1?topic=cli-managing-platform-rest-api-keys
+- aid: ibm-api-connect:ibm-api-connect-catalog-resource-api
+  name: IBM API Connect Catalog Resource API
+  description: The Catalog Resource API from IBM API Connect — 16 operation(s) for catalog resource.
+  humanURL: https://apic-api.apiconnect.ibmcloud.com/v12/
+  baseURL: https://{platform-api-endpoint}/api
+  tags:
+  - Catalog Resource
+  properties:
+  - type: OpenAPI
+    url: openapi/ibm-api-connect-catalog-resource-api-openapi.yml
+  - type: Reference
+    url: https://apic-api.apiconnect.ibmcloud.com/v12/
+  - type: Documentation
+    url: >-
+      https://www.ibm.com/docs/en/api-connect/software/12.1.1?topic=reference-api-connect-rest-apis
+  - type: GettingStarted
+    url: >-
+      https://www.ibm.com/docs/en/api-connect/software/12.1.1?topic=reference-api-connect-rest-apis
+  - type: Authentication
+    url: >-
+      https://www.ibm.com/docs/en/api-connect/software/12.1.1?topic=cli-managing-platform-rest-api-keys
+- aid: ibm-api-connect:ibm-api-connect-catalog-resources-api
+  name: IBM API Connect Catalog Resources API
+  description: The Catalog Resources API from IBM API Connect — 40 operation(s) for catalog resources.
+  humanURL: https://apic-api.apiconnect.ibmcloud.com/v12/
+  baseURL: https://{platform-api-endpoint}/api
+  tags:
+  - Catalog Resources
+  properties:
+  - type: OpenAPI
+    url: openapi/ibm-api-connect-catalog-resources-api-openapi.yml
+  - type: Reference
+    url: https://apic-api.apiconnect.ibmcloud.com/v12/
+  - type: Documentation
+    url: >-
+      https://www.ibm.com/docs/en/api-connect/software/12.1.1?topic=reference-api-connect-rest-apis
+  - type: GettingStarted
+    url: >-
+      https://www.ibm.com/docs/en/api-connect/software/12.1.1?topic=reference-api-connect-rest-apis
+  - type: Authentication
+    url: >-
+      https://www.ibm.com/docs/en/api-connect/software/12.1.1?topic=cli-managing-platform-rest-api-keys
+- aid: ibm-api-connect:ibm-api-connect-catalog-settings-api
+  name: IBM API Connect Catalog Settings API
+  description: The Catalog Settings API from IBM API Connect — 45 operation(s) for catalog settings.
+  humanURL: https://apic-api.apiconnect.ibmcloud.com/v12/
+  baseURL: https://{platform-api-endpoint}/api
+  tags:
+  - Catalog Settings
+  properties:
+  - type: OpenAPI
+    url: openapi/ibm-api-connect-catalog-settings-api-openapi.yml
+  - type: Reference
+    url: https://apic-api.apiconnect.ibmcloud.com/v12/
+  - type: Documentation
+    url: >-
+      https://www.ibm.com/docs/en/api-connect/software/12.1.1?topic=reference-api-connect-rest-apis
+  - type: GettingStarted
+    url: >-
+      https://www.ibm.com/docs/en/api-connect/software/12.1.1?topic=reference-api-connect-rest-apis
+  - type: Authentication
+    url: >-
+      https://www.ibm.com/docs/en/api-connect/software/12.1.1?topic=cli-managing-platform-rest-api-keys
+- aid: ibm-api-connect:ibm-api-connect-cloud-settings-api
+  name: IBM API Connect Cloud Settings API
+  description: The Cloud Settings API from IBM API Connect — 47 operation(s) for cloud settings.
+  humanURL: https://apic-api.apiconnect.ibmcloud.com/v12/
+  baseURL: https://{platform-api-endpoint}/api
+  tags:
+  - Cloud Settings
+  properties:
+  - type: OpenAPI
+    url: openapi/ibm-api-connect-cloud-settings-api-openapi.yml
+  - type: Reference
+    url: https://apic-api.apiconnect.ibmcloud.com/v12/
+  - type: Documentation
+    url: >-
+      https://www.ibm.com/docs/en/api-connect/software/12.1.1?topic=reference-api-connect-rest-apis
+  - type: GettingStarted
+    url: >-
+      https://www.ibm.com/docs/en/api-connect/software/12.1.1?topic=reference-api-connect-rest-apis
+  - type: Authentication
+    url: >-
+      https://www.ibm.com/docs/en/api-connect/software/12.1.1?topic=cli-managing-platform-rest-api-keys
+- aid: ibm-api-connect:ibm-api-connect-compliance-api
+  name: IBM API Connect Compliance API
+  description: The Compliance API from IBM API Connect — 18 operation(s) for compliance.
+  humanURL: https://apic-api.apiconnect.ibmcloud.com/v12/
+  baseURL: https://{platform-api-endpoint}/api
+  tags:
+  - Compliance
+  properties:
+  - type: OpenAPI
+    url: openapi/ibm-api-connect-compliance-api-openapi.yml
+  - type: Reference
+    url: https://apic-api.apiconnect.ibmcloud.com/v12/
+  - type: Documentation
+    url: >-
+      https://www.ibm.com/docs/en/api-connect/software/12.1.1?topic=reference-api-connect-rest-apis
+  - type: GettingStarted
+    url: >-
+      https://www.ibm.com/docs/en/api-connect/software/12.1.1?topic=reference-api-connect-rest-apis
+  - type: Authentication
+    url: >-
+      https://www.ibm.com/docs/en/api-connect/software/12.1.1?topic=cli-managing-platform-rest-api-keys
+- aid: ibm-api-connect:ibm-api-connect-consumer-management-api
+  name: IBM API Connect Consumer Management API
+  description: >-
+    The Consumer Management API from IBM API Connect — 65 operation(s) for consumer management.
+  humanURL: https://apic-api.apiconnect.ibmcloud.com/v12/
+  baseURL: https://{platform-api-endpoint}/api
+  tags:
+  - Consumer Management
+  properties:
+  - type: OpenAPI
+    url: openapi/ibm-api-connect-consumer-management-api-openapi.yml
+  - type: Reference
+    url: https://apic-api.apiconnect.ibmcloud.com/v12/
+  - type: Documentation
+    url: >-
+      https://www.ibm.com/docs/en/api-connect/software/12.1.1?topic=reference-api-connect-rest-apis
+  - type: GettingStarted
+    url: >-
+      https://www.ibm.com/docs/en/api-connect/software/12.1.1?topic=reference-api-connect-rest-apis
+  - type: Authentication
+    url: >-
+      https://www.ibm.com/docs/en/api-connect/software/12.1.1?topic=cli-managing-platform-rest-api-keys
+- aid: ibm-api-connect:ibm-api-connect-data-sources-and-collectors-api
+  name: IBM API Connect Data Sources and Collectors API
+  description: >-
+    The Data Sources and Collectors API from IBM API Connect — 3 operation(s) for data sources and collectors.
+  humanURL: https://apic-api.apiconnect.ibmcloud.com/v12/
+  baseURL: https://{platform-api-endpoint}/api
+  tags:
+  - Data Sources and Collectors
+  properties:
+  - type: OpenAPI
+    url: openapi/ibm-api-connect-data-sources-and-collectors-api-openapi.yml
+  - type: Reference
+    url: https://apic-api.apiconnect.ibmcloud.com/v12/
+  - type: Documentation
+    url: >-
+      https://www.ibm.com/docs/en/api-connect/software/12.1.1?topic=reference-api-connect-rest-apis
+  - type: GettingStarted
+    url: >-
+      https://www.ibm.com/docs/en/api-connect/software/12.1.1?topic=reference-api-connect-rest-apis
+  - type: Authentication
+    url: >-
+      https://www.ibm.com/docs/en/api-connect/software/12.1.1?topic=cli-managing-platform-rest-api-keys
+- aid: ibm-api-connect:ibm-api-connect-datapower-nano-gateway-api-porting-advisor-api
+  name: IBM API Connect DataPower Nano Gateway API Porting Advisor API
+  description: >-
+    The DataPower Nano Gateway API Porting Advisor API from IBM API Connect — 8 operation(s) for datapower
+    nano gateway api porting advisor.
+  humanURL: https://apic-api.apiconnect.ibmcloud.com/v12/
+  baseURL: https://{platform-api-endpoint}/api
+  tags:
+  - DataPower Nano Gateway API Porting Advisor
+  properties:
+  - type: OpenAPI
+    url: openapi/ibm-api-connect-datapower-nano-gateway-api-porting-advisor-api-openapi.yml
+  - type: Reference
+    url: https://apic-api.apiconnect.ibmcloud.com/v12/
+  - type: Documentation
+    url: >-
+      https://www.ibm.com/docs/en/api-connect/software/12.1.1?topic=reference-api-connect-rest-apis
+  - type: GettingStarted
+    url: >-
+      https://www.ibm.com/docs/en/api-connect/software/12.1.1?topic=reference-api-connect-rest-apis
+  - type: Authentication
+    url: >-
+      https://www.ibm.com/docs/en/api-connect/software/12.1.1?topic=cli-managing-platform-rest-api-keys
+- aid: ibm-api-connect:ibm-api-connect-drafts-api
+  name: IBM API Connect Drafts API
+  description: The Drafts API from IBM API Connect — 30 operation(s) for drafts.
+  humanURL: https://apic-api.apiconnect.ibmcloud.com/v12/
+  baseURL: https://{platform-api-endpoint}/api
+  tags:
+  - Drafts
+  properties:
+  - type: OpenAPI
+    url: openapi/ibm-api-connect-drafts-api-openapi.yml
+  - type: Reference
+    url: https://apic-api.apiconnect.ibmcloud.com/v12/
+  - type: Documentation
+    url: >-
+      https://www.ibm.com/docs/en/api-connect/software/12.1.1?topic=reference-api-connect-rest-apis
+  - type: GettingStarted
+    url: >-
+      https://www.ibm.com/docs/en/api-connect/software/12.1.1?topic=reference-api-connect-rest-apis
+  - type: Authentication
+    url: >-
+      https://www.ibm.com/docs/en/api-connect/software/12.1.1?topic=cli-managing-platform-rest-api-keys
+- aid: ibm-api-connect:ibm-api-connect-logging-specification-api
+  name: IBM API Connect Logging Specification API
+  description: >-
+    The Logging Specification API from IBM API Connect — 1 operation(s) for logging specification.
+  humanURL: https://apic-api.apiconnect.ibmcloud.com/v12/
+  baseURL: https://{platform-api-endpoint}/api
+  tags:
+  - Logging Specification
+  properties:
+  - type: OpenAPI
+    url: openapi/ibm-api-connect-logging-specification-api-openapi.yml
+  - type: Reference
+    url: https://apic-api.apiconnect.ibmcloud.com/v12/
+  - type: Documentation
+    url: >-
+      https://www.ibm.com/docs/en/api-connect/software/12.1.1?topic=reference-api-connect-rest-apis
+  - type: GettingStarted
+    url: >-
+      https://www.ibm.com/docs/en/api-connect/software/12.1.1?topic=reference-api-connect-rest-apis
+  - type: Authentication
+    url: >-
+      https://www.ibm.com/docs/en/api-connect/software/12.1.1?topic=cli-managing-platform-rest-api-keys
+- aid: ibm-api-connect:ibm-api-connect-my-resources-api
+  name: IBM API Connect My Resources API
+  description: The My Resources API from IBM API Connect — 12 operation(s) for my resources.
+  humanURL: https://apic-api.apiconnect.ibmcloud.com/v12/
+  baseURL: https://{platform-api-endpoint}/api
+  tags:
+  - My Resources
+  properties:
+  - type: OpenAPI
+    url: openapi/ibm-api-connect-my-resources-api-openapi.yml
+  - type: Reference
+    url: https://apic-api.apiconnect.ibmcloud.com/v12/
+  - type: Documentation
+    url: >-
+      https://www.ibm.com/docs/en/api-connect/software/12.1.1?topic=reference-api-connect-rest-apis
+  - type: GettingStarted
+    url: >-
+      https://www.ibm.com/docs/en/api-connect/software/12.1.1?topic=reference-api-connect-rest-apis
+  - type: Authentication
+    url: >-
+      https://www.ibm.com/docs/en/api-connect/software/12.1.1?topic=cli-managing-platform-rest-api-keys
+- aid: ibm-api-connect:ibm-api-connect-oauth2-action-api
+  name: IBM API Connect Oauth2 Action API
+  description: The Oauth2 Action API from IBM API Connect — 1 operation(s) for oauth2 action.
+  humanURL: https://apic-api.apiconnect.ibmcloud.com/v12/
+  baseURL: https://{platform-api-endpoint}/api
+  tags:
+  - Oauth2 Action
+  properties:
+  - type: OpenAPI
+    url: openapi/ibm-api-connect-oauth2-action-api-openapi.yml
+  - type: Reference
+    url: https://apic-api.apiconnect.ibmcloud.com/v12/
+  - type: Documentation
+    url: >-
+      https://www.ibm.com/docs/en/api-connect/software/12.1.1?topic=reference-api-connect-rest-apis
+  - type: GettingStarted
+    url: >-
+      https://www.ibm.com/docs/en/api-connect/software/12.1.1?topic=reference-api-connect-rest-apis
+  - type: Authentication
+    url: >-
+      https://www.ibm.com/docs/en/api-connect/software/12.1.1?topic=cli-managing-platform-rest-api-keys
+- aid: ibm-api-connect:ibm-api-connect-org-settings-api
+  name: IBM API Connect Org Settings API
+  description: The Org Settings API from IBM API Connect — 1 operation(s) for org settings.
+  humanURL: https://apic-api.apiconnect.ibmcloud.com/v12/
+  baseURL: https://{platform-api-endpoint}/api
+  tags:
+  - Org Settings
+  properties:
+  - type: OpenAPI
+    url: openapi/ibm-api-connect-org-settings-api-openapi.yml
+  - type: Reference
+    url: https://apic-api.apiconnect.ibmcloud.com/v12/
+  - type: Documentation
+    url: >-
+      https://www.ibm.com/docs/en/api-connect/software/12.1.1?topic=reference-api-connect-rest-apis
+  - type: GettingStarted
+    url: >-
+      https://www.ibm.com/docs/en/api-connect/software/12.1.1?topic=reference-api-connect-rest-apis
+  - type: Authentication
+    url: >-
+      https://www.ibm.com/docs/en/api-connect/software/12.1.1?topic=cli-managing-platform-rest-api-keys
+- aid: ibm-api-connect:ibm-api-connect-organization-application-api
+  name: IBM API Connect Organization Application API
+  description: >-
+    The Organization Application API from IBM API Connect — 9 operation(s) for organization application.
+  humanURL: https://apic-api.apiconnect.ibmcloud.com/v12/
+  baseURL: https://{platform-api-endpoint}/api
+  tags:
+  - Organization Application
+  properties:
+  - type: OpenAPI
+    url: openapi/ibm-api-connect-organization-application-api-openapi.yml
+  - type: Reference
+    url: https://apic-api.apiconnect.ibmcloud.com/v12/
+  - type: Documentation
+    url: >-
+      https://www.ibm.com/docs/en/api-connect/software/12.1.1?topic=reference-api-connect-rest-apis
+  - type: GettingStarted
+    url: >-
+      https://www.ibm.com/docs/en/api-connect/software/12.1.1?topic=reference-api-connect-rest-apis
+  - type: Authentication
+    url: >-
+      https://www.ibm.com/docs/en/api-connect/software/12.1.1?topic=cli-managing-platform-rest-api-keys
+- aid: ibm-api-connect:ibm-api-connect-organization-management-api
+  name: IBM API Connect Organization Management API
+  description: >-
+    The Organization Management API from IBM API Connect — 40 operation(s) for organization management.
+  humanURL: https://apic-api.apiconnect.ibmcloud.com/v12/
+  baseURL: https://{platform-api-endpoint}/api
+  tags:
+  - Organization Management
+  properties:
+  - type: OpenAPI
+    url: openapi/ibm-api-connect-organization-management-api-openapi.yml
+  - type: Reference
+    url: https://apic-api.apiconnect.ibmcloud.com/v12/
+  - type: Documentation
+    url: >-
+      https://www.ibm.com/docs/en/api-connect/software/12.1.1?topic=reference-api-connect-rest-apis
+  - type: GettingStarted
+    url: >-
+      https://www.ibm.com/docs/en/api-connect/software/12.1.1?topic=reference-api-connect-rest-apis
+  - type: Authentication
+    url: >-
+      https://www.ibm.com/docs/en/api-connect/software/12.1.1?topic=cli-managing-platform-rest-api-keys
+- aid: ibm-api-connect:ibm-api-connect-organization-resources-api
+  name: IBM API Connect Organization Resources API
+  description: >-
+    The Organization Resources API from IBM API Connect — 85 operation(s) for organization resources.
+  humanURL: https://apic-api.apiconnect.ibmcloud.com/v12/
+  baseURL: https://{platform-api-endpoint}/api
+  tags:
+  - Organization Resources
+  properties:
+  - type: OpenAPI
+    url: openapi/ibm-api-connect-organization-resources-api-openapi.yml
+  - type: Reference
+    url: https://apic-api.apiconnect.ibmcloud.com/v12/
+  - type: Documentation
+    url: >-
+      https://www.ibm.com/docs/en/api-connect/software/12.1.1?topic=reference-api-connect-rest-apis
+  - type: GettingStarted
+    url: >-
+      https://www.ibm.com/docs/en/api-connect/software/12.1.1?topic=reference-api-connect-rest-apis
+  - type: Authentication
+    url: >-
+      https://www.ibm.com/docs/en/api-connect/software/12.1.1?topic=cli-managing-platform-rest-api-keys
+- aid: ibm-api-connect:ibm-api-connect-organization-settings-api
+  name: IBM API Connect Organization Settings API
+  description: >-
+    The Organization Settings API from IBM API Connect — 22 operation(s) for organization settings.
+  humanURL: https://apic-api.apiconnect.ibmcloud.com/v12/
+  baseURL: https://{platform-api-endpoint}/api
+  tags:
+  - Organization Settings
+  properties:
+  - type: OpenAPI
+    url: openapi/ibm-api-connect-organization-settings-api-openapi.yml
+  - type: Reference
+    url: https://apic-api.apiconnect.ibmcloud.com/v12/
+  - type: Documentation
+    url: >-
+      https://www.ibm.com/docs/en/api-connect/software/12.1.1?topic=reference-api-connect-rest-apis
+  - type: GettingStarted
+    url: >-
+      https://www.ibm.com/docs/en/api-connect/software/12.1.1?topic=reference-api-connect-rest-apis
+  - type: Authentication
+    url: >-
+      https://www.ibm.com/docs/en/api-connect/software/12.1.1?topic=cli-managing-platform-rest-api-keys
+- aid: ibm-api-connect:ibm-api-connect-plans-and-quotas-api
+  name: IBM API Connect Plans and Quotas API
+  description: The Plans and Quotas API from IBM API Connect — 16 operation(s) for plans and quotas.
+  humanURL: https://apic-api.apiconnect.ibmcloud.com/v12/
+  baseURL: https://{platform-api-endpoint}/api
+  tags:
+  - Plans and Quotas
+  properties:
+  - type: OpenAPI
+    url: openapi/ibm-api-connect-plans-and-quotas-api-openapi.yml
+  - type: Reference
+    url: https://apic-api.apiconnect.ibmcloud.com/v12/
+  - type: Documentation
+    url: >-
+      https://www.ibm.com/docs/en/api-connect/software/12.1.1?topic=reference-api-connect-rest-apis
+  - type: GettingStarted
+    url: >-
+      https://www.ibm.com/docs/en/api-connect/software/12.1.1?topic=reference-api-connect-rest-apis
+  - type: Authentication
+    url: >-
+      https://www.ibm.com/docs/en/api-connect/software/12.1.1?topic=cli-managing-platform-rest-api-keys
+- aid: ibm-api-connect:ibm-api-connect-portal-api
+  name: IBM API Connect Portal API
+  description: The Portal API from IBM API Connect — 128 operation(s) for portal.
+  humanURL: https://apic-api.apiconnect.ibmcloud.com/v12/
+  baseURL: https://{platform-api-endpoint}/api
+  tags:
+  - Portal
+  properties:
+  - type: OpenAPI
+    url: openapi/ibm-api-connect-portal-api-openapi.yml
+  - type: Reference
+    url: https://apic-api.apiconnect.ibmcloud.com/v12/
+  - type: Documentation
+    url: >-
+      https://www.ibm.com/docs/en/api-connect/software/12.1.1?topic=reference-api-connect-rest-apis
+  - type: GettingStarted
+    url: >-
+      https://www.ibm.com/docs/en/api-connect/software/12.1.1?topic=reference-api-connect-rest-apis
+  - type: Authentication
+    url: >-
+      https://www.ibm.com/docs/en/api-connect/software/12.1.1?topic=cli-managing-platform-rest-api-keys
+- aid: ibm-api-connect:ibm-api-connect-products-and-apis-api
+  name: IBM API Connect Products and APIs API
+  description: The Products and APIs API from IBM API Connect — 81 operation(s) for products and apis.
+  humanURL: https://apic-api.apiconnect.ibmcloud.com/v12/
+  baseURL: https://{platform-api-endpoint}/api
+  tags:
+  - Products and APIs
+  properties:
+  - type: OpenAPI
+    url: openapi/ibm-api-connect-products-and-apis-api-openapi.yml
+  - type: Reference
+    url: https://apic-api.apiconnect.ibmcloud.com/v12/
+  - type: Documentation
+    url: >-
+      https://www.ibm.com/docs/en/api-connect/software/12.1.1?topic=reference-api-connect-rest-apis
+  - type: GettingStarted
+    url: >-
+      https://www.ibm.com/docs/en/api-connect/software/12.1.1?topic=reference-api-connect-rest-apis
+  - type: Authentication
+    url: >-
+      https://www.ibm.com/docs/en/api-connect/software/12.1.1?topic=cli-managing-platform-rest-api-keys
+- aid: ibm-api-connect:ibm-api-connect-project-api
+  name: IBM API Connect Project API
+  description: The Project API from IBM API Connect — 9 operation(s) for project.
+  humanURL: https://apic-api.apiconnect.ibmcloud.com/v12/
+  baseURL: https://{platform-api-endpoint}/api
+  tags:
+  - Project
+  properties:
+  - type: OpenAPI
+    url: openapi/ibm-api-connect-project-api-openapi.yml
+  - type: Reference
+    url: https://apic-api.apiconnect.ibmcloud.com/v12/
+  - type: Documentation
+    url: >-
+      https://www.ibm.com/docs/en/api-connect/software/12.1.1?topic=reference-api-connect-rest-apis
+  - type: GettingStarted
+    url: >-
+      https://www.ibm.com/docs/en/api-connect/software/12.1.1?topic=reference-api-connect-rest-apis
+  - type: Authentication
+    url: >-
+      https://www.ibm.com/docs/en/api-connect/software/12.1.1?topic=cli-managing-platform-rest-api-keys
+- aid: ibm-api-connect:ibm-api-connect-provider-management-api
+  name: IBM API Connect Provider Management API
+  description: >-
+    The Provider Management API from IBM API Connect — 9 operation(s) for provider management.
+  humanURL: https://apic-api.apiconnect.ibmcloud.com/v12/
+  baseURL: https://{platform-api-endpoint}/api
+  tags:
+  - Provider Management
+  properties:
+  - type: OpenAPI
+    url: openapi/ibm-api-connect-provider-management-api-openapi.yml
+  - type: Reference
+    url: https://apic-api.apiconnect.ibmcloud.com/v12/
+  - type: Documentation
+    url: >-
+      https://www.ibm.com/docs/en/api-connect/software/12.1.1?topic=reference-api-connect-rest-apis
+  - type: GettingStarted
+    url: >-
+      https://www.ibm.com/docs/en/api-connect/software/12.1.1?topic=reference-api-connect-rest-apis
+  - type: Authentication
+    url: >-
+      https://www.ibm.com/docs/en/api-connect/software/12.1.1?topic=cli-managing-platform-rest-api-keys
+- aid: ibm-api-connect:ibm-api-connect-reconstructed-apis-api
+  name: IBM API Connect Reconstructed APIs API
+  description: >-
+    The Reconstructed APIs API from IBM API Connect — 14 operation(s) for reconstructed apis.
+  humanURL: https://apic-api.apiconnect.ibmcloud.com/v12/
+  baseURL: https://{platform-api-endpoint}/api
+  tags:
+  - Reconstructed APIs
+  properties:
+  - type: OpenAPI
+    url: openapi/ibm-api-connect-reconstructed-apis-api-openapi.yml
+  - type: Reference
+    url: https://apic-api.apiconnect.ibmcloud.com/v12/
+  - type: Documentation
+    url: >-
+      https://www.ibm.com/docs/en/api-connect/software/12.1.1?topic=reference-api-connect-rest-apis
+  - type: GettingStarted
+    url: >-
+      https://www.ibm.com/docs/en/api-connect/software/12.1.1?topic=reference-api-connect-rest-apis
+  - type: Authentication
+    url: >-
+      https://www.ibm.com/docs/en/api-connect/software/12.1.1?topic=cli-managing-platform-rest-api-keys
+- aid: ibm-api-connect:ibm-api-connect-resource-service-status-api
+  name: IBM API Connect Resource Service Status API
+  description: >-
+    The Resource Service Status API from IBM API Connect — 1 operation(s) for resource service status.
+  humanURL: https://apic-api.apiconnect.ibmcloud.com/v12/
+  baseURL: https://{platform-api-endpoint}/api
+  tags:
+  - Resource Service Status
+  properties:
+  - type: OpenAPI
+    url: openapi/ibm-api-connect-resource-service-status-api-openapi.yml
+  - type: Reference
+    url: https://apic-api.apiconnect.ibmcloud.com/v12/
+  - type: Documentation
+    url: >-
+      https://www.ibm.com/docs/en/api-connect/software/12.1.1?topic=reference-api-connect-rest-apis
+  - type: GettingStarted
+    url: >-
+      https://www.ibm.com/docs/en/api-connect/software/12.1.1?topic=reference-api-connect-rest-apis
+  - type: Authentication
+    url: >-
+      https://www.ibm.com/docs/en/api-connect/software/12.1.1?topic=cli-managing-platform-rest-api-keys
+- aid: ibm-api-connect:ibm-api-connect-rulesets-and-rules-api
+  name: IBM API Connect Rulesets and Rules API
+  description: The Rulesets and Rules API from IBM API Connect — 9 operation(s) for rulesets and rules.
+  humanURL: https://apic-api.apiconnect.ibmcloud.com/v12/
+  baseURL: https://{platform-api-endpoint}/api
+  tags:
+  - Rulesets and Rules
+  properties:
+  - type: OpenAPI
+    url: openapi/ibm-api-connect-rulesets-and-rules-api-openapi.yml
+  - type: Reference
+    url: https://apic-api.apiconnect.ibmcloud.com/v12/
+  - type: Documentation
+    url: >-
+      https://www.ibm.com/docs/en/api-connect/software/12.1.1?topic=reference-api-connect-rest-apis
+  - type: GettingStarted
+    url: >-
+      https://www.ibm.com/docs/en/api-connect/software/12.1.1?topic=reference-api-connect-rest-apis
+  - type: Authentication
+    url: >-
+      https://www.ibm.com/docs/en/api-connect/software/12.1.1?topic=cli-managing-platform-rest-api-keys
+- aid: ibm-api-connect:ibm-api-connect-settings-api
+  name: IBM API Connect Settings API
+  description: The Settings API from IBM API Connect — 2 operation(s) for settings.
+  humanURL: https://apic-api.apiconnect.ibmcloud.com/v12/
+  baseURL: https://{platform-api-endpoint}/api
+  tags:
+  - Settings
+  properties:
+  - type: OpenAPI
+    url: openapi/ibm-api-connect-settings-api-openapi.yml
+  - type: Reference
+    url: https://apic-api.apiconnect.ibmcloud.com/v12/
+  - type: Documentation
+    url: >-
+      https://www.ibm.com/docs/en/api-connect/software/12.1.1?topic=reference-api-connect-rest-apis
+  - type: GettingStarted
+    url: >-
+      https://www.ibm.com/docs/en/api-connect/software/12.1.1?topic=reference-api-connect-rest-apis
+  - type: Authentication
+    url: >-
+      https://www.ibm.com/docs/en/api-connect/software/12.1.1?topic=cli-managing-platform-rest-api-keys
+- aid: ibm-api-connect:ibm-api-connect-space-management-api
+  name: IBM API Connect Space Management API
+  description: The Space Management API from IBM API Connect — 33 operation(s) for space management.
+  humanURL: https://apic-api.apiconnect.ibmcloud.com/v12/
+  baseURL: https://{platform-api-endpoint}/api
+  tags:
+  - Space Management
+  properties:
+  - type: OpenAPI
+    url: openapi/ibm-api-connect-space-management-api-openapi.yml
+  - type: Reference
+    url: https://apic-api.apiconnect.ibmcloud.com/v12/
+  - type: Documentation
+    url: >-
+      https://www.ibm.com/docs/en/api-connect/software/12.1.1?topic=reference-api-connect-rest-apis
+  - type: GettingStarted
+    url: >-
+      https://www.ibm.com/docs/en/api-connect/software/12.1.1?topic=reference-api-connect-rest-apis
+  - type: Authentication
+    url: >-
+      https://www.ibm.com/docs/en/api-connect/software/12.1.1?topic=cli-managing-platform-rest-api-keys
+- aid: ibm-api-connect:ibm-api-connect-space-resource-api
+  name: IBM API Connect Space Resource API
+  description: The Space Resource API from IBM API Connect — 6 operation(s) for space resource.
+  humanURL: https://apic-api.apiconnect.ibmcloud.com/v12/
+  baseURL: https://{platform-api-endpoint}/api
+  tags:
+  - Space Resource
+  properties:
+  - type: OpenAPI
+    url: openapi/ibm-api-connect-space-resource-api-openapi.yml
+  - type: Reference
+    url: https://apic-api.apiconnect.ibmcloud.com/v12/
+  - type: Documentation
+    url: >-
+      https://www.ibm.com/docs/en/api-connect/software/12.1.1?topic=reference-api-connect-rest-apis
+  - type: GettingStarted
+    url: >-
+      https://www.ibm.com/docs/en/api-connect/software/12.1.1?topic=reference-api-connect-rest-apis
+  - type: Authentication
+    url: >-
+      https://www.ibm.com/docs/en/api-connect/software/12.1.1?topic=cli-managing-platform-rest-api-keys
+- aid: ibm-api-connect:ibm-api-connect-space-resources-api
+  name: IBM API Connect Space Resources API
+  description: The Space Resources API from IBM API Connect — 44 operation(s) for space resources.
+  humanURL: https://apic-api.apiconnect.ibmcloud.com/v12/
+  baseURL: https://{platform-api-endpoint}/api
+  tags:
+  - Space Resources
+  properties:
+  - type: OpenAPI
+    url: openapi/ibm-api-connect-space-resources-api-openapi.yml
+  - type: Reference
+    url: https://apic-api.apiconnect.ibmcloud.com/v12/
+  - type: Documentation
+    url: >-
+      https://www.ibm.com/docs/en/api-connect/software/12.1.1?topic=reference-api-connect-rest-apis
+  - type: GettingStarted
+    url: >-
+      https://www.ibm.com/docs/en/api-connect/software/12.1.1?topic=reference-api-connect-rest-apis
+  - type: Authentication
+    url: >-
+      https://www.ibm.com/docs/en/api-connect/software/12.1.1?topic=cli-managing-platform-rest-api-keys
+- aid: ibm-api-connect:ibm-api-connect-space-settings-api
+  name: IBM API Connect Space Settings API
+  description: The Space Settings API from IBM API Connect — 30 operation(s) for space settings.
+  humanURL: https://apic-api.apiconnect.ibmcloud.com/v12/
+  baseURL: https://{platform-api-endpoint}/api
+  tags:
+  - Space Settings
+  properties:
+  - type: OpenAPI
+    url: openapi/ibm-api-connect-space-settings-api-openapi.yml
+  - type: Reference
+    url: https://apic-api.apiconnect.ibmcloud.com/v12/
+  - type: Documentation
+    url: >-
+      https://www.ibm.com/docs/en/api-connect/software/12.1.1?topic=reference-api-connect-rest-apis
+  - type: GettingStarted
+    url: >-
+      https://www.ibm.com/docs/en/api-connect/software/12.1.1?topic=reference-api-connect-rest-apis
+  - type: Authentication
+    url: >-
+      https://www.ibm.com/docs/en/api-connect/software/12.1.1?topic=cli-managing-platform-rest-api-keys
+- aid: ibm-api-connect:ibm-api-connect-user-api
+  name: IBM API Connect User API
+  description: The User API from IBM API Connect — 1 operation(s) for user.
+  humanURL: https://apic-api.apiconnect.ibmcloud.com/v12/
+  baseURL: https://{platform-api-endpoint}/api
+  tags:
+  - User
+  properties:
+  - type: OpenAPI
+    url: openapi/ibm-api-connect-user-api-openapi.yml
+  - type: Reference
+    url: https://apic-api.apiconnect.ibmcloud.com/v12/
+  - type: Documentation
+    url: >-
+      https://www.ibm.com/docs/en/api-connect/software/12.1.1?topic=reference-api-connect-rest-apis
+  - type: GettingStarted
+    url: >-
+      https://www.ibm.com/docs/en/api-connect/software/12.1.1?topic=reference-api-connect-rest-apis
+  - type: Authentication
+    url: >-
+      https://www.ibm.com/docs/en/api-connect/software/12.1.1?topic=cli-managing-platform-rest-api-keys
+- aid: ibm-api-connect:ibm-api-connect-user-management-api
+  name: IBM API Connect User Management API
+  description: The User Management API from IBM API Connect — 27 operation(s) for user management.
+  humanURL: https://apic-api.apiconnect.ibmcloud.com/v12/
+  baseURL: https://{platform-api-endpoint}/api
+  tags:
+  - User Management
+  properties:
+  - type: OpenAPI
+    url: openapi/ibm-api-connect-user-management-api-openapi.yml
+  - type: Reference
+    url: https://apic-api.apiconnect.ibmcloud.com/v12/
+  - type: Documentation
+    url: >-
+      https://www.ibm.com/docs/en/api-connect/software/12.1.1?topic=reference-api-connect-rest-apis
+  - type: GettingStarted
+    url: >-
+      https://www.ibm.com/docs/en/api-connect/software/12.1.1?topic=reference-api-connect-rest-apis
+  - type: Authentication
+    url: >-
+      https://www.ibm.com/docs/en/api-connect/software/12.1.1?topic=cli-managing-platform-rest-api-keys
+- aid: ibm-api-connect:ibm-api-connect-validation-api
+  name: IBM API Connect Validation API
+  description: The Validation API from IBM API Connect — 6 operation(s) for validation.
+  humanURL: https://apic-api.apiconnect.ibmcloud.com/v12/
+  baseURL: https://{platform-api-endpoint}/api
+  tags:
+  - Validation
+  properties:
+  - type: OpenAPI
+    url: openapi/ibm-api-connect-validation-api-openapi.yml
+  - type: Reference
+    url: https://apic-api.apiconnect.ibmcloud.com/v12/
+  - type: Documentation
+    url: >-
+      https://www.ibm.com/docs/en/api-connect/software/12.1.1?topic=reference-api-connect-rest-apis
+  - type: GettingStarted
+    url: >-
+      https://www.ibm.com/docs/en/api-connect/software/12.1.1?topic=reference-api-connect-rest-apis
+  - type: Authentication
+    url: >-
+      https://www.ibm.com/docs/en/api-connect/software/12.1.1?topic=cli-managing-platform-rest-api-keys
+- aid: ibm-api-connect:ibm-api-connect-webhooks-api
+  name: IBM API Connect Webhooks API
+  description: The Webhooks API from IBM API Connect — 22 operation(s) for webhooks.
+  humanURL: https://apic-api.apiconnect.ibmcloud.com/v12/
+  baseURL: https://{platform-api-endpoint}/api
+  tags:
+  - Webhooks
+  properties:
+  - type: OpenAPI
+    url: openapi/ibm-api-connect-webhooks-api-openapi.yml
+  - type: Reference
+    url: https://apic-api.apiconnect.ibmcloud.com/v12/
+  - type: Documentation
+    url: >-
+      https://www.ibm.com/docs/en/api-connect/software/12.1.1?topic=reference-api-connect-rest-apis
+  - type: GettingStarted
+    url: >-
+      https://www.ibm.com/docs/en/api-connect/software/12.1.1?topic=reference-api-connect-rest-apis
+  - type: Authentication
+    url: >-
+      https://www.ibm.com/docs/en/api-connect/software/12.1.1?topic=cli-managing-platform-rest-api-keys
 common:
 - type: Plans
   url: plans/ibm-api-connect-plans-pricing.yml

@@ -1,3 +1,5 @@
+# x-archived-from: ibm-api-connect-consumer-api-openapi.yml
+# x-archived-on: 2026-10-17
 openapi: 3.0.0
 info:
   x-ibm-name: consumer

@@ -1,0 +1,1941 @@
+openapi: 3.2.0
+info:
+  x-ibm-name: apim
+  version: 2.0.0
+  title: IBM API Connect Platform - Provider Catalog Resource API
+  description: This API provides operations for accessing API provider capability.
+  termsOfService: https://www.ibm.com/legal
+  contact:
+    name: IBM
+    url: https://www.ibm.com
+    email: help@ibm.com
+  license:
+    name: tbd
+    url: https://tbd.com
+servers:
+- url: ''
+  description: APIM base path
+tags:
+- name: Catalog Resource
+paths:
+  /catalogs/{org}/{catalog}/subscriptions:
+    description: The collection of Subscription operations
+    parameters:
+    - $ref: '#/components/parameters/org'
+    - $ref: '#/components/parameters/catalog'
+    get:
+      summary: List the Subscription objects
+      operationId: subscription_listCatalogScope
+      security:
+      - oauth:
+        - consumer-org:view
+      parameters:
+      - $ref: '#/components/parameters/fields'
+      - $ref: '#/components/parameters/offset'
+      - $ref: '#/components/parameters/limit'
+      - $ref: '#/components/parameters/product_url'
+      - $ref: '#/components/parameters/mcp_server_url'
+      - $ref: '#/components/parameters/consumer_org_url'
+      - $ref: '#/components/parameters/plan_query'
+      - $ref: '#/components/parameters/expand'
+      - $ref: '#/components/parameters/mcp_server_subscriptions'
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SubscriptionList'
+            application/yaml:
+              schema:
+                $ref: '#/components/schemas/SubscriptionList'
+        4XX:
+          $ref: '#/components/responses/Error'
+        5XX:
+          $ref: '#/components/responses/Error'
+      tags:
+      - Catalog Resource
+  /catalogs/{org}/{catalog}/apps/{app}/subscriptions:
+    description: The collection of Subscription operations
+    parameters:
+    - $ref: '#/components/parameters/org'
+    - $ref: '#/components/parameters/catalog'
+    - $ref: '#/components/parameters/app'
+    post:
+      summary: Create a Subscription object
+      description: 'Create a Subscription object
+
+
+        Required fields:
+
+        - plan
+
+
+        Fields allowed but ignored:
+
+        - id
+
+        - type
+
+        - api_version
+
+        - scope
+
+        - created_at
+
+        - updated_at
+
+        - url'
+      operationId: subscription_createAppScope
+      security:
+      - oauth:
+        - app:manage:all
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Subscription'
+          application/yaml:
+            schema:
+              $ref: '#/components/schemas/Subscription'
+      responses:
+        '201':
+          description: Successful create
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Subscription'
+            application/yaml:
+              schema:
+                $ref: '#/components/schemas/Subscription'
+        '302':
+          description: Redirect response
+          headers:
+            Location:
+              description: Redirect payload
+              schema:
+                type: string
+        4XX:
+          $ref: '#/components/responses/Error'
+        5XX:
+          $ref: '#/components/responses/Error'
+      tags:
+      - Catalog Resource
+    get:
+      summary: List the Subscription objects
+      operationId: subscription_listAppScope
+      security:
+      - oauth:
+        - consumer-org:view
+      parameters:
+      - $ref: '#/components/parameters/fields'
+      - $ref: '#/components/parameters/offset'
+      - $ref: '#/components/parameters/limit'
+      - $ref: '#/components/parameters/product_url'
+      - $ref: '#/components/parameters/mcp_server_url'
+      - $ref: '#/components/parameters/consumer_org_url'
+      - $ref: '#/components/parameters/plan_query'
+      - $ref: '#/components/parameters/expand'
+      - $ref: '#/components/parameters/mcp_server_subscriptions'
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SubscriptionList'
+            application/yaml:
+              schema:
+                $ref: '#/components/schemas/SubscriptionList'
+        4XX:
+          $ref: '#/components/responses/Error'
+        5XX:
+          $ref: '#/components/responses/Error'
+      tags:
+      - Catalog Resource
+    delete:
+      summary: Clear the Subscription objects
+      operationId: subscription_clearAppScope
+      security:
+      - oauth:
+        - app:manage:all
+      parameters:
+      - $ref: '#/components/parameters/confirm'
+      responses:
+        '204':
+          description: Success
+        4XX:
+          $ref: '#/components/responses/Error'
+        5XX:
+          $ref: '#/components/responses/Error'
+      tags:
+      - Catalog Resource
+  /catalogs/{org}/{catalog}/apps/{app}/subscriptions/{subscription}:
+    description: Subscription object operations
+    parameters:
+    - $ref: '#/components/parameters/org'
+    - $ref: '#/components/parameters/catalog'
+    - $ref: '#/components/parameters/app'
+    - $ref: '#/components/parameters/subscription'
+    get:
+      summary: Get the Subscription object by name or id
+      operationId: subscription_getAppScope
+      security:
+      - oauth:
+        - app:view:all
+      parameters:
+      - $ref: '#/components/parameters/fields'
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Subscription'
+            application/yaml:
+              schema:
+                $ref: '#/components/schemas/Subscription'
+        4XX:
+          $ref: '#/components/responses/Error'
+        5XX:
+          $ref: '#/components/responses/Error'
+      tags:
+      - Catalog Resource
+    patch:
+      summary: Update the Subscription object by name or id
+      description: 'Update the Subscription object by name or id
+
+
+        Fields not allowed:
+
+        - billing_identifiers
+
+        - plan_title
+
+
+        Fields allowed but ignored:
+
+        - id
+
+        - type
+
+        - api_version
+
+        - scope
+
+        - created_at
+
+        - updated_at
+
+        - url'
+      operationId: subscription_updateAppScope
+      security:
+      - oauth:
+        - app:manage:all
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Subscription'
+          application/yaml:
+            schema:
+              $ref: '#/components/schemas/Subscription'
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Subscription'
+            application/yaml:
+              schema:
+                $ref: '#/components/schemas/Subscription'
+        4XX:
+          $ref: '#/components/responses/Error'
+        5XX:
+          $ref: '#/components/responses/Error'
+      tags:
+      - Catalog Resource
+    delete:
+      summary: Delete the Subscription object by name or id
+      operationId: subscription_delAppScope
+      security:
+      - oauth:
+        - app:manage:all
+      responses:
+        '200':
+          description: Successful delete
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Subscription'
+            application/yaml:
+              schema:
+                $ref: '#/components/schemas/Subscription'
+        4XX:
+          $ref: '#/components/responses/Error'
+        5XX:
+          $ref: '#/components/responses/Error'
+      tags:
+      - Catalog Resource
+  /catalogs/{org}/{catalog}/credentials:
+    description: The collection of Credential operations
+    parameters:
+    - $ref: '#/components/parameters/org'
+    - $ref: '#/components/parameters/catalog'
+    get:
+      summary: List the Credential objects
+      operationId: credential_listCatalogScope
+      security:
+      - oauth:
+        - consumer-org:view
+      parameters:
+      - $ref: '#/components/parameters/fields'
+      - $ref: '#/components/parameters/offset'
+      - $ref: '#/components/parameters/limit'
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CredentialList'
+            application/yaml:
+              schema:
+                $ref: '#/components/schemas/CredentialList'
+        4XX:
+          $ref: '#/components/responses/Error'
+        5XX:
+          $ref: '#/components/responses/Error'
+      tags:
+      - Catalog Resource
+  /catalogs/{org}/{catalog}/apps/{app}/strategies:
+    description: The collection of Strategy operations
+    parameters:
+    - $ref: '#/components/parameters/org'
+    - $ref: '#/components/parameters/catalog'
+    - $ref: '#/components/parameters/app'
+    post:
+      summary: Create a Strategy object
+      description: 'Create a Strategy object
+
+
+        Fields allowed but ignored:
+
+        - id
+
+        - type
+
+        - api_version
+
+        - scope
+
+        - created_at
+
+        - updated_at
+
+        - url'
+      operationId: strategy_createCatalogScope
+      security:
+      - oauth:
+        - app:manage:all
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Strategy'
+            examples:
+              Strategy:
+                summary: Example for strategy create
+                value:
+                  name: acme-strategy
+                  title: ACME Strategy
+                  summary: Example for acme strategy create
+          application/yaml:
+            schema:
+              $ref: '#/components/schemas/Strategy'
+            examples:
+              Strategy:
+                summary: Example for strategy create
+                value:
+                  name: acme-strategy
+                  title: ACME Strategy
+                  summary: Example for acme strategy create
+      responses:
+        '201':
+          description: Successful create
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Strategy'
+            application/yaml:
+              schema:
+                $ref: '#/components/schemas/Strategy'
+        '302':
+          description: Redirect response
+          headers:
+            Location:
+              description: Redirect payload
+              schema:
+                type: string
+        4XX:
+          $ref: '#/components/responses/Error'
+        5XX:
+          $ref: '#/components/responses/Error'
+      tags:
+      - Catalog Resource
+    get:
+      summary: List the Strategy objects
+      operationId: strategy_listCatalogScope
+      security:
+      - oauth:
+        - consumer-org:view
+      parameters:
+      - $ref: '#/components/parameters/fields'
+      - $ref: '#/components/parameters/offset'
+      - $ref: '#/components/parameters/limit'
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/StrategyList'
+            application/yaml:
+              schema:
+                $ref: '#/components/schemas/StrategyList'
+        4XX:
+          $ref: '#/components/responses/Error'
+        5XX:
+          $ref: '#/components/responses/Error'
+      tags:
+      - Catalog Resource
+    delete:
+      summary: Clear the Strategy objects
+      operationId: strategy_clearCatalogScope
+      security:
+      - oauth:
+        - app:manage:all
+      parameters:
+      - $ref: '#/components/parameters/confirm'
+      responses:
+        '204':
+          description: Success
+        4XX:
+          $ref: '#/components/responses/Error'
+        5XX:
+          $ref: '#/components/responses/Error'
+      tags:
+      - Catalog Resource
+  /catalogs/{org}/{catalog}/apps/{app}/strategies/{strategy}:
+    description: Strategy object operations
+    parameters:
+    - $ref: '#/components/parameters/org'
+    - $ref: '#/components/parameters/catalog'
+    - $ref: '#/components/parameters/app'
+    - $ref: '#/components/parameters/strategy'
+    get:
+      summary: Get the Strategy object by name or id
+      operationId: strategy_getCatalogScope
+      security:
+      - oauth:
+        - app:view:all
+      parameters:
+      - $ref: '#/components/parameters/fields'
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Strategy'
+            application/yaml:
+              schema:
+                $ref: '#/components/schemas/Strategy'
+        4XX:
+          $ref: '#/components/responses/Error'
+        5XX:
+          $ref: '#/components/responses/Error'
+      tags:
+      - Catalog Resource
+    patch:
+      summary: Update the Strategy object by name or id
+      description: 'Update the Strategy object by name or id
+
+
+        Fields allowed but ignored:
+
+        - id
+
+        - type
+
+        - api_version
+
+        - scope
+
+        - created_at
+
+        - updated_at
+
+        - url'
+      operationId: strategy_updateCatalogScope
+      security:
+      - oauth:
+        - app:manage:all
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Strategy'
+            examples:
+              Strategy:
+                summary: Example for strategy update
+                value:
+                  title: Acme Strategy
+                  summary: Example for acme strategy update
+                  strategy_type: oauth2
+                  dcr_config:
+                    application_type: public
+                    allowed_grant_types:
+                    - refresh_token
+                  auth_server_alias: mobile-auth-server
+          application/yaml:
+            schema:
+              $ref: '#/components/schemas/Strategy'
+            examples:
+              Strategy:
+                summary: Example for strategy update
+                value:
+                  title: Acme Strategy
+                  summary: Example for acme strategy update
+                  strategy_type: oauth2
+                  dcr_config:
+                    application_type: public
+                    allowed_grant_types:
+                    - refresh_token
+                  auth_server_alias: mobile-auth-server
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Strategy'
+            application/yaml:
+              schema:
+                $ref: '#/components/schemas/Strategy'
+        4XX:
+          $ref: '#/components/responses/Error'
+        5XX:
+          $ref: '#/components/responses/Error'
+      tags:
+      - Catalog Resource
+    delete:
+      summary: Delete the Strategy object by name or id
+      operationId: strategy_delCatalogScope
+      security:
+      - oauth:
+        - app:manage:all
+      responses:
+        '200':
+          description: Successful delete
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Strategy'
+            application/yaml:
+              schema:
+                $ref: '#/components/schemas/Strategy'
+        4XX:
+          $ref: '#/components/responses/Error'
+        5XX:
+          $ref: '#/components/responses/Error'
+      tags:
+      - Catalog Resource
+  /catalogs/{org}/{catalog}/apps/{app}/credentials:
+    description: The collection of Application Credential operations
+    parameters:
+    - $ref: '#/components/parameters/org'
+    - $ref: '#/components/parameters/catalog'
+    - $ref: '#/components/parameters/app'
+    post:
+      summary: Create a Application Credential object
+      description: 'Create a Application Credential object
+
+
+        Fields allowed but ignored:
+
+        - id
+
+        - type
+
+        - api_version
+
+        - scope
+
+        - created_at
+
+        - updated_at
+
+        - url
+
+        - org_url
+
+        - catalog_url
+
+        - consumer_org_url
+
+        - app_url'
+      operationId: credential_createAppScope
+      security:
+      - oauth:
+        - app:manage:all
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Credential'
+          application/yaml:
+            schema:
+              $ref: '#/components/schemas/Credential'
+      responses:
+        '201':
+          description: Successful create
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Credential'
+            application/yaml:
+              schema:
+                $ref: '#/components/schemas/Credential'
+        '302':
+          description: Redirect response
+          headers:
+            Location:
+              description: Redirect payload
+              schema:
+                type: string
+        4XX:
+          $ref: '#/components/responses/Error'
+        5XX:
+          $ref: '#/components/responses/Error'
+      tags:
+      - Catalog Resource
+    get:
+      summary: List the Application Credential objects
+      operationId: credential_listAppScope
+      security:
+      - oauth:
+        - app:view:all
+      parameters:
+      - $ref: '#/components/parameters/fields'
+      - $ref: '#/components/parameters/offset'
+      - $ref: '#/components/parameters/limit'
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CredentialList'
+            application/yaml:
+              schema:
+                $ref: '#/components/schemas/CredentialList'
+        4XX:
+          $ref: '#/components/responses/Error'
+        5XX:
+          $ref: '#/components/responses/Error'
+      tags:
+      - Catalog Resource
+  /catalogs/{org}/{catalog}/apps/{app}/credentials/{credential}:
+    description: Application Credential object operations
+    parameters:
+    - $ref: '#/components/parameters/org'
+    - $ref: '#/components/parameters/catalog'
+    - $ref: '#/components/parameters/app'
+    - $ref: '#/components/parameters/credential'
+    get:
+      summary: Get the Application Credential object by name or id
+      operationId: credential_getAppScope
+      security:
+      - oauth:
+        - app:view:all
+      parameters:
+      - $ref: '#/components/parameters/fields'
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Credential'
+            application/yaml:
+              schema:
+                $ref: '#/components/schemas/Credential'
+        4XX:
+          $ref: '#/components/responses/Error'
+        5XX:
+          $ref: '#/components/responses/Error'
+      tags:
+      - Catalog Resource
+    patch:
+      summary: Update the Application Credential object by name or id
+      description: 'Update the Application Credential object by name or id
+
+
+        Fields not allowed to be null:
+
+        - client_id
+
+
+        Fields allowed but ignored:
+
+        - id
+
+        - type
+
+        - api_version
+
+        - scope
+
+        - created_at
+
+        - updated_at
+
+        - url
+
+        - org_url
+
+        - catalog_url
+
+        - consumer_org_url
+
+        - app_url'
+      operationId: credential_updateAppScope
+      security:
+      - oauth:
+        - app:manage:all
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Credential'
+          application/yaml:
+            schema:
+              $ref: '#/components/schemas/Credential'
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Credential'
+            application/yaml:
+              schema:
+                $ref: '#/components/schemas/Credential'
+        4XX:
+          $ref: '#/components/responses/Error'
+        5XX:
+          $ref: '#/components/responses/Error'
+      tags:
+      - Catalog Resource
+    delete:
+      summary: Delete the Application Credential object by name or id
+      operationId: credential_delAppScope
+      security:
+      - oauth:
+        - app:manage:all
+      responses:
+        '200':
+          description: Successful delete
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Credential'
+            application/yaml:
+              schema:
+                $ref: '#/components/schemas/Credential'
+        4XX:
+          $ref: '#/components/responses/Error'
+        5XX:
+          $ref: '#/components/responses/Error'
+      tags:
+      - Catalog Resource
+  /catalogs/{org}/{catalog}/apps/{app}/credentials/{credential}/reset:
+    parameters:
+    - $ref: '#/components/parameters/org'
+    - $ref: '#/components/parameters/catalog'
+    - $ref: '#/components/parameters/app'
+    - $ref: '#/components/parameters/credential'
+    post:
+      summary: Reset the client id and client secret
+      operationId: credential_resetAppScope
+      security:
+      - oauth:
+        - app:manage:all
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Credential'
+            application/yaml:
+              schema:
+                $ref: '#/components/schemas/Credential'
+        4XX:
+          $ref: '#/components/responses/Error'
+        5XX:
+          $ref: '#/components/responses/Error'
+      tags:
+      - Catalog Resource
+  /catalogs/{org}/{catalog}/apps/{app}/credentials/{credential}/reset-client-secret:
+    parameters:
+    - $ref: '#/components/parameters/org'
+    - $ref: '#/components/parameters/catalog'
+    - $ref: '#/components/parameters/app'
+    - $ref: '#/components/parameters/credential'
+    post:
+      summary: Reset the client secret
+      operationId: credential_resetClientSecretAppScope
+      security:
+      - oauth:
+        - app:manage:all
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Credential'
+            application/yaml:
+              schema:
+                $ref: '#/components/schemas/Credential'
+        4XX:
+          $ref: '#/components/responses/Error'
+        5XX:
+          $ref: '#/components/responses/Error'
+      tags:
+      - Catalog Resource
+  /catalogs/{org}/{catalog}/apps/{app}/credentials/{credential}/verify-client-secret:
+    parameters:
+    - $ref: '#/components/parameters/org'
+    - $ref: '#/components/parameters/catalog'
+    - $ref: '#/components/parameters/app'
+    - $ref: '#/components/parameters/credential'
+    post:
+      summary: Verify the client secret
+      operationId: credential_verifyClientSecretAppScope
+      security:
+      - oauth:
+        - app:manage:all
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Credential'
+          application/yaml:
+            schema:
+              $ref: '#/components/schemas/Credential'
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Credential'
+            application/yaml:
+              schema:
+                $ref: '#/components/schemas/Credential'
+        4XX:
+          $ref: '#/components/responses/Error'
+        5XX:
+          $ref: '#/components/responses/Error'
+      tags:
+      - Catalog Resource
+  /spaces/{org}/{catalog}/{space}/apps/{app}/credentials:
+    description: The collection of Application Credential operations
+    parameters:
+    - $ref: '#/components/parameters/org'
+    - $ref: '#/components/parameters/catalog'
+    - $ref: '#/components/parameters/space'
+    - $ref: '#/components/parameters/app'
+    post:
+      summary: Create a Application Credential object
+      description: 'Create a Application Credential object
+
+
+        Fields allowed but ignored:
+
+        - id
+
+        - type
+
+        - api_version
+
+        - scope
+
+        - created_at
+
+        - updated_at
+
+        - url
+
+        - org_url
+
+        - catalog_url
+
+        - consumer_org_url
+
+        - app_url'
+      operationId: credential_createAppScopeSpaceInitiated
+      security:
+      - oauth:
+        - app:manage:all
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Credential'
+          application/yaml:
+            schema:
+              $ref: '#/components/schemas/Credential'
+      responses:
+        '201':
+          description: Successful create
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Credential'
+            application/yaml:
+              schema:
+                $ref: '#/components/schemas/Credential'
+        '302':
+          description: Redirect response
+          headers:
+            Location:
+              description: Redirect payload
+              schema:
+                type: string
+        4XX:
+          $ref: '#/components/responses/Error'
+        5XX:
+          $ref: '#/components/responses/Error'
+      tags:
+      - Catalog Resource
+    get:
+      summary: List the Application Credential objects
+      operationId: credential_listAppScopeSpaceInitiated
+      security:
+      - oauth:
+        - app:view:all
+      parameters:
+      - $ref: '#/components/parameters/fields'
+      - $ref: '#/components/parameters/offset'
+      - $ref: '#/components/parameters/limit'
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CredentialList'
+            application/yaml:
+              schema:
+                $ref: '#/components/schemas/CredentialList'
+        4XX:
+          $ref: '#/components/responses/Error'
+        5XX:
+          $ref: '#/components/responses/Error'
+      tags:
+      - Catalog Resource
+  /spaces/{org}/{catalog}/{space}/apps/{app}/credentials/{credential}:
+    description: Application Credential object operations
+    parameters:
+    - $ref: '#/components/parameters/org'
+    - $ref: '#/components/parameters/catalog'
+    - $ref: '#/components/parameters/space'
+    - $ref: '#/components/parameters/app'
+    - $ref: '#/components/parameters/credential'
+    get:
+      summary: Get the Application Credential object by name or id
+      operationId: credential_getAppScopeSpaceInitiated
+      security:
+      - oauth:
+        - app:view:all
+      parameters:
+      - $ref: '#/components/parameters/fields'
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Credential'
+            application/yaml:
+              schema:
+                $ref: '#/components/schemas/Credential'
+        4XX:
+          $ref: '#/components/responses/Error'
+        5XX:
+          $ref: '#/components/responses/Error'
+      tags:
+      - Catalog Resource
+    patch:
+      summary: Update the Application Credential object by name or id
+      description: 'Update the Application Credential object by name or id
+
+
+        Fields not allowed to be null:
+
+        - client_id
+
+
+        Fields allowed but ignored:
+
+        - id
+
+        - type
+
+        - api_version
+
+        - scope
+
+        - created_at
+
+        - updated_at
+
+        - url
+
+        - org_url
+
+        - catalog_url
+
+        - consumer_org_url
+
+        - app_url'
+      operationId: credential_updateAppScopeSpaceInitiated
+      security:
+      - oauth:
+        - app:manage:all
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Credential'
+          application/yaml:
+            schema:
+              $ref: '#/components/schemas/Credential'
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Credential'
+            application/yaml:
+              schema:
+                $ref: '#/components/schemas/Credential'
+        4XX:
+          $ref: '#/components/responses/Error'
+        5XX:
+          $ref: '#/components/responses/Error'
+      tags:
+      - Catalog Resource
+    delete:
+      summary: Delete the Application Credential object by name or id
+      operationId: credential_delAppScopeSpaceInitiated
+      security:
+      - oauth:
+        - app:manage:all
+      responses:
+        '200':
+          description: Successful delete
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Credential'
+            application/yaml:
+              schema:
+                $ref: '#/components/schemas/Credential'
+        4XX:
+          $ref: '#/components/responses/Error'
+        5XX:
+          $ref: '#/components/responses/Error'
+      tags:
+      - Catalog Resource
+  /spaces/{org}/{catalog}/{space}/apps/{app}/credentials/{credential}/reset:
+    parameters:
+    - $ref: '#/components/parameters/org'
+    - $ref: '#/components/parameters/catalog'
+    - $ref: '#/components/parameters/space'
+    - $ref: '#/components/parameters/app'
+    - $ref: '#/components/parameters/credential'
+    post:
+      summary: Reset the client id and client secret
+      operationId: credential_resetAppScopeSpaceInitiated
+      security:
+      - oauth:
+        - app:manage:all
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Credential'
+            application/yaml:
+              schema:
+                $ref: '#/components/schemas/Credential'
+        4XX:
+          $ref: '#/components/responses/Error'
+        5XX:
+          $ref: '#/components/responses/Error'
+      tags:
+      - Catalog Resource
+  /spaces/{org}/{catalog}/{space}/apps/{app}/credentials/{credential}/reset-client-secret:
+    parameters:
+    - $ref: '#/components/parameters/org'
+    - $ref: '#/components/parameters/catalog'
+    - $ref: '#/components/parameters/space'
+    - $ref: '#/components/parameters/app'
+    - $ref: '#/components/parameters/credential'
+    post:
+      summary: Reset the client secret
+      operationId: credential_resetClientSecretAppScopeSpaceInitiated
+      security:
+      - oauth:
+        - app:manage:all
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Credential'
+            application/yaml:
+              schema:
+                $ref: '#/components/schemas/Credential'
+        4XX:
+          $ref: '#/components/responses/Error'
+        5XX:
+          $ref: '#/components/responses/Error'
+      tags:
+      - Catalog Resource
+  /spaces/{org}/{catalog}/{space}/apps/{app}/credentials/{credential}/verify-client-secret:
+    parameters:
+    - $ref: '#/components/parameters/org'
+    - $ref: '#/components/parameters/catalog'
+    - $ref: '#/components/parameters/space'
+    - $ref: '#/components/parameters/app'
+    - $ref: '#/components/parameters/credential'
+    post:
+      summary: Verify the client secret
+      operationId: credential_verifyClientSecretAppScopeSpaceInitiated
+      security:
+      - oauth:
+        - app:manage:all
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Credential'
+          application/yaml:
+            schema:
+              $ref: '#/components/schemas/Credential'
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Credential'
+            application/yaml:
+              schema:
+                $ref: '#/components/schemas/Credential'
+        4XX:
+          $ref: '#/components/responses/Error'
+        5XX:
+          $ref: '#/components/responses/Error'
+      tags:
+      - Catalog Resource
+components:
+  schemas:
+    ClientRegistration:
+      description: Shows the configurations set for the oauth client, when using Dynamic Client Registration. This is a read only model. To update the configuration use the DynamicClientRegistrationConfig model.
+      type: object
+      additionalProperties: false
+      properties:
+        approval_pgfilename:
+          type: string
+          description: Approval page file name
+        approval_pgfooter:
+          type: string
+          description: Approval page footer
+        approval_pgheading:
+          type: string
+          description: Approval page heading
+        approval_pglogo_filename:
+          type: string
+          description: Approval page logo filename
+        approval_pgtitle:
+          type: string
+          description: Approval page title
+        authcode_allowed:
+          type: boolean
+          description: Option to choose Authorization code grant type
+        cl_scopes:
+          type: array
+          description: The scopes associated with this client
+          items:
+            type: string
+        client_credentials_allowed:
+          type: boolean
+          description: Option to choose Client Credentials grant type
+        client_id:
+          type: string
+          description: The client id
+        client_secret:
+          type: string
+        enabled:
+          type: boolean
+          description: Is the client enabled?
+        implicit_allowed:
+          type: boolean
+          description: Option to choose Implicit grant type
+        name:
+          type: string
+          description: The client name
+        notes:
+          type: string
+          description: Notes on the client
+        pkce_type:
+          type: string
+          description: OAuth client level options to apply PKCE security, for the public clients using authorization code grant type. Applicable only for local auth server.
+          enum:
+          - not-enforced
+          - enforced
+          - use-global-setting
+        primary_node:
+          $ref: '#/components/schemas/Node'
+        redirect_uris:
+          type: array
+          description: List of redirect urls allowed for this client
+          items:
+            type: string
+        resource_owner_allowed:
+          type: boolean
+          description: Option to choose Resource Owner grant type
+        shell:
+          type: boolean
+        token_lifetime:
+          type: integer
+          minimum: 0
+          maximum: 2147483647
+          description: Token life time
+        token_refresh_limit:
+          type: integer
+          minimum: 0
+          maximum: 2147483647
+          description: The number of times token can be refreshed
+        type:
+          type: string
+          description: specifies whether the client is either public or confidential client
+        version:
+          type: string
+          description: The client version
+    Strategy:
+      type: object
+      additionalProperties: false
+      properties:
+        type:
+          type: string
+          readOnly: true
+          enum:
+          - strategy
+        api_version:
+          type: string
+          readOnly: true
+          enum:
+          - 2.0.0
+        id:
+          type: string
+          readOnly: true
+        name:
+          type: string
+          maxLength: 255
+        title:
+          type: string
+          maxLength: 1023
+        summary:
+          type: string
+          maxLength: 65535
+        scope:
+          type: string
+        description:
+          type: string
+        strategy_type:
+          type: string
+          enum:
+          - jwt-hsa
+          - jwt-rsa
+          - openid-connect-hsa
+          - openid-connect-rsa
+          - oauth2
+          - oauth2-local-hsa
+          - oauth2-local-rsa
+          - composite
+        auth_server_alias:
+          type: string
+        client_id:
+          type: string
+        audience:
+          type: string
+        dcr_config:
+          $ref: '#/components/schemas/DynamicClientRegistrationConfig'
+        client_registration:
+          $ref: '#/components/schemas/ClientRegistration'
+        secret:
+          type: string
+          format: password
+        gateway_secret:
+          $ref: '#/components/schemas/GatewaySecret'
+        primary_node:
+          $ref: '#/components/schemas/Node'
+        access_token_uris:
+          type: array
+          items:
+            type: string
+        authorization_uris:
+          type: array
+          items:
+            type: string
+        refresh_token_uris:
+          type: array
+          items:
+            type: string
+        jwt_access_token_uris:
+          type: array
+          items:
+            type: string
+        org_url:
+          type: string
+          format: uri
+        catalog_url:
+          type: string
+          format: uri
+        consumer_org_url:
+          type: string
+          format: uri
+        app_url:
+          type: string
+          format: uri
+        metadata:
+          type: object
+          additionalProperties:
+            type: string
+        created_at:
+          type: string
+          format: date-time
+          readOnly: true
+        updated_at:
+          type: string
+          format: date-time
+          readOnly: true
+        url:
+          type: string
+          readOnly: true
+          format: uri
+    Error:
+      type: object
+      additionalProperties: false
+      properties:
+        status:
+          type: integer
+          minimum: 400
+          maximum: 599
+        message:
+          type: array
+          items:
+            type: string
+        errors:
+          type: array
+          items:
+            type: string
+    Node:
+      type: object
+      additionalProperties: false
+      properties:
+        hostId:
+          type: string
+        replica:
+          type: integer
+          minimum: 0
+          maximum: 1000
+    CredentialList:
+      type: object
+      additionalProperties: false
+      properties:
+        total_results:
+          type: integer
+        results:
+          type: array
+          items:
+            $ref: '#/components/schemas/Credential'
+    StrategyList:
+      type: object
+      additionalProperties: false
+      properties:
+        total_results:
+          type: integer
+        results:
+          type: array
+          items:
+            $ref: '#/components/schemas/Strategy'
+    DynamicClientRegistrationConfig:
+      type: object
+      description: Accepts the configurations to be set for the oauth client, when using Dynamic Client Registration
+      properties:
+        allowed_grant_types:
+          type: array
+          description: grant types to be allowed for this client
+          items:
+            type: string
+            enum:
+            - authorization_code
+            - password
+            - client_credentials
+            - refresh_token
+            - implicit
+        application_type:
+          type: string
+          description: type of the application
+        client_id:
+          type: string
+          description: The client id
+        client_name:
+          type: string
+          description: The client name
+        client_secret:
+          type: string
+          description: The client secret
+        client_type:
+          type: string
+          description: specifies whether the client is either public or confidential client
+          enum:
+          - public
+          - confidential
+        client_version:
+          type: string
+          description: The client version
+        expiration_interval:
+          type: string
+          description: Token expiry time
+        pkce_type:
+          type: string
+          description: OAuth client level options to apply PKCE security, for the public clients using authorization code grant type. Applicable only for local auth server.
+          enum:
+          - not-enforced
+          - enforced
+          - use-global-setting
+        redirect_uris:
+          type: array
+          description: The redirect uris
+          items:
+            type: string
+        refresh_count:
+          type: string
+          description: The number of times token can be refreshed
+        scopes:
+          type: array
+          description: The scopes associated with this client
+          items:
+            type: string
+    Subscription:
+      type: object
+      additionalProperties: false
+      properties:
+        type:
+          type: string
+          readOnly: true
+          enum:
+          - subscription
+        api_version:
+          type: string
+          readOnly: true
+          enum:
+          - 2.0.0
+        id:
+          type: string
+          readOnly: true
+        name:
+          type: string
+          maxLength: 255
+        title:
+          type: string
+          maxLength: 1023
+        summary:
+          type: string
+          maxLength: 65535
+        state:
+          type: string
+          enum:
+          - pending
+          - enabled
+          - rejected
+          - disabled
+        product_url:
+          type:
+          - string
+          - 'null'
+          format: uri
+        mcp_server_url:
+          type:
+          - string
+          - 'null'
+          format: uri
+        product:
+          type: object
+          additionalProperties: false
+          properties:
+            id:
+              type: string
+            title:
+              type: string
+            name:
+              type: string
+            version:
+              type: string
+            url:
+              type: string
+              format: uri
+        plan:
+          type: string
+        plan_title:
+          type: string
+        task_urls:
+          type: array
+          items:
+            type: string
+            format: uri
+        state_pending:
+          type:
+          - string
+          - 'null'
+          enum:
+          - enabled
+        org_url:
+          type: string
+          format: uri
+        catalog_url:
+          type: string
+          format: uri
+        consumer_org_url:
+          type: string
+          format: uri
+        consumer_org:
+          type: object
+          additionalProperties: false
+          properties:
+            id:
+              type: string
+            title:
+              type: string
+            name:
+              type: string
+            url:
+              type: string
+              format: uri
+        app_url:
+          type: string
+          format: uri
+        app:
+          type: object
+          additionalProperties: false
+          properties:
+            id:
+              type: string
+            title:
+              type: string
+            name:
+              type: string
+            url:
+              type: string
+              format: uri
+            credentials:
+              type: array
+              items:
+                type: object
+                additionalProperties: false
+                properties:
+                  id:
+                    type: string
+                  client_id:
+                    type: string
+                  title:
+                    type: string
+                  name:
+                    type: string
+                  url:
+                    type: string
+                    format: uri
+        billing_identifiers:
+          description: non-sensitive identifiers of billing system resources
+          type: object
+          additionalProperties: true
+        metadata:
+          type: object
+          additionalProperties:
+            type: string
+        created_at:
+          type: string
+          format: date-time
+          readOnly: true
+        updated_at:
+          type: string
+          format: date-time
+          readOnly: true
+        url:
+          type: string
+          readOnly: true
+          format: uri
+    Credential:
+      type: object
+      additionalProperties: false
+      properties:
+        type:
+          type: string
+          readOnly: true
+          enum:
+          - credential
+        api_version:
+          type: string
+          readOnly: true
+          enum:
+          - 2.0.0
+        id:
+          type: string
+          readOnly: true
+        name:
+          type: string
+          maxLength: 255
+        title:
+          type: string
+          maxLength: 1023
+        summary:
+          type: string
+          maxLength: 65535
+        client_id:
+          type: string
+        client_secret_hashed:
+          type: string
+        client_secret:
+          type: string
+        org_url:
+          type: string
+          format: uri
+        catalog_url:
+          type: string
+          format: uri
+        consumer_org_url:
+          type: string
+          format: uri
+        app_url:
+          type: string
+          format: uri
+        state:
+          type: string
+          enum:
+          - enabled
+          - pending
+        metadata:
+          type: object
+          additionalProperties:
+            type: string
+        created_at:
+          type: string
+          format: date-time
+          readOnly: true
+        updated_at:
+          type: string
+          format: date-time
+          readOnly: true
+        url:
+          type: string
+          readOnly: true
+          format: uri
+    SubscriptionList:
+      type: object
+      additionalProperties: false
+      properties:
+        total_results:
+          type: integer
+        results:
+          type: array
+          items:
+            $ref: '#/components/schemas/Subscription'
+    GatewaySecret:
+      type: object
+      additionalProperties: false
+      properties:
+        cached_secret:
+          type: string
+        secret:
+          type: string
+        xrayview:
+          type: string
+  parameters:
+    limit:
+      name: limit
+      in: query
+      description: Maximum number of items to return
+      required: false
+      schema:
+        type: integer
+    credential:
+      name: credential
+      in: path
+      description: Application Credential name or id
+      required: true
+      schema:
+        type: string
+    fields:
+      name: fields
+      in: query
+      description: List of field names to return
+      required: false
+      schema:
+        type: string
+    org:
+      name: org
+      in: path
+      description: Organization name or id
+      required: true
+      schema:
+        type: string
+    subscription:
+      name: subscription
+      in: path
+      description: Subscription name or id
+      required: true
+      schema:
+        type: string
+    expand:
+      name: expand
+      in: query
+      description: List of transient field to expand
+      required: false
+      schema:
+        type: string
+    mcp_server_url:
+      name: mcp_server_url
+      in: query
+      description: MCP Server Url
+      required: false
+      schema:
+        type: string
+    strategy:
+      name: strategy
+      in: path
+      description: Application Strategy Management name or id
+      required: true
+      schema:
+        type: string
+    offset:
+      name: offset
+      in: query
+      description: Offset item number from list to begin return
+      required: false
+      schema:
+        type: integer
+    mcp_server_subscriptions:
+      name: mcp_server_subscriptions
+      in: query
+      description: Only retrieve subscriptions for MCP Servers
+      required: false
+      schema:
+        type: boolean
+    space:
+      name: space
+      in: path
+      description: Space name or id
+      required: true
+      schema:
+        type: string
+    app:
+      name: app
+      in: path
+      description: Application name or id
+      required: true
+      schema:
+        type: string
+    consumer_org_url:
+      name: consumer_org_url
+      in: query
+      description: Consumer Org Url
+      required: false
+      schema:
+        type: string
+    confirm:
+      name: confirm
+      in: query
+      description: Confirmation for critical updates
+      required: true
+      schema:
+        type: string
+    catalog:
+      name: catalog
+      in: path
+      description: Catalog name or id
+      required: true
+      schema:
+        type: string
+    product_url:
+      name: product_url
+      in: query
+      description: Product Url
+      required: false
+      schema:
+        type: string
+    plan_query:
+      name: plan
+      in: query
+      description: Plan Name
+      required: false
+      schema:
+        type: string
+  responses:
+    Error:
+      description: Unexpected error
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+        application/yaml:
+          schema:
+            $ref: '#/components/schemas/Error'
+  securitySchemes:
+    oauth:
+      type: oauth2
+      flows:
+        implicit:
+          authorizationUrl: /oauth2/authorize
+          scopes:
+            api-drafts:edit: Clear the Draft objects, Create a Draft API object, Clear all Draft API objects in all collections, Clear the Draft API objects, Update the Draft API object by id, Delete the Draft API object by id, Update the Draft API object by name and version, Delete the Draft API object by name and version
+            api-drafts:view: List the Draft objects, List all Draft API objects in all collections, List the Draft API objects, Get the Draft API object by id, Get the Draft API object by name and version
+            app:manage:all: Create a Application object, Clear the Application objects, Update the Application object by name or id, Delete the Application object by name or id, Create a Strategy object, Delete the Strategy object by name or id, Clear the Strategy objects, Update the Strategy object by name or id, Create a Application Credential object, Update the Application Credential object by name or id, Delete the Application Credential object by name or id, Create a Subscription object, Clear the Subscription objects, Update the Subscription object by name or id, Delete the Subscription object by name or id
+            app:view:all: List the Application objects, Get the Application object by name or id, List the Strategy objects, Get the Strategy object by name or id, List the Application Credential objects, Get the Application Credential object by name or id, List the Subscription objects, Get the Subscription object by name or id
+            approval:view: List the Task objects, Get the Task object by name or id, Update the Task object by name or id, List the Task History objects, Get the Task History object by name or id
+            child:create: Create a Catalog object, Create a Space object
+            child:manage: Clear the Catalog objects, Update the Catalog object by name or id, Delete the Catalog object by name or id, Clear the Space objects, Update the Space object by name or id, Delete the Space object by name or id
+            child:view: List the Catalog objects, Get the Catalog object by name or id, List the Space objects, Get the Space object by name or id
+            cloud:manage: Update the Cloud Setting object, Update the User Registry Setting object, Update the Notification Style object, Create a Registration object, Clear the Registration objects, Update the Registration object by name or id, Delete the Registration object by name or id, Update the Webhook object by name or id
+            cloud:view: Get the Cloud Setting object, Get the User Registry Setting object, Get the Notification Style object, List all Notification Template objects in all collections, List all Role Default objects in all collections, List the Registration objects, Get the Registration object by name or id, List the Webhook objects, Get the Webhook object by name or id
+            consumer-org:manage: Clear the Activation objects, Delete the Activation object by name or id, Create a Consumer Organization object, Clear the Consumer Organization objects, Update the Consumer Organization object by name or id, Delete the Consumer Organization object by name or id, Create a Payment Method object, Update the Payment Method object by name or id, Delete the Payment Method object by name or id
+            consumer-org:view: List the Activation objects, Get the Activation object by name or id, List the Consumer Organization objects, Get the Consumer Organization object by name or id, List the Payment Method objects, Get the Payment Method object by name or id
+            my:manage: Create a API Key object, Delete the API Key object by name or id, Update the Me object, Delete the Me object
+            my:view: List the API Key objects, Get the API Key object by name or id, Get the Me object, List the My Permission objects, List the My Task objects, List the Originated Task objects, List the My Organization objects, List the My Catalog objects, List the My Space objects, List the My User Group objects, List the My Team objects
+            org:manage: Update the Log Spec object, Create a User Registry object, Clear the User Registry objects, Update the User Registry object by name or id, Delete the User Registry object by name or id, Create a User object, Clear the User objects, Update the User object by name or id, Delete the User object by name or id, Update the Organization Setting object, Update the Organization object by name or id, Delete the Organization object by name or id, Create a Member Invitation object, Clear the Member Invitation objects, Update the Member Invitation object by name or id, Delete the Member Invitation object by name or id, Create a Member object, Clear the Member objects, Update the Member object by name or id, Delete the Member object by name or id, Create a User Group Role Assignment object, Clear the User Group Role Assignment objects, Update the User Group Role Assignment object by name or id, Delete the User Group Role Assignment object by name or id, Create a Role object, Clear the Role objects, Update the Role object by name or id, Delete the Role object by name or id, Create a Availability Zone object, Clear the Availability Zone objects, Update the Availability Zone object by name or id, Delete the Availability Zone object by name or id, Create a Gateway Service object, Clear the Gateway Service objects, Update the Gateway Service object by name or id, Delete the Gateway Service object by name or id, Create a Portal Service object, Clear the Portal Service objects, Update the Portal Service object by name or id, Delete the Portal Service object by name or id, Create a Analytics Service object, Clear the Analytics Service objects, Update the Analytics Service object by name or id, Delete the Analytics Service object by name or id, Create a Opentelemetry object, Clear the Opentelemetry objects, Update the Opentelemetry object by name or id, Delete the Opentelemetry object by name or id, Create a Oauth Provider object, Clear the Oauth Provider objects, Update the Oauth Provider object by name or id, Delete the Oauth Provider object by name or id, Create a Jwt Provider object, Clear the Jwt Provider objects, Update the Jwt Provider object by name or id, Delete the Jwt Provider object by name or id, Create a Mail Server object, Clear the Mail Server objects, Update the Mail Server object by name or id, Delete the Mail Server object by name or id, Create a Billing object, Clear the Billing objects, Update the Billing object by name or id, Delete the Billing object by name or id, Create a Itopsplatform object, Clear the Itopsplatform objects, Update the Itopsplatform object by name or id, Delete the Itopsplatform object by name or id, Clear the Job objects, Delete the Job object by name or id, Create a TLS Server Profile object, Clear all TLS Server Profile objects in all collections, Clear the TLS Server Profile objects, Update the TLS Server Profile object by id, Delete the TLS Server Profile object by id, Update the TLS Server Profile object by name and version, Delete the TLS Server Profile object by name and version, Create a TLS Client Profile object, Clear all TLS Client Profile objects in all collections, Clear the TLS Client Profile objects, Update the TLS Client Profile object by id, Delete the TLS Client Profile object by id, Update the TLS Client Profile object by name and version, Delete the TLS Client Profile object by name and version, Create a Keystore object, Clear the Keystore objects, Update the Keystore object by name or id, Delete the Keystore object by name or id, Create a Truststore object, Clear the Truststore objects, Update the Truststore object by name or id, Delete the Truststore object by name or id, Create a Entry object, Clear the Entry objects, Update the Entry object by name or id, Delete the Entry object by name or id, Create a Jwk Set object, Clear the Jwk Set objects, Delete the Jwk Set object by name or id, Create a Programming Package object, Clear the Programming Package objects, Clear all Programming Package objects in all collections, Update the Programming Package object by id, Update the Programming Package object by name and version, Delete the Programming Package object by id, Delete the Programming Package object by name and version, List all Alias objects in all collections, Clear all Alias objects in all collections, Create a Xslt Transformation Alias object, Clear the Xslt Transformation Alias objects, Clear all Xslt Transformation Alias objects in all collections, Update the Xslt Transformation Alias object by id, Update the Xslt Transformation Alias object by name and version, Delete the Xslt Transformation Alias object by id, Delete the Xslt Transformation Alias object by name and version, Create a Http Transport Security Alias object, Clear the Http Transport Security Alias objects, Clear all Http Transport Security Alias objects in all collections, Update the Http Transport Security Alias object by id, Update the Http Transport Security Alias object by name and version, Delete the Http Transport Security Alias object by id, Delete the Http Transport Security Alias object by name and version, Create a Webmethods Integration Server Service Alias object, Clear the Webmethods Integration Server Service Alias objects, Clear all Webmethods Integration Server Service Alias objects in all collections, Update the Webmethods Integration Server Service Alias object by id, Update the Webmethods Integration Server Service Alias object by name and version, Delete the Webmethods Integration Server Service Alias object by id, Delete the Webmethods Integration Server Service Alias object by name and version, Update the Catalog Setting object, Create a Configured Gateway Service object, Clear the Configured Gateway Service objects, Delete the Configured Gateway Service object by name or id, Create a Configured Catalog User Registry object, Delete the Configured Catalog User Registry object by name or id, Create a Configured API User Registry object, Clear the Configured API User Registry objects, Delete the Configured API User Registry object by name or id, Create a Configured TLS Client Profile object, Clear the Configured TLS Client Profile objects, Delete the Configured TLS Client Profile object by id, Delete the Configured TLS Client Profile object by name and version, Create a Configured Billing object, Clear the Configured Billing objects, Delete the Configured Billing object by name or id, Create a Configured Jwt Provider object, Clear the Configured Jwt Provider objects, Delete the Configured Jwt Provider object by name or id, Create a Configured Oauth Provider object, Clear the Configured Oauth Provider objects, Delete the Configured Oauth Provider object by name or id, Create a Configured Portal Service object, Clear the Configured Portal Service objects, Delete the Configured Portal Service object by name or id, Create a Configured Programming Package object, Clear the Configured Programming Package objects, Delete the Configured Programming Package object by id, Delete the Configured Programming Package object by name and version, List all Configured Alias objects in all collections, Clear all Configured Alias objects in all collections, Create a Configured Xslt Transformation Alias object, Clear the Configured Xslt Transformation Alias objects, Clear all Configured Xslt Transformation Alias objects in all collections, Delete the Configured Xslt Transformation Alias object by id, Delete the Configured Xslt Transformation Alias object by name and version, Create a Configured Webmethods Integration Server Service Alias object, Clear the Configured Webmethods Integration Server Service Alias objects, Clear all Configured Webmethods Integration Server Service Alias objects in all collections, Delete the Configured Webmethods Integration Server Service Alias object by id, Delete the Configured Webmethods Integration Server Service Alias object by name and version, Create a Configured Http Transport Security Alias object, Clear the Configured Http Transport Security Alias objects, Clear all Configured Http Transport Security Alias objects in all collections, Delete the Configured Http Transport Security Alias object by id, Delete the Configured Http Transport Security Alias object by name and version, Augment the Configuration Property with additional name/value pairs, Clear the Configuration Property objects, Update the Configuration Property object, Delete the Configuration Property object, Create a Global Policy object, Clear all Global Policy objects in all collections, Clear the Global Policy objects, Update the Global Policy object by id, Delete the Global Policy object by id, Update the Global Policy object by name and version, Delete the Global Policy object by name and version, Create the Global Policy Error object, Update the Global Policy Error object, Delete the Global Policy Error object, Create the Global Policy Prehook object, Update the Global Policy Prehook object, Delete the Global Policy Prehook object, Create the Global Policy Posthook object, Update the Global Policy Posthook object, Delete the Global Policy Posthook object, Create a Simple Alias object, Clear the Simple Alias objects, Update the Simple Alias object by name or id, Delete the Simple Alias object by name or id, Update the Space Setting object, Update the Consumer Organization Setting object, Delete the Consumer Organization Setting object, Create a Watsonx Settings object, Update the Watsonx Settings object by name or id, Delete the Watsonx Settings object by name or id
+            org:view: Get the Log Spec object, List the User Registry objects, Get the User Registry object by name or id, List the User objects, Get the User object by name or id, List all Integration objects in all collections, Get the Organization Setting object, Get the Organization object by name or id, List the Associate objects, Get the Associate object by name or id, Create a User Group object, List the User Group objects, Clear the User Group objects, Get the User Group object by name or id, Update the User Group object by name or id, Delete the User Group object by name or id, List the Member Invitation objects, Get the Member Invitation object by name or id, List the Member objects, Get the Member object by name or id, List the User Group Role Assignment objects, Get the User Group Role Assignment object by name or id, List all Permission objects in all collections, List the Role objects, Get the Role object by name or id, Create a Team object, List the Team objects, Clear the Team objects, Get the Team object by name or id, Update the Team object by name or id, Delete the Team object by name or id, List the Availability Zone objects, Get the Availability Zone object by name or id, List the Gateway Service objects, Get the Gateway Service object by name or id, List all Policy objects in all collections, List the Policy objects, Get the Policy object by id, Get the Policy object by name and version, List all Extension objects in all collections, List the Extension objects, Get the Extension object by id, Get the Extension object by name and version, Create the Gateway Extension object, Get the Gateway Extension object, Update the Gateway Extension object, Delete the Gateway Extension object, List the Portal Service objects, Get the Portal Service object by name or id, List the Analytics Service objects, Get the Analytics Service object by name or id, List the Opentelemetry objects, Get the Opentelemetry object by name or id, List the Oauth Provider objects, Get the Oauth Provider object by name or id, List the Jwt Provider objects, Get the Jwt Provider object by name or id, List the Mail Server objects, Get the Mail Server object by name or id, List the Billing objects, Get the Billing object by name or id, List the Itopsplatform objects, Get the Itopsplatform object by name or id, List the Job objects, Get the Job object by name or id, List all TLS Server Profile objects in all collections, List the TLS Server Profile objects, Get the TLS Server Profile object by id, Get the TLS Server Profile object by name and version, List all TLS Client Profile objects in all collections, List the TLS Client Profile objects, Get the TLS Client Profile object by id, Get the TLS Client Profile object by name and version, List the Keystore objects, Get the Keystore object by name or id, List the Truststore objects, Get the Truststore object by name or id, List the Entry objects, Get the Entry object by name or id, List the Jwk Set objects, Get the Jwk Set object by name or id, List the Programming Package objects, List all Programming Package objects in all collections, Get the Programming Package object by id, Get the Programming Package object by name and version, List the Xslt Transformation Alias objects, List all Xslt Transformation Alias objects in all collections, Get the Xslt Transformation Alias object by id, Get the Xslt Transformation Alias object by name and version, List the Http Transport Security Alias objects, List all Http Transport Security Alias objects in all collections, Get the Http Transport Security Alias object by id, Get the Http Transport Security Alias object by name and version, List the Webmethods Integration Server Service Alias objects, List all Webmethods Integration Server Service Alias objects in all collections, Get the Webmethods Integration Server Service Alias object by id, Get the Webmethods Integration Server Service Alias object by name and version, Get the Catalog Setting object, List the Configured Gateway Service objects, Get the Configured Gateway Service object by name or id, List the Configured Catalog User Registry objects, Get the Configured Catalog User Registry object by name or id, List the Configured API User Registry objects, Get the Configured API User Registry object by name or id, List all Configured TLS Client Profile objects in all collections, Clear all Configured TLS Client Profile objects in all collections, List the Configured TLS Client Profile objects, Get the Configured TLS Client Profile object by id, Get the Configured TLS Client Profile object by name and version, List the Configured Billing objects, Get the Configured Billing object by name or id, List the Configured Jwt Provider objects, Get the Configured Jwt Provider object by name or id, List the Configured Oauth Provider objects, Get the Configured Oauth Provider object by name or id, List the Configured Portal Service objects, Get the Configured Portal Service object by name or id, List the Configured Programming Package objects, List all Configured Programming Package objects in all collections, Clear all Configured Programming Package objects in all collections, Get the Configured Programming Package object by id, Get the Configured Programming Package object by name and version, List the Configured Xslt Transformation Alias objects, List all Configured Xslt Transformation Alias objects in all collections, Get the Configured Xslt Transformation Alias object by id, Get the Configured Xslt Transformation Alias object by name and version, List the Configured Webmethods Integration Server Service Alias objects, List all Configured Webmethods Integration Server Service Alias objects in all collections, Get the Configured Webmethods Integration Server Service Alias object by id, Get the Configured Webmethods Integration Server Service Alias object by name and version, List the Configured Http Transport Security Alias objects, List all Configured Http Transport Security Alias objects in all collections, Get the Configured Http Transport Security Alias object by id, Get the Configured Http Transport Security Alias object by name and version, List the Configuration Property objects, Get the Configuration Property object, List all Global Policy objects in all collections, List the Global Policy objects, Get the Global Policy object by id, Get the Global Policy object by name and version, Get the Global Policy Error object, Get the Global Policy Prehook object, Get the Global Policy Posthook object, List the Simple Alias objects, Get the Simple Alias object by name or id, Get the Space Setting object, Get the Consumer Organization Setting object, List the Primary Event objects, Get the Primary Event object by name or id, List the Subscriber Event objects, Get the Subscriber Event object by name or id, List the Task Queue objects, Get the Task Queue object by name or id, List the Watsonx Settings objects, Get the Watsonx Settings object by name or id, List the Resource Service Status objects
+            product-drafts:edit: Create a Draft Product object, Clear all Draft Product objects in all collections, Clear the Draft Product objects, Update the Draft Product object by id, Delete the Draft Product object by id, Update the Draft Product object by name and version, Delete the Draft Product object by name and version
+            product-drafts:view: List all Draft Product objects in all collections, List the Draft Product objects, Get the Draft Product object by id, Get the Draft Product object by name and version
+            product:manage: Clear all Product objects in all collections, Clear the Product objects, Update the Product object by id, Delete the Product object by id, Update the Product object by name and version, Delete the Product object by name and version, Update the API object by id, Update the API object by name and version
+            product:view: List all Product objects in all collections, List the Product objects, Get the Product object by id, Get the Product object by name and version, List all API objects in all collections, List the API objects, Get the API object by id, Get the API object by name and version, Get the Plan object by id, Get the Plan object by name and version, List the Plan objects, List all Plan objects in all collections, Get the Quota object by id, Get the Quota object by name and version, List the Quota objects, List all Quota objects in all collections
+            project:manage: Create a Project object, Clear the Project objects, Update the Project object by name or id, Delete the Project object by name or id, Clear the Project File objects, Clear all Project File objects in all collections, Update the Project File object by id, Update the Project File object by name and version, Delete the Project File object by id, Delete the Project File object by name and version
+            project:view: List the Project objects, Get the Project object by name or id, List the Project File objects, List all Project File objects in all collections, Get the Project File object by id, Get the Project File object by name and version
+            provider-org:manage: Create an Organization Invitation object, Clear the Organization Invitation objects, Update the Organization Invitation object by name or id, Delete the Organization Invitation object by name or id, Create a Group object, Clear the Group objects, Update the Group object by name or id, Delete the Group object by name or id
+            provider-org:view: List the Organization Invitation objects, Get the Organization Invitation object by name or id, List the Group objects, Get the Group object by name or id
+            webhook:manage: Update the Webhook object by name or id
+            webhook:view: List the Webhook objects, Get the Webhook object by name or id
+        password:
+          tokenUrl: /token
+          refreshUrl: /token
+          scopes:
+            api-drafts:edit: Clear the Draft objects, Create a Draft API object, Clear all Draft API objects in all collections, Clear the Draft API objects, Update the Draft API object by id, Delete the Draft API object by id, Update the Draft API object by name and version, Delete the Draft API object by name and version
+            api-drafts:view: List the Draft objects, List all Draft API objects in all collections, List the Draft API objects, Get the Draft API object by id, Get the Draft API object by name and version
+            app:manage:all: Create a Application object, Clear the Application objects, Update the Application object by name or id, Delete the Application object by name or id, Create a Strategy object, Delete the Strategy object by name or id, Clear the Strategy objects, Update the Strategy object by name or id, Create a Application Credential object, Update the Application Credential object by name or id, Delete the Application Credential object by name or id, Create a Subscription object, Clear the Subscription objects, Update the Subscription object by name or id, Delete the Subscription object by name or id
+            app:view:all: List the Application objects, Get the Application object by name or id, List the Strategy objects, Get the Strategy object by name or id, List the Application Credential objects, Get the Application Credential object by name or id, List the Subscription objects, Get the Subscription object by name or id
+            approval:view: List the Task objects, Get the Task object by name or id, Update the Task object by name or id, List the Task History objects, Get the Task History object by name or id
+            child:create: Create a Catalog object, Create a Space object
+            child:manage: Clear the Catalog objects, Update the Catalog object by name or id, Delete the Catalog object by name or id, Clear the Space objects, Update the Space object by name or id, Delete the Space object by name or id
+            child:view: List the Catalog objects, Get the Catalog object by name or id, List the Space objects, Get the Space object by name or id
+            cloud:manage: Update the Cloud Setting object, Update the User Registry Setting object, Update the Notification Style object, Create a Registration object, Clear the Registration objects, Update the Registration object by name or id, Delete the Registration object by name or id, Update the Webhook object by name or id
+            cloud:view: Get the Cloud Setting object, Get the User Registry Setting object, Get the Notification Style object, List all Notification Template objects in all collections, List all Role Default objects in all collections, List the Registration objects, Get the Registration object by name or id, List the Webhook objects, Get the Webhook object by name or id
+            consumer-org:manage: Clear the Activation objects, Delete the Activation object by name or id, Create a Consumer Organization object, Clear the Consumer Organization objects, Update the Consumer Organization object by name or id, Delete the Consumer Organization object by name or id, Create a Payment Method object, Update the Payment Method object by name or id, Delete the Payment Method object by name or id
+            consumer-org:view: List the Activation objects, Get the Activation object by name or id, List the Consumer Organization objects, Get the Consumer Organization object by name or id, List the Payment Method objects, Get the Payment Method object by name or id
+            my:manage: Create a API Key object, Delete the API Key object by name or id, Update the Me object, Delete the Me object
+            my:view: List the API Key objects, Get the API Key object by name or id, Get the Me object, List the My Permission objects, List the My Task objects, List the Originated Task objects, List the My Organization objects, List the My Catalog objects, List the My Space objects, List the My User Group objects, List the My Team objects
+            org:manage: Update the Log Spec object, Create a User Registry object, Clear the User Registry objects, Update the User Registry object by name or id, Delete the User Registry object by name or id, Create a User object, Clear the User objects, Update the User object by name or id, Delete the User object by name or id, Update the Organization Setting object, Update the Organization object by name or id, Delete the Organization object by name or id, Create a Member Invitation object, Clear the Member Invitation objects, Update the Member Invitation object by name or id, Delete the Member Invitation object by name or id, Create a Member object, Clear the Member objects, Update the Member object by name or id, Delete the Member object by name or id, Create a User Group Role Assignment object, Clear the User Group Role Assignment objects, Update the User Group Role Assignment object by name or id, Delete the User Group Role Assignment object by name or id, Create a Role object, Clear the Role objects, Update the Role object by name or id, Delete the Role object by name or id, Create a Availability Zone object, Clear the Availability Zone objects, Update the Availability Zone object by name or id, Delete the Availability Zone object by name or id, Create a Gateway Service object, Clear the Gateway Service objects, Update the Gateway Service object by name or id, Delete the Gateway Service object by name or id, Create a Portal Service object, Clear the Portal Service objects, Update the Portal Service object by name or id, Delete the Portal Service object by name or id, Create a Analytics Service object, Clear the Analytics Service objects, Update the Analytics Service object by name or id, Delete the Analytics Service object by name or id, Create a Opentelemetry object, Clear the Opentelemetry objects, Update the Opentelemetry object by name or id, Delete the Opentelemetry object by name or id, Create a Oauth Provider object, Clear the Oauth Provider objects, Update the Oauth Provider object by name or id, Delete the Oauth Provider object by name or id, Create a Jwt Provider object, Clear the Jwt Provider objects, Update the Jwt Provider object by name or id, Delete the Jwt Provider object by name or id, Create a Mail Server object, Clear the Mail Server objects, Update the Mail Server object by name or id, Delete the Mail Server object by name or id, Create a Billing object, Clear the Billing objects, Update the Billing object by name or id, Delete the Billing object by name or id, Create a Itopsplatform object, Clear the Itopsplatform objects, Update the Itopsplatform object by name or id, Delete the Itopsplatform object by name or id, Clear the Job objects, Delete the Job object by name or id, Create a TLS Server Profile object, Clear all TLS Server Profile objects in all collections, Clear the TLS Server Profile objects, Update the TLS Server Profile object by id, Delete the TLS Server Profile object by id, Update the TLS Server Profile object by name and version, Delete the TLS Server Profile object by name and version, Create a TLS Client Profile object, Clear all TLS Client Profile objects in all collections, Clear the TLS Client Profile objects, Update the TLS Client Profile object by id, Delete the TLS Client Profile object by id, Update the TLS Client Profile object by name and version, Delete the TLS Client Profile object by name and version, Create a Keystore object, Clear the Keystore objects, Update the Keystore object by name or id, Delete the Keystore object by name or id, Create a Truststore object, Clear the Truststore objects, Update the Truststore object by name or id, Delete the Truststore object by name or id, Create a Entry object, Clear the Entry objects, Update the Entry object by name or id, Delete the Entry object by name or id, Create a Jwk Set object, Clear the Jwk Set objects, Delete the Jwk Set object by name or id, Create a Programming Package object, Clear the Programming Package objects, Clear all Programming Package objects in all collections, Update the Programming Package object by id, Update the Programming Package object by name and version, Delete the Programming Package object by id, Delete the Programming Package object by name and version, List all Alias objects in all collections, Clear all Alias objects in all collections, Create a Xslt Transformation Alias object, Clear the Xslt Transformation Alias objects, Clear all Xslt Transformation Alias objects in all collections, Update the Xslt Transformation Alias object by id, Update the Xslt Transformation Alias object by name and version, Delete the Xslt Transformation Alias object by id, Delete the Xslt Transformation Alias object by name and version, Create a Http Transport Security Alias object, Clear the Http Transport Security Alias objects, Clear all Http Transport Security Alias objects in all collections, Update the Http Transport Security Alias object by id, Update the Http Transport Security Alias object by name and version, Delete the Http Transport Security Alias object by id, Delete the Http Transport Security Alias object by name and version, Create a Webmethods Integration Server Service Alias object, Clear the Webmethods Integration Server Service Alias objects, Clear all Webmethods Integration Server Service Alias objects in all collections, Update the Webmethods Integration Server Service Alias object by id, Update the Webmethods Integration Server Service Alias object by name and version, Delete the Webmethods Integration Server Service Alias object by id, Delete the Webmethods Integration Server Service Alias object by name and version, Update the Catalog Setting object, Create a Configured Gateway Service object, Clear the Configured Gateway Service objects, Delete the Configured Gateway Service object by name or id, Create a Configured Catalog User Registry object, Delete the Configured Catalog User Registry object by name or id, Create a Configured API User Registry object, Clear the Configured API User Registry objects, Delete the Configured API User Registry object by name or id, Create a Configured TLS Client Profile object, Clear the Configured TLS Client Profile objects, Delete the Configured TLS Client Profile object by id, Delete the Configured TLS Client Profile object by name and version, Create a Configured Billing object, Clear the Configured Billing objects, Delete the Configured Billing object by name or id, Create a Configured Jwt Provider object, Clear the Configured Jwt Provider objects, Delete the Configured Jwt Provider object by name or id, Create a Configured Oauth Provider object, Clear the Configured Oauth Provider objects, Delete the Configured Oauth Provider object by name or id, Create a Configured Portal Service object, Clear the Configured Portal Service objects, Delete the Configured Portal Service object by name or id, Create a Configured Programming Package object, Clear the Configured Programming Package objects, Delete the Configured Programming Package object by id, Delete the Configured Programming Package object by name and version, List all Configured Alias objects in all collections, Clear all Configured Alias objects in all collections, Create a Configured Xslt Transformation Alias object, Clear the Configured Xslt Transformation Alias objects, Clear all Configured Xslt Transformation Alias objects in all collections, Delete the Configured Xslt Transformation Alias object by id, Delete the Configured Xslt Transformation Alias object by name and version, Create a Configured Webmethods Integration Server Service Alias object, Clear the Configured Webmethods Integration Server Service Alias objects, Clear all Configured Webmethods Integration Server Service Alias objects in all collections, Delete the Configured Webmethods Integration Server Service Alias object by id, Delete the Configured Webmethods Integration Server Service Alias object by name and version, Create a Configured Http Transport Security Alias object, Clear the Configured Http Transport Security Alias objects, Clear all Configured Http Transport Security Alias objects in all collections, Delete the Configured Http Transport Security Alias object by id, Delete the Configured Http Transport Security Alias object by name and version, Augment the Configuration Property with additional name/value pairs, Clear the Configuration Property objects, Update the Configuration Property object, Delete the Configuration Property object, Create a Global Policy object, Clear all Global Policy objects in all collections, Clear the Global Policy objects, Update the Global Policy object by id, Delete the Global Policy object by id, Update the Global Policy object by name and version, Delete the Global Policy object by name and version, Create the Global Policy Error object, Update the Global Policy Error object, Delete the Global Policy Error object, Create the Global Policy Prehook object, Update the Global Policy Prehook object, Delete the Global Policy Prehook object, Create the Global Policy Posthook object, Update the Global Policy Posthook object, Delete the Global Policy Posthook object, Create a Simple Alias object, Clear the Simple Alias objects, Update the Simple Alias object by name or id, Delete the Simple Alias object by name or id, Update the Space Setting object, Update the Consumer Organization Setting object, Delete the Consumer Organization Setting object, Create a Watsonx Settings object, Update the Watsonx Settings object by name or id, Delete the Watsonx Settings object by name or id
+            org:view: Get the Log Spec object, List the User Registry objects, Get the User Registry object by name or id, List the User objects, Get the User object by name or id, List all Integration objects in all collections, Get the Organization Setting object, Get the Organization object by name or id, List the Associate objects, Get the Associate object by name or id, Create a User Group object, List the User Group objects, Clear the User Group objects, Get the User Group object by name or id, Update the User Group object by name or id, Delete the User Group object by name or id, List the Member Invitation objects, Get the Member Invitation object by name or id, List the Member objects, Get the Member object by name or id, List the User Group Role Assignment objects, Get the User Group Role Assignment object by name or id, List all Permission objects in all collections, List the Role objects, Get the Role object by name or id, Create a Team object, List the Team objects, Clear the Team objects, Get the Team object by name or id, Update the Team object by name or id, Delete the Team object by name or id, List the Availability Zone objects, Get the Availability Zone object by name or id, List the Gateway Service objects, Get the Gateway Service object by name or id, List all Policy objects in all collections, List the Policy objects, Get the Policy object by id, Get the Policy object by name and version, List all Extension objects in all collections, List the Extension objects, Get the Extension object by id, Get the Extension object by name and version, Create the Gateway Extension object, Get the Gateway Extension object, Update the Gateway Extension object, Delete the Gateway Extension object, List the Portal Service objects, Get the Portal Service object by name or id, List the Analytics Service objects, Get the Analytics Service object by name or id, List the Opentelemetry objects, Get the Opentelemetry object by name or id, List the Oauth Provider objects, Get the Oauth Provider object by name or id, List the Jwt Provider objects, Get the Jwt Provider object by name or id, List the Mail Server objects, Get the Mail Server object by name or id, List the Billing objects, Get the Billing object by name or id, List the Itopsplatform objects, Get the Itopsplatform object by name or id, List the Job objects, Get the Job object by name or id, List all TLS Server Profile objects in all collections, List the TLS Server Profile objects, Get the TLS Server Profile object by id, Get the TLS Server Profile object by name and version, List all TLS Client Profile objects in all collections, List the TLS Client Profile objects, Get the TLS Client Profile object by id, Get the TLS Client Profile object by name and version, List the Keystore objects, Get the Keystore object by name or id, List the Truststore objects, Get the Truststore object by name or id, List the Entry objects, Get the Entry object by name or id, List the Jwk Set objects, Get the Jwk Set object by name or id, List the Programming Package objects, List all Programming Package objects in all collections, Get the Programming Package object by id, Get the Programming Package object by name and version, List the Xslt Transformation Alias objects, List all Xslt Transformation Alias objects in all collections, Get the Xslt Transformation Alias object by id, Get the Xslt Transformation Alias object by name and version, List the Http Transport Security Alias objects, List all Http Transport Security Alias objects in all collections, Get the Http Transport Security Alias object by id, Get the Http Transport Security Alias object by name and version, List the Webmethods Integration Server Service Alias objects, List all Webmethods Integration Server Service Alias objects in all collections, Get the Webmethods Integration Server Service Alias object by id, Get the Webmethods Integration Server Service Alias object by name and version, Get the Catalog Setting object, List the Configured Gateway Service objects, Get the Configured Gateway Service object by name or id, List the Configured Catalog User Registry objects, Get the Configured Catalog User Registry object by name or id, List the Configured API User Registry objects, Get the Configured API User Registry object by name or id, List all Configured TLS Client Profile objects in all collections, Clear all Configured TLS Client Profile objects in all collections, List the Configured TLS Client Profile objects, Get the Configured TLS Client Profile object by id, Get the Configured TLS Client Profile object by name and version, List the Configured Billing objects, Get the Configured Billing object by name or id, List the Configured Jwt Provider objects, Get the Configured Jwt Provider object by name or id, List the Configured Oauth Provider objects, Get the Configured Oauth Provider object by name or id, List the Configured Portal Service objects, Get the Configured Portal Service object by name or id, List the Configured Programming Package objects, List all Configured Programming Package objects in all collections, Clear all Configured Programming Package objects in all collections, Get the Configured Programming Package object by id, Get the Configured Programming Package object by name and version, List the Configured Xslt Transformation Alias objects, List all Configured Xslt Transformation Alias objects in all collections, Get the Configured Xslt Transformation Alias object by id, Get the Configured Xslt Transformation Alias object by name and version, List the Configured Webmethods Integration Server Service Alias objects, List all Configured Webmethods Integration Server Service Alias objects in all collections, Get the Configured Webmethods Integration Server Service Alias object by id, Get the Configured Webmethods Integration Server Service Alias object by name and version, List the Configured Http Transport Security Alias objects, List all Configured Http Transport Security Alias objects in all collections, Get the Configured Http Transport Security Alias object by id, Get the Configured Http Transport Security Alias object by name and version, List the Configuration Property objects, Get the Configuration Property object, List all Global Policy objects in all collections, List the Global Policy objects, Get the Global Policy object by id, Get the Global Policy object by name and version, Get the Global Policy Error object, Get the Global Policy Prehook object, Get the Global Policy Posthook object, List the Simple Alias objects, Get the Simple Alias object by name or id, Get the Space Setting object, Get the Consumer Organization Setting object, List the Primary Event objects, Get the Primary Event object by name or id, List the Subscriber Event objects, Get the Subscriber Event object by name or id, List the Task Queue objects, Get the Task Queue object by name or id, List the Watsonx Settings objects, Get the Watsonx Settings object by name or id, List the Resource Service Status objects
+            product-drafts:edit: Create a Draft Product object, Clear all Draft Product objects in all collections, Clear the Draft Product objects, Update the Draft Product object by id, Delete the Draft Product object by id, Update the Draft Product object by name and version, Delete the Draft Product object by name and version
+            product-drafts:view: List all Draft Product objects in all collections, List the Draft Product objects, Get the Draft Product object by id, Get the Draft Product object by name and version
+            product:manage: Clear all Product objects in all collections, Clear the Product objects, Update the Product object by id, Delete the Product object by id, Update the Product object by name and version, Delete the Product object by name and version, Update the API object by id, Update the API object by name and version
+            product:view: List all Product objects in all collections, List the Product objects, Get the Product object by id, Get the Product object by name and version, List all API objects in all collections, List the API objects, Get the API object by id, Get the API object by name and version, Get the Plan object by id, Get the Plan object by name and version, List the Plan objects, List all Plan objects in all collections, Get the Quota object by id, Get the Quota object by name and version, List the Quota objects, List all Quota objects in all collections
+            project:manage: Create a Project object, Clear the Project objects, Update the Project object by name or id, Delete the Project object by name or id, Clear the Project File objects, Clear all Project File objects in all collections, Update the Project File object by id, Update the Project File object by name and version, Delete the Project File object by id, Delete the Project File object by name and version
+            project:view: List the Project objects, Get the Project object by name or id, List the Project File objects, List all Project File objects in all collections, Get the Project File object by id, Get the Project File object by name and version
+            provider-org:manage: Create an Organization Invitation object, Clear the Organization Invitation objects, Update the Organization Invitation object by name or id, Delete the Organization Invitation object by name or id, Create a Group object, Clear the Group objects, Update the Group object by name or id, Delete the Group object by name or id
+            provider-org:view: List the Organization Invitation objects, Get the Organization Invitation object by name or id, List the Group objects, Get the Group object by name or id
+            webhook:manage: Update the Webhook object by name or id
+            webhook:view: List the Webhook objects, Get the Webhook object by name or id
+        clientCredentials:
+          tokenUrl: /token
+          scopes:
+            api-drafts:edit: Clear the Draft objects, Create a Draft API object, Clear all Draft API objects in all collections, Clear the Draft API objects, Update the Draft API object by id, Delete the Draft API object by id, Update the Draft API object by name and version, Delete the Draft API object by name and version
+            api-drafts:view: List the Draft objects, List all Draft API objects in all collections, List the Draft API objects, Get the Draft API object by id, Get the Draft API object by name and version
+            app:manage:all: Create a Application object, Clear the Application objects, Update the Application object by name or id, Delete the Application object by name or id, Create a Strategy object, Delete the Strategy object by name or id, Clear the Strategy objects, Update the Strategy object by name or id, Create a Application Credential object, Update the Application Credential object by name or id, Delete the Application Credential object by name or id, Create a Subscription object, Clear the Subscription objects, Update the Subscription object by name or id, Delete the Subscription object by name or id
+            app:view:all: List the Application objects, Get the Application object by name or id, List the Strategy objects, Get the Strategy object by name or id, List the Application Credential objects, Get the Application Credential object by name or id, List the Subscription objects, Get the Subscription object by name or id
+            approval:view: List the Task objects, Get the Task object by name or id, Update the Task object by name or id, List the Task History objects, Get the Task History object by name or id
+            child:create: Create a Catalog object, Create a Space object
+            child:manage: Clear the Catalog objects, Update the Catalog object by name or id, Delete the Catalog object by name or id, Clear the Space objects, Update the Space object by name or id, Delete the Space object by name or id
+            child:view: List the Catalog objects, Get the Catalog object by name or id, List the Space objects, Get the Space object by name or id
+            cloud:manage: Update the Cloud Setting object, Update the User Registry Setting object, Update the Notification Style object, Create a Registration object, Clear the Registration objects, Update the Registration object by name or id, Delete the Registration object by name or id, Update the Webhook object by name or id
+            cloud:view: Get the Cloud Setting object, Get the User Registry Setting object, Get the Notification Style object, List all Notification Template objects in all collections, List all Role Default objects in all collections, List the Registration objects, Get the Registration object by name or id, List the Webhook objects, Get the Webhook object by name or id
+            consumer-org:manage: Clear the Activation objects, Delete the Activation object by name or id, Create a Consumer Organization object, Clear the Consumer Organization objects, Update the Consumer Organization object by name or id, Delete the Consumer Organization object by name or id, Create a Payment Method object, Update the Payment Method object by name or id, Delete the Payment Method object by name or id
+            consumer-org:view: List the Activation objects, Get the Activation object by name or id, List the Consumer Organization objects, Get the Consumer Organization object by name or id, List the Payment Method objects, Get the Payment Method object by name or id
+            my:manage: Create a API Key object, Delete the API Key object by name or id, Update the Me object, Delete the Me object
+            my:view: List the API Key objects, Get the API Key object by name or id, Get the Me object, List the My Permission objects, List the My Task objects, List the Originated Task objects, List the My Organization objects, List the My Catalog objects, List the My Space objects, List the My User Group objects, List the My Team objects
+            org:manage: Update the Log Spec object, Create a User Registry object, Clear the User Registry objects, Update the User Registry object by name or id, Delete the User Registry object by name or id, Create a User object, Clear the User objects, Update the User object by name or id, Delete the User object by name or id, Update the Organization Setting object, Update the Organization object by name or id, Delete the Organization object by name or id, Create a Member Invitation object, Clear the Member Invitation objects, Update the Member Invitation object by name or id, Delete the Member Invitation object by name or id, Create a Member object, Clear the Member objects, Update the Member object by name or id, Delete the Member object by name or id, Create a User Group Role Assignment object, Clear the User Group Role Assignment objects, Update the User Group Role Assignment object by name or id, Delete the User Group Role Assignment object by name or id, Create a Role object, Clear the Role objects, Update the Role object by name or id, Delete the Role object by name or id, Create a Availability Zone object, Clear the Availability Zone objects, Update the Availability Zone object by name or id, Delete the Availability Zone object by name or id, Create a Gateway Service object, Clear the Gateway Service objects, Update the Gateway Service object by name or id, Delete the Gateway Service object by name or id, Create a Portal Service object, Clear the Portal Service objects, Update the Portal Service object by name or id, Delete the Portal Service object by name or id, Create a Analytics Service object, Clear the Analytics Service objects, Update the Analytics Service object by name or id, Delete the Analytics Service object by name or id, Create a Opentelemetry object, Clear the Opentelemetry objects, Update the Opentelemetry object by name or id, Delete the Opentelemetry object by name or id, Create a Oauth Provider object, Clear the Oauth Provider objects, Update the Oauth Provider object by name or id, Delete the Oauth Provider object by name or id, Create a Jwt Provider object, Clear the Jwt Provider objects, Update the Jwt Provider object by name or id, Delete the Jwt Provider object by name or id, Create a Mail Server object, Clear the Mail Server objects, Update the Mail Server object by name or id, Delete the Mail Server object by name or id, Create a Billing object, Clear the Billing objects, Update the Billing object by name or id, Delete the Billing object by name or id, Create a Itopsplatform object, Clear the Itopsplatform objects, Update the Itopsplatform object by name or id, Delete the Itopsplatform object by name or id, Clear the Job objects, Delete the Job object by name or id, Create a TLS Server Profile object, Clear all TLS Server Profile objects in all collections, Clear the TLS Server Profile objects, Update the TLS Server Profile object by id, Delete the TLS Server Profile object by id, Update the TLS Server Profile object by name and version, Delete the TLS Server Profile object by name and version, Create a TLS Client Profile object, Clear all TLS Client Profile objects in all collections, Clear the TLS Client Profile objects, Update the TLS Client Profile object by id, Delete the TLS Client Profile object by id, Update the TLS Client Profile object by name and version, Delete the TLS Client Profile object by name and version, Create a Keystore object, Clear the Keystore objects, Update the Keystore object by name or id, Delete the Keystore object by name or id, Create a Truststore object, Clear the Truststore objects, Update the Truststore object by name or id, Delete the Truststore object by name or id, Create a Entry object, Clear the Entry objects, Update the Entry object by name or id, Delete the Entry object by name or id, Create a Jwk Set object, Clear the Jwk Set objects, Delete the Jwk Set object by name or id, Create a Programming Package object, Clear the Programming Package objects, Clear all Programming Package objects in all collections, Update the Programming Package object by id, Update the Programming Package object by name and version, Delete the Programming Package object by id, Delete the Programming Package object by name and version, List all Alias objects in all collections, Clear all Alias objects in all collections, Create a Xslt Transformation Alias object, Clear the Xslt Transformation Alias objects, Clear all Xslt Transformation Alias objects in all collections, Update the Xslt Transformation Alias object by id, Update the Xslt Transformation Alias object by name and version, Delete the Xslt Transformation Alias object by id, Delete the Xslt Transformation Alias object by name and version, Create a Http Transport Security Alias object, Clear the Http Transport Security Alias objects, Clear all Http Transport Security Alias objects in all collections, Update the Http Transport Security Alias object by id, Update the Http Transport Security Alias object by name and version, Delete the Http Transport Security Alias object by id, Delete the Http Transport Security Alias object by name and version, Create a Webmethods Integration Server Service Alias object, Clear the Webmethods Integration Server Service Alias objects, Clear all Webmethods Integration Server Service Alias objects in all collections, Update the Webmethods Integration Server Service Alias object by id, Update the Webmethods Integration Server Service Alias object by name and version, Delete the Webmethods Integration Server Service Alias object by id, Delete the Webmethods Integration Server Service Alias object by name and version, Update the Catalog Setting object, Create a Configured Gateway Service object, Clear the Configured Gateway Service objects, Delete the Configured Gateway Service object by name or id, Create a Configured Catalog User Registry object, Delete the Configured Catalog User Registry object by name or id, Create a Configured API User Registry object, Clear the Configured API User Registry objects, Delete the Configured API User Registry object by name or id, Create a Configured TLS Client Profile object, Clear the Configured TLS Client Profile objects, Delete the Configured TLS Client Profile object by id, Delete the Configured TLS Client Profile object by name and version, Create a Configured Billing object, Clear the Configured Billing objects, Delete the Configured Billing object by name or id, Create a Configured Jwt Provider object, Clear the Configured Jwt Provider objects, Delete the Configured Jwt Provider object by name or id, Create a Configured Oauth Provider object, Clear the Configured Oauth Provider objects, Delete the Configured Oauth Provider object by name or id, Create a Configured Portal Service object, Clear the Configured Portal Service objects, Delete the Configured Portal Service object by name or id, Create a Configured Programming Package object, Clear the Configured Programming Package objects, Delete the Configured Programming Package object by id, Delete the Configured Programming Package object by name and version, List all Configured Alias objects in all collections, Clear all Configured Alias objects in all collections, Create a Configured Xslt Transformation Alias object, Clear the Configured Xslt Transformation Alias objects, Clear all Configured Xslt Transformation Alias objects in all collections, Delete the Configured Xslt Transformation Alias object by id, Delete the Configured Xslt Transformation Alias object by name and version, Create a Configured Webmethods Integration Server Service Alias object, Clear the Configured Webmethods Integration Server Service Alias objects, Clear all Configured Webmethods Integration Server Service Alias objects in all collections, Delete the Configured Webmethods Integration Server Service Alias object by id, Delete the Configured Webmethods Integration Server Service Alias object by name and version, Create a Configured Http Transport Security Alias object, Clear the Configured Http Transport Security Alias objects, Clear all Configured Http Transport Security Alias objects in all collections, Delete the Configured Http Transport Security Alias object by id, Delete the Configured Http Transport Security Alias object by name and version, Augment the Configuration Property with additional name/value pairs, Clear the Configuration Property objects, Update the Configuration Property object, Delete the Configuration Property object, Create a Global Policy object, Clear all Global Policy objects in all collections, Clear the Global Policy objects, Update the Global Policy object by id, Delete the Global Policy object by id, Update the Global Policy object by name and version, Delete the Global Policy object by name and version, Create the Global Policy Error object, Update the Global Policy Error object, Delete the Global Policy Error object, Create the Global Policy Prehook object, Update the Global Policy Prehook object, Delete the Global Policy Prehook object, Create the Global Policy Posthook object, Update the Global Policy Posthook object, Delete the Global Policy Posthook object, Create a Simple Alias object, Clear the Simple Alias objects, Update the Simple Alias object by name or id, Delete the Simple Alias object by name or id, Update the Space Setting object, Update the Consumer Organization Setting object, Delete the Consumer Organization Setting object, Create a Watsonx Settings object, Update the Watsonx Settings object by name or id, Delete the Watsonx Settings object by name or id
+            org:view: Get the Log Spec object, List the User Registry objects, Get the User Registry object by name or id, List the User objects, Get the User object by name or id, List all Integration objects in all collections, Get the Organization Setting object, Get the Organization object by name or id, List the Associate objects, Get the Associate object by name or id, Create a User Group object, List the User Group objects, Clear the User Group objects, Get the User Group object by name or id, Update the User Group object by name or id, Delete the User Group object by name or id, List the Member Invitation objects, Get the Member Invitation object by name or id, List the Member objects, Get the Member object by name or id, List the User Group Role Assignment objects, Get the User Group Role Assignment object by name or id, List all Permission objects in all collections, List the Role objects, Get the Role object by name or id, Create a Team object, List the Team objects, Clear the Team objects, Get the Team object by name or id, Update the Team object by name or id, Delete the Team object by name or id, List the Availability Zone objects, Get the Availability Zone object by name or id, List the Gateway Service objects, Get the Gateway Service object by name or id, List all Policy objects in all collections, List the Policy objects, Get the Policy object by id, Get the Policy object by name and version, List all Extension objects in all collections, List the Extension objects, Get the Extension object by id, Get the Extension object by name and version, Create the Gateway Extension object, Get the Gateway Extension object, Update the Gateway Extension object, Delete the Gateway Extension object, List the Portal Service objects, Get the Portal Service object by name or id, List the Analytics Service objects, Get the Analytics Service object by name or id, List the Opentelemetry objects, Get the Opentelemetry object by name or id, List the Oauth Provider objects, Get the Oauth Provider object by name or id, List the Jwt Provider objects, Get the Jwt Provider object by name or id, List the Mail Server objects, Get the Mail Server object by name or id, List the Billing objects, Get the Billing object by name or id, List the Itopsplatform objects, Get the Itopsplatform object by name or id, List the Job objects, Get the Job object by name or id, List all TLS Server Profile objects in all collections, List the TLS Server Profile objects, Get the TLS Server Profile object by id, Get the TLS Server Profile object by name and version, List all TLS Client Profile objects in all collections, List the TLS Client Profile objects, Get the TLS Client Profile object by id, Get the TLS Client Profile object by name and version, List the Keystore objects, Get the Keystore object by name or id, List the Truststore objects, Get the Truststore object by name or id, List the Entry objects, Get the Entry object by name or id, List the Jwk Set objects, Get the Jwk Set object by name or id, List the Programming Package objects, List all Programming Package objects in all collections, Get the Programming Package object by id, Get the Programming Package object by name and version, List the Xslt Transformation Alias objects, List all Xslt Transformation Alias objects in all collections, Get the Xslt Transformation Alias object by id, Get the Xslt Transformation Alias object by name and version, List the Http Transport Security Alias objects, List all Http Transport Security Alias objects in all collections, Get the Http Transport Security Alias object by id, Get the Http Transport Security Alias object by name and version, List the Webmethods Integration Server Service Alias objects, List all Webmethods Integration Server Service Alias objects in all collections, Get the Webmethods Integration Server Service Alias object by id, Get the Webmethods Integration Server Service Alias object by name and version, Get the Catalog Setting object, List the Configured Gateway Service objects, Get the Configured Gateway Service object by name or id, List the Configured Catalog User Registry objects, Get the Configured Catalog User Registry object by name or id, List the Configured API User Registry objects, Get the Configured API User Registry object by name or id, List all Configured TLS Client Profile objects in all collections, Clear all Configured TLS Client Profile objects in all collections, List the Configured TLS Client Profile objects, Get the Configured TLS Client Profile object by id, Get the Configured TLS Client Profile object by name and version, List the Configured Billing objects, Get the Configured Billing object by name or id, List the Configured Jwt Provider objects, Get the Configured Jwt Provider object by name or id, List the Configured Oauth Provider objects, Get the Configured Oauth Provider object by name or id, List the Configured Portal Service objects, Get the Configured Portal Service object by name or id, List the Configured Programming Package objects, List all Configured Programming Package objects in all collections, Clear all Configured Programming Package objects in all collections, Get the Configured Programming Package object by id, Get the Configured Programming Package object by name and version, List the Configured Xslt Transformation Alias objects, List all Configured Xslt Transformation Alias objects in all collections, Get the Configured Xslt Transformation Alias object by id, Get the Configured Xslt Transformation Alias object by name and version, List the Configured Webmethods Integration Server Service Alias objects, List all Configured Webmethods Integration Server Service Alias objects in all collections, Get the Configured Webmethods Integration Server Service Alias object by id, Get the Configured Webmethods Integration Server Service Alias object by name and version, List the Configured Http Transport Security Alias objects, List all Configured Http Transport Security Alias objects in all collections, Get the Configured Http Transport Security Alias object by id, Get the Configured Http Transport Security Alias object by name and version, List the Configuration Property objects, Get the Configuration Property object, List all Global Policy objects in all collections, List the Global Policy objects, Get the Global Policy object by id, Get the Global Policy object by name and version, Get the Global Policy Error object, Get the Global Policy Prehook object, Get the Global Policy Posthook object, List the Simple Alias objects, Get the Simple Alias object by name or id, Get the Space Setting object, Get the Consumer Organization Setting object, List the Primary Event objects, Get the Primary Event object by name or id, List the Subscriber Event objects, Get the Subscriber Event object by name or id, List the Task Queue objects, Get the Task Queue object by name or id, List the Watsonx Settings objects, Get the Watsonx Settings object by name or id, List the Resource Service Status objects
+            product-drafts:edit: Create a Draft Product object, Clear all Draft Product objects in all collections, Clear the Draft Product objects, Update the Draft Product object by id, Delete the Draft Product object by id, Update the Draft Product object by name and version, Delete the Draft Product object by name and version
+            product-drafts:view: List all Draft Product objects in all collections, List the Draft Product objects, Get the Draft Product object by id, Get the Draft Product object by name and version
+            product:manage: Clear all Product objects in all collections, Clear the Product objects, Update the Product object by id, Delete the Product object by id, Update the Product object by name and version, Delete the Product object by name and version, Update the API object by id, Update the API object by name and version
+            product:view: List all Product objects in all collections, List the Product objects, Get the Product object by id, Get the Product object by name and version, List all API objects in all collections, List the API objects, Get the API object by id, Get the API object by name and version, Get the Plan object by id, Get the Plan object by name and version, List the Plan objects, List all Plan objects in all collections, Get the Quota object by id, Get the Quota object by name and version, List the Quota objects, List all Quota objects in all collections
+            project:manage: Create a Project object, Clear the Project objects, Update the Project object by name or id, Delete the Project object by name or id, Clear the Project File objects, Clear all Project File objects in all collections, Update the Project File object by id, Update the Project File object by name and version, Delete the Project File object by id, Delete the Project File object by name and version
+            project:view: List the Project objects, Get the Project object by name or id, List the Project File objects, List all Project File objects in all collections, Get the Project File object by id, Get the Project File object by name and version
+            provider-org:manage: Create an Organization Invitation object, Clear the Organization Invitation objects, Update the Organization Invitation object by name or id, Delete the Organization Invitation object by name or id, Create a Group object, Clear the Group objects, Update the Group object by name or id, Delete the Group object by name or id
+            provider-org:view: List the Organization Invitation objects, Get the Organization Invitation object by name or id, List the Group objects, Get the Group object by name or id
+            webhook:manage: Update the Webhook object by name or id
+            webhook:view: List the Webhook objects, Get the Webhook object by name or id
+        authorizationCode:
+          authorizationUrl: /oauth2/authorize
+          tokenUrl: /token
+          refreshUrl: /token
+          scopes:
+            api-drafts:edit: Clear the Draft objects, Create a Draft API object, Clear all Draft API objects in all collections, Clear the Draft API objects, Update the Draft API object by id, Delete the Draft API object by id, Update the Draft API object by name and version, Delete the Draft API object by name and version
+            api-drafts:view: List the Draft objects, List all Draft API objects in all collections, List the Draft API objects, Get the Draft API object by id, Get the Draft API object by name and version
+            app:manage:all: Create a Application object, Clear the Application objects, Update the Application object by name or id, Delete the Application object by name or id, Create a Strategy object, Delete the Strategy object by name or id, Clear the Strategy objects, Update the Strategy object by name or id, Create a Application Credential object, Update the Application Credential object by name or id, Delete the Application Credential object by name or id, Create a Subscription object, Clear the Subscription objects, Update the Subscription object by name or id, Delete the Subscription object by name or id
+            app:view:all: List the Application objects, Get the Application object by name or id, List the Strategy objects, Get the Strategy object by name or id, List the Application Credential objects, Get the Application Credential object by name or id, List the Subscription objects, Get the Subscription object by name or id
+            approval:view: List the Task objects, Get the Task object by name or id, Update the Task object by name or id, List the Task History objects, Get the Task History object by name or id
+            child:create: Create a Catalog object, Create a Space object
+            child:manage: Clear the Catalog objects, Update the Catalog object by name or id, Delete the Catalog object by name or id, Clear the Space objects, Update the Space object by name or id, Delete the Space object by name or id
+            child:view: List the Catalog objects, Get the Catalog object by name or id, List the Space objects, Get the Space object by name or id
+            cloud:manage: Update the Cloud Setting object, Update the User Registry Setting object, Update the Notification Style object, Create a Registration object, Clear the Registration objects, Update the Registration object by name or id, Delete the Registration object by name or id, Update the Webhook object by name or id
+            cloud:view: Get the Cloud Setting object, Get the User Registry Setting object, Get the Notification Style object, List all Notification Template objects in all collections, List all Role Default objects in all collections, List the Registration objects, Get the Registration object by name or id, List the Webhook objects, Get the Webhook object by name or id
+            consumer-org:manage: Clear the Activation objects, Delete the Activation object by name or id, Create a Consumer Organization object, Clear the Consumer Organization objects, Update the Consumer Organization object by name or id, Delete the Consumer Organization object by name or id, Create a Payment Method object, Update the Payment Method object by name or id, Delete the Payment Method object by name or id
+            consumer-org:view: List the Activation objects, Get the Activation object by name or id, List the Consumer Organization objects, Get the Consumer Organization object by name or id, List the Payment Method objects, Get the Payment Method object by name or id
+            my:manage: Create a API Key object, Delete the API Key object by name or id, Update the Me object, Delete the Me object
+            my:view: List the API Key objects, Get the API Key object by name or id, Get the Me object, List the My Permission objects, List the My Task objects, List the Originated Task objects, List the My Organization objects, List the My Catalog objects, List the My Space objects, List the My User Group objects, List the My Team objects
+            org:manage: Update the Log Spec object, Create a User Registry object, Clear the User Registry objects, Update the User Registry object by name or id, Delete the User Registry object by name or id, Create a User object, Clear the User objects, Update the User object by name or id, Delete the User object by name or id, Update the Organization Setting object, Update the Organization object by name or id, Delete the Organization object by name or id, Create a Member Invitation object, Clear the Member Invitation objects, Update the Member Invitation object by name or id, Delete the Member Invitation object by name or id, Create a Member object, Clear the Member objects, Update the Member object by name or id, Delete the Member object by name or id, Create a User Group Role Assignment object, Clear the User Group Role Assignment objects, Update the User Group Role Assignment object by name or id, Delete the User Group Role Assignment object by name or id, Create a Role object, Clear the Role objects, Update the Role object by name or id, Delete the Role object by name or id, Create a Availability Zone object, Clear the Availability Zone objects, Update the Availability Zone object by name or id, Delete the Availability Zone object by name or id, Create a Gateway Service object, Clear the Gateway Service objects, Update the Gateway Service object by name or id, Delete the Gateway Service object by name or id, Create a Portal Service object, Clear the Portal Service objects, Update the Portal Service object by name or id, Delete the Portal Service object by name or id, Create a Analytics Service object, Clear the Analytics Service objects, Update the Analytics Service object by name or id, Delete the Analytics Service object by name or id, Create a Opentelemetry object, Clear the Opentelemetry objects, Update the Opentelemetry object by name or id, Delete the Opentelemetry object by name or id, Create a Oauth Provider object, Clear the Oauth Provider objects, Update the Oauth Provider object by name or id, Delete the Oauth Provider object by name or id, Create a Jwt Provider object, Clear the Jwt Provider objects, Update the Jwt Provider object by name or id, Delete the Jwt Provider object by name or id, Create a Mail Server object, Clear the Mail Server objects, Update the Mail Server object by name or id, Delete the Mail Server object by name or id, Create a Billing object, Clear the Billing objects, Update the Billing object by name or id, Delete the Billing object by name or id, Create a Itopsplatform object, Clear the Itopsplatform objects, Update the Itopsplatform object by name or id, Delete the Itopsplatform object by name or id, Clear the Job objects, Delete the Job object by name or id, Create a TLS Server Profile object, Clear all TLS Server Profile objects in all collections, Clear the TLS Server Profile objects, Update the TLS Server Profile object by id, Delete the TLS Server Profile object by id, Update the TLS Server Profile object by name and version, Delete the TLS Server Profile object by name and version, Create a TLS Client Profile object, Clear all TLS Client Profile objects in all collections, Clear the TLS Client Profile objects, Update the TLS Client Profile object by id, Delete the TLS Client Profile object by id, Update the TLS Client Profile object by name and version, Delete the TLS Client Profile object by name and version, Create a Keystore object, Clear the Keystore objects, Update the Keystore object by name or id, Delete the Keystore object by name or id, Create a Truststore object, Clear the Truststore objects, Update the Truststore object by name or id, Delete the Truststore object by name or id, Create a Entry object, Clear the Entry objects, Update the Entry object by name or id, Delete the Entry object by name or id, Create a Jwk Set object, Clear the Jwk Set objects, Delete the Jwk Set object by name or id, Create a Programming Package object, Clear the Programming Package objects, Clear all Programming Package objects in all collections, Update the Programming Package object by id, Update the Programming Package object by name and version, Delete the Programming Package object by id, Delete the Programming Package object by name and version, List all Alias objects in all collections, Clear all Alias objects in all collections, Create a Xslt Transformation Alias object, Clear the Xslt Transformation Alias objects, Clear all Xslt Transformation Alias objects in all collections, Update the Xslt Transformation Alias object by id, Update the Xslt Transformation Alias object by name and version, Delete the Xslt Transformation Alias object by id, Delete the Xslt Transformation Alias object by name and version, Create a Http Transport Security Alias object, Clear the Http Transport Security Alias objects, Clear all Http Transport Security Alias objects in all collections, Update the Http Transport Security Alias object by id, Update the Http Transport Security Alias object by name and version, Delete the Http Transport Security Alias object by id, Delete the Http Transport Security Alias object by name and version, Create a Webmethods Integration Server Service Alias object, Clear the Webmethods Integration Server Service Alias objects, Clear all Webmethods Integration Server Service Alias objects in all collections, Update the Webmethods Integration Server Service Alias object by id, Update the Webmethods Integration Server Service Alias object by name and version, Delete the Webmethods Integration Server Service Alias object by id, Delete the Webmethods Integration Server Service Alias object by name and version, Update the Catalog Setting object, Create a Configured Gateway Service object, Clear the Configured Gateway Service objects, Delete the Configured Gateway Service object by name or id, Create a Configured Catalog User Registry object, Delete the Configured Catalog User Registry object by name or id, Create a Configured API User Registry object, Clear the Configured API User Registry objects, Delete the Configured API User Registry object by name or id, Create a Configured TLS Client Profile object, Clear the Configured TLS Client Profile objects, Delete the Configured TLS Client Profile object by id, Delete the Configured TLS Client Profile object by name and version, Create a Configured Billing object, Clear the Configured Billing objects, Delete the Configured Billing object by name or id, Create a Configured Jwt Provider object, Clear the Configured Jwt Provider objects, Delete the Configured Jwt Provider object by name or id, Create a Configured Oauth Provider object, Clear the Configured Oauth Provider objects, Delete the Configured Oauth Provider object by name or id, Create a Configured Portal Service object, Clear the Configured Portal Service objects, Delete the Configured Portal Service object by name or id, Create a Configured Programming Package object, Clear the Configured Programming Package objects, Delete the Configured Programming Package object by id, Delete the Configured Programming Package object by name and version, List all Configured Alias objects in all collections, Clear all Configured Alias objects in all collections, Create a Configured Xslt Transformation Alias object, Clear the Configured Xslt Transformation Alias objects, Clear all Configured Xslt Transformation Alias objects in all collections, Delete the Configured Xslt Transformation Alias object by id, Delete the Configured Xslt Transformation Alias object by name and version, Create a Configured Webmethods Integration Server Service Alias object, Clear the Configured Webmethods Integration Server Service Alias objects, Clear all Configured Webmethods Integration Server Service Alias objects in all collections, Delete the Configured Webmethods Integration Server Service Alias object by id, Delete the Configured Webmethods Integration Server Service Alias object by name and version, Create a Configured Http Transport Security Alias object, Clear the Configured Http Transport Security Alias objects, Clear all Configured Http Transport Security Alias objects in all collections, Delete the Configured Http Transport Security Alias object by id, Delete the Configured Http Transport Security Alias object by name and version, Augment the Configuration Property with additional name/value pairs, Clear the Configuration Property objects, Update the Configuration Property object, Delete the Configuration Property object, Create a Global Policy object, Clear all Global Policy objects in all collections, Clear the Global Policy objects, Update the Global Policy object by id, Delete the Global Policy object by id, Update the Global Policy object by name and version, Delete the Global Policy object by name and version, Create the Global Policy Error object, Update the Global Policy Error object, Delete the Global Policy Error object, Create the Global Policy Prehook object, Update the Global Policy Prehook object, Delete the Global Policy Prehook object, Create the Global Policy Posthook object, Update the Global Policy Posthook object, Delete the Global Policy Posthook object, Create a Simple Alias object, Clear the Simple Alias objects, Update the Simple Alias object by name or id, Delete the Simple Alias object by name or id, Update the Space Setting object, Update the Consumer Organization Setting object, Delete the Consumer Organization Setting object, Create a Watsonx Settings object, Update the Watsonx Settings object by name or id, Delete the Watsonx Settings object by name or id
+            org:view: Get the Log Spec object, List the User Registry objects, Get the User Registry object by name or id, List the User objects, Get the User object by name or id, List all Integration objects in all collections, Get the Organization Setting object, Get the Organization object by name or id, List the Associate objects, Get the Associate object by name or id, Create a User Group object, List the User Group objects, Clear the User Group objects, Get the User Group object by name or id, Update the User Group object by name or id, Delete the User Group object by name or id, List the Member Invitation objects, Get the Member Invitation object by name or id, List the Member objects, Get the Member object by name or id, List the User Group Role Assignment objects, Get the User Group Role Assignment object by name or id, List all Permission objects in all collections, List the Role objects, Get the Role object by name or id, Create a Team object, List the Team objects, Clear the Team objects, Get the Team object by name or id, Update the Team object by name or id, Delete the Team object by name or id, List the Availability Zone objects, Get the Availability Zone object by name or id, List the Gateway Service objects, Get the Gateway Service object by name or id, List all Policy objects in all collections, List the Policy objects, Get the Policy object by id, Get the Policy object by name and version, List all Extension objects in all collections, List the Extension objects, Get the Extension object by id, Get the Extension object by name and version, Create the Gateway Extension object, Get the Gateway Extension object, Update the Gateway Extension object, Delete the Gateway Extension object, List the Portal Service objects, Get the Portal Service object by name or id, List the Analytics Service objects, Get the Analytics Service object by name or id, List the Opentelemetry objects, Get the Opentelemetry object by name or id, List the Oauth Provider objects, Get the Oauth Provider object by name or id, List the Jwt Provider objects, Get the Jwt Provider object by name or id, List the Mail Server objects, Get the Mail Server object by name or id, List the Billing objects, Get the Billing object by name or id, List the Itopsplatform objects, Get the Itopsplatform object by name or id, List the Job objects, Get the Job object by name or id, List all TLS Server Profile objects in all collections, List the TLS Server Profile objects, Get the TLS Server Profile object by id, Get the TLS Server Profile object by name and version, List all TLS Client Profile objects in all collections, List the TLS Client Profile objects, Get the TLS Client Profile object by id, Get the TLS Client Profile object by name and version, List the Keystore objects, Get the Keystore object by name or id, List the Truststore objects, Get the Truststore object by name or id, List the Entry objects, Get the Entry object by name or id, List the Jwk Set objects, Get the Jwk Set object by name or id, List the Programming Package objects, List all Programming Package objects in all collections, Get the Programming Package object by id, Get the Programming Package object by name and version, List the Xslt Transformation Alias objects, List all Xslt Transformation Alias objects in all collections, Get the Xslt Transformation Alias object by id, Get the Xslt Transformation Alias object by name and version, List the Http Transport Security Alias objects, List all Http Transport Security Alias objects in all collections, Get the Http Transport Security Alias object by id, Get the Http Transport Security Alias object by name and version, List the Webmethods Integration Server Service Alias objects, List all Webmethods Integration Server Service Alias objects in all collections, Get the Webmethods Integration Server Service Alias object by id, Get the Webmethods Integration Server Service Alias object by name and version, Get the Catalog Setting object, List the Configured Gateway Service objects, Get the Configured Gateway Service object by name or id, List the Configured Catalog User Registry objects, Get the Configured Catalog User Registry object by name or id, List the Configured API User Registry objects, Get the Configured API User Registry object by name or id, List all Configured TLS Client Profile objects in all collections, Clear all Configured TLS Client Profile objects in all collections, List the Configured TLS Client Profile objects, Get the Configured TLS Client Profile object by id, Get the Configured TLS Client Profile object by name and version, List the Configured Billing objects, Get the Configured Billing object by name or id, List the Configured Jwt Provider objects, Get the Configured Jwt Provider object by name or id, List the Configured Oauth Provider objects, Get the Configured Oauth Provider object by name or id, List the Configured Portal Service objects, Get the Configured Portal Service object by name or id, List the Configured Programming Package objects, List all Configured Programming Package objects in all collections, Clear all Configured Programming Package objects in all collections, Get the Configured Programming Package object by id, Get the Configured Programming Package object by name and version, List the Configured Xslt Transformation Alias objects, List all Configured Xslt Transformation Alias objects in all collections, Get the Configured Xslt Transformation Alias object by id, Get the Configured Xslt Transformation Alias object by name and version, List the Configured Webmethods Integration Server Service Alias objects, List all Configured Webmethods Integration Server Service Alias objects in all collections, Get the Configured Webmethods Integration Server Service Alias object by id, Get the Configured Webmethods Integration Server Service Alias object by name and version, List the Configured Http Transport Security Alias objects, List all Configured Http Transport Security Alias objects in all collections, Get the Configured Http Transport Security Alias object by id, Get the Configured Http Transport Security Alias object by name and version, List the Configuration Property objects, Get the Configuration Property object, List all Global Policy objects in all collections, List the Global Policy objects, Get the Global Policy object by id, Get the Global Policy object by name and version, Get the Global Policy Error object, Get the Global Policy Prehook object, Get the Global Policy Posthook object, List the Simple Alias objects, Get the Simple Alias object by name or id, Get the Space Setting object, Get the Consumer Organization Setting object, List the Primary Event objects, Get the Primary Event object by name or id, List the Subscriber Event objects, Get the Subscriber Event object by name or id, List the Task Queue objects, Get the Task Queue object by name or id, List the Watsonx Settings objects, Get the Watsonx Settings object by name or id, List the Resource Service Status objects
+            product-drafts:edit: Create a Draft Product object, Clear all Draft Product objects in all collections, Clear the Draft Product objects, Update the Draft Product object by id, Delete the Draft Product object by id, Update the Draft Product object by name and version, Delete the Draft Product object by name and version
+            product-drafts:view: List all Draft Product objects in all collections, List the Draft Product objects, Get the Draft Product object by id, Get the Draft Product object by name and version
+            product:manage: Clear all Product objects in all collections, Clear the Product objects, Update the Product object by id, Delete the Product object by id, Update the Product object by name and version, Delete the Product object by name and version, Update the API object by id, Update the API object by name and version
+            product:view: List all Product objects in all collections, List the Product objects, Get the Product object by id, Get the Product object by name and version, List all API objects in all collections, List the API objects, Get the API object by id, Get the API object by name and version, Get the Plan object by id, Get the Plan object by name and version, List the Plan objects, List all Plan objects in all collections, Get the Quota object by id, Get the Quota object by name and version, List the Quota objects, List all Quota objects in all collections
+            project:manage: Create a Project object, Clear the Project objects, Update the Project object by name or id, Delete the Project object by name or id, Clear the Project File objects, Clear all Project File objects in all collections, Update the Project File object by id, Update the Project File object by name and version, Delete the Project File object by id, Delete the Project File object by name and version
+            project:view: List the Project objects, Get the Project object by name or id, List the Project File objects, List all Project File objects in all collections, Get the Project File object by id, Get the Project File object by name and version
+            provider-org:manage: Create an Organization Invitation object, Clear the Organization Invitation objects, Update the Organization Invitation object by name or id, Delete the Organization Invitation object by name or id, Create a Group object, Clear the Group objects, Update the Group object by name or id, Delete the Group object by name or id
+            provider-org:view: List the Organization Invitation objects, Get the Organization Invitation object by name or id, List the Group objects, Get the Group object by name or id
+            webhook:manage: Update the Webhook object by name or id
+            webhook:view: List the Webhook objects, Get the Webhook object by name or id
+x-ibm-configuration:
+  testable: false

@@ -1,0 +1,539 @@
+openapi: 3.2.0
+info:
+  x-ibm-name: compliance
+  version: 2.0.0
+  title: IBM API Connect Governance Validation API
+  description: This API provides operations for accessing the API Governance capabilities.
+  termsOfService: https://www.ibm.com/legal
+  contact:
+    name: IBM
+    url: https://www.ibm.com
+    email: help@ibm.com
+  license:
+    name: tbd
+    url: https://tbd.com
+servers:
+- url: ''
+  description: Local laptop testing
+tags:
+- name: Validation
+paths:
+  /validate:
+    post:
+      summary: Validate an OpenAPI or Product
+      description: 'Validate a Single OpenAPI or a Single Product with a specified list of Rulesets.
+
+        If no Rulesets are provided, spectral-oas and spectral-owasp Global Rulesets will be used for an OpenAPI document, whereas for an AsyncAPI document, the spectral-async Global Ruleset will be used.
+
+        If validating a Product, a list of one or more Rulesets to be used must be provided.'
+      operationId: compliance_validate
+      security:
+      - oauth:
+        - org:view
+      parameters:
+      - $ref: '#/components/parameters/rulesets'
+      requestBody:
+        content:
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/ValidationPublishMultipart'
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ComplianceResult'
+            application/yaml:
+              schema:
+                $ref: '#/components/schemas/ComplianceResult'
+        4XX:
+          $ref: '#/components/responses/Error'
+        5XX:
+          $ref: '#/components/responses/Error'
+      tags:
+      - Validation
+  /orgs/{org}/validate:
+    parameters:
+    - $ref: '#/components/parameters/org'
+    post:
+      summary: Validate an OpenAPI or Product
+      description: 'Validate a Single OpenAPI or a Single Product with a specified list of Rulesets.
+
+        If no Rulesets are provided, spectral-oas and spectral-owasp Global Rulesets will be used for an OpenAPI document, whereas for an AsyncAPI document, the spectral-async Global Ruleset will be used.
+
+        If validating a Product, a list of one or more Rulesets to be used must be provided.'
+      operationId: compliance_validateOrgScope
+      security:
+      - oauth:
+        - org:view
+      parameters:
+      - $ref: '#/components/parameters/rulesets'
+      requestBody:
+        content:
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/ValidationPublishMultipart'
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ComplianceRequest'
+          application/yaml:
+            schema:
+              $ref: '#/components/schemas/ComplianceRequest'
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ComplianceResult'
+            application/yaml:
+              schema:
+                $ref: '#/components/schemas/ComplianceResult'
+        4XX:
+          $ref: '#/components/responses/Error'
+        5XX:
+          $ref: '#/components/responses/Error'
+      tags:
+      - Validation
+  /orgs/{org}/validate/all:
+    parameters:
+    - $ref: '#/components/parameters/org'
+    post:
+      summary: Validate APIs or Products within a Provider Organization using a Configuration…
+      description: Validate APIs or Products within a Provider Organization, using a Configuration File which contains the URLs of either APIs or Products to validate, as well as the Rulesets to use.
+      operationId: compliance_validateAll
+      security:
+      - oauth:
+        - org:view
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ComplianceRequest'
+          application/yaml:
+            schema:
+              $ref: '#/components/schemas/ComplianceRequest'
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ComplianceResults'
+            application/yaml:
+              schema:
+                $ref: '#/components/schemas/ComplianceResults'
+        4XX:
+          $ref: '#/components/responses/Error'
+        5XX:
+          $ref: '#/components/responses/Error'
+      tags:
+      - Validation
+  /orgs/{org}/scan:
+    parameters:
+    - $ref: '#/components/parameters/org'
+    post:
+      summary: Scan OpenAPI Documents
+      operationId: compliance_scanOrgScope
+      security:
+      - oauth:
+        - org:view
+      parameters:
+      - $ref: '#/components/parameters/scantitle'
+      - $ref: '#/components/parameters/scan_type'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ComplianceRequest'
+          application/yaml:
+            schema:
+              $ref: '#/components/schemas/ComplianceRequest'
+      responses:
+        '201':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ScanCreateResult'
+            application/yaml:
+              schema:
+                $ref: '#/components/schemas/ScanCreateResult'
+        4XX:
+          $ref: '#/components/responses/Error'
+        5XX:
+          $ref: '#/components/responses/Error'
+      tags:
+      - Validation
+  /orgs/{org}/rescan/{scan}:
+    parameters:
+    - $ref: '#/components/parameters/org'
+    - $ref: '#/components/parameters/scan'
+    post:
+      summary: Re-Scan OpenAPI Documents
+      operationId: compliance_rescanOrgScope
+      security:
+      - oauth:
+        - org:view
+      parameters:
+      - $ref: '#/components/parameters/scantitle'
+      - $ref: '#/components/parameters/is_gateway_scan'
+      responses:
+        '201':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ScanCreateResult'
+            application/yaml:
+              schema:
+                $ref: '#/components/schemas/ScanCreateResult'
+        4XX:
+          $ref: '#/components/responses/Error'
+        5XX:
+          $ref: '#/components/responses/Error'
+      tags:
+      - Validation
+  /orgs/{org}/validate/custom:
+    parameters:
+    - $ref: '#/components/parameters/org'
+    post:
+      summary: Validate an OpenApi with custom rules to verify custom rules work as expected
+      description: Validate a single OpenAPI document with custom rules provided to verify the rules work as expected.
+      operationId: compliance_validateCustomOrgScope
+      security:
+      - oauth:
+        - org:view
+      parameters:
+      - $ref: '#/components/parameters/rulesets'
+      requestBody:
+        content:
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/ValidationPublishMultipart'
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ComplianceRequest'
+          application/yaml:
+            schema:
+              $ref: '#/components/schemas/ComplianceRequest'
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ComplianceResult'
+            application/yaml:
+              schema:
+                $ref: '#/components/schemas/ComplianceResult'
+        4XX:
+          $ref: '#/components/responses/Error'
+        5XX:
+          $ref: '#/components/responses/Error'
+      tags:
+      - Validation
+components:
+  schemas:
+    ComplianceResults:
+      type: object
+      additionalProperties: true
+      properties:
+        total_results:
+          type: integer
+        created_at:
+          type: string
+          format: date-time
+        results:
+          type: array
+          items:
+            $ref: '#/components/schemas/ResultResponse'
+    ScanCreateResult:
+      type: object
+      additionalProperties: true
+      properties:
+        message:
+          type: string
+    Error:
+      type: object
+      additionalProperties: false
+      properties:
+        status:
+          type: integer
+          minimum: 400
+          maximum: 599
+        message:
+          type: array
+          items:
+            type: string
+        errors:
+          type: array
+          items:
+            type: string
+    ConfigRuleset:
+      type: object
+      additionalProperties: false
+      properties:
+        rulesetName:
+          type: string
+          maxLength: 255
+        disabled:
+          type: array
+          items:
+            type: string
+    ValidationPublishMultipart:
+      type: object
+      properties:
+        product:
+          type: array
+          items:
+            $ref: '#/components/schemas/ProductDefinition'
+        openapi:
+          type: array
+          items:
+            $ref: '#/components/schemas/OpenApi2Definition'
+        config:
+          type: array
+          items:
+            $ref: '#/components/schemas/ConfigDefinition'
+      oneOf:
+      - required:
+        - product
+      - required:
+        - openapi
+    CronObject:
+      type: object
+      description: Cron configuration for scheduled scans
+      additionalProperties: false
+      properties:
+        minute:
+          type: integer
+          description: Minute (0–59)
+        hour:
+          type: integer
+          description: Hour (0–23)
+        frequency:
+          type: string
+          description: Frequency (daily or specific day of week)
+      required:
+      - minute
+      - hour
+      - frequency
+    ComplianceRequest:
+      type: object
+      additionalProperties: true
+      properties:
+        tags_enabled:
+          type: boolean
+        tags:
+          type: object
+        apiUrls:
+          type: array
+          items:
+            type: string
+            readOnly: true
+        productUrls:
+          type: array
+          items:
+            type: string
+            readOnly: true
+        collectionUrl:
+          type: string
+          format: uri
+        config:
+          $ref: '#/components/schemas/ConfigDefinition'
+        cron:
+          $ref: '#/components/schemas/CronObject'
+    ResultResponse:
+      type: object
+      additionalProperties: true
+      properties:
+        ruleset_name:
+          type: string
+        rule_name:
+          type: string
+        message:
+          type: string
+        path:
+          type: string
+        severity:
+          type: string
+          enum:
+          - error
+          - warn
+          - info
+          - hint
+          - 'off'
+        api_name:
+          type: string
+        doc_title:
+          type: string
+        catalog:
+          type: string
+        space:
+          type: string
+        product_title:
+          type: string
+        start_line:
+          type: integer
+        end_line:
+          type: integer
+        validation_result:
+          type: boolean
+    ConfigDefinition:
+      type: object
+      additionalProperties: false
+      properties:
+        rulesets:
+          type: array
+          items:
+            $ref: '#/components/schemas/ConfigRuleset'
+    ComplianceResult:
+      type: object
+      additionalProperties: true
+      properties:
+        total_results:
+          type: integer
+        created_at:
+          type: string
+          format: date-time
+        results:
+          type: array
+          items:
+            $ref: '#/components/schemas/ResultResponse'
+    ProductDefinition:
+      type: object
+      additionalProperties: true
+      properties:
+        product:
+          type: string
+          enum:
+          - 1.0.0
+        info:
+          type: object
+          additionalProperties: true
+          required:
+          - name
+          - version
+          properties:
+            name:
+              type: string
+            version:
+              type: string
+    OpenApi2Definition:
+      type: object
+      additionalProperties: true
+      properties:
+        swagger:
+          type: string
+          enum:
+          - 2.0.0
+        info:
+          type: object
+          additionalProperties: true
+          required:
+          - title
+          - version
+          properties:
+            title:
+              type: string
+            version:
+              type: string
+  parameters:
+    scan_type:
+      name: scan_type
+      in: query
+      description: Optional type for Scan
+      required: false
+      schema:
+        type: string
+    org:
+      name: org
+      in: path
+      description: Organization name or id
+      required: true
+      schema:
+        type: string
+    is_gateway_scan:
+      name: is_gateway_scan
+      in: query
+      description: When set to true, sets scan as gateway scan
+      required: false
+      schema:
+        type: boolean
+    rulesets:
+      name: rulesets
+      in: query
+      description: Define one or more rulesets to be used by providing the name in the format rulesetName1,rulesetName2 with no spaces when separating names by comma. If one ruleset name is mentioned no comma should be used.
+      required: false
+      schema:
+        type: string
+    scan:
+      name: scan
+      in: path
+      description: Scan name or id
+      required: true
+      schema:
+        type: string
+    scantitle:
+      name: scantitle
+      in: query
+      description: Optional title for Scan
+      required: false
+      schema:
+        type: string
+  responses:
+    Error:
+      description: Unexpected error
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+        application/yaml:
+          schema:
+            $ref: '#/components/schemas/Error'
+  securitySchemes:
+    oauth:
+      type: oauth2
+      flows:
+        implicit:
+          authorizationUrl: /oauth2/authorize
+          scopes:
+            org:manage: Delete all user created rulesets, Update the Ruleset object by name or id, Delete the Ruleset object by name or id, Create a Rule object, Delete all versions of a Rule by name for a single version of a Ruleset, Update the Rule object by id, Delete a single user created Rule in a single Ruleset by id, Update the Rule object by name and version, Delete the Rule object by name and version, Create a Scan object, Clear the Scan objects, Update the Scan object by name or id, Delete the Scan object by name or id, Create a Scan Report object, Update the Scan Report object by name or id, Delete the Scan Report object by name or id
+            org:view: List the Ruleset objects, Download the Ruleset object as a file to the current directory by name or id, List information about all Rules of a Ruleset, List information about the specified Rule of a Ruleset, Download the Rule object as a file to the current directory by id, Download the Rule object as a file to the current directory by name:version or id, List the Scan objects, Get the Scan object by name or id, List the Scan Report objects, Get the Scan Report object by name or id
+            cloud:manage: List all rules, Scan Gateway APIs, Create Gateway Scan, Clear the Gateway Scan objects, Update Gateway Scan by ID, Delete Gateway Scan by ID
+            cloud:view: List all rules, List Gateway Scans, Get Gateway Scan by ID
+            product:manage: Create a catalog setting by name or id, Validate product api using catalog governance setting
+        password:
+          tokenUrl: /token
+          refreshUrl: /token
+          scopes:
+            org:manage: Delete all user created rulesets, Update the Ruleset object by name or id, Delete the Ruleset object by name or id, Create a Rule object, Delete all versions of a Rule by name for a single version of a Ruleset, Update the Rule object by id, Delete a single user created Rule in a single Ruleset by id, Update the Rule object by name and version, Delete the Rule object by name and version, Create a Scan object, Clear the Scan objects, Update the Scan object by name or id, Delete the Scan object by name or id, Create a Scan Report object, Update the Scan Report object by name or id, Delete the Scan Report object by name or id
+            org:view: List the Ruleset objects, Download the Ruleset object as a file to the current directory by name or id, List information about all Rules of a Ruleset, List information about the specified Rule of a Ruleset, Download the Rule object as a file to the current directory by id, Download the Rule object as a file to the current directory by name:version or id, List the Scan objects, Get the Scan object by name or id, List the Scan Report objects, Get the Scan Report object by name or id
+            cloud:manage: List all rules, Scan Gateway APIs, Create Gateway Scan, Clear the Gateway Scan objects, Update Gateway Scan by ID, Delete Gateway Scan by ID
+            cloud:view: List all rules, List Gateway Scans, Get Gateway Scan by ID
+            product:manage: Create a catalog setting by name or id, Validate product api using catalog governance setting
+        clientCredentials:
+          tokenUrl: /token
+          scopes:
+            org:manage: Delete all user created rulesets, Update the Ruleset object by name or id, Delete the Ruleset object by name or id, Create a Rule object, Delete all versions of a Rule by name for a single version of a Ruleset, Update the Rule object by id, Delete a single user created Rule in a single Ruleset by id, Update the Rule object by name and version, Delete the Rule object by name and version, Create a Scan object, Clear the Scan objects, Update the Scan object by name or id, Delete the Scan object by name or id, Create a Scan Report object, Update the Scan Report object by name or id, Delete the Scan Report object by name or id
+            org:view: List the Ruleset objects, Download the Ruleset object as a file to the current directory by name or id, List information about all Rules of a Ruleset, List information about the specified Rule of a Ruleset, Download the Rule object as a file to the current directory by id, Download the Rule object as a file to the current directory by name:version or id, List the Scan objects, Get the Scan object by name or id, List the Scan Report objects, Get the Scan Report object by name or id
+            cloud:manage: List all rules, Scan Gateway APIs, Create Gateway Scan, Clear the Gateway Scan objects, Update Gateway Scan by ID, Delete Gateway Scan by ID
+            cloud:view: List all rules, List Gateway Scans, Get Gateway Scan by ID
+            product:manage: Create a catalog setting by name or id, Validate product api using catalog governance setting
+        authorizationCode:
+          authorizationUrl: /oauth2/authorize
+          tokenUrl: /token
+          refreshUrl: /token
+          scopes:
+            org:manage: Delete all user created rulesets, Update the Ruleset object by name or id, Delete the Ruleset object by name or id, Create a Rule object, Delete all versions of a Rule by name for a single version of a Ruleset, Update the Rule object by id, Delete a single user created Rule in a single Ruleset by id, Update the Rule object by name and version, Delete the Rule object by name and version, Create a Scan object, Clear the Scan objects, Update the Scan object by name or id, Delete the Scan object by name or id, Create a Scan Report object, Update the Scan Report object by name or id, Delete the Scan Report object by name or id
+            org:view: List the Ruleset objects, Download the Ruleset object as a file to the current directory by name or id, List information about all Rules of a Ruleset, List information about the specified Rule of a Ruleset, Download the Rule object as a file to the current directory by id, Download the Rule object as a file to the current directory by name:version or id, List the Scan objects, Get the Scan object by name or id, List the Scan Report objects, Get the Scan Report object by name or id
+            cloud:manage: List all rules, Scan Gateway APIs, Create Gateway Scan, Clear the Gateway Scan objects, Update Gateway Scan by ID, Delete Gateway Scan by ID
+            cloud:view: List all rules, List Gateway Scans, Get Gateway Scan by ID
+            product:manage: Create a catalog setting by name or id, Validate product api using catalog governance setting
+externalDocs:
+  description: Additional documentation
+  url: https://www.ibm.com/knowledge-center/api-connect/platform-apis
+x-ibm-configuration:
+  testable: false

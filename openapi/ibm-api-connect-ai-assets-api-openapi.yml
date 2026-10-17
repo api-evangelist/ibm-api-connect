@@ -1,0 +1,413 @@
+openapi: 3.2.0
+info:
+  x-ibm-name: consumer
+  version: 2.0.0
+  title: IBM API Connect Platform - Consumer AI Assets API
+  description: This API provides operations for accessing API consumer content
+  termsOfService: https://www.ibm.com/legal
+  contact:
+    name: IBM
+    url: https://www.ibm.com
+    email: help@ibm.com
+  license:
+    name: tbd
+    url: https://tbd.com
+servers:
+- url: ''
+  description: Consumer apim base path
+tags:
+- name: AI Assets
+paths:
+  /public-mcp-servers:
+    description: Mcp Server operations across all collections
+    get:
+      summary: List all Mcp Server objects in all collections
+      operationId: mcp_server_listAll
+      parameters:
+      - $ref: '#/components/parameters/fields'
+      - $ref: '#/components/parameters/offset'
+      - $ref: '#/components/parameters/limit'
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/McpServerList'
+            application/yaml:
+              schema:
+                $ref: '#/components/schemas/McpServerList'
+        4XX:
+          $ref: '#/components/responses/Error'
+        5XX:
+          $ref: '#/components/responses/Error'
+      tags:
+      - AI Assets
+  /public-mcp-servers/{mcp-server-name}:
+    description: The collection of Mcp Server operations
+    parameters:
+    - $ref: '#/components/parameters/mcp-server-name'
+    get:
+      summary: List the Mcp Server objects
+      operationId: mcp_server_list
+      parameters:
+      - $ref: '#/components/parameters/fields'
+      - $ref: '#/components/parameters/offset'
+      - $ref: '#/components/parameters/limit'
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/McpServerList'
+            application/yaml:
+              schema:
+                $ref: '#/components/schemas/McpServerList'
+        4XX:
+          $ref: '#/components/responses/Error'
+        5XX:
+          $ref: '#/components/responses/Error'
+      tags:
+      - AI Assets
+  /public-mcp-servers/{mcp-server-id}:
+    description: Mcp Server object operations
+    parameters:
+    - $ref: '#/components/parameters/mcp-server-id'
+    get:
+      summary: Get the Mcp Server object by id
+      operationId: mcp_server_get
+      parameters:
+      - $ref: '#/components/parameters/fields'
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/McpServer'
+            application/yaml:
+              schema:
+                $ref: '#/components/schemas/McpServer'
+        4XX:
+          $ref: '#/components/responses/Error'
+        5XX:
+          $ref: '#/components/responses/Error'
+      tags:
+      - AI Assets
+  /public-mcp-servers/{mcp-server-name}/{mcp-server-version}:
+    description: Mcp Server object operations by name and version
+    parameters:
+    - $ref: '#/components/parameters/mcp-server-name'
+    - $ref: '#/components/parameters/mcp-server-version'
+    get:
+      summary: Get the Mcp Server object by name and version
+      operationId: mcp_server_getByNameVersion
+      parameters:
+      - $ref: '#/components/parameters/fields'
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/McpServer'
+            application/yaml:
+              schema:
+                $ref: '#/components/schemas/McpServer'
+        4XX:
+          $ref: '#/components/responses/Error'
+        5XX:
+          $ref: '#/components/responses/Error'
+      tags:
+      - AI Assets
+  /mcp-servers:
+    description: Mcp Server operations across all collections
+    get:
+      summary: List all Mcp Server objects in all collections
+      operationId: mcp_server_listAllOrgScope
+      security:
+      - oauth:
+        - published-product:view
+      parameters:
+      - $ref: '#/components/parameters/fields'
+      - $ref: '#/components/parameters/offset'
+      - $ref: '#/components/parameters/limit'
+      - $ref: '#/components/parameters/consumer_org_url'
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/McpServerList'
+            application/yaml:
+              schema:
+                $ref: '#/components/schemas/McpServerList'
+        4XX:
+          $ref: '#/components/responses/Error'
+        5XX:
+          $ref: '#/components/responses/Error'
+      tags:
+      - AI Assets
+  /mcp-servers/{mcp-server-name}:
+    description: The collection of Mcp Server operations
+    parameters:
+    - $ref: '#/components/parameters/mcp-server-name'
+    get:
+      summary: List the Mcp Server objects
+      operationId: mcp_server_listOrgScope
+      security:
+      - oauth:
+        - published-product:view
+      parameters:
+      - $ref: '#/components/parameters/fields'
+      - $ref: '#/components/parameters/offset'
+      - $ref: '#/components/parameters/limit'
+      - $ref: '#/components/parameters/consumer_org_url'
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/McpServerList'
+            application/yaml:
+              schema:
+                $ref: '#/components/schemas/McpServerList'
+        4XX:
+          $ref: '#/components/responses/Error'
+        5XX:
+          $ref: '#/components/responses/Error'
+      tags:
+      - AI Assets
+  /mcp-servers/{mcp-server-id}:
+    description: Mcp Server object operations
+    parameters:
+    - $ref: '#/components/parameters/mcp-server-id'
+    get:
+      summary: Get the Mcp Server object by id
+      operationId: mcp_server_getOrgScope
+      security:
+      - oauth:
+        - published-product:view
+      parameters:
+      - $ref: '#/components/parameters/fields'
+      - $ref: '#/components/parameters/consumer_org_url'
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/McpServer'
+            application/yaml:
+              schema:
+                $ref: '#/components/schemas/McpServer'
+        4XX:
+          $ref: '#/components/responses/Error'
+        5XX:
+          $ref: '#/components/responses/Error'
+      tags:
+      - AI Assets
+  /mcp-servers/{mcp-server-name}/{mcp-server-version}:
+    description: Mcp Server object operations by name and version
+    parameters:
+    - $ref: '#/components/parameters/mcp-server-name'
+    - $ref: '#/components/parameters/mcp-server-version'
+    get:
+      summary: Get the Mcp Server object by name and version
+      operationId: mcp_server_getByNameVersionOrgScope
+      security:
+      - oauth:
+        - published-product:view
+      parameters:
+      - $ref: '#/components/parameters/fields'
+      - $ref: '#/components/parameters/consumer_org_url'
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/McpServer'
+            application/yaml:
+              schema:
+                $ref: '#/components/schemas/McpServer'
+        4XX:
+          $ref: '#/components/responses/Error'
+        5XX:
+          $ref: '#/components/responses/Error'
+      tags:
+      - AI Assets
+components:
+  schemas:
+    McpServerList:
+      type: object
+      additionalProperties: false
+      properties:
+        total_results:
+          type: integer
+        results:
+          type: array
+          items:
+            $ref: '#/components/schemas/McpServer'
+    Error:
+      type: object
+      additionalProperties: false
+      properties:
+        status:
+          type: integer
+          minimum: 400
+          maximum: 599
+        message:
+          type: array
+          items:
+            type: string
+        errors:
+          type: array
+          items:
+            type: string
+    McpServer:
+      type: object
+      additionalProperties: false
+      properties:
+        type:
+          type: string
+          readOnly: true
+          enum:
+          - mcp_server
+        api_version:
+          type: string
+          readOnly: true
+          enum:
+          - 2.0.0
+        id:
+          type: string
+          readOnly: true
+        name:
+          type: string
+          maxLength: 255
+        version:
+          type: string
+          maxLength: 255
+        title:
+          type: string
+          maxLength: 1023
+        summary:
+          type: string
+          maxLength: 65535
+        state:
+          type: string
+          enum:
+          - online
+          - offline
+        mcp_server_kind:
+          type: object
+          additionalProperties: true
+        org_url:
+          type: string
+          format: uri
+        metadata:
+          type: object
+          additionalProperties:
+            type: string
+        created_at:
+          type: string
+          format: date-time
+          readOnly: true
+        updated_at:
+          type: string
+          format: date-time
+          readOnly: true
+        url:
+          type: string
+          readOnly: true
+          format: uri
+  parameters:
+    consumer_org_url:
+      name: consumer_org_url
+      in: query
+      description: Consumer Org Url
+      required: false
+      schema:
+        type: string
+    mcp-server-name:
+      name: mcp-server-name
+      in: path
+      description: Mcp Server name
+      required: true
+      schema:
+        type: string
+    mcp-server-version:
+      name: mcp-server-version
+      in: path
+      description: Mcp Server version name
+      required: true
+      schema:
+        type: string
+    limit:
+      name: limit
+      in: query
+      description: Maximum number of items to return
+      required: false
+      schema:
+        type: integer
+    fields:
+      name: fields
+      in: query
+      description: field name
+      required: false
+      schema:
+        type: string
+    offset:
+      name: offset
+      in: query
+      description: Offset item number from list to begin return
+      required: false
+      schema:
+        type: integer
+    mcp-server-id:
+      name: mcp-server-id
+      in: path
+      description: Mcp Server name
+      required: true
+      schema:
+        type: string
+  responses:
+    Error:
+      description: Unexpected error
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+        application/yaml:
+          schema:
+            $ref: '#/components/schemas/Error'
+  securitySchemes:
+    oauth:
+      type: oauth2
+      flows:
+        password:
+          tokenUrl: /token
+          refreshUrl: /token
+          scopes:
+            app:manage: Create a Application object, Clear the Application objects, Update the Application object by name or id, Delete the Application object by name or id, Create a Application Credential object, Clear the Application Credential objects, Update the Application Credential object by name or id, Delete the Application Credential object by name or id, Create a Subscription object, Clear the Subscription objects, Update the Subscription object by name or id, Delete the Subscription object by name or id
+            app:view: List the Application objects, Get the Application object by name or id, List the Application Credential objects, Get the Application Credential object by name or id, List the Subscription objects, Get the Subscription object by name or id
+            my:manage: Update the Me object, Delete the Me object
+            my:view: Get the Me object, List the My Permission objects, List the My Organization objects
+            org:manage: Create a My Organization object, Update the Organization object by name or id, Delete the Organization object by name or id, Create a Member Invitation object, Clear the Member Invitation objects, Delete the Member Invitation object by name or id, Clear the Member objects, Update the Member object by name or id, Delete the Member object by name or id, Create a Payment Method object, Update the Payment Method object by name or id, Delete the Payment Method object by name or id
+            org:view: List all Permission objects in all collections, Get the Organization object by name or id, Get the Group object by name or id, List the Member Invitation objects, Get the Member Invitation object by name or id, List the User Registry objects, Get the User Registry object by name or id, Get the User object by name or id, List the Associate objects, Get the Associate object by name or id, List the Member objects, Get the Member object by name or id, List the Role objects, Get the Role object by name or id, Get the Billing object by name or id, List the Billing objects, List the Payment Method objects, Get the Payment Method object by name or id, List the Payment Method Type objects, Get the Payment Method Type object by name or id
+        authorizationCode:
+          authorizationUrl: /oauth2/authorize
+          tokenUrl: /token
+          refreshUrl: /token
+          scopes:
+            app:manage: Create a Application object, Clear the Application objects, Update the Application object by name or id, Delete the Application object by name or id, Create a Application Credential object, Clear the Application Credential objects, Update the Application Credential object by name or id, Delete the Application Credential object by name or id, Create a Subscription object, Clear the Subscription objects, Update the Subscription object by name or id, Delete the Subscription object by name or id
+            app:view: List the Application objects, Get the Application object by name or id, List the Application Credential objects, Get the Application Credential object by name or id, List the Subscription objects, Get the Subscription object by name or id
+            my:manage: Update the Me object, Delete the Me object
+            my:view: Get the Me object, List the My Permission objects, List the My Organization objects
+            org:manage: Create a My Organization object, Update the Organization object by name or id, Delete the Organization object by name or id, Create a Member Invitation object, Clear the Member Invitation objects, Delete the Member Invitation object by name or id, Clear the Member objects, Update the Member object by name or id, Delete the Member object by name or id, Create a Payment Method object, Update the Payment Method object by name or id, Delete the Payment Method object by name or id
+            org:view: List all Permission objects in all collections, Get the Organization object by name or id, Get the Group object by name or id, List the Member Invitation objects, Get the Member Invitation object by name or id, List the User Registry objects, Get the User Registry object by name or id, Get the User object by name or id, List the Associate objects, Get the Associate object by name or id, List the Member objects, Get the Member object by name or id, List the Role objects, Get the Role object by name or id, Get the Billing object by name or id, List the Billing objects, List the Payment Method objects, Get the Payment Method object by name or id, List the Payment Method Type objects, Get the Payment Method Type object by name or id
+x-ibm-configuration:
+  testable: false

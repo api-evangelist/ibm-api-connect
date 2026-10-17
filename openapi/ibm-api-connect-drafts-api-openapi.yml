@@ -1,0 +1,3374 @@
+openapi: 3.2.0
+info:
+  x-ibm-name: apim
+  version: 2.0.0
+  title: IBM API Connect Platform - Provider Drafts API
+  description: This API provides operations for accessing API provider capability.
+  termsOfService: https://www.ibm.com/legal
+  contact:
+    name: IBM
+    url: https://www.ibm.com
+    email: help@ibm.com
+  license:
+    name: tbd
+    url: https://tbd.com
+servers:
+- url: ''
+  description: APIM base path
+tags:
+- name: Drafts
+paths:
+  /orgs/{org}/drafts:
+    description: The collection of Draft operations
+    parameters:
+    - $ref: '#/components/parameters/org'
+    get:
+      summary: Lists drafts
+      description: Returns the complete list of draft APIs and products belonging to a provider organization.
+      operationId: draft_list
+      security:
+      - oauth:
+        - api-drafts:view
+      parameters:
+      - $ref: '#/components/parameters/fields'
+      - $ref: '#/components/parameters/offset'
+      - $ref: '#/components/parameters/limit'
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DraftList'
+            application/yaml:
+              schema:
+                $ref: '#/components/schemas/DraftList'
+        4XX:
+          $ref: '#/components/responses/Error'
+        5XX:
+          $ref: '#/components/responses/Error'
+      tags:
+      - Drafts
+    delete:
+      summary: Deletes drafts
+      description: Removes all drafts (APIs and products).
+      operationId: draft_clear
+      security:
+      - oauth:
+        - api-drafts:edit
+      parameters:
+      - $ref: '#/components/parameters/confirm'
+      responses:
+        '204':
+          description: Success
+        4XX:
+          $ref: '#/components/responses/Error'
+        5XX:
+          $ref: '#/components/responses/Error'
+      tags:
+      - Drafts
+  /orgs/{org}/drafts/introspect-wsdl:
+    parameters:
+    - $ref: '#/components/parameters/org'
+    post:
+      summary: Introspect the WSDL
+      operationId: draft_introspectWsdl
+      security:
+      - oauth:
+        - api-drafts:edit
+      parameters:
+      - $ref: '#/components/parameters/wsdl_services'
+      requestBody:
+        content:
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/IntrospectWsdlMultipart'
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/WsdlServices'
+            application/yaml:
+              schema:
+                $ref: '#/components/schemas/WsdlServices'
+        4XX:
+          $ref: '#/components/responses/Error'
+        5XX:
+          $ref: '#/components/responses/Error'
+      tags:
+      - Drafts
+  /orgs/{org}/drafts/draft-products:
+    description: Draft Product operations across all collections
+    parameters:
+    - $ref: '#/components/parameters/org'
+    post:
+      summary: Creates a draft product
+      description: 'Creates a draft product from the given content, which may represent an product document or a product and associated APIs.
+
+
+        Fields allowed but ignored:
+
+        - id
+
+        - type
+
+        - api_version
+
+        - scope
+
+        - created_at
+
+        - updated_at
+
+        - url
+
+        - org_url'
+      operationId: draft_product_create
+      security:
+      - oauth:
+        - product-drafts:edit
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/DraftProduct'
+            examples:
+              DraftProduct:
+                summary: Example of draft product creation.
+                value:
+                  info:
+                    version: 1.0.0
+                    title: acme draft product creation
+                    name: acme-draft-product
+                    summary: An example draft product creation
+                  gateways:
+                  - datapower-api-gateway
+                  plans:
+                    default-plan:
+                      title: Default Plan
+                      description: Default Plan
+                      rate-limits:
+                        default:
+                          value: 100/1hour
+                  apis:
+                    acme-api1.0.0:
+                      name: acme-api:1.0.0
+                    acme2-api1.0.0:
+                      name: acme2-api:1.0.0
+                  visibility:
+                    view:
+                      type: public
+                      enabled: true
+                    subscribe:
+                      type: authenticated
+                      enabled: true
+                  product: 1.0.0
+          application/yaml:
+            schema:
+              $ref: '#/components/schemas/DraftProduct'
+            examples:
+              DraftProduct:
+                summary: Example of draft product creation.
+                value:
+                  info:
+                    version: 1.0.0
+                    title: acme draft product creation
+                    name: acme-draft-product
+                    summary: An example draft product creation
+                  gateways:
+                  - datapower-api-gateway
+                  plans:
+                    default-plan:
+                      title: Default Plan
+                      description: Default Plan
+                      rate-limits:
+                        default:
+                          value: 100/1hour
+                  apis:
+                    acme-api1.0.0:
+                      name: acme-api:1.0.0
+                    acme2-api1.0.0:
+                      name: acme2-api:1.0.0
+                  visibility:
+                    view:
+                      type: public
+                      enabled: true
+                    subscribe:
+                      type: authenticated
+                      enabled: true
+                  product: 1.0.0
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/DraftProductMultipart'
+      responses:
+        '201':
+          description: Successful create
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DraftProduct'
+            application/yaml:
+              schema:
+                $ref: '#/components/schemas/DraftProduct'
+        '302':
+          description: Redirect response
+          headers:
+            Location:
+              description: Redirect payload
+              schema:
+                type: string
+        4XX:
+          $ref: '#/components/responses/Error'
+        5XX:
+          $ref: '#/components/responses/Error'
+      tags:
+      - Drafts
+    get:
+      summary: Lists draft products
+      description: Returns all draft products belonging to a provider organization.
+      operationId: draft_product_listAll
+      security:
+      - oauth:
+        - product-drafts:view
+      parameters:
+      - $ref: '#/components/parameters/fields'
+      - $ref: '#/components/parameters/offset'
+      - $ref: '#/components/parameters/limit'
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DraftProductList'
+            application/yaml:
+              schema:
+                $ref: '#/components/schemas/DraftProductList'
+        4XX:
+          $ref: '#/components/responses/Error'
+        5XX:
+          $ref: '#/components/responses/Error'
+      tags:
+      - Drafts
+    delete:
+      summary: Clears draft products
+      description: Deletes all draft products.
+      operationId: draft_product_clearAll
+      security:
+      - oauth:
+        - product-drafts:edit
+      parameters:
+      - $ref: '#/components/parameters/confirm'
+      responses:
+        '204':
+          description: Success
+        4XX:
+          $ref: '#/components/responses/Error'
+        5XX:
+          $ref: '#/components/responses/Error'
+      tags:
+      - Drafts
+  /orgs/{org}/drafts/draft-products/{draft-product-name}:
+    description: The collection of Draft Product operations
+    parameters:
+    - $ref: '#/components/parameters/org'
+    - $ref: '#/components/parameters/draft-product-name'
+    get:
+      summary: Lists draft product versions
+      description: Returns all versions of the named draft product.
+      operationId: draft_product_list
+      security:
+      - oauth:
+        - product-drafts:view
+      parameters:
+      - $ref: '#/components/parameters/fields'
+      - $ref: '#/components/parameters/offset'
+      - $ref: '#/components/parameters/limit'
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DraftProductList'
+            application/yaml:
+              schema:
+                $ref: '#/components/schemas/DraftProductList'
+        4XX:
+          $ref: '#/components/responses/Error'
+        5XX:
+          $ref: '#/components/responses/Error'
+      tags:
+      - Drafts
+    delete:
+      summary: Clears draft product versions
+      description: Deletes all versions of the named draft product.
+      operationId: draft_product_clear
+      security:
+      - oauth:
+        - product-drafts:edit
+      parameters:
+      - $ref: '#/components/parameters/confirm'
+      responses:
+        '204':
+          description: Success
+        4XX:
+          $ref: '#/components/responses/Error'
+        5XX:
+          $ref: '#/components/responses/Error'
+      tags:
+      - Drafts
+  /orgs/{org}/drafts/draft-products/{draft-product-id}:
+    description: Draft Product object operations
+    parameters:
+    - $ref: '#/components/parameters/org'
+    - $ref: '#/components/parameters/draft-product-id'
+    get:
+      summary: Returns a draft product
+      description: Returns the given draft product.
+      operationId: draft_product_get
+      security:
+      - oauth:
+        - product-drafts:view
+      parameters:
+      - $ref: '#/components/parameters/fields'
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DraftProduct'
+            application/yaml:
+              schema:
+                $ref: '#/components/schemas/DraftProduct'
+        4XX:
+          $ref: '#/components/responses/Error'
+        5XX:
+          $ref: '#/components/responses/Error'
+      tags:
+      - Drafts
+    patch:
+      summary: Updates a draft product
+      description: 'Updates a draft product from the given content, which may represent an product document or a product and associated APIs.
+
+
+        Fields allowed but ignored:
+
+        - id
+
+        - type
+
+        - api_version
+
+        - scope
+
+        - created_at
+
+        - updated_at
+
+        - url
+
+        - org_url'
+      operationId: draft_product_update
+      security:
+      - oauth:
+        - product-drafts:edit
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/DraftProduct'
+            examples:
+              DraftProduct:
+                summary: Example of draft product update by id.
+                value:
+                  info:
+                    title: acme draft product update
+                    summary: An example draft product update
+                    version: 1.0.0
+                    name: acme-draft-product
+                  gateways:
+                  - datapower-api-gateway
+                  plans:
+                    acme-plan:
+                      title: acme Plan
+                      description: acme Plan
+                      rate-limits:
+                        default:
+                          value: 150/1hour
+                  apis:
+                    acme-api1.0.0:
+                      name: acme-api:1.0.0
+                  visibility:
+                    view:
+                      type: custom
+                      orgs:
+                      - acme-org
+                      enabled: true
+                    subscribe:
+                      type: custom
+                      orgs:
+                      - acme-org
+                      enabled: true
+                  product: 1.0.0
+          application/yaml:
+            schema:
+              $ref: '#/components/schemas/DraftProduct'
+            examples:
+              DraftProduct:
+                summary: Example of draft product update by id.
+                value:
+                  info:
+                    title: acme draft product update
+                    summary: An example draft product update
+                    version: 1.0.0
+                    name: acme-draft-product
+                  gateways:
+                  - datapower-api-gateway
+                  plans:
+                    acme-plan:
+                      title: acme Plan
+                      description: acme Plan
+                      rate-limits:
+                        default:
+                          value: 150/1hour
+                  apis:
+                    acme-api1.0.0:
+                      name: acme-api:1.0.0
+                  visibility:
+                    view:
+                      type: custom
+                      orgs:
+                      - acme-org
+                      enabled: true
+                    subscribe:
+                      type: custom
+                      orgs:
+                      - acme-org
+                      enabled: true
+                  product: 1.0.0
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/DraftProductMultipart'
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DraftProduct'
+            application/yaml:
+              schema:
+                $ref: '#/components/schemas/DraftProduct'
+        4XX:
+          $ref: '#/components/responses/Error'
+        5XX:
+          $ref: '#/components/responses/Error'
+      tags:
+      - Drafts
+    delete:
+      summary: Deletes a draft product
+      description: Deletes the given product from drafts.
+      operationId: draft_product_del
+      security:
+      - oauth:
+        - product-drafts:edit
+      responses:
+        '200':
+          description: Successful delete
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DraftProduct'
+            application/yaml:
+              schema:
+                $ref: '#/components/schemas/DraftProduct'
+        4XX:
+          $ref: '#/components/responses/Error'
+        5XX:
+          $ref: '#/components/responses/Error'
+      tags:
+      - Drafts
+  /orgs/{org}/drafts/draft-products/{draft-product-name}/{draft-product-version}:
+    description: Draft Product object operations by name and version
+    parameters:
+    - $ref: '#/components/parameters/org'
+    - $ref: '#/components/parameters/draft-product-name'
+    - $ref: '#/components/parameters/draft-product-version'
+    get:
+      summary: Returns a draft product
+      description: Returns the given draft product.
+      operationId: draft_product_getByNameVersion
+      security:
+      - oauth:
+        - product-drafts:view
+      parameters:
+      - $ref: '#/components/parameters/fields'
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DraftProduct'
+            application/yaml:
+              schema:
+                $ref: '#/components/schemas/DraftProduct'
+        4XX:
+          $ref: '#/components/responses/Error'
+        5XX:
+          $ref: '#/components/responses/Error'
+      tags:
+      - Drafts
+    patch:
+      summary: Updates a draft product
+      description: 'Updates a draft product from the given content, which may represent an product document or a product and associated APIs.
+
+
+        Fields allowed but ignored:
+
+        - id
+
+        - type
+
+        - api_version
+
+        - scope
+
+        - created_at
+
+        - updated_at
+
+        - url
+
+        - org_url'
+      operationId: draft_product_updateByNameVersion
+      security:
+      - oauth:
+        - product-drafts:edit
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/DraftProduct'
+            examples:
+              DraftProduct:
+                summary: Example of draft product update by name and version.
+                value:
+                  info:
+                    title: acme draft product update
+                    summary: An example draft product update
+                    version: 1.0.0
+                    name: acme-draft-product
+                  gateways:
+                  - datapower-api-gateway
+                  plans:
+                    acme-plan:
+                      title: acme Plan
+                      description: acme Plan
+                      rate-limits:
+                        default:
+                          value: 150/1hour
+                  apis:
+                    acme-api1.0.0:
+                      name: acme-api:1.0.0
+                  visibility:
+                    view:
+                      type: custom
+                      orgs:
+                      - acme-org
+                      enabled: true
+                    subscribe:
+                      type: custom
+                      orgs:
+                      - acme-org
+                      enabled: true
+                  product: 1.0.0
+          application/yaml:
+            schema:
+              $ref: '#/components/schemas/DraftProduct'
+            examples:
+              DraftProduct:
+                summary: Example of draft product update by name and version.
+                value:
+                  info:
+                    title: acme draft product update
+                    summary: An example draft product update
+                    version: 1.0.0
+                    name: acme-draft-product
+                  gateways:
+                  - datapower-api-gateway
+                  plans:
+                    acme-plan:
+                      title: acme Plan
+                      description: acme Plan
+                      rate-limits:
+                        default:
+                          value: 150/1hour
+                  apis:
+                    acme-api1.0.0:
+                      name: acme-api:1.0.0
+                  visibility:
+                    view:
+                      type: custom
+                      orgs:
+                      - acme-org
+                      enabled: true
+                    subscribe:
+                      type: custom
+                      orgs:
+                      - acme-org
+                      enabled: true
+                  product: 1.0.0
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/DraftProductMultipart'
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DraftProduct'
+            application/yaml:
+              schema:
+                $ref: '#/components/schemas/DraftProduct'
+        4XX:
+          $ref: '#/components/responses/Error'
+        5XX:
+          $ref: '#/components/responses/Error'
+      tags:
+      - Drafts
+    delete:
+      summary: Delete a Draft Product
+      operationId: draft_product_delByNameVersion
+      security:
+      - oauth:
+        - product-drafts:edit
+      responses:
+        '200':
+          description: Successful delete
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DraftProduct'
+            application/yaml:
+              schema:
+                $ref: '#/components/schemas/DraftProduct'
+        4XX:
+          $ref: '#/components/responses/Error'
+        5XX:
+          $ref: '#/components/responses/Error'
+      tags:
+      - Drafts
+  /orgs/{org}/drafts/draft-products/{draft-product-id}/validate:
+    parameters:
+    - $ref: '#/components/parameters/org'
+    - $ref: '#/components/parameters/draft-product-id'
+    post:
+      summary: Validate the draft product
+      operationId: draft_product_validate
+      security:
+      - oauth:
+        - product-drafts:edit
+      parameters:
+      - $ref: '#/components/parameters/scope'
+      - $ref: '#/components/parameters/catalog_name'
+      - $ref: '#/components/parameters/space_name'
+      - $ref: '#/components/parameters/gateway_service_names'
+      - $ref: '#/components/parameters/validate_apis'
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ValidationResults'
+            application/yaml:
+              schema:
+                $ref: '#/components/schemas/ValidationResults'
+        4XX:
+          $ref: '#/components/responses/Error'
+        5XX:
+          $ref: '#/components/responses/Error'
+      tags:
+      - Drafts
+  /orgs/{org}/drafts/draft-products/{draft-product-name}/{draft-product-version}/validate:
+    parameters:
+    - $ref: '#/components/parameters/org'
+    - $ref: '#/components/parameters/draft-product-name'
+    - $ref: '#/components/parameters/draft-product-version'
+    post:
+      summary: Validate the draft product
+      operationId: draft_product_validateByNameVersion
+      security:
+      - oauth:
+        - product-drafts:edit
+      parameters:
+      - $ref: '#/components/parameters/scope'
+      - $ref: '#/components/parameters/catalog_name'
+      - $ref: '#/components/parameters/space_name'
+      - $ref: '#/components/parameters/gateway_service_names'
+      - $ref: '#/components/parameters/validate_apis'
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ValidationResults'
+            application/yaml:
+              schema:
+                $ref: '#/components/schemas/ValidationResults'
+        4XX:
+          $ref: '#/components/responses/Error'
+        5XX:
+          $ref: '#/components/responses/Error'
+      tags:
+      - Drafts
+  /orgs/{org}/drafts/draft-products/validate:
+    parameters:
+    - $ref: '#/components/parameters/org'
+    post:
+      summary: Validate the Product object
+      operationId: draft_product_validateObject
+      security:
+      - oauth:
+        - product-drafts:edit
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/DraftProduct'
+          application/yaml:
+            schema:
+              $ref: '#/components/schemas/DraftProduct'
+            examples:
+              DraftProduct:
+                summary: Example of validating product.
+                value:
+                  info:
+                    version: 1.0.0
+                    title: acme draft product
+                    name: acme-draft-product
+                    summary: An example draft product
+                  gateways:
+                  - datapower-api-gateway
+                  plans:
+                    default-plan:
+                      title: Default Plan
+                      description: Default Plan
+                      rate-limits:
+                        default:
+                          value: 100/1hour
+                  apis:
+                    acme-api1.0.0:
+                      name: acme-api:1.0.0
+                    acme2-api1.0.0:
+                      name: acme2-api:1.0.0
+                  visibility:
+                    view:
+                      type: public
+                      enabled: true
+                    subscribe:
+                      type: authenticated
+                      enabled: true
+                  product: 1.0.0
+      parameters:
+      - $ref: '#/components/parameters/scope'
+      - $ref: '#/components/parameters/catalog_name'
+      - $ref: '#/components/parameters/space_name'
+      - $ref: '#/components/parameters/gateway_service_names'
+      - $ref: '#/components/parameters/validate_apis'
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ValidationResults'
+            application/yaml:
+              schema:
+                $ref: '#/components/schemas/ValidationResults'
+        4XX:
+          $ref: '#/components/responses/Error'
+        5XX:
+          $ref: '#/components/responses/Error'
+      tags:
+      - Drafts
+  /orgs/{org}/drafts/draft-products/{draft-product-id}/document:
+    parameters:
+    - $ref: '#/components/parameters/org'
+    - $ref: '#/components/parameters/draft-product-id'
+    get:
+      summary: Get the Draft Product document
+      operationId: draft_product_getDocument
+      security:
+      - oauth:
+        - product-drafts:edit
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DraftProductDocument'
+            application/yaml:
+              schema:
+                $ref: '#/components/schemas/DraftProductDocument'
+        4XX:
+          $ref: '#/components/responses/Error'
+        5XX:
+          $ref: '#/components/responses/Error'
+      tags:
+      - Drafts
+  /orgs/{org}/drafts/draft-products/{draft-product-name}/{draft-product-version}/document:
+    parameters:
+    - $ref: '#/components/parameters/org'
+    - $ref: '#/components/parameters/draft-product-name'
+    - $ref: '#/components/parameters/draft-product-version'
+    get:
+      summary: Get the Draft Product document by name and version
+      operationId: draft_product_getDocumentByNameVersion
+      security:
+      - oauth:
+        - product-drafts:edit
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DraftProductDocument'
+            application/yaml:
+              schema:
+                $ref: '#/components/schemas/DraftProductDocument'
+        4XX:
+          $ref: '#/components/responses/Error'
+        5XX:
+          $ref: '#/components/responses/Error'
+      tags:
+      - Drafts
+  /orgs/{org}/drafts/draft-products/{draft-product-id}/copy-to-project-files:
+    parameters:
+    - $ref: '#/components/parameters/org'
+    - $ref: '#/components/parameters/draft-product-id'
+    post:
+      summary: Copy Draft Product to Project Files
+      operationId: draft_product_copyToProjectFiles
+      security:
+      - oauth:
+        - project:manage
+        - api-drafts:view
+        - product-drafts:view
+      parameters:
+      - $ref: '#/components/parameters/project_id'
+      responses:
+        '201':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProjectFileList'
+            application/yaml:
+              schema:
+                $ref: '#/components/schemas/ProjectFileList'
+        4XX:
+          $ref: '#/components/responses/Error'
+        5XX:
+          $ref: '#/components/responses/Error'
+      tags:
+      - Drafts
+  /orgs/{org}/drafts/draft-products/{draft-product-name}/{draft-product-version}/copy-to-project-files:
+    parameters:
+    - $ref: '#/components/parameters/org'
+    - $ref: '#/components/parameters/draft-product-name'
+    - $ref: '#/components/parameters/draft-product-version'
+    post:
+      summary: Copy Draft Product to Project Files
+      operationId: draft_product_copyToProjectFilesByNameVersion
+      security:
+      - oauth:
+        - project:manage
+        - api-drafts:view
+        - product-drafts:view
+      parameters:
+      - $ref: '#/components/parameters/project_id'
+      responses:
+        '201':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProjectFileList'
+            application/yaml:
+              schema:
+                $ref: '#/components/schemas/ProjectFileList'
+        4XX:
+          $ref: '#/components/responses/Error'
+        5XX:
+          $ref: '#/components/responses/Error'
+      tags:
+      - Drafts
+  /orgs/{org}/drafts/draft-apis:
+    description: Draft API operations across all collections
+    parameters:
+    - $ref: '#/components/parameters/org'
+    post:
+      summary: Creates a draft API
+      description: 'Creates a draft API from the given content, which may represent an OpenAPI or WSDL-defined API.
+
+
+        Fields allowed but ignored:
+
+        - id
+
+        - type
+
+        - api_version
+
+        - scope
+
+        - created_at
+
+        - updated_at
+
+        - url
+
+        - org_url'
+      operationId: draft_api_create
+      security:
+      - oauth:
+        - api-drafts:edit
+      parameters:
+      - $ref: '#/components/parameters/api_type'
+      - $ref: '#/components/parameters/gateway_type'
+      - $ref: '#/components/parameters/assembly_type'
+      - $ref: '#/components/parameters/wsdl_service'
+      - $ref: '#/components/parameters/disable_ws_security'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/DraftAPI'
+            examples:
+              DraftAPI:
+                summary: Example of draft-apis creation.
+                value:
+                  swagger: '2.0'
+                  info:
+                    title: Product Management API
+                    x-ibm-name: product-management-api
+                    version: 1.0.0
+                    description: An API for managing product details.
+                  basePath: /products-api
+                  schemes:
+                  - https
+                  consumes:
+                  - application/json
+                  produces:
+                  - application/json
+                  paths:
+                    /products:
+                      post:
+                        tags:
+                        - product
+                        summary: Create a new product.
+                        operationId: product.create
+                        parameters:
+                        - name: productData
+                          in: body
+                          description: Product details.
+                          required: true
+                          schema:
+                            type: object
+                            properties:
+                              product_id:
+                                type: string
+                              name:
+                                type: string
+                              description:
+                                type: string
+                            required:
+                            - product_id
+                            - name
+                        responses:
+                          '200':
+                            description: Product created successfully.
+                            schema:
+                              type: object
+                              properties:
+                                message:
+                                  type: string
+                                product_id:
+                                  type: string
+                  tags:
+                  - name: product
+                    description: Operations related to products.
+                  x-ibm-configuration:
+                    enforced: true
+                    testable: true
+                    phase: realized
+                    cors:
+                      enabled: true
+                    assembly:
+                      execute:
+                      - operation-switch:
+                          title: operation-switch
+                          case:
+                          - operations:
+                            - product.create
+                            execute:
+                            - invoke:
+                                title: invoke
+                                timeout: 60
+                                verb: POST
+                                target-url: https://acme.com/products
+                  gateway: datapower-api-gateway
+                  type: rest
+                  securityDefinitions:
+                    api-key-1:
+                      type: apiKey
+                      in: header
+                      name: X-IBM-Client-Id
+                      x-key-type: client_id
+                  security:
+                  - api-key-1: []
+          application/yaml:
+            schema:
+              $ref: '#/components/schemas/DraftAPI'
+            examples:
+              DraftAPI:
+                summary: Example of draft-apis creation.
+                value:
+                  swagger: '2.0'
+                  info:
+                    title: Product Management API
+                    x-ibm-name: product-management-api
+                    version: 1.0.0
+                    description: An API for managing product details.
+                  basePath: /products-api
+                  schemes:
+                  - https
+                  consumes:
+                  - application/json
+                  produces:
+                  - application/json
+                  paths:
+                    /products:
+                      post:
+                        tags:
+                        - product
+                        summary: Create a new product.
+                        operationId: product.create
+                        parameters:
+                        - name: productData
+                          in: body
+                          description: Product details.
+                          required: true
+                          schema:
+                            type: object
+                            properties:
+                              product_id:
+                                type: string
+                              name:
+                                type: string
+                              description:
+                                type: string
+                            required:
+                            - product_id
+                            - name
+                        responses:
+                          '200':
+                            description: Product created successfully.
+                            schema:
+                              type: object
+                              properties:
+                                message:
+                                  type: string
+                                product_id:
+                                  type: string
+                  tags:
+                  - name: product
+                    description: Operations related to products.
+                  x-ibm-configuration:
+                    enforced: true
+                    testable: true
+                    phase: realized
+                    cors:
+                      enabled: true
+                    assembly:
+                      execute:
+                      - operation-switch:
+                          title: operation-switch
+                          case:
+                          - operations:
+                            - product.create
+                            execute:
+                            - invoke:
+                                title: invoke
+                                timeout: 60
+                                verb: POST
+                                target-url: https://acme.com/products
+                  gateway: datapower-api-gateway
+                  type: rest
+                  securityDefinitions:
+                    api-key-1:
+                      type: apiKey
+                      in: header
+                      name: X-IBM-Client-Id
+                      x-key-type: client_id
+                  security:
+                  - api-key-1: []
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/DraftAPIMultipart'
+      responses:
+        '201':
+          description: Successful create
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DraftAPI'
+            application/yaml:
+              schema:
+                $ref: '#/components/schemas/DraftAPI'
+        '302':
+          description: Redirect response
+          headers:
+            Location:
+              description: Redirect payload
+              schema:
+                type: string
+        4XX:
+          $ref: '#/components/responses/Error'
+        5XX:
+          $ref: '#/components/responses/Error'
+      tags:
+      - Drafts
+    get:
+      summary: Lists draft APIs
+      description: Returns all draft APIs belonging to a provider organization.
+      operationId: draft_api_listAll
+      security:
+      - oauth:
+        - api-drafts:view
+      parameters:
+      - $ref: '#/components/parameters/fields'
+      - $ref: '#/components/parameters/offset'
+      - $ref: '#/components/parameters/limit'
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DraftAPIList'
+            application/yaml:
+              schema:
+                $ref: '#/components/schemas/DraftAPIList'
+        4XX:
+          $ref: '#/components/responses/Error'
+        5XX:
+          $ref: '#/components/responses/Error'
+      tags:
+      - Drafts
+    delete:
+      summary: Clears draft APIs
+      description: Removes all APIs from drafts.
+      operationId: draft_api_clearAll
+      security:
+      - oauth:
+        - api-drafts:edit
+      parameters:
+      - $ref: '#/components/parameters/confirm'
+      responses:
+        '204':
+          description: Success
+        4XX:
+          $ref: '#/components/responses/Error'
+        5XX:
+          $ref: '#/components/responses/Error'
+      tags:
+      - Drafts
+  /orgs/{org}/drafts/draft-apis/{draft-api-name}:
+    description: The collection of Draft API operations
+    parameters:
+    - $ref: '#/components/parameters/org'
+    - $ref: '#/components/parameters/draft-api-name'
+    get:
+      summary: Lists draft API versions
+      description: Returns all versions of the draft API with the given name.
+      operationId: draft_api_list
+      security:
+      - oauth:
+        - api-drafts:view
+      parameters:
+      - $ref: '#/components/parameters/fields'
+      - $ref: '#/components/parameters/offset'
+      - $ref: '#/components/parameters/limit'
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DraftAPIList'
+            application/yaml:
+              schema:
+                $ref: '#/components/schemas/DraftAPIList'
+        4XX:
+          $ref: '#/components/responses/Error'
+        5XX:
+          $ref: '#/components/responses/Error'
+      tags:
+      - Drafts
+    delete:
+      summary: Clears draft API versions
+      description: Removes all versions of the named API from drafts.
+      operationId: draft_api_clear
+      security:
+      - oauth:
+        - api-drafts:edit
+      parameters:
+      - $ref: '#/components/parameters/confirm'
+      responses:
+        '204':
+          description: Success
+        4XX:
+          $ref: '#/components/responses/Error'
+        5XX:
+          $ref: '#/components/responses/Error'
+      tags:
+      - Drafts
+  /orgs/{org}/drafts/draft-apis/{draft-api-id}:
+    description: Draft API object operations
+    parameters:
+    - $ref: '#/components/parameters/org'
+    - $ref: '#/components/parameters/draft-api-id'
+    get:
+      summary: Returns a draft API
+      description: Returns the given draft API.
+      operationId: draft_api_get
+      security:
+      - oauth:
+        - api-drafts:view
+      parameters:
+      - $ref: '#/components/parameters/fields'
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DraftAPI'
+            application/yaml:
+              schema:
+                $ref: '#/components/schemas/DraftAPI'
+        4XX:
+          $ref: '#/components/responses/Error'
+        5XX:
+          $ref: '#/components/responses/Error'
+      tags:
+      - Drafts
+    patch:
+      summary: Updates a draft API
+      description: 'Updates the given draft API definition.
+
+
+        Fields allowed but ignored:
+
+        - id
+
+        - type
+
+        - api_version
+
+        - scope
+
+        - created_at
+
+        - updated_at
+
+        - url
+
+        - org_url'
+      operationId: draft_api_update
+      security:
+      - oauth:
+        - api-drafts:edit
+      parameters:
+      - $ref: '#/components/parameters/api_type'
+      - $ref: '#/components/parameters/wsdl_service'
+      - $ref: '#/components/parameters/disable_ws_security'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/DraftAPI'
+            examples:
+              DraftAPI:
+                summary: Example of draft-apis update by id.
+                value:
+                  swagger: '2.0'
+                  info:
+                    title: Product Management API
+                    x-ibm-name: product-management-api
+                    version: 1.0.0
+                    description: An API for managing product details.
+                  paths:
+                    /products:
+                      post:
+                        tags:
+                        - product
+                        summary: Create a new product.
+                        operationId: product.create
+                        parameters:
+                        - name: productData
+                          in: body
+                          description: Product details.
+                          required: true
+                          schema:
+                            type: object
+                            properties:
+                              product_id:
+                                type: string
+                              name:
+                                type: string
+                              description:
+                                type: string
+                            required:
+                            - product_id
+                            - name
+                        responses:
+                          '201':
+                            description: Product created successfully.
+                            schema:
+                              type: object
+                              properties:
+                                message:
+                                  type: string
+                                product_id:
+                                  type: string
+          application/yaml:
+            schema:
+              $ref: '#/components/schemas/DraftAPI'
+            examples:
+              DraftAPI:
+                summary: Example of draft-apis update by id.
+                value:
+                  swagger: '2.0'
+                  info:
+                    title: Product Management API
+                    x-ibm-name: product-management-api
+                    version: 1.0.0
+                    description: An API for managing product details.
+                  paths:
+                    /products:
+                      post:
+                        tags:
+                        - product
+                        summary: Create a new product.
+                        operationId: product.create
+                        parameters:
+                        - name: productData
+                          in: body
+                          description: Product details.
+                          required: true
+                          schema:
+                            type: object
+                            properties:
+                              product_id:
+                                type: string
+                              name:
+                                type: string
+                              description:
+                                type: string
+                            required:
+                            - product_id
+                            - name
+                        responses:
+                          '201':
+                            description: Product created successfully.
+                            schema:
+                              type: object
+                              properties:
+                                message:
+                                  type: string
+                                product_id:
+                                  type: string
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/DraftAPIMultipart'
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DraftAPI'
+            application/yaml:
+              schema:
+                $ref: '#/components/schemas/DraftAPI'
+        4XX:
+          $ref: '#/components/responses/Error'
+        5XX:
+          $ref: '#/components/responses/Error'
+      tags:
+      - Drafts
+    delete:
+      summary: Deletes a draft API
+      description: Deletes the given API from drafts.
+      operationId: draft_api_del
+      security:
+      - oauth:
+        - api-drafts:edit
+      responses:
+        '200':
+          description: Successful delete
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DraftAPI'
+            application/yaml:
+              schema:
+                $ref: '#/components/schemas/DraftAPI'
+        4XX:
+          $ref: '#/components/responses/Error'
+        5XX:
+          $ref: '#/components/responses/Error'
+      tags:
+      - Drafts
+  /orgs/{org}/drafts/draft-apis/{draft-api-name}/{draft-api-version}:
+    description: Draft API object operations by name and version
+    parameters:
+    - $ref: '#/components/parameters/org'
+    - $ref: '#/components/parameters/draft-api-name'
+    - $ref: '#/components/parameters/draft-api-version'
+    get:
+      summary: Returns a draft API
+      description: Returns the given draft API.
+      operationId: draft_api_getByNameVersion
+      security:
+      - oauth:
+        - api-drafts:view
+      parameters:
+      - $ref: '#/components/parameters/fields'
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DraftAPI'
+            application/yaml:
+              schema:
+                $ref: '#/components/schemas/DraftAPI'
+        4XX:
+          $ref: '#/components/responses/Error'
+        5XX:
+          $ref: '#/components/responses/Error'
+      tags:
+      - Drafts
+    patch:
+      summary: Updates a draft API
+      description: 'Updates the given draft API definition.
+
+
+        Fields allowed but ignored:
+
+        - id
+
+        - type
+
+        - api_version
+
+        - scope
+
+        - created_at
+
+        - updated_at
+
+        - url
+
+        - org_url'
+      operationId: draft_api_updateByNameVersion
+      security:
+      - oauth:
+        - api-drafts:edit
+      parameters:
+      - $ref: '#/components/parameters/api_type'
+      - $ref: '#/components/parameters/wsdl_service'
+      - $ref: '#/components/parameters/disable_ws_security'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/DraftAPI'
+            examples:
+              DraftAPI:
+                summary: Example of draft-apis update by name and version.
+                value:
+                  swagger: '2.0'
+                  info:
+                    title: Product Management API
+                    x-ibm-name: product-management-api
+                    version: 1.0.0
+                    description: An API for managing product details.
+                  paths:
+                    /products:
+                      post:
+                        tags:
+                        - product
+                        summary: Create a new product.
+                        operationId: product.create
+                        parameters:
+                        - name: productData
+                          in: body
+                          description: Product details.
+                          required: true
+                          schema:
+                            type: object
+                            properties:
+                              product_id:
+                                type: string
+                              name:
+                                type: string
+                              description:
+                                type: string
+                            required:
+                            - product_id
+                            - name
+                        responses:
+                          '201':
+                            description: Product created successfully.
+                            schema:
+                              type: object
+                              properties:
+                                message:
+                                  type: string
+                                product_id:
+                                  type: string
+          application/yaml:
+            schema:
+              $ref: '#/components/schemas/DraftAPI'
+            examples:
+              DraftAPI:
+                summary: Example of draft-apis update by name and version.
+                value:
+                  swagger: '2.0'
+                  info:
+                    title: Product Management API
+                    x-ibm-name: product-management-api
+                    version: 1.0.0
+                    description: An API for managing product details.
+                  paths:
+                    /products:
+                      post:
+                        tags:
+                        - product
+                        summary: Create a new product.
+                        operationId: product.create
+                        parameters:
+                        - name: productData
+                          in: body
+                          description: Product details.
+                          required: true
+                          schema:
+                            type: object
+                            properties:
+                              product_id:
+                                type: string
+                              name:
+                                type: string
+                              description:
+                                type: string
+                            required:
+                            - product_id
+                            - name
+                        responses:
+                          '201':
+                            description: Product created successfully.
+                            schema:
+                              type: object
+                              properties:
+                                message:
+                                  type: string
+                                product_id:
+                                  type: string
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/DraftAPIMultipart'
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DraftAPI'
+            application/yaml:
+              schema:
+                $ref: '#/components/schemas/DraftAPI'
+        4XX:
+          $ref: '#/components/responses/Error'
+        5XX:
+          $ref: '#/components/responses/Error'
+      tags:
+      - Drafts
+    delete:
+      summary: Delete a Draft API
+      operationId: draft_api_delByNameVersion
+      security:
+      - oauth:
+        - api-drafts:edit
+      responses:
+        '200':
+          description: Successful delete
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DraftAPI'
+            application/yaml:
+              schema:
+                $ref: '#/components/schemas/DraftAPI'
+        4XX:
+          $ref: '#/components/responses/Error'
+        5XX:
+          $ref: '#/components/responses/Error'
+      tags:
+      - Drafts
+  /orgs/{org}/drafts/draft-apis/{draft-api-id}/validate:
+    parameters:
+    - $ref: '#/components/parameters/org'
+    - $ref: '#/components/parameters/draft-api-id'
+    post:
+      summary: Validate the draft API
+      operationId: draft_api_validate
+      security:
+      - oauth:
+        - api-drafts:edit
+      parameters:
+      - $ref: '#/components/parameters/scope'
+      - $ref: '#/components/parameters/catalog_name'
+      - $ref: '#/components/parameters/space_name'
+      - $ref: '#/components/parameters/gateway_service_names'
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ValidationResults'
+            application/yaml:
+              schema:
+                $ref: '#/components/schemas/ValidationResults'
+        4XX:
+          $ref: '#/components/responses/Error'
+        5XX:
+          $ref: '#/components/responses/Error'
+      tags:
+      - Drafts
+  /orgs/{org}/drafts/draft-apis/{draft-api-name}/{draft-api-version}/validate:
+    parameters:
+    - $ref: '#/components/parameters/org'
+    - $ref: '#/components/parameters/draft-api-name'
+    - $ref: '#/components/parameters/draft-api-version'
+    post:
+      summary: Validate the draft API
+      operationId: draft_api_validateByNameVersion
+      security:
+      - oauth:
+        - api-drafts:edit
+      parameters:
+      - $ref: '#/components/parameters/scope'
+      - $ref: '#/components/parameters/catalog_name'
+      - $ref: '#/components/parameters/space_name'
+      - $ref: '#/components/parameters/gateway_service_names'
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ValidationResults'
+            application/yaml:
+              schema:
+                $ref: '#/components/schemas/ValidationResults'
+        4XX:
+          $ref: '#/components/responses/Error'
+        5XX:
+          $ref: '#/components/responses/Error'
+      tags:
+      - Drafts
+  /orgs/{org}/drafts/draft-apis/validate:
+    parameters:
+    - $ref: '#/components/parameters/org'
+    post:
+      summary: Validate the API object
+      operationId: draft_api_validateObject
+      security:
+      - oauth:
+        - api-drafts:edit
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/DraftAPI'
+          application/yaml:
+            schema:
+              $ref: '#/components/schemas/DraftAPI'
+            examples:
+              DraftAPI:
+                summary: Example of validating api.
+                value:
+                  swagger: '2.0'
+                  info:
+                    title: Product Management API
+                    x-ibm-name: product-management-api
+                    version: 1.0.0
+                    description: An API for managing product details.
+                  basePath: /products-api
+                  schemes:
+                  - https
+                  consumes:
+                  - application/json
+                  produces:
+                  - application/json
+                  paths:
+                    /products:
+                      post:
+                        tags:
+                        - product
+                        summary: Create a new product.
+                        operationId: product.create
+                        parameters:
+                        - name: productData
+                          in: body
+                          description: Product details.
+                          required: true
+                          schema:
+                            type: object
+                            properties:
+                              product_id:
+                                type: string
+                              name:
+                                type: string
+                              description:
+                                type: string
+                            required:
+                            - product_id
+                            - name
+                        responses:
+                          '200':
+                            description: Product created successfully.
+                            schema:
+                              type: object
+                              properties:
+                                message:
+                                  type: string
+                                product_id:
+                                  type: string
+                  tags:
+                  - name: product
+                    description: Operations related to products.
+                  x-ibm-configuration:
+                    enforced: true
+                    testable: true
+                    phase: realized
+                    cors:
+                      enabled: true
+                    assembly:
+                      execute:
+                      - operation-switch:
+                          title: operation-switch
+                          case:
+                          - operations:
+                            - product.create
+                            execute:
+                            - invoke:
+                                title: invoke
+                                timeout: 60
+                                verb: POST
+                                target-url: https://acme.com/products
+                  gateway: datapower-api-gateway
+                  type: rest
+                  securityDefinitions:
+                    api-key-1:
+                      type: apiKey
+                      in: header
+                      name: X-IBM-Client-Id
+                      x-key-type: client_id
+                  security:
+                  - api-key-1: []
+      parameters:
+      - $ref: '#/components/parameters/scope'
+      - $ref: '#/components/parameters/catalog_name'
+      - $ref: '#/components/parameters/space_name'
+      - $ref: '#/components/parameters/gateway_service_names'
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ValidationResults'
+            application/yaml:
+              schema:
+                $ref: '#/components/schemas/ValidationResults'
+        4XX:
+          $ref: '#/components/responses/Error'
+        5XX:
+          $ref: '#/components/responses/Error'
+      tags:
+      - Drafts
+  /orgs/{org}/drafts/draft-apis/{draft-api-id}/add-target-service:
+    parameters:
+    - $ref: '#/components/parameters/org'
+    - $ref: '#/components/parameters/draft-api-id'
+    post:
+      summary: Add a target service
+      operationId: draft_api_addTargetService
+      security:
+      - oauth:
+        - api-drafts:edit
+      parameters:
+      - $ref: '#/components/parameters/wsdl_service'
+      - $ref: '#/components/parameters/disable_ws_security'
+      requestBody:
+        content:
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/TargetServiceMultipart'
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DraftAPIDocument'
+            application/yaml:
+              schema:
+                $ref: '#/components/schemas/DraftAPIDocument'
+        4XX:
+          $ref: '#/components/responses/Error'
+        5XX:
+          $ref: '#/components/responses/Error'
+      tags:
+      - Drafts
+  /orgs/{org}/drafts/draft-apis/{draft-api-name}/{draft-api-version}/add-target-service:
+    parameters:
+    - $ref: '#/components/parameters/org'
+    - $ref: '#/components/parameters/draft-api-name'
+    - $ref: '#/components/parameters/draft-api-version'
+    post:
+      summary: Add a target service
+      operationId: draft_api_addTargetServiceByNameVersion
+      security:
+      - oauth:
+        - api-drafts:edit
+      parameters:
+      - $ref: '#/components/parameters/wsdl_service'
+      - $ref: '#/components/parameters/disable_ws_security'
+      requestBody:
+        content:
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/TargetServiceMultipart'
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DraftAPIDocument'
+            application/yaml:
+              schema:
+                $ref: '#/components/schemas/DraftAPIDocument'
+        4XX:
+          $ref: '#/components/responses/Error'
+        5XX:
+          $ref: '#/components/responses/Error'
+      tags:
+      - Drafts
+  /orgs/{org}/drafts/draft-apis/{draft-api-id}/update-wsdl:
+    parameters:
+    - $ref: '#/components/parameters/org'
+    - $ref: '#/components/parameters/draft-api-id'
+    post:
+      summary: Update with a new wsdl
+      operationId: draft_api_updateWsdl
+      security:
+      - oauth:
+        - api-drafts:edit
+      requestBody:
+        content:
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/TargetServiceMultipart'
+      responses:
+        '201':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DraftAPIDocument'
+            application/yaml:
+              schema:
+                $ref: '#/components/schemas/DraftAPIDocument'
+        4XX:
+          $ref: '#/components/responses/Error'
+        5XX:
+          $ref: '#/components/responses/Error'
+      tags:
+      - Drafts
+  /orgs/{org}/drafts/draft-apis/{draft-api-name}/{draft-api-version}/update-wsdl:
+    parameters:
+    - $ref: '#/components/parameters/org'
+    - $ref: '#/components/parameters/draft-api-name'
+    - $ref: '#/components/parameters/draft-api-version'
+    post:
+      summary: Update with a new wsdl
+      operationId: draft_api_updateWsdlByNameVersion
+      security:
+      - oauth:
+        - api-drafts:edit
+      requestBody:
+        content:
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/TargetServiceMultipart'
+      responses:
+        '201':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DraftAPIDocument'
+            application/yaml:
+              schema:
+                $ref: '#/components/schemas/DraftAPIDocument'
+        4XX:
+          $ref: '#/components/responses/Error'
+        5XX:
+          $ref: '#/components/responses/Error'
+      tags:
+      - Drafts
+  /orgs/{org}/drafts/draft-apis/{draft-api-id}/document:
+    parameters:
+    - $ref: '#/components/parameters/org'
+    - $ref: '#/components/parameters/draft-api-id'
+    get:
+      summary: Get the Draft API document
+      operationId: draft_api_getDocument
+      security:
+      - oauth:
+        - api-drafts:view
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DraftAPIDocument'
+            application/yaml:
+              schema:
+                $ref: '#/components/schemas/DraftAPIDocument'
+        4XX:
+          $ref: '#/components/responses/Error'
+        5XX:
+          $ref: '#/components/responses/Error'
+      tags:
+      - Drafts
+  /orgs/{org}/drafts/draft-apis/{draft-api-name}/{draft-api-version}/document:
+    parameters:
+    - $ref: '#/components/parameters/org'
+    - $ref: '#/components/parameters/draft-api-name'
+    - $ref: '#/components/parameters/draft-api-version'
+    get:
+      summary: Get the Draft API document by name and version
+      operationId: draft_api_getDocumentByNameVersion
+      security:
+      - oauth:
+        - api-drafts:view
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DraftAPIDocument'
+            application/yaml:
+              schema:
+                $ref: '#/components/schemas/DraftAPIDocument'
+        4XX:
+          $ref: '#/components/responses/Error'
+        5XX:
+          $ref: '#/components/responses/Error'
+      tags:
+      - Drafts
+  /orgs/{org}/drafts/draft-apis/{draft-api-id}/wsdl:
+    parameters:
+    - $ref: '#/components/parameters/org'
+    - $ref: '#/components/parameters/draft-api-id'
+    get:
+      summary: Get the Draft API wsdl document
+      operationId: draft_api_getWsdl
+      security:
+      - oauth:
+        - api-drafts:view
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Wsdl'
+            application/yaml:
+              schema:
+                $ref: '#/components/schemas/Wsdl'
+            application/wsdl: {}
+            application/zip: {}
+        4XX:
+          $ref: '#/components/responses/Error'
+        5XX:
+          $ref: '#/components/responses/Error'
+      tags:
+      - Drafts
+  /orgs/{org}/drafts/draft-apis/{draft-api-name}/{draft-api-version}/wsdl:
+    parameters:
+    - $ref: '#/components/parameters/org'
+    - $ref: '#/components/parameters/draft-api-name'
+    - $ref: '#/components/parameters/draft-api-version'
+    get:
+      summary: Get the Draft API wsdl document by name and version
+      operationId: draft_api_getWsdlByNameVersion
+      security:
+      - oauth:
+        - api-drafts:view
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Wsdl'
+            application/yaml:
+              schema:
+                $ref: '#/components/schemas/Wsdl'
+            application/wsdl: {}
+            application/zip: {}
+        4XX:
+          $ref: '#/components/responses/Error'
+        5XX:
+          $ref: '#/components/responses/Error'
+      tags:
+      - Drafts
+  /orgs/{org}/drafts/draft-apis/{draft-api-id}/copy-to-project-files:
+    parameters:
+    - $ref: '#/components/parameters/org'
+    - $ref: '#/components/parameters/draft-api-id'
+    post:
+      summary: Copy Draft API to Project Files
+      operationId: draft_api_copyToProjectFiles
+      security:
+      - oauth:
+        - project:manage
+        - api-drafts:view
+        - product-drafts:view
+      parameters:
+      - $ref: '#/components/parameters/project_id'
+      responses:
+        '201':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProjectFileList'
+            application/yaml:
+              schema:
+                $ref: '#/components/schemas/ProjectFileList'
+        4XX:
+          $ref: '#/components/responses/Error'
+        5XX:
+          $ref: '#/components/responses/Error'
+      tags:
+      - Drafts
+  /orgs/{org}/drafts/draft-apis/{draft-api-name}/{draft-api-version}/copy-to-project-files:
+    parameters:
+    - $ref: '#/components/parameters/org'
+    - $ref: '#/components/parameters/draft-api-name'
+    - $ref: '#/components/parameters/draft-api-version'
+    post:
+      summary: Copy Draft API to Project Files
+      operationId: draft_api_copyToProjectFilesByNameVersion
+      security:
+      - oauth:
+        - project:manage
+        - api-drafts:view
+        - product-drafts:view
+      parameters:
+      - $ref: '#/components/parameters/project_id'
+      responses:
+        '201':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProjectFileList'
+            application/yaml:
+              schema:
+                $ref: '#/components/schemas/ProjectFileList'
+        4XX:
+          $ref: '#/components/responses/Error'
+        5XX:
+          $ref: '#/components/responses/Error'
+      tags:
+      - Drafts
+components:
+  schemas:
+    DraftList:
+      type: object
+      additionalProperties: false
+      properties:
+        total_results:
+          type: integer
+          minimum: 0
+          maximum: 2147483647
+        draft_apis:
+          type: array
+          items:
+            $ref: '#/components/schemas/DraftAPI'
+        draft_products:
+          type: array
+          items:
+            $ref: '#/components/schemas/DraftProduct'
+    ValidationResults:
+      type: object
+      additionalProperties: false
+      required:
+      - result
+      properties:
+        result:
+          type: string
+          enum:
+          - success
+          - warning
+          - error
+        messages:
+          type: array
+          items:
+            type: string
+        errors:
+          type: array
+          items:
+            type: string
+        warnings:
+          type: array
+          items:
+            type: string
+    DraftProductMultipart:
+      type: object
+      required:
+      - product
+      - openapi
+      properties:
+        product:
+          type: array
+          items:
+            $ref: '#/components/schemas/ProductDefinition'
+        visibility:
+          $ref: '#/components/schemas/Visibility'
+        openapi:
+          type: array
+          items:
+            $ref: '#/components/schemas/OpenApi2Definition'
+        wsdl:
+          type: array
+          items:
+            $ref: '#/components/schemas/Wsdl'
+        metadata:
+          type: array
+          items:
+            $ref: '#/components/schemas/Metadata'
+    DraftProduct:
+      type: object
+      additionalProperties: false
+      properties:
+        type:
+          type: string
+          readOnly: true
+          enum:
+          - draft_product
+        api_version:
+          type: string
+          readOnly: true
+          enum:
+          - 2.0.0
+        id:
+          type: string
+          readOnly: true
+        name:
+          type: string
+          maxLength: 255
+        version:
+          type: string
+          maxLength: 255
+        title:
+          type: string
+          maxLength: 1023
+        summary:
+          type: string
+          maxLength: 65535
+        draft_product:
+          anyOf:
+          - x-bhendi-db-type: text
+            $ref: '#/components/schemas/ProjectProduct'
+          - x-bhendi-db-type: text
+            type: object
+            additionalProperties: true
+        gateway_types:
+          type: array
+          items:
+            type: string
+            enum:
+            - datapower-gateway
+            - datapower-api-gateway
+            - event-gateway
+            - datapower-nano-gateway
+            - wm-api-gateway
+        portal_types:
+          type: array
+          items:
+            type: string
+            enum:
+            - cms
+            - devportal
+        org_url:
+          type: string
+          format: uri
+        catalogs:
+          type: array
+          items:
+            type: object
+            properties:
+              name:
+                type: string
+              url:
+                type: string
+                format: uri
+              spaces:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    name:
+                      type: string
+                    url:
+                      type: string
+                      format: uri
+        product_kind:
+          $ref: '#/components/schemas/ProjectProduct'
+        metadata:
+          type: object
+          additionalProperties:
+            type: string
+        created_at:
+          type: string
+          format: date-time
+          readOnly: true
+        updated_at:
+          type: string
+          format: date-time
+          readOnly: true
+        url:
+          type: string
+          readOnly: true
+          format: uri
+    ProjectMetadata:
+      description: Defines a message named Metadata
+      type: object
+      required:
+      - name
+      - version
+      additionalProperties: false
+      properties:
+        description:
+          type: string
+        name:
+          type: string
+        namespace:
+          type: string
+        tags:
+          items:
+            type: string
+          type: array
+        type:
+          enum:
+          - REST
+          - SWAGGER
+          - SOAP
+          - GRAPHQL
+          - ODATA
+          type: string
+        version:
+          type: string
+        domain:
+          enum:
+          - api
+          - ai-platform
+          - mcp
+          type: string
+        labels:
+          type: object
+          additionalProperties: true
+          properties:
+            gatewayTypes:
+              type: array
+              items:
+                type: string
+    DraftAPI:
+      type: object
+      additionalProperties: false
+      properties:
+        type:
+          type: string
+          readOnly: true
+          enum:
+          - draft_api
+        api_version:
+          type: string
+          readOnly: true
+          enum:
+          - 2.0.0
+        id:
+          type: string
+          readOnly: true
+        name:
+          type: string
+          maxLength: 255
+        version:
+          type: string
+          maxLength: 255
+        title:
+          type: string
+          maxLength: 1023
+        summary:
+          type: string
+          maxLength: 65535
+        draft_api:
+          type: object
+          additionalProperties: true
+          properties:
+            swagger:
+              type: string
+            info:
+              type: object
+              additionalProperties: true
+              required:
+              - title
+              - version
+              properties:
+                title:
+                  type: string
+                x-ibm-name:
+                  type: string
+                version:
+                  type: string
+                x-ibm-summary:
+                  type: string
+                x-postman-collection-id:
+                  type: string
+                x-postman-workspace-id:
+                  type: string
+        remote_api:
+          type: object
+          properties:
+            endpoint:
+              type: string
+            auth_header:
+              type: string
+        api_type:
+          type: string
+          enum:
+          - rest
+          - wsdl
+          - graphql
+          - asyncapi
+        enforced:
+          type: boolean
+        gateway_type:
+          type: string
+          enum:
+          - datapower-gateway
+          - datapower-api-gateway
+          - event-gateway
+          - datapower-nano-gateway
+          - wm-api-gateway
+        oai_version:
+          type: string
+          enum:
+          - openapi2
+          - openapi3
+        document_specification:
+          type: string
+          enum:
+          - asyncapi2.0
+          - asyncapi2.1
+          - openapi2
+          - openapi3
+        wsdl:
+          type: object
+          additionalProperties: false
+          required:
+          - content_type
+          - content
+          properties:
+            content_type:
+              type: string
+              enum:
+              - application/wsdl
+              - application/wsdl+xml
+              - text/xml
+              - application/zip
+            content:
+              type: string
+              format: binary
+        org_url:
+          type: string
+          format: uri
+        metadata:
+          type: object
+          additionalProperties:
+            type: string
+        created_at:
+          type: string
+          format: date-time
+          readOnly: true
+        updated_at:
+          type: string
+          format: date-time
+          readOnly: true
+        url:
+          type: string
+          readOnly: true
+          format: uri
+    DraftProductList:
+      type: object
+      additionalProperties: false
+      properties:
+        total_results:
+          type: integer
+        results:
+          type: array
+          items:
+            $ref: '#/components/schemas/DraftProduct'
+    Error:
+      type: object
+      additionalProperties: false
+      properties:
+        status:
+          type: integer
+          minimum: 400
+          maximum: 599
+        message:
+          type: array
+          items:
+            type: string
+        errors:
+          type: array
+          items:
+            type: string
+    DraftAPIList:
+      type: object
+      additionalProperties: false
+      properties:
+        total_results:
+          type: integer
+        results:
+          type: array
+          items:
+            $ref: '#/components/schemas/DraftAPI'
+    OpenApi2Definition:
+      type: object
+      additionalProperties: true
+      properties:
+        swagger:
+          type: string
+          enum:
+          - 2.0.0
+        info:
+          type: object
+          additionalProperties: true
+          required:
+          - title
+          - version
+          properties:
+            title:
+              type: string
+            x-ibm-name:
+              type: string
+            version:
+              type: string
+            x-ibm-summary:
+              type: string
+    Visibility:
+      type: object
+      additionalProperties: false
+      required:
+      - view
+      - subscribe
+      properties:
+        view:
+          type: object
+          additionalProperties: false
+          required:
+          - type
+          properties:
+            type:
+              type: string
+              enum:
+              - public
+              - authenticated
+              - custom
+            enabled:
+              type: boolean
+            tags:
+              type:
+              - array
+              - 'null'
+              items:
+                type: string
+            orgs:
+              type:
+              - array
+              - 'null'
+              items:
+                type: string
+        subscribe:
+          type: object
+          additionalProperties: false
+          required:
+          - type
+          properties:
+            type:
+              type: string
+              enum:
+              - authenticated
+              - custom
+            enabled:
+              type: boolean
+            tags:
+              type:
+              - array
+              - 'null'
+              items:
+                type: string
+            orgs:
+              type:
+              - array
+              - 'null'
+              items:
+                type: string
+    IntrospectWsdlMultipart:
+      type: object
+      properties:
+        wsdl:
+          type: array
+          items:
+            $ref: '#/components/schemas/Wsdl'
+    DraftAPIDocument:
+      type: object
+      additionalProperties: true
+    Wsdl:
+      type: object
+      additionalProperties: true
+    WsdlServices:
+      type: object
+      additionalProperties: false
+      properties:
+        total_results:
+          type: integer
+          minimum: 0
+          maximum: 2147483647
+        results:
+          type: array
+          items:
+            type: object
+            additionalProperties: false
+            properties:
+              service:
+                type: string
+              description:
+                type: string
+              operations:
+                type: array
+                items:
+                  type: object
+                  additionalProperties: false
+                  properties:
+                    operation:
+                      type: string
+                    description:
+                      type: string
+    ProjectFileList:
+      type: object
+      additionalProperties: false
+      properties:
+        total_results:
+          type: integer
+        results:
+          type: array
+          items:
+            $ref: '#/components/schemas/ProjectFile'
+    ProjectFile:
+      type: object
+      additionalProperties: false
+      properties:
+        type:
+          type: string
+          readOnly: true
+          enum:
+          - project_file
+        api_version:
+          type: string
+          readOnly: true
+          enum:
+          - 2.0.0
+        id:
+          type: string
+          readOnly: true
+        name:
+          type: string
+          maxLength: 255
+        version:
+          type: string
+          maxLength: 255
+        title:
+          type: string
+          maxLength: 1023
+        summary:
+          type: string
+          maxLength: 65535
+        file_content:
+          type: object
+        file_name:
+          type: string
+        file_path:
+          type: string
+        mimetype:
+          type: string
+        assetNodes:
+          type: array
+          items:
+            type: object
+        assetEdges:
+          type: array
+          items:
+            type: object
+        metadata:
+          type: object
+          additionalProperties:
+            type: string
+        created_at:
+          type: string
+          format: date-time
+          readOnly: true
+        updated_at:
+          type: string
+          format: date-time
+          readOnly: true
+        url:
+          type: string
+          readOnly: true
+          format: uri
+    Metadata:
+      type: object
+      additionalProperties: true
+    ProjectProduct:
+      type: object
+      required:
+      - kind
+      - apiVersion
+      - metadata
+      - spec
+      properties:
+        apiVersion:
+          type: string
+        kind:
+          enum:
+          - Product
+          type: string
+        metadata:
+          $ref: '#/components/schemas/ProjectMetadata'
+        spec:
+          type: object
+          properties:
+            info:
+              type: object
+              properties:
+                categories:
+                  type: array
+                  items:
+                    type: string
+                contact:
+                  type: object
+                  properties:
+                    name:
+                      type: string
+                    email:
+                      type: string
+                    url:
+                      type: string
+                license:
+                  type: object
+                  properties:
+                    name:
+                      type: string
+                    url:
+                      type: string
+                termsOfService:
+                  type: string
+                summary:
+                  type: string
+            apis:
+              type: array
+              items:
+                type: object
+                properties:
+                  $ref:
+                    type: string
+            plans:
+              type: array
+              items:
+                type: object
+                properties:
+                  $ref:
+                    type: string
+            extensions:
+              type: object
+              properties:
+                portal-config:
+                  type: object
+                  properties:
+                    apiVersion:
+                      type: string
+                    spec:
+                      type: object
+                      properties:
+                        visibility:
+                          type: object
+                          properties:
+                            view:
+                              type: object
+                              properties:
+                                type:
+                                  type: string
+                                  enum:
+                                  - authenticated
+                                  - public
+                                  - custom
+                                orgs:
+                                  type: array
+                                  items:
+                                    type: string
+                                tags:
+                                  type: array
+                                  items:
+                                    type: string
+                                enabled:
+                                  type: boolean
+                            subscribe:
+                              type: object
+                              properties:
+                                type:
+                                  type: string
+                                  enum:
+                                  - authenticated
+                                  - custom
+                                orgs:
+                                  type: array
+                                  items:
+                                    type: string
+                                tags:
+                                  type: array
+                                  items:
+                                    type: string
+                                enabled:
+                                  type: boolean
+                dp-nano-gateway:
+                  type: object
+                  properties:
+                    apiVersion:
+                      type: string
+                      enum:
+                      - api.ibm.com/v1
+                    spec:
+                      type: object
+                      properties:
+                        api-set:
+                          type: object
+                          required:
+                          - isEnabled
+                          properties:
+                            isEnabled:
+                              type: boolean
+                              description: If true, the APIs of this product will be grouped into API sets.
+                        properties:
+                          type: object
+                          additionalProperties:
+                            type: object
+                            properties:
+                              value:
+                                type: string
+                              description:
+                                type: string
+                              encoded:
+                                type: boolean
+                        env:
+                          type: array
+                          items:
+                            type: object
+                            properties:
+                              name:
+                                type: string
+                              value:
+                                type: string
+                              valueFrom:
+                                oneOf:
+                                - type: object
+                                  additionalProperties: false
+                                  properties:
+                                    configMapKeyRef:
+                                      type: object
+                                      properties:
+                                        name:
+                                          type: string
+                                        key:
+                                          type: string
+                                - type: object
+                                  additionalProperties: false
+                                  properties:
+                                    secretKeyRef:
+                                      type: object
+                                      properties:
+                                        name:
+                                          type: string
+                                        key:
+                                          type: string
+                                - type: object
+                                  additionalProperties: false
+                                  properties:
+                                    fieldRef:
+                                      type: object
+                                      properties:
+                                        fieldPath:
+                                          type: string
+                                - type: object
+                                  additionalProperties: false
+                                  properties:
+                                    resourceFieldRef:
+                                      type: object
+                                      properties:
+                                        resource:
+                                          type: string
+                        hostAliases:
+                          type: array
+                          items:
+                            type: object
+                            properties:
+                              ip:
+                                type: string
+                              hostnames:
+                                type: array
+                                items:
+                                  type: string
+                        logLevel:
+                          type: object
+                          properties:
+                            all:
+                              type: string
+                              enum:
+                              - trace
+                              - debug
+                              - info
+                              - warn
+                              - error
+                              - 'off'
+                        quotaService:
+                          type: object
+                          properties:
+                            cache:
+                              type: object
+                              properties:
+                                capacity:
+                                  type: integer
+                                maxAgeMilliseconds:
+                                  type: integer
+                                maxPercent:
+                                  type: integer
+                                fallback:
+                                  type: object
+                                  additionalProperties: false
+                                  properties:
+                                    enabled:
+                                      type: boolean
+                            responseHeaders:
+                              type: string
+                            updateInterval:
+                              type: integer
+                        replicas:
+                          type: integer
+                        resources:
+                          type: object
+                          properties:
+                            limits:
+                              type: object
+                              properties:
+                                cpu:
+                                  type: string
+                                memory:
+                                  type: string
+                            requests:
+                              type: object
+                              properties:
+                                cpu:
+                                  type: string
+                                memory:
+                                  type: string
+                        sqlInjectionFilters:
+                          type: object
+                          properties:
+                            commands:
+                              type: string
+                            escapeSequence:
+                              type: string
+                            keywordInjection:
+                              type: string
+                            likeMatch:
+                              type: string
+                            metacharacters:
+                              type: string
+                            msSqlCommands:
+                              type: string
+                            andOrAttack:
+                              type: string
+                            oracleBufferOverflow:
+                              type: string
+                            simpleMetacharacters:
+                              type: string
+                            custom:
+                              type: object
+                              additionalProperties:
+                                type: string
+                        tlsServerCertificateSecretName:
+                          type: string
+                          description: This is the kubernetes secret name that contains the TLS server certificate that this product will expose. The secret must exist on the kubernetes cluster where DataPower Nano Gateway is deployed.
+                        autoScaling:
+                          type: object
+                          additionalProperties: false
+                          properties:
+                            enabled:
+                              type: boolean
+                              default: false
+                              description: Enable this AutoScaleConfig
+                            fromZero:
+                              type: object
+                              additionalProperties: false
+                              required:
+                              - replicas
+                              properties:
+                                replicas:
+                                  type: integer
+                                  format: int32
+                                  minimum: 1
+                            hpa:
+                              type: object
+                              additionalProperties: false
+                              properties:
+                                enabled:
+                                  type: boolean
+                                  default: true
+                                minReplicas:
+                                  type: integer
+                                  format: int32
+                                  minimum: 1
+                                maxReplicas:
+                                  type: integer
+                                  format: int32
+                                  minimum: 2
+                                targetUtilization:
+                                  type: object
+                                  additionalProperties: false
+                                  properties:
+                                    cpu:
+                                      type: integer
+                                      format: int32
+                                      minimum: 1
+                                      maximum: 100
+                                    memory:
+                                      type: integer
+                                      format: int32
+                                      minimum: 1
+                                      maximum: 100
+                            toZero:
+                              type: object
+                              additionalProperties: false
+                              properties:
+                                strategy:
+                                  type: object
+                                  additionalProperties: false
+                                  properties:
+                                    sinceLastRequest:
+                                      type: object
+                                      additionalProperties: false
+                                      required:
+                                      - seconds
+                                      properties:
+                                        seconds:
+                                          type: integer
+                                          format: int32
+                                          minimum: 60
+                                  required:
+                                  - sinceLastRequest
+                              required:
+                              - strategy
+    ProductDefinition:
+      type: object
+      additionalProperties: true
+      properties:
+        product:
+          type: string
+          enum:
+          - 1.0.0
+        info:
+          type: object
+          additionalProperties: true
+          required:
+          - name
+          - version
+          properties:
+            name:
+              type: string
+            version:
+              type: string
+    TargetServiceMultipart:
+      type: object
+      properties:
+        wsdl:
+          type: array
+          items:
+            $ref: '#/components/schemas/Wsdl'
+    DraftProductDocument:
+      type: object
+      additionalProperties: true
+    DraftAPIMultipart:
+      type: object
+      properties:
+        openapi:
+          type: array
+          items:
+            $ref: '#/components/schemas/OpenApi2Definition'
+        wsdl:
+          type: array
+          items:
+            $ref: '#/components/schemas/Wsdl'
+  parameters:
+    limit:
+      name: limit
+      in: query
+      description: Maximum number of items to return
+      required: false
+      schema:
+        type: integer
+    wsdl_service:
+      name: wsdl_service
+      in: query
+      description: Name of WSDL service to create the OpenAPI definition from
+      required: false
+      schema:
+        type: string
+    fields:
+      name: fields
+      in: query
+      description: List of field names to return
+      required: false
+      schema:
+        type: string
+    draft-product-name:
+      name: draft-product-name
+      in: path
+      description: Draft Product name
+      required: true
+      schema:
+        type: string
+    org:
+      name: org
+      in: path
+      description: Organization name or id
+      required: true
+      schema:
+        type: string
+    gateway_service_names:
+      name: gateway_service_names
+      in: query
+      description: Names of Gateway Services
+      required: false
+      schema:
+        type: string
+    draft-product-id:
+      name: draft-product-id
+      in: path
+      description: Draft Product name
+      required: true
+      schema:
+        type: string
+    catalog_name:
+      name: catalog_name
+      in: query
+      description: Name of a catalog
+      required: false
+      schema:
+        type: string
+    validate_apis:
+      name: validate_apis
+      in: query
+      description: Whether to validate APIs also
+      required: false
+      schema:
+        type: boolean
+    offset:
+      name: offset
+      in: query
+      description: Offset item number from list to begin return
+      required: false
+      schema:
+        type: integer
+    draft-api-version:
+      name: draft-api-version
+      in: path
+      description: Draft API version name
+      required: true
+      schema:
+        type: string
+    gateway_type:
+      name: gateway_type
+      in: query
+      description: The type of the gateway (datapower-gateway, datapower-api-gateway, event-gateway)
+      required: false
+      schema:
+        type: string
+    assembly_type:
+      name: assembly_type
+      in: query
+      description: The type of the assembly to generate (rest_to_proxy)
+      required: false
+      schema:
+        type: string
+    wsdl_services:
+      name: wsdl_services
+      in: query
+      description: A comma delimited list of WSDL services to introspect
+      required: false
+      schema:
+        type: string
+    disable_ws_security:
+      name: disable_ws_security
+      in: query
+      description: Disable generation of WS-Security definitions in api
+      required: false
+      schema:
+        type: boolean
+    confirm:
+      name: confirm
+      in: query
+      description: Confirmation for critical updates
+      required: true
+      schema:
+        type: string
+    scope:
+      name: scope
+      in: query
+      description: Scope of the call
+      required: false
+      schema:
+        type: string
+    draft-api-name:
+      name: draft-api-name
+      in: path
+      description: Draft API name
+      required: true
+      schema:
+        type: string
+    draft-api-id:
+      name: draft-api-id
+      in: path
+      description: Draft API name
+      required: true
+      schema:
+        type: string
+    api_type:
+      name: api_type
+      in: query
+      description: The type of api (asyncapi, rest, graphql, wsdl_to_rest, or wsdl)
+      required: false
+      schema:
+        type: string
+    project_id:
+      name: project_id
+      in: query
+      description: Project Id
+      required: true
+      schema:
+        type: string
+    space_name:
+      name: space_name
+      in: query
+      description: Name of a space
+      required: false
+      schema:
+        type: string
+    draft-product-version:
+      name: draft-product-version
+      in: path
+      description: Draft Product version name
+      required: true
+      schema:
+        type: string
+  responses:
+    Error:
+      description: Unexpected error
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+        application/yaml:
+          schema:
+            $ref: '#/components/schemas/Error'
+  securitySchemes:
+    oauth:
+      type: oauth2
+      flows:
+        implicit:
+          authorizationUrl: /oauth2/authorize
+          scopes:
+            api-drafts:edit: Clear the Draft objects, Create a Draft API object, Clear all Draft API objects in all collections, Clear the Draft API objects, Update the Draft API object by id, Delete the Draft API object by id, Update the Draft API object by name and version, Delete the Draft API object by name and version
+            api-drafts:view: List the Draft objects, List all Draft API objects in all collections, List the Draft API objects, Get the Draft API object by id, Get the Draft API object by name and version
+            app:manage:all: Create a Application object, Clear the Application objects, Update the Application object by name or id, Delete the Application object by name or id, Create a Strategy object, Delete the Strategy object by name or id, Clear the Strategy objects, Update the Strategy object by name or id, Create a Application Credential object, Update the Application Credential object by name or id, Delete the Application Credential object by name or id, Create a Subscription object, Clear the Subscription objects, Update the Subscription object by name or id, Delete the Subscription object by name or id
+            app:view:all: List the Application objects, Get the Application object by name or id, List the Strategy objects, Get the Strategy object by name or id, List the Application Credential objects, Get the Application Credential object by name or id, List the Subscription objects, Get the Subscription object by name or id
+            approval:view: List the Task objects, Get the Task object by name or id, Update the Task object by name or id, List the Task History objects, Get the Task History object by name or id
+            child:create: Create a Catalog object, Create a Space object
+            child:manage: Clear the Catalog objects, Update the Catalog object by name or id, Delete the Catalog object by name or id, Clear the Space objects, Update the Space object by name or id, Delete the Space object by name or id
+            child:view: List the Catalog objects, Get the Catalog object by name or id, List the Space objects, Get the Space object by name or id
+            cloud:manage: Update the Cloud Setting object, Update the User Registry Setting object, Update the Notification Style object, Create a Registration object, Clear the Registration objects, Update the Registration object by name or id, Delete the Registration object by name or id, Update the Webhook object by name or id
+            cloud:view: Get the Cloud Setting object, Get the User Registry Setting object, Get the Notification Style object, List all Notification Template objects in all collections, List all Role Default objects in all collections, List the Registration objects, Get the Registration object by name or id, List the Webhook objects, Get the Webhook object by name or id
+            consumer-org:manage: Clear the Activation objects, Delete the Activation object by name or id, Create a Consumer Organization object, Clear the Consumer Organization objects, Update the Consumer Organization object by name or id, Delete the Consumer Organization object by name or id, Create a Payment Method object, Update the Payment Method object by name or id, Delete the Payment Method object by name or id
+            consumer-org:view: List the Activation objects, Get the Activation object by name or id, List the Consumer Organization objects, Get the Consumer Organization object by name or id, List the Payment Method objects, Get the Payment Method object by name or id
+            my:manage: Create a API Key object, Delete the API Key object by name or id, Update the Me object, Delete the Me object
+            my:view: List the API Key objects, Get the API Key object by name or id, Get the Me object, List the My Permission objects, List the My Task objects, List the Originated Task objects, List the My Organization objects, List the My Catalog objects, List the My Space objects, List the My User Group objects, List the My Team objects
+            org:manage: Update the Log Spec object, Create a User Registry object, Clear the User Registry objects, Update the User Registry object by name or id, Delete the User Registry object by name or id, Create a User object, Clear the User objects, Update the User object by name or id, Delete the User object by name or id, Update the Organization Setting object, Update the Organization object by name or id, Delete the Organization object by name or id, Create a Member Invitation object, Clear the Member Invitation objects, Update the Member Invitation object by name or id, Delete the Member Invitation object by name or id, Create a Member object, Clear the Member objects, Update the Member object by name or id, Delete the Member object by name or id, Create a User Group Role Assignment object, Clear the User Group Role Assignment objects, Update the User Group Role Assignment object by name or id, Delete the User Group Role Assignment object by name or id, Create a Role object, Clear the Role objects, Update the Role object by name or id, Delete the Role object by name or id, Create a Availability Zone object, Clear the Availability Zone objects, Update the Availability Zone object by name or id, Delete the Availability Zone object by name or id, Create a Gateway Service object, Clear the Gateway Service objects, Update the Gateway Service object by name or id, Delete the Gateway Service object by name or id, Create a Portal Service object, Clear the Portal Service objects, Update the Portal Service object by name or id, Delete the Portal Service object by name or id, Create a Analytics Service object, Clear the Analytics Service objects, Update the Analytics Service object by name or id, Delete the Analytics Service object by name or id, Create a Opentelemetry object, Clear the Opentelemetry objects, Update the Opentelemetry object by name or id, Delete the Opentelemetry object by name or id, Create a Oauth Provider object, Clear the Oauth Provider objects, Update the Oauth Provider object by name or id, Delete the Oauth Provider object by name or id, Create a Jwt Provider object, Clear the Jwt Provider objects, Update the Jwt Provider object by name or id, Delete the Jwt Provider object by name or id, Create a Mail Server object, Clear the Mail Server objects, Update the Mail Server object by name or id, Delete the Mail Server object by name or id, Create a Billing object, Clear the Billing objects, Update the Billing object by name or id, Delete the Billing object by name or id, Create a Itopsplatform object, Clear the Itopsplatform objects, Update the Itopsplatform object by name or id, Delete the Itopsplatform object by name or id, Clear the Job objects, Delete the Job object by name or id, Create a TLS Server Profile object, Clear all TLS Server Profile objects in all collections, Clear the TLS Server Profile objects, Update the TLS Server Profile object by id, Delete the TLS Server Profile object by id, Update the TLS Server Profile object by name and version, Delete the TLS Server Profile object by name and version, Create a TLS Client Profile object, Clear all TLS Client Profile objects in all collections, Clear the TLS Client Profile objects, Update the TLS Client Profile object by id, Delete the TLS Client Profile object by id, Update the TLS Client Profile object by name and version, Delete the TLS Client Profile object by name and version, Create a Keystore object, Clear the Keystore objects, Update the Keystore object by name or id, Delete the Keystore object by name or id, Create a Truststore object, Clear the Truststore objects, Update the Truststore object by name or id, Delete the Truststore object by name or id, Create a Entry object, Clear the Entry objects, Update the Entry object by name or id, Delete the Entry object by name or id, Create a Jwk Set object, Clear the Jwk Set objects, Delete the Jwk Set object by name or id, Create a Programming Package object, Clear the Programming Package objects, Clear all Programming Package objects in all collections, Update the Programming Package object by id, Update the Programming Package object by name and version, Delete the Programming Package object by id, Delete the Programming Package object by name and version, List all Alias objects in all collections, Clear all Alias objects in all collections, Create a Xslt Transformation Alias object, Clear the Xslt Transformation Alias objects, Clear all Xslt Transformation Alias objects in all collections, Update the Xslt Transformation Alias object by id, Update the Xslt Transformation Alias object by name and version, Delete the Xslt Transformation Alias object by id, Delete the Xslt Transformation Alias object by name and version, Create a Http Transport Security Alias object, Clear the Http Transport Security Alias objects, Clear all Http Transport Security Alias objects in all collections, Update the Http Transport Security Alias object by id, Update the Http Transport Security Alias object by name and version, Delete the Http Transport Security Alias object by id, Delete the Http Transport Security Alias object by name and version, Create a Webmethods Integration Server Service Alias object, Clear the Webmethods Integration Server Service Alias objects, Clear all Webmethods Integration Server Service Alias objects in all collections, Update the Webmethods Integration Server Service Alias object by id, Update the Webmethods Integration Server Service Alias object by name and version, Delete the Webmethods Integration Server Service Alias object by id, Delete the Webmethods Integration Server Service Alias object by name and version, Update the Catalog Setting object, Create a Configured Gateway Service object, Clear the Configured Gateway Service objects, Delete the Configured Gateway Service object by name or id, Create a Configured Catalog User Registry object, Delete the Configured Catalog User Registry object by name or id, Create a Configured API User Registry object, Clear the Configured API User Registry objects, Delete the Configured API User Registry object by name or id, Create a Configured TLS Client Profile object, Clear the Configured TLS Client Profile objects, Delete the Configured TLS Client Profile object by id, Delete the Configured TLS Client Profile object by name and version, Create a Configured Billing object, Clear the Configured Billing objects, Delete the Configured Billing object by name or id, Create a Configured Jwt Provider object, Clear the Configured Jwt Provider objects, Delete the Configured Jwt Provider object by name or id, Create a Configured Oauth Provider object, Clear the Configured Oauth Provider objects, Delete the Configured Oauth Provider object by name or id, Create a Configured Portal Service object, Clear the Configured Portal Service objects, Delete the Configured Portal Service object by name or id, Create a Configured Programming Package object, Clear the Configured Programming Package objects, Delete the Configured Programming Package object by id, Delete the Configured Programming Package object by name and version, List all Configured Alias objects in all collections, Clear all Configured Alias objects in all collections, Create a Configured Xslt Transformation Alias object, Clear the Configured Xslt Transformation Alias objects, Clear all Configured Xslt Transformation Alias objects in all collections, Delete the Configured Xslt Transformation Alias object by id, Delete the Configured Xslt Transformation Alias object by name and version, Create a Configured Webmethods Integration Server Service Alias object, Clear the Configured Webmethods Integration Server Service Alias objects, Clear all Configured Webmethods Integration Server Service Alias objects in all collections, Delete the Configured Webmethods Integration Server Service Alias object by id, Delete the Configured Webmethods Integration Server Service Alias object by name and version, Create a Configured Http Transport Security Alias object, Clear the Configured Http Transport Security Alias objects, Clear all Configured Http Transport Security Alias objects in all collections, Delete the Configured Http Transport Security Alias object by id, Delete the Configured Http Transport Security Alias object by name and version, Augment the Configuration Property with additional name/value pairs, Clear the Configuration Property objects, Update the Configuration Property object, Delete the Configuration Property object, Create a Global Policy object, Clear all Global Policy objects in all collections, Clear the Global Policy objects, Update the Global Policy object by id, Delete the Global Policy object by id, Update the Global Policy object by name and version, Delete the Global Policy object by name and version, Create the Global Policy Error object, Update the Global Policy Error object, Delete the Global Policy Error object, Create the Global Policy Prehook object, Update the Global Policy Prehook object, Delete the Global Policy Prehook object, Create the Global Policy Posthook object, Update the Global Policy Posthook object, Delete the Global Policy Posthook object, Create a Simple Alias object, Clear the Simple Alias objects, Update the Simple Alias object by name or id, Delete the Simple Alias object by name or id, Update the Space Setting object, Update the Consumer Organization Setting object, Delete the Consumer Organization Setting object, Create a Watsonx Settings object, Update the Watsonx Settings object by name or id, Delete the Watsonx Settings object by name or id
+            org:view: Get the Log Spec object, List the User Registry objects, Get the User Registry object by name or id, List the User objects, Get the User object by name or id, List all Integration objects in all collections, Get the Organization Setting object, Get the Organization object by name or id, List the Associate objects, Get the Associate object by name or id, Create a User Group object, List the User Group objects, Clear the User Group objects, Get the User Group object by name or id, Update the User Group object by name or id, Delete the User Group object by name or id, List the Member Invitation objects, Get the Member Invitation object by name or id, List the Member objects, Get the Member object by name or id, List the User Group Role Assignment objects, Get the User Group Role Assignment object by name or id, List all Permission objects in all collections, List the Role objects, Get the Role object by name or id, Create a Team object, List the Team objects, Clear the Team objects, Get the Team object by name or id, Update the Team object by name or id, Delete the Team object by name or id, List the Availability Zone objects, Get the Availability Zone object by name or id, List the Gateway Service objects, Get the Gateway Service object by name or id, List all Policy objects in all collections, List the Policy objects, Get the Policy object by id, Get the Policy object by name and version, List all Extension objects in all collections, List the Extension objects, Get the Extension object by id, Get the Extension object by name and version, Create the Gateway Extension object, Get the Gateway Extension object, Update the Gateway Extension object, Delete the Gateway Extension object, List the Portal Service objects, Get the Portal Service object by name or id, List the Analytics Service objects, Get the Analytics Service object by name or id, List the Opentelemetry objects, Get the Opentelemetry object by name or id, List the Oauth Provider objects, Get the Oauth Provider object by name or id, List the Jwt Provider objects, Get the Jwt Provider object by name or id, List the Mail Server objects, Get the Mail Server object by name or id, List the Billing objects, Get the Billing object by name or id, List the Itopsplatform objects, Get the Itopsplatform object by name or id, List the Job objects, Get the Job object by name or id, List all TLS Server Profile objects in all collections, List the TLS Server Profile objects, Get the TLS Server Profile object by id, Get the TLS Server Profile object by name and version, List all TLS Client Profile objects in all collections, List the TLS Client Profile objects, Get the TLS Client Profile object by id, Get the TLS Client Profile object by name and version, List the Keystore objects, Get the Keystore object by name or id, List the Truststore objects, Get the Truststore object by name or id, List the Entry objects, Get the Entry object by name or id, List the Jwk Set objects, Get the Jwk Set object by name or id, List the Programming Package objects, List all Programming Package objects in all collections, Get the Programming Package object by id, Get the Programming Package object by name and version, List the Xslt Transformation Alias objects, List all Xslt Transformation Alias objects in all collections, Get the Xslt Transformation Alias object by id, Get the Xslt Transformation Alias object by name and version, List the Http Transport Security Alias objects, List all Http Transport Security Alias objects in all collections, Get the Http Transport Security Alias object by id, Get the Http Transport Security Alias object by name and version, List the Webmethods Integration Server Service Alias objects, List all Webmethods Integration Server Service Alias objects in all collections, Get the Webmethods Integration Server Service Alias object by id, Get the Webmethods Integration Server Service Alias object by name and version, Get the Catalog Setting object, List the Configured Gateway Service objects, Get the Configured Gateway Service object by name or id, List the Configured Catalog User Registry objects, Get the Configured Catalog User Registry object by name or id, List the Configured API User Registry objects, Get the Configured API User Registry object by name or id, List all Configured TLS Client Profile objects in all collections, Clear all Configured TLS Client Profile objects in all collections, List the Configured TLS Client Profile objects, Get the Configured TLS Client Profile object by id, Get the Configured TLS Client Profile object by name and version, List the Configured Billing objects, Get the Configured Billing object by name or id, List the Configured Jwt Provider objects, Get the Configured Jwt Provider object by name or id, List the Configured Oauth Provider objects, Get the Configured Oauth Provider object by name or id, List the Configured Portal Service objects, Get the Configured Portal Service object by name or id, List the Configured Programming Package objects, List all Configured Programming Package objects in all collections, Clear all Configured Programming Package objects in all collections, Get the Configured Programming Package object by id, Get the Configured Programming Package object by name and version, List the Configured Xslt Transformation Alias objects, List all Configured Xslt Transformation Alias objects in all collections, Get the Configured Xslt Transformation Alias object by id, Get the Configured Xslt Transformation Alias object by name and version, List the Configured Webmethods Integration Server Service Alias objects, List all Configured Webmethods Integration Server Service Alias objects in all collections, Get the Configured Webmethods Integration Server Service Alias object by id, Get the Configured Webmethods Integration Server Service Alias object by name and version, List the Configured Http Transport Security Alias objects, List all Configured Http Transport Security Alias objects in all collections, Get the Configured Http Transport Security Alias object by id, Get the Configured Http Transport Security Alias object by name and version, List the Configuration Property objects, Get the Configuration Property object, List all Global Policy objects in all collections, List the Global Policy objects, Get the Global Policy object by id, Get the Global Policy object by name and version, Get the Global Policy Error object, Get the Global Policy Prehook object, Get the Global Policy Posthook object, List the Simple Alias objects, Get the Simple Alias object by name or id, Get the Space Setting object, Get the Consumer Organization Setting object, List the Primary Event objects, Get the Primary Event object by name or id, List the Subscriber Event objects, Get the Subscriber Event object by name or id, List the Task Queue objects, Get the Task Queue object by name or id, List the Watsonx Settings objects, Get the Watsonx Settings object by name or id, List the Resource Service Status objects
+            product-drafts:edit: Create a Draft Product object, Clear all Draft Product objects in all collections, Clear the Draft Product objects, Update the Draft Product object by id, Delete the Draft Product object by id, Update the Draft Product object by name and version, Delete the Draft Product object by name and version
+            product-drafts:view: List all Draft Product objects in all collections, List the Draft Product objects, Get the Draft Product object by id, Get the Draft Product object by name and version
+            product:manage: Clear all Product objects in all collections, Clear the Product objects, Update the Product object by id, Delete the Product object by id, Update the Product object by name and version, Delete the Product object by name and version, Update the API object by id, Update the API object by name and version
+            product:view: List all Product objects in all collections, List the Product objects, Get the Product object by id, Get the Product object by name and version, List all API objects in all collections, List the API objects, Get the API object by id, Get the API object by name and version, Get the Plan object by id, Get the Plan object by name and version, List the Plan objects, List all Plan objects in all collections, Get the Quota object by id, Get the Quota object by name and version, List the Quota objects, List all Quota objects in all collections
+            project:manage: Create a Project object, Clear the Project objects, Update the Project object by name or id, Delete the Project object by name or id, Clear the Project File objects, Clear all Project File objects in all collections, Update the Project File object by id, Update the Project File object by name and version, Delete the Project File object by id, Delete the Project File object by name and version
+            project:view: List the Project objects, Get the Project object by name or id, List the Project File objects, List all Project File objects in all collections, Get the Project File object by id, Get the Project File object by name and version
+            provider-org:manage: Create an Organization Invitation object, Clear the Organization Invitation objects, Update the Organization Invitation object by name or id, Delete the Organization Invitation object by name or id, Create a Group object, Clear the Group objects, Update the Group object by name or id, Delete the Group object by name or id
+            provider-org:view: List the Organization Invitation objects, Get the Organization Invitation object by name or id, List the Group objects, Get the Group object by name or id
+            webhook:manage: Update the Webhook object by name or id
+            webhook:view: List the Webhook objects, Get the Webhook object by name or id
+        password:
+          tokenUrl: /token
+          refreshUrl: /token
+          scopes:
+            api-drafts:edit: Clear the Draft objects, Create a Draft API object, Clear all Draft API objects in all collections, Clear the Draft API objects, Update the Draft API object by id, Delete the Draft API object by id, Update the Draft API object by name and version, Delete the Draft API object by name and version
+            api-drafts:view: List the Draft objects, List all Draft API objects in all collections, List the Draft API objects, Get the Draft API object by id, Get the Draft API object by name and version
+            app:manage:all: Create a Application object, Clear the Application objects, Update the Application object by name or id, Delete the Application object by name or id, Create a Strategy object, Delete the Strategy object by name or id, Clear the Strategy objects, Update the Strategy object by name or id, Create a Application Credential object, Update the Application Credential object by name or id, Delete the Application Credential object by name or id, Create a Subscription object, Clear the Subscription objects, Update the Subscription object by name or id, Delete the Subscription object by name or id
+            app:view:all: List the Application objects, Get the Application object by name or id, List the Strategy objects, Get the Strategy object by name or id, List the Application Credential objects, Get the Application Credential object by name or id, List the Subscription objects, Get the Subscription object by name or id
+            approval:view: List the Task objects, Get the Task object by name or id, Update the Task object by name or id, List the Task History objects, Get the Task History object by name or id
+            child:create: Create a Catalog object, Create a Space object
+            child:manage: Clear the Catalog objects, Update the Catalog object by name or id, Delete the Catalog object by name or id, Clear the Space objects, Update the Space object by name or id, Delete the Space object by name or id
+            child:view: List the Catalog objects, Get the Catalog object by name or id, List the Space objects, Get the Space object by name or id
+            cloud:manage: Update the Cloud Setting object, Update the User Registry Setting object, Update the Notification Style object, Create a Registration object, Clear the Registration objects, Update the Registration object by name or id, Delete the Registration object by name or id, Update the Webhook object by name or id
+            cloud:view: Get the Cloud Setting object, Get the User Registry Setting object, Get the Notification Style object, List all Notification Template objects in all collections, List all Role Default objects in all collections, List the Registration objects, Get the Registration object by name or id, List the Webhook objects, Get the Webhook object by name or id
+            consumer-org:manage: Clear the Activation objects, Delete the Activation object by name or id, Create a Consumer Organization object, Clear the Consumer Organization objects, Update the Consumer Organization object by name or id, Delete the Consumer Organization object by name or id, Create a Payment Method object, Update the Payment Method object by name or id, Delete the Payment Method object by name or id
+            consumer-org:view: List the Activation objects, Get the Activation object by name or id, List the Consumer Organization objects, Get the Consumer Organization object by name or id, List the Payment Method objects, Get the Payment Method object by name or id
+            my:manage: Create a API Key object, Delete the API Key object by name or id, Update the Me object, Delete the Me object
+            my:view: List the API Key objects, Get the API Key object by name or id, Get the Me object, List the My Permission objects, List the My Task objects, List the Originated Task objects, List the My Organization objects, List the My Catalog objects, List the My Space objects, List the My User Group objects, List the My Team objects
+            org:manage: Update the Log Spec object, Create a User Registry object, Clear the User Registry objects, Update the User Registry object by name or id, Delete the User Registry object by name or id, Create a User object, Clear the User objects, Update the User object by name or id, Delete the User object by name or id, Update the Organization Setting object, Update the Organization object by name or id, Delete the Organization object by name or id, Create a Member Invitation object, Clear the Member Invitation objects, Update the Member Invitation object by name or id, Delete the Member Invitation object by name or id, Create a Member object, Clear the Member objects, Update the Member object by name or id, Delete the Member object by name or id, Create a User Group Role Assignment object, Clear the User Group Role Assignment objects, Update the User Group Role Assignment object by name or id, Delete the User Group Role Assignment object by name or id, Create a Role object, Clear the Role objects, Update the Role object by name or id, Delete the Role object by name or id, Create a Availability Zone object, Clear the Availability Zone objects, Update the Availability Zone object by name or id, Delete the Availability Zone object by name or id, Create a Gateway Service object, Clear the Gateway Service objects, Update the Gateway Service object by name or id, Delete the Gateway Service object by name or id, Create a Portal Service object, Clear the Portal Service objects, Update the Portal Service object by name or id, Delete the Portal Service object by name or id, Create a Analytics Service object, Clear the Analytics Service objects, Update the Analytics Service object by name or id, Delete the Analytics Service object by name or id, Create a Opentelemetry object, Clear the Opentelemetry objects, Update the Opentelemetry object by name or id, Delete the Opentelemetry object by name or id, Create a Oauth Provider object, Clear the Oauth Provider objects, Update the Oauth Provider object by name or id, Delete the Oauth Provider object by name or id, Create a Jwt Provider object, Clear the Jwt Provider objects, Update the Jwt Provider object by name or id, Delete the Jwt Provider object by name or id, Create a Mail Server object, Clear the Mail Server objects, Update the Mail Server object by name or id, Delete the Mail Server object by name or id, Create a Billing object, Clear the Billing objects, Update the Billing object by name or id, Delete the Billing object by name or id, Create a Itopsplatform object, Clear the Itopsplatform objects, Update the Itopsplatform object by name or id, Delete the Itopsplatform object by name or id, Clear the Job objects, Delete the Job object by name or id, Create a TLS Server Profile object, Clear all TLS Server Profile objects in all collections, Clear the TLS Server Profile objects, Update the TLS Server Profile object by id, Delete the TLS Server Profile object by id, Update the TLS Server Profile object by name and version, Delete the TLS Server Profile object by name and version, Create a TLS Client Profile object, Clear all TLS Client Profile objects in all collections, Clear the TLS Client Profile objects, Update the TLS Client Profile object by id, Delete the TLS Client Profile object by id, Update the TLS Client Profile object by name and version, Delete the TLS Client Profile object by name and version, Create a Keystore object, Clear the Keystore objects, Update the Keystore object by name or id, Delete the Keystore object by name or id, Create a Truststore object, Clear the Truststore objects, Update the Truststore object by name or id, Delete the Truststore object by name or id, Create a Entry object, Clear the Entry objects, Update the Entry object by name or id, Delete the Entry object by name or id, Create a Jwk Set object, Clear the Jwk Set objects, Delete the Jwk Set object by name or id, Create a Programming Package object, Clear the Programming Package objects, Clear all Programming Package objects in all collections, Update the Programming Package object by id, Update the Programming Package object by name and version, Delete the Programming Package object by id, Delete the Programming Package object by name and version, List all Alias objects in all collections, Clear all Alias objects in all collections, Create a Xslt Transformation Alias object, Clear the Xslt Transformation Alias objects, Clear all Xslt Transformation Alias objects in all collections, Update the Xslt Transformation Alias object by id, Update the Xslt Transformation Alias object by name and version, Delete the Xslt Transformation Alias object by id, Delete the Xslt Transformation Alias object by name and version, Create a Http Transport Security Alias object, Clear the Http Transport Security Alias objects, Clear all Http Transport Security Alias objects in all collections, Update the Http Transport Security Alias object by id, Update the Http Transport Security Alias object by name and version, Delete the Http Transport Security Alias object by id, Delete the Http Transport Security Alias object by name and version, Create a Webmethods Integration Server Service Alias object, Clear the Webmethods Integration Server Service Alias objects, Clear all Webmethods Integration Server Service Alias objects in all collections, Update the Webmethods Integration Server Service Alias object by id, Update the Webmethods Integration Server Service Alias object by name and version, Delete the Webmethods Integration Server Service Alias object by id, Delete the Webmethods Integration Server Service Alias object by name and version, Update the Catalog Setting object, Create a Configured Gateway Service object, Clear the Configured Gateway Service objects, Delete the Configured Gateway Service object by name or id, Create a Configured Catalog User Registry object, Delete the Configured Catalog User Registry object by name or id, Create a Configured API User Registry object, Clear the Configured API User Registry objects, Delete the Configured API User Registry object by name or id, Create a Configured TLS Client Profile object, Clear the Configured TLS Client Profile objects, Delete the Configured TLS Client Profile object by id, Delete the Configured TLS Client Profile object by name and version, Create a Configured Billing object, Clear the Configured Billing objects, Delete the Configured Billing object by name or id, Create a Configured Jwt Provider object, Clear the Configured Jwt Provider objects, Delete the Configured Jwt Provider object by name or id, Create a Configured Oauth Provider object, Clear the Configured Oauth Provider objects, Delete the Configured Oauth Provider object by name or id, Create a Configured Portal Service object, Clear the Configured Portal Service objects, Delete the Configured Portal Service object by name or id, Create a Configured Programming Package object, Clear the Configured Programming Package objects, Delete the Configured Programming Package object by id, Delete the Configured Programming Package object by name and version, List all Configured Alias objects in all collections, Clear all Configured Alias objects in all collections, Create a Configured Xslt Transformation Alias object, Clear the Configured Xslt Transformation Alias objects, Clear all Configured Xslt Transformation Alias objects in all collections, Delete the Configured Xslt Transformation Alias object by id, Delete the Configured Xslt Transformation Alias object by name and version, Create a Configured Webmethods Integration Server Service Alias object, Clear the Configured Webmethods Integration Server Service Alias objects, Clear all Configured Webmethods Integration Server Service Alias objects in all collections, Delete the Configured Webmethods Integration Server Service Alias object by id, Delete the Configured Webmethods Integration Server Service Alias object by name and version, Create a Configured Http Transport Security Alias object, Clear the Configured Http Transport Security Alias objects, Clear all Configured Http Transport Security Alias objects in all collections, Delete the Configured Http Transport Security Alias object by id, Delete the Configured Http Transport Security Alias object by name and version, Augment the Configuration Property with additional name/value pairs, Clear the Configuration Property objects, Update the Configuration Property object, Delete the Configuration Property object, Create a Global Policy object, Clear all Global Policy objects in all collections, Clear the Global Policy objects, Update the Global Policy object by id, Delete the Global Policy object by id, Update the Global Policy object by name and version, Delete the Global Policy object by name and version, Create the Global Policy Error object, Update the Global Policy Error object, Delete the Global Policy Error object, Create the Global Policy Prehook object, Update the Global Policy Prehook object, Delete the Global Policy Prehook object, Create the Global Policy Posthook object, Update the Global Policy Posthook object, Delete the Global Policy Posthook object, Create a Simple Alias object, Clear the Simple Alias objects, Update the Simple Alias object by name or id, Delete the Simple Alias object by name or id, Update the Space Setting object, Update the Consumer Organization Setting object, Delete the Consumer Organization Setting object, Create a Watsonx Settings object, Update the Watsonx Settings object by name or id, Delete the Watsonx Settings object by name or id
+            org:view: Get the Log Spec object, List the User Registry objects, Get the User Registry object by name or id, List the User objects, Get the User object by name or id, List all Integration objects in all collections, Get the Organization Setting object, Get the Organization object by name or id, List the Associate objects, Get the Associate object by name or id, Create a User Group object, List the User Group objects, Clear the User Group objects, Get the User Group object by name or id, Update the User Group object by name or id, Delete the User Group object by name or id, List the Member Invitation objects, Get the Member Invitation object by name or id, List the Member objects, Get the Member object by name or id, List the User Group Role Assignment objects, Get the User Group Role Assignment object by name or id, List all Permission objects in all collections, List the Role objects, Get the Role object by name or id, Create a Team object, List the Team objects, Clear the Team objects, Get the Team object by name or id, Update the Team object by name or id, Delete the Team object by name or id, List the Availability Zone objects, Get the Availability Zone object by name or id, List the Gateway Service objects, Get the Gateway Service object by name or id, List all Policy objects in all collections, List the Policy objects, Get the Policy object by id, Get the Policy object by name and version, List all Extension objects in all collections, List the Extension objects, Get the Extension object by id, Get the Extension object by name and version, Create the Gateway Extension object, Get the Gateway Extension object, Update the Gateway Extension object, Delete the Gateway Extension object, List the Portal Service objects, Get the Portal Service object by name or id, List the Analytics Service objects, Get the Analytics Service object by name or id, List the Opentelemetry objects, Get the Opentelemetry object by name or id, List the Oauth Provider objects, Get the Oauth Provider object by name or id, List the Jwt Provider objects, Get the Jwt Provider object by name or id, List the Mail Server objects, Get the Mail Server object by name or id, List the Billing objects, Get the Billing object by name or id, List the Itopsplatform objects, Get the Itopsplatform object by name or id, List the Job objects, Get the Job object by name or id, List all TLS Server Profile objects in all collections, List the TLS Server Profile objects, Get the TLS Server Profile object by id, Get the TLS Server Profile object by name and version, List all TLS Client Profile objects in all collections, List the TLS Client Profile objects, Get the TLS Client Profile object by id, Get the TLS Client Profile object by name and version, List the Keystore objects, Get the Keystore object by name or id, List the Truststore objects, Get the Truststore object by name or id, List the Entry objects, Get the Entry object by name or id, List the Jwk Set objects, Get the Jwk Set object by name or id, List the Programming Package objects, List all Programming Package objects in all collections, Get the Programming Package object by id, Get the Programming Package object by name and version, List the Xslt Transformation Alias objects, List all Xslt Transformation Alias objects in all collections, Get the Xslt Transformation Alias object by id, Get the Xslt Transformation Alias object by name and version, List the Http Transport Security Alias objects, List all Http Transport Security Alias objects in all collections, Get the Http Transport Security Alias object by id, Get the Http Transport Security Alias object by name and version, List the Webmethods Integration Server Service Alias objects, List all Webmethods Integration Server Service Alias objects in all collections, Get the Webmethods Integration Server Service Alias object by id, Get the Webmethods Integration Server Service Alias object by name and version, Get the Catalog Setting object, List the Configured Gateway Service objects, Get the Configured Gateway Service object by name or id, List the Configured Catalog User Registry objects, Get the Configured Catalog User Registry object by name or id, List the Configured API User Registry objects, Get the Configured API User Registry object by name or id, List all Configured TLS Client Profile objects in all collections, Clear all Configured TLS Client Profile objects in all collections, List the Configured TLS Client Profile objects, Get the Configured TLS Client Profile object by id, Get the Configured TLS Client Profile object by name and version, List the Configured Billing objects, Get the Configured Billing object by name or id, List the Configured Jwt Provider objects, Get the Configured Jwt Provider object by name or id, List the Configured Oauth Provider objects, Get the Configured Oauth Provider object by name or id, List the Configured Portal Service objects, Get the Configured Portal Service object by name or id, List the Configured Programming Package objects, List all Configured Programming Package objects in all collections, Clear all Configured Programming Package objects in all collections, Get the Configured Programming Package object by id, Get the Configured Programming Package object by name and version, List the Configured Xslt Transformation Alias objects, List all Configured Xslt Transformation Alias objects in all collections, Get the Configured Xslt Transformation Alias object by id, Get the Configured Xslt Transformation Alias object by name and version, List the Configured Webmethods Integration Server Service Alias objects, List all Configured Webmethods Integration Server Service Alias objects in all collections, Get the Configured Webmethods Integration Server Service Alias object by id, Get the Configured Webmethods Integration Server Service Alias object by name and version, List the Configured Http Transport Security Alias objects, List all Configured Http Transport Security Alias objects in all collections, Get the Configured Http Transport Security Alias object by id, Get the Configured Http Transport Security Alias object by name and version, List the Configuration Property objects, Get the Configuration Property object, List all Global Policy objects in all collections, List the Global Policy objects, Get the Global Policy object by id, Get the Global Policy object by name and version, Get the Global Policy Error object, Get the Global Policy Prehook object, Get the Global Policy Posthook object, List the Simple Alias objects, Get the Simple Alias object by name or id, Get the Space Setting object, Get the Consumer Organization Setting object, List the Primary Event objects, Get the Primary Event object by name or id, List the Subscriber Event objects, Get the Subscriber Event object by name or id, List the Task Queue objects, Get the Task Queue object by name or id, List the Watsonx Settings objects, Get the Watsonx Settings object by name or id, List the Resource Service Status objects
+            product-drafts:edit: Create a Draft Product object, Clear all Draft Product objects in all collections, Clear the Draft Product objects, Update the Draft Product object by id, Delete the Draft Product object by id, Update the Draft Product object by name and version, Delete the Draft Product object by name and version
+            product-drafts:view: List all Draft Product objects in all collections, List the Draft Product objects, Get the Draft Product object by id, Get the Draft Product object by name and version
+            product:manage: Clear all Product objects in all collections, Clear the Product objects, Update the Product object by id, Delete the Product object by id, Update the Product object by name and version, Delete the Product object by name and version, Update the API object by id, Update the API object by name and version
+            product:view: List all Product objects in all collections, List the Product objects, Get the Product object by id, Get the Product object by name and version, List all API objects in all collections, List the API objects, Get the API object by id, Get the API object by name and version, Get the Plan object by id, Get the Plan object by name and version, List the Plan objects, List all Plan objects in all collections, Get the Quota object by id, Get the Quota object by name and version, List the Quota objects, List all Quota objects in all collections
+            project:manage: Create a Project object, Clear the Project objects, Update the Project object by name or id, Delete the Project object by name or id, Clear the Project File objects, Clear all Project File objects in all collections, Update the Project File object by id, Update the Project File object by name and version, Delete the Project File object by id, Delete the Project File object by name and version
+            project:view: List the Project objects, Get the Project object by name or id, List the Project File objects, List all Project File objects in all collections, Get the Project File object by id, Get the Project File object by name and version
+            provider-org:manage: Create an Organization Invitation object, Clear the Organization Invitation objects, Update the Organization Invitation object by name or id, Delete the Organization Invitation object by name or id, Create a Group object, Clear the Group objects, Update the Group object by name or id, Delete the Group object by name or id
+            provider-org:view: List the Organization Invitation objects, Get the Organization Invitation object by name or id, List the Group objects, Get the Group object by name or id
+            webhook:manage: Update the Webhook object by name or id
+            webhook:view: List the Webhook objects, Get the Webhook object by name or id
+        clientCredentials:
+          tokenUrl: /token
+          scopes:
+            api-drafts:edit: Clear the Draft objects, Create a Draft API object, Clear all Draft API objects in all collections, Clear the Draft API objects, Update the Draft API object by id, Delete the Draft API object by id, Update the Draft API object by name and version, Delete the Draft API object by name and version
+            api-drafts:view: List the Draft objects, List all Draft API objects in all collections, List the Draft API objects, Get the Draft API object by id, Get the Draft API object by name and version
+            app:manage:all: Create a Application object, Clear the Application objects, Update the Application object by name or id, Delete the Application object by name or id, Create a Strategy object, Delete the Strategy object by name or id, Clear the Strategy objects, Update the Strategy object by name or id, Create a Application Credential object, Update the Application Credential object by name or id, Delete the Application Credential object by name or id, Create a Subscription object, Clear the Subscription objects, Update the Subscription object by name or id, Delete the Subscription object by name or id
+            app:view:all: List the Application objects, Get the Application object by name or id, List the Strategy objects, Get the Strategy object by name or id, List the Application Credential objects, Get the Application Credential object by name or id, List the Subscription objects, Get the Subscription object by name or id
+            approval:view: List the Task objects, Get the Task object by name or id, Update the Task object by name or id, List the Task History objects, Get the Task History object by name or id
+            child:create: Create a Catalog object, Create a Space object
+            child:manage: Clear the Catalog objects, Update the Catalog object by name or id, Delete the Catalog object by name or id, Clear the Space objects, Update the Space object by name or id, Delete the Space object by name or id
+            child:view: List the Catalog objects, Get the Catalog object by name or id, List the Space objects, Get the Space object by name or id
+            cloud:manage: Update the Cloud Setting object, Update the User Registry Setting object, Update the Notification Style object, Create a Registration object, Clear the Registration objects, Update the Registration object by name or id, Delete the Registration object by name or id, Update the Webhook object by name or id
+            cloud:view: Get the Cloud Setting object, Get the User Registry Setting object, Get the Notification Style object, List all Notification Template objects in all collections, List all Role Default objects in all collections, List the Registration objects, Get the Registration object by name or id, List the Webhook objects, Get the Webhook object by name or id
+            consumer-org:manage: Clear the Activation objects, Delete the Activation object by name or id, Create a Consumer Organization object, Clear the Consumer Organization objects, Update the Consumer Organization object by name or id, Delete the Consumer Organization object by name or id, Create a Payment Method object, Update the Payment Method object by name or id, Delete the Payment Method object by name or id
+            consumer-org:view: List the Activation objects, Get the Activation object by name or id, List the Consumer Organization objects, Get the Consumer Organization object by name or id, List the Payment Method objects, Get the Payment Method object by name or id
+            my:manage: Create a API Key object, Delete the API Key object by name or id, Update the Me object, Delete the Me object
+            my:view: List the API Key objects, Get the API Key object by name or id, Get the Me object, List the My Permission objects, List the My Task objects, List the Originated Task objects, List the My Organization objects, List the My Catalog objects, List the My Space objects, List the My User Group objects, List the My Team objects
+            org:manage: Update the Log Spec object, Create a User Registry object, Clear the User Registry objects, Update the User Registry object by name or id, Delete the User Registry object by name or id, Create a User object, Clear the User objects, Update the User object by name or id, Delete the User object by name or id, Update the Organization Setting object, Update the Organization object by name or id, Delete the Organization object by name or id, Create a Member Invitation object, Clear the Member Invitation objects, Update the Member Invitation object by name or id, Delete the Member Invitation object by name or id, Create a Member object, Clear the Member objects, Update the Member object by name or id, Delete the Member object by name or id, Create a User Group Role Assignment object, Clear the User Group Role Assignment objects, Update the User Group Role Assignment object by name or id, Delete the User Group Role Assignment object by name or id, Create a Role object, Clear the Role objects, Update the Role object by name or id, Delete the Role object by name or id, Create a Availability Zone object, Clear the Availability Zone objects, Update the Availability Zone object by name or id, Delete the Availability Zone object by name or id, Create a Gateway Service object, Clear the Gateway Service objects, Update the Gateway Service object by name or id, Delete the Gateway Service object by name or id, Create a Portal Service object, Clear the Portal Service objects, Update the Portal Service object by name or id, Delete the Portal Service object by name or id, Create a Analytics Service object, Clear the Analytics Service objects, Update the Analytics Service object by name or id, Delete the Analytics Service object by name or id, Create a Opentelemetry object, Clear the Opentelemetry objects, Update the Opentelemetry object by name or id, Delete the Opentelemetry object by name or id, Create a Oauth Provider object, Clear the Oauth Provider objects, Update the Oauth Provider object by name or id, Delete the Oauth Provider object by name or id, Create a Jwt Provider object, Clear the Jwt Provider objects, Update the Jwt Provider object by name or id, Delete the Jwt Provider object by name or id, Create a Mail Server object, Clear the Mail Server objects, Update the Mail Server object by name or id, Delete the Mail Server object by name or id, Create a Billing object, Clear the Billing objects, Update the Billing object by name or id, Delete the Billing object by name or id, Create a Itopsplatform object, Clear the Itopsplatform objects, Update the Itopsplatform object by name or id, Delete the Itopsplatform object by name or id, Clear the Job objects, Delete the Job object by name or id, Create a TLS Server Profile object, Clear all TLS Server Profile objects in all collections, Clear the TLS Server Profile objects, Update the TLS Server Profile object by id, Delete the TLS Server Profile object by id, Update the TLS Server Profile object by name and version, Delete the TLS Server Profile object by name and version, Create a TLS Client Profile object, Clear all TLS Client Profile objects in all collections, Clear the TLS Client Profile objects, Update the TLS Client Profile object by id, Delete the TLS Client Profile object by id, Update the TLS Client Profile object by name and version, Delete the TLS Client Profile object by name and version, Create a Keystore object, Clear the Keystore objects, Update the Keystore object by name or id, Delete the Keystore object by name or id, Create a Truststore object, Clear the Truststore objects, Update the Truststore object by name or id, Delete the Truststore object by name or id, Create a Entry object, Clear the Entry objects, Update the Entry object by name or id, Delete the Entry object by name or id, Create a Jwk Set object, Clear the Jwk Set objects, Delete the Jwk Set object by name or id, Create a Programming Package object, Clear the Programming Package objects, Clear all Programming Package objects in all collections, Update the Programming Package object by id, Update the Programming Package object by name and version, Delete the Programming Package object by id, Delete the Programming Package object by name and version, List all Alias objects in all collections, Clear all Alias objects in all collections, Create a Xslt Transformation Alias object, Clear the Xslt Transformation Alias objects, Clear all Xslt Transformation Alias objects in all collections, Update the Xslt Transformation Alias object by id, Update the Xslt Transformation Alias object by name and version, Delete the Xslt Transformation Alias object by id, Delete the Xslt Transformation Alias object by name and version, Create a Http Transport Security Alias object, Clear the Http Transport Security Alias objects, Clear all Http Transport Security Alias objects in all collections, Update the Http Transport Security Alias object by id, Update the Http Transport Security Alias object by name and version, Delete the Http Transport Security Alias object by id, Delete the Http Transport Security Alias object by name and version, Create a Webmethods Integration Server Service Alias object, Clear the Webmethods Integration Server Service Alias objects, Clear all Webmethods Integration Server Service Alias objects in all collections, Update the Webmethods Integration Server Service Alias object by id, Update the Webmethods Integration Server Service Alias object by name and version, Delete the Webmethods Integration Server Service Alias object by id, Delete the Webmethods Integration Server Service Alias object by name and version, Update the Catalog Setting object, Create a Configured Gateway Service object, Clear the Configured Gateway Service objects, Delete the Configured Gateway Service object by name or id, Create a Configured Catalog User Registry object, Delete the Configured Catalog User Registry object by name or id, Create a Configured API User Registry object, Clear the Configured API User Registry objects, Delete the Configured API User Registry object by name or id, Create a Configured TLS Client Profile object, Clear the Configured TLS Client Profile objects, Delete the Configured TLS Client Profile object by id, Delete the Configured TLS Client Profile object by name and version, Create a Configured Billing object, Clear the Configured Billing objects, Delete the Configured Billing object by name or id, Create a Configured Jwt Provider object, Clear the Configured Jwt Provider objects, Delete the Configured Jwt Provider object by name or id, Create a Configured Oauth Provider object, Clear the Configured Oauth Provider objects, Delete the Configured Oauth Provider object by name or id, Create a Configured Portal Service object, Clear the Configured Portal Service objects, Delete the Configured Portal Service object by name or id, Create a Configured Programming Package object, Clear the Configured Programming Package objects, Delete the Configured Programming Package object by id, Delete the Configured Programming Package object by name and version, List all Configured Alias objects in all collections, Clear all Configured Alias objects in all collections, Create a Configured Xslt Transformation Alias object, Clear the Configured Xslt Transformation Alias objects, Clear all Configured Xslt Transformation Alias objects in all collections, Delete the Configured Xslt Transformation Alias object by id, Delete the Configured Xslt Transformation Alias object by name and version, Create a Configured Webmethods Integration Server Service Alias object, Clear the Configured Webmethods Integration Server Service Alias objects, Clear all Configured Webmethods Integration Server Service Alias objects in all collections, Delete the Configured Webmethods Integration Server Service Alias object by id, Delete the Configured Webmethods Integration Server Service Alias object by name and version, Create a Configured Http Transport Security Alias object, Clear the Configured Http Transport Security Alias objects, Clear all Configured Http Transport Security Alias objects in all collections, Delete the Configured Http Transport Security Alias object by id, Delete the Configured Http Transport Security Alias object by name and version, Augment the Configuration Property with additional name/value pairs, Clear the Configuration Property objects, Update the Configuration Property object, Delete the Configuration Property object, Create a Global Policy object, Clear all Global Policy objects in all collections, Clear the Global Policy objects, Update the Global Policy object by id, Delete the Global Policy object by id, Update the Global Policy object by name and version, Delete the Global Policy object by name and version, Create the Global Policy Error object, Update the Global Policy Error object, Delete the Global Policy Error object, Create the Global Policy Prehook object, Update the Global Policy Prehook object, Delete the Global Policy Prehook object, Create the Global Policy Posthook object, Update the Global Policy Posthook object, Delete the Global Policy Posthook object, Create a Simple Alias object, Clear the Simple Alias objects, Update the Simple Alias object by name or id, Delete the Simple Alias object by name or id, Update the Space Setting object, Update the Consumer Organization Setting object, Delete the Consumer Organization Setting object, Create a Watsonx Settings object, Update the Watsonx Settings object by name or id, Delete the Watsonx Settings object by name or id
+            org:view: Get the Log Spec object, List the User Registry objects, Get the User Registry object by name or id, List the User objects, Get the User object by name or id, List all Integration objects in all collections, Get the Organization Setting object, Get the Organization object by name or id, List the Associate objects, Get the Associate object by name or id, Create a User Group object, List the User Group objects, Clear the User Group objects, Get the User Group object by name or id, Update the User Group object by name or id, Delete the User Group object by name or id, List the Member Invitation objects, Get the Member Invitation object by name or id, List the Member objects, Get the Member object by name or id, List the User Group Role Assignment objects, Get the User Group Role Assignment object by name or id, List all Permission objects in all collections, List the Role objects, Get the Role object by name or id, Create a Team object, List the Team objects, Clear the Team objects, Get the Team object by name or id, Update the Team object by name or id, Delete the Team object by name or id, List the Availability Zone objects, Get the Availability Zone object by name or id, List the Gateway Service objects, Get the Gateway Service object by name or id, List all Policy objects in all collections, List the Policy objects, Get the Policy object by id, Get the Policy object by name and version, List all Extension objects in all collections, List the Extension objects, Get the Extension object by id, Get the Extension object by name and version, Create the Gateway Extension object, Get the Gateway Extension object, Update the Gateway Extension object, Delete the Gateway Extension object, List the Portal Service objects, Get the Portal Service object by name or id, List the Analytics Service objects, Get the Analytics Service object by name or id, List the Opentelemetry objects, Get the Opentelemetry object by name or id, List the Oauth Provider objects, Get the Oauth Provider object by name or id, List the Jwt Provider objects, Get the Jwt Provider object by name or id, List the Mail Server objects, Get the Mail Server object by name or id, List the Billing objects, Get the Billing object by name or id, List the Itopsplatform objects, Get the Itopsplatform object by name or id, List the Job objects, Get the Job object by name or id, List all TLS Server Profile objects in all collections, List the TLS Server Profile objects, Get the TLS Server Profile object by id, Get the TLS Server Profile object by name and version, List all TLS Client Profile objects in all collections, List the TLS Client Profile objects, Get the TLS Client Profile object by id, Get the TLS Client Profile object by name and version, List the Keystore objects, Get the Keystore object by name or id, List the Truststore objects, Get the Truststore object by name or id, List the Entry objects, Get the Entry object by name or id, List the Jwk Set objects, Get the Jwk Set object by name or id, List the Programming Package objects, List all Programming Package objects in all collections, Get the Programming Package object by id, Get the Programming Package object by name and version, List the Xslt Transformation Alias objects, List all Xslt Transformation Alias objects in all collections, Get the Xslt Transformation Alias object by id, Get the Xslt Transformation Alias object by name and version, List the Http Transport Security Alias objects, List all Http Transport Security Alias objects in all collections, Get the Http Transport Security Alias object by id, Get the Http Transport Security Alias object by name and version, List the Webmethods Integration Server Service Alias objects, List all Webmethods Integration Server Service Alias objects in all collections, Get the Webmethods Integration Server Service Alias object by id, Get the Webmethods Integration Server Service Alias object by name and version, Get the Catalog Setting object, List the Configured Gateway Service objects, Get the Configured Gateway Service object by name or id, List the Configured Catalog User Registry objects, Get the Configured Catalog User Registry object by name or id, List the Configured API User Registry objects, Get the Configured API User Registry object by name or id, List all Configured TLS Client Profile objects in all collections, Clear all Configured TLS Client Profile objects in all collections, List the Configured TLS Client Profile objects, Get the Configured TLS Client Profile object by id, Get the Configured TLS Client Profile object by name and version, List the Configured Billing objects, Get the Configured Billing object by name or id, List the Configured Jwt Provider objects, Get the Configured Jwt Provider object by name or id, List the Configured Oauth Provider objects, Get the Configured Oauth Provider object by name or id, List the Configured Portal Service objects, Get the Configured Portal Service object by name or id, List the Configured Programming Package objects, List all Configured Programming Package objects in all collections, Clear all Configured Programming Package objects in all collections, Get the Configured Programming Package object by id, Get the Configured Programming Package object by name and version, List the Configured Xslt Transformation Alias objects, List all Configured Xslt Transformation Alias objects in all collections, Get the Configured Xslt Transformation Alias object by id, Get the Configured Xslt Transformation Alias object by name and version, List the Configured Webmethods Integration Server Service Alias objects, List all Configured Webmethods Integration Server Service Alias objects in all collections, Get the Configured Webmethods Integration Server Service Alias object by id, Get the Configured Webmethods Integration Server Service Alias object by name and version, List the Configured Http Transport Security Alias objects, List all Configured Http Transport Security Alias objects in all collections, Get the Configured Http Transport Security Alias object by id, Get the Configured Http Transport Security Alias object by name and version, List the Configuration Property objects, Get the Configuration Property object, List all Global Policy objects in all collections, List the Global Policy objects, Get the Global Policy object by id, Get the Global Policy object by name and version, Get the Global Policy Error object, Get the Global Policy Prehook object, Get the Global Policy Posthook object, List the Simple Alias objects, Get the Simple Alias object by name or id, Get the Space Setting object, Get the Consumer Organization Setting object, List the Primary Event objects, Get the Primary Event object by name or id, List the Subscriber Event objects, Get the Subscriber Event object by name or id, List the Task Queue objects, Get the Task Queue object by name or id, List the Watsonx Settings objects, Get the Watsonx Settings object by name or id, List the Resource Service Status objects
+            product-drafts:edit: Create a Draft Product object, Clear all Draft Product objects in all collections, Clear the Draft Product objects, Update the Draft Product object by id, Delete the Draft Product object by id, Update the Draft Product object by name and version, Delete the Draft Product object by name and version
+            product-drafts:view: List all Draft Product objects in all collections, List the Draft Product objects, Get the Draft Product object by id, Get the Draft Product object by name and version
+            product:manage: Clear all Product objects in all collections, Clear the Product objects, Update the Product object by id, Delete the Product object by id, Update the Product object by name and version, Delete the Product object by name and version, Update the API object by id, Update the API object by name and version
+            product:view: List all Product objects in all collections, List the Product objects, Get the Product object by id, Get the Product object by name and version, List all API objects in all collections, List the API objects, Get the API object by id, Get the API object by name and version, Get the Plan object by id, Get the Plan object by name and version, List the Plan objects, List all Plan objects in all collections, Get the Quota object by id, Get the Quota object by name and version, List the Quota objects, List all Quota objects in all collections
+            project:manage: Create a Project object, Clear the Project objects, Update the Project object by name or id, Delete the Project object by name or id, Clear the Project File objects, Clear all Project File objects in all collections, Update the Project File object by id, Update the Project File object by name and version, Delete the Project File object by id, Delete the Project File object by name and version
+            project:view: List the Project objects, Get the Project object by name or id, List the Project File objects, List all Project File objects in all collections, Get the Project File object by id, Get the Project File object by name and version
+            provider-org:manage: Create an Organization Invitation object, Clear the Organization Invitation objects, Update the Organization Invitation object by name or id, Delete the Organization Invitation object by name or id, Create a Group object, Clear the Group objects, Update the Group object by name or id, Delete the Group object by name or id
+            provider-org:view: List the Organization Invitation objects, Get the Organization Invitation object by name or id, List the Group objects, Get the Group object by name or id
+            webhook:manage: Update the Webhook object by name or id
+            webhook:view: List the Webhook objects, Get the Webhook object by name or id
+        authorizationCode:
+          authorizationUrl: /oauth2/authorize
+          tokenUrl: /token
+          refreshUrl: /token
+          scopes:
+            api-drafts:edit: Clear the Draft objects, Create a Draft API object, Clear all Draft API objects in all collections, Clear the Draft API objects, Update the Draft API object by id, Delete the Draft API object by id, Update the Draft API object by name and version, Delete the Draft API object by name and version
+            api-drafts:view: List the Draft objects, List all Draft API objects in all collections, List the Draft API objects, Get the Draft API object by id, Get the Draft API object by name and version
+            app:manage:all: Create a Application object, Clear the Application objects, Update the Application object by name or id, Delete the Application object by name or id, Create a Strategy object, Delete the Strategy object by name or id, Clear the Strategy objects, Update the Strategy object by name or id, Create a Application Credential object, Update the Application Credential object by name or id, Delete the Application Credential object by name or id, Create a Subscription object, Clear the Subscription objects, Update the Subscription object by name or id, Delete the Subscription object by name or id
+            app:view:all: List the Application objects, Get the Application object by name or id, List the Strategy objects, Get the Strategy object by name or id, List the Application Credential objects, Get the Application Credential object by name or id, List the Subscription objects, Get the Subscription object by name or id
+            approval:view: List the Task objects, Get the Task object by name or id, Update the Task object by name or id, List the Task History objects, Get the Task History object by name or id
+            child:create: Create a Catalog object, Create a Space object
+            child:manage: Clear the Catalog objects, Update the Catalog object by name or id, Delete the Catalog object by name or id, Clear the Space objects, Update the Space object by name or id, Delete the Space object by name or id
+            child:view: List the Catalog objects, Get the Catalog object by name or id, List the Space objects, Get the Space object by name or id
+            cloud:manage: Update the Cloud Setting object, Update the User Registry Setting object, Update the Notification Style object, Create a Registration object, Clear the Registration objects, Update the Registration object by name or id, Delete the Registration object by name or id, Update the Webhook object by name or id
+            cloud:view: Get the Cloud Setting object, Get the User Registry Setting object, Get the Notification Style object, List all Notification Template objects in all collections, List all Role Default objects in all collections, List the Registration objects, Get the Registration object by name or id, List the Webhook objects, Get the Webhook object by name or id
+            consumer-org:manage: Clear the Activation objects, Delete the Activation object by name or id, Create a Consumer Organization object, Clear the Consumer Organization objects, Update the Consumer Organization object by name or id, Delete the Consumer Organization object by name or id, Create a Payment Method object, Update the Payment Method object by name or id, Delete the Payment Method object by name or id
+            consumer-org:view: List the Activation objects, Get the Activation object by name or id, List the Consumer Organization objects, Get the Consumer Organization object by name or id, List the Payment Method objects, Get the Payment Method object by name or id
+            my:manage: Create a API Key object, Delete the API Key object by name or id, Update the Me object, Delete the Me object
+            my:view: List the API Key objects, Get the API Key object by name or id, Get the Me object, List the My Permission objects, List the My Task objects, List the Originated Task objects, List the My Organization objects, List the My Catalog objects, List the My Space objects, List the My User Group objects, List the My Team objects
+            org:manage: Update the Log Spec object, Create a User Registry object, Clear the User Registry objects, Update the User Registry object by name or id, Delete the User Registry object by name or id, Create a User object, Clear the User objects, Update the User object by name or id, Delete the User object by name or id, Update the Organization Setting object, Update the Organization object by name or id, Delete the Organization object by name or id, Create a Member Invitation object, Clear the Member Invitation objects, Update the Member Invitation object by name or id, Delete the Member Invitation object by name or id, Create a Member object, Clear the Member objects, Update the Member object by name or id, Delete the Member object by name or id, Create a User Group Role Assignment object, Clear the User Group Role Assignment objects, Update the User Group Role Assignment object by name or id, Delete the User Group Role Assignment object by name or id, Create a Role object, Clear the Role objects, Update the Role object by name or id, Delete the Role object by name or id, Create a Availability Zone object, Clear the Availability Zone objects, Update the Availability Zone object by name or id, Delete the Availability Zone object by name or id, Create a Gateway Service object, Clear the Gateway Service objects, Update the Gateway Service object by name or id, Delete the Gateway Service object by name or id, Create a Portal Service object, Clear the Portal Service objects, Update the Portal Service object by name or id, Delete the Portal Service object by name or id, Create a Analytics Service object, Clear the Analytics Service objects, Update the Analytics Service object by name or id, Delete the Analytics Service object by name or id, Create a Opentelemetry object, Clear the Opentelemetry objects, Update the Opentelemetry object by name or id, Delete the Opentelemetry object by name or id, Create a Oauth Provider object, Clear the Oauth Provider objects, Update the Oauth Provider object by name or id, Delete the Oauth Provider object by name or id, Create a Jwt Provider object, Clear the Jwt Provider objects, Update the Jwt Provider object by name or id, Delete the Jwt Provider object by name or id, Create a Mail Server object, Clear the Mail Server objects, Update the Mail Server object by name or id, Delete the Mail Server object by name or id, Create a Billing object, Clear the Billing objects, Update the Billing object by name or id, Delete the Billing object by name or id, Create a Itopsplatform object, Clear the Itopsplatform objects, Update the Itopsplatform object by name or id, Delete the Itopsplatform object by name or id, Clear the Job objects, Delete the Job object by name or id, Create a TLS Server Profile object, Clear all TLS Server Profile objects in all collections, Clear the TLS Server Profile objects, Update the TLS Server Profile object by id, Delete the TLS Server Profile object by id, Update the TLS Server Profile object by name and version, Delete the TLS Server Profile object by name and version, Create a TLS Client Profile object, Clear all TLS Client Profile objects in all collections, Clear the TLS Client Profile objects, Update the TLS Client Profile object by id, Delete the TLS Client Profile object by id, Update the TLS Client Profile object by name and version, Delete the TLS Client Profile object by name and version, Create a Keystore object, Clear the Keystore objects, Update the Keystore object by name or id, Delete the Keystore object by name or id, Create a Truststore object, Clear the Truststore objects, Update the Truststore object by name or id, Delete the Truststore object by name or id, Create a Entry object, Clear the Entry objects, Update the Entry object by name or id, Delete the Entry object by name or id, Create a Jwk Set object, Clear the Jwk Set objects, Delete the Jwk Set object by name or id, Create a Programming Package object, Clear the Programming Package objects, Clear all Programming Package objects in all collections, Update the Programming Package object by id, Update the Programming Package object by name and version, Delete the Programming Package object by id, Delete the Programming Package object by name and version, List all Alias objects in all collections, Clear all Alias objects in all collections, Create a Xslt Transformation Alias object, Clear the Xslt Transformation Alias objects, Clear all Xslt Transformation Alias objects in all collections, Update the Xslt Transformation Alias object by id, Update the Xslt Transformation Alias object by name and version, Delete the Xslt Transformation Alias object by id, Delete the Xslt Transformation Alias object by name and version, Create a Http Transport Security Alias object, Clear the Http Transport Security Alias objects, Clear all Http Transport Security Alias objects in all collections, Update the Http Transport Security Alias object by id, Update the Http Transport Security Alias object by name and version, Delete the Http Transport Security Alias object by id, Delete the Http Transport Security Alias object by name and version, Create a Webmethods Integration Server Service Alias object, Clear the Webmethods Integration Server Service Alias objects, Clear all Webmethods Integration Server Service Alias objects in all collections, Update the Webmethods Integration Server Service Alias object by id, Update the Webmethods Integration Server Service Alias object by name and version, Delete the Webmethods Integration Server Service Alias object by id, Delete the Webmethods Integration Server Service Alias object by name and version, Update the Catalog Setting object, Create a Configured Gateway Service object, Clear the Configured Gateway Service objects, Delete the Configured Gateway Service object by name or id, Create a Configured Catalog User Registry object, Delete the Configured Catalog User Registry object by name or id, Create a Configured API User Registry object, Clear the Configured API User Registry objects, Delete the Configured API User Registry object by name or id, Create a Configured TLS Client Profile object, Clear the Configured TLS Client Profile objects, Delete the Configured TLS Client Profile object by id, Delete the Configured TLS Client Profile object by name and version, Create a Configured Billing object, Clear the Configured Billing objects, Delete the Configured Billing object by name or id, Create a Configured Jwt Provider object, Clear the Configured Jwt Provider objects, Delete the Configured Jwt Provider object by name or id, Create a Configured Oauth Provider object, Clear the Configured Oauth Provider objects, Delete the Configured Oauth Provider object by name or id, Create a Configured Portal Service object, Clear the Configured Portal Service objects, Delete the Configured Portal Service object by name or id, Create a Configured Programming Package object, Clear the Configured Programming Package objects, Delete the Configured Programming Package object by id, Delete the Configured Programming Package object by name and version, List all Configured Alias objects in all collections, Clear all Configured Alias objects in all collections, Create a Configured Xslt Transformation Alias object, Clear the Configured Xslt Transformation Alias objects, Clear all Configured Xslt Transformation Alias objects in all collections, Delete the Configured Xslt Transformation Alias object by id, Delete the Configured Xslt Transformation Alias object by name and version, Create a Configured Webmethods Integration Server Service Alias object, Clear the Configured Webmethods Integration Server Service Alias objects, Clear all Configured Webmethods Integration Server Service Alias objects in all collections, Delete the Configured Webmethods Integration Server Service Alias object by id, Delete the Configured Webmethods Integration Server Service Alias object by name and version, Create a Configured Http Transport Security Alias object, Clear the Configured Http Transport Security Alias objects, Clear all Configured Http Transport Security Alias objects in all collections, Delete the Configured Http Transport Security Alias object by id, Delete the Configured Http Transport Security Alias object by name and version, Augment the Configuration Property with additional name/value pairs, Clear the Configuration Property objects, Update the Configuration Property object, Delete the Configuration Property object, Create a Global Policy object, Clear all Global Policy objects in all collections, Clear the Global Policy objects, Update the Global Policy object by id, Delete the Global Policy object by id, Update the Global Policy object by name and version, Delete the Global Policy object by name and version, Create the Global Policy Error object, Update the Global Policy Error object, Delete the Global Policy Error object, Create the Global Policy Prehook object, Update the Global Policy Prehook object, Delete the Global Policy Prehook object, Create the Global Policy Posthook object, Update the Global Policy Posthook object, Delete the Global Policy Posthook object, Create a Simple Alias object, Clear the Simple Alias objects, Update the Simple Alias object by name or id, Delete the Simple Alias object by name or id, Update the Space Setting object, Update the Consumer Organization Setting object, Delete the Consumer Organization Setting object, Create a Watsonx Settings object, Update the Watsonx Settings object by name or id, Delete the Watsonx Settings object by name or id
+            org:view: Get the Log Spec object, List the User Registry objects, Get the User Registry object by name or id, List the User objects, Get the User object by name or id, List all Integration objects in all collections, Get the Organization Setting object, Get the Organization object by name or id, List the Associate objects, Get the Associate object by name or id, Create a User Group object, List the User Group objects, Clear the User Group objects, Get the User Group object by name or id, Update the User Group object by name or id, Delete the User Group object by name or id, List the Member Invitation objects, Get the Member Invitation object by name or id, List the Member objects, Get the Member object by name or id, List the User Group Role Assignment objects, Get the User Group Role Assignment object by name or id, List all Permission objects in all collections, List the Role objects, Get the Role object by name or id, Create a Team object, List the Team objects, Clear the Team objects, Get the Team object by name or id, Update the Team object by name or id, Delete the Team object by name or id, List the Availability Zone objects, Get the Availability Zone object by name or id, List the Gateway Service objects, Get the Gateway Service object by name or id, List all Policy objects in all collections, List the Policy objects, Get the Policy object by id, Get the Policy object by name and version, List all Extension objects in all collections, List the Extension objects, Get the Extension object by id, Get the Extension object by name and version, Create the Gateway Extension object, Get the Gateway Extension object, Update the Gateway Extension object, Delete the Gateway Extension object, List the Portal Service objects, Get the Portal Service object by name or id, List the Analytics Service objects, Get the Analytics Service object by name or id, List the Opentelemetry objects, Get the Opentelemetry object by name or id, List the Oauth Provider objects, Get the Oauth Provider object by name or id, List the Jwt Provider objects, Get the Jwt Provider object by name or id, List the Mail Server objects, Get the Mail Server object by name or id, List the Billing objects, Get the Billing object by name or id, List the Itopsplatform objects, Get the Itopsplatform object by name or id, List the Job objects, Get the Job object by name or id, List all TLS Server Profile objects in all collections, List the TLS Server Profile objects, Get the TLS Server Profile object by id, Get the TLS Server Profile object by name and version, List all TLS Client Profile objects in all collections, List the TLS Client Profile objects, Get the TLS Client Profile object by id, Get the TLS Client Profile object by name and version, List the Keystore objects, Get the Keystore object by name or id, List the Truststore objects, Get the Truststore object by name or id, List the Entry objects, Get the Entry object by name or id, List the Jwk Set objects, Get the Jwk Set object by name or id, List the Programming Package objects, List all Programming Package objects in all collections, Get the Programming Package object by id, Get the Programming Package object by name and version, List the Xslt Transformation Alias objects, List all Xslt Transformation Alias objects in all collections, Get the Xslt Transformation Alias object by id, Get the Xslt Transformation Alias object by name and version, List the Http Transport Security Alias objects, List all Http Transport Security Alias objects in all collections, Get the Http Transport Security Alias object by id, Get the Http Transport Security Alias object by name and version, List the Webmethods Integration Server Service Alias objects, List all Webmethods Integration Server Service Alias objects in all collections, Get the Webmethods Integration Server Service Alias object by id, Get the Webmethods Integration Server Service Alias object by name and version, Get the Catalog Setting object, List the Configured Gateway Service objects, Get the Configured Gateway Service object by name or id, List the Configured Catalog User Registry objects, Get the Configured Catalog User Registry object by name or id, List the Configured API User Registry objects, Get the Configured API User Registry object by name or id, List all Configured TLS Client Profile objects in all collections, Clear all Configured TLS Client Profile objects in all collections, List the Configured TLS Client Profile objects, Get the Configured TLS Client Profile object by id, Get the Configured TLS Client Profile object by name and version, List the Configured Billing objects, Get the Configured Billing object by name or id, List the Configured Jwt Provider objects, Get the Configured Jwt Provider object by name or id, List the Configured Oauth Provider objects, Get the Configured Oauth Provider object by name or id, List the Configured Portal Service objects, Get the Configured Portal Service object by name or id, List the Configured Programming Package objects, List all Configured Programming Package objects in all collections, Clear all Configured Programming Package objects in all collections, Get the Configured Programming Package object by id, Get the Configured Programming Package object by name and version, List the Configured Xslt Transformation Alias objects, List all Configured Xslt Transformation Alias objects in all collections, Get the Configured Xslt Transformation Alias object by id, Get the Configured Xslt Transformation Alias object by name and version, List the Configured Webmethods Integration Server Service Alias objects, List all Configured Webmethods Integration Server Service Alias objects in all collections, Get the Configured Webmethods Integration Server Service Alias object by id, Get the Configured Webmethods Integration Server Service Alias object by name and version, List the Configured Http Transport Security Alias objects, List all Configured Http Transport Security Alias objects in all collections, Get the Configured Http Transport Security Alias object by id, Get the Configured Http Transport Security Alias object by name and version, List the Configuration Property objects, Get the Configuration Property object, List all Global Policy objects in all collections, List the Global Policy objects, Get the Global Policy object by id, Get the Global Policy object by name and version, Get the Global Policy Error object, Get the Global Policy Prehook object, Get the Global Policy Posthook object, List the Simple Alias objects, Get the Simple Alias object by name or id, Get the Space Setting object, Get the Consumer Organization Setting object, List the Primary Event objects, Get the Primary Event object by name or id, List the Subscriber Event objects, Get the Subscriber Event object by name or id, List the Task Queue objects, Get the Task Queue object by name or id, List the Watsonx Settings objects, Get the Watsonx Settings object by name or id, List the Resource Service Status objects
+            product-drafts:edit: Create a Draft Product object, Clear all Draft Product objects in all collections, Clear the Draft Product objects, Update the Draft Product object by id, Delete the Draft Product object by id, Update the Draft Product object by name and version, Delete the Draft Product object by name and version
+            product-drafts:view: List all Draft Product objects in all collections, List the Draft Product objects, Get the Draft Product object by id, Get the Draft Product object by name and version
+            product:manage: Clear all Product objects in all collections, Clear the Product objects, Update the Product object by id, Delete the Product object by id, Update the Product object by name and version, Delete the Product object by name and version, Update the API object by id, Update the API object by name and version
+            product:view: List all Product objects in all collections, List the Product objects, Get the Product object by id, Get the Product object by name and version, List all API objects in all collections, List the API objects, Get the API object by id, Get the API object by name and version, Get the Plan object by id, Get the Plan object by name and version, List the Plan objects, List all Plan objects in all collections, Get the Quota object by id, Get the Quota object by name and version, List the Quota objects, List all Quota objects in all collections
+            project:manage: Create a Project object, Clear the Project objects, Update the Project object by name or id, Delete the Project object by name or id, Clear the Project File objects, Clear all Project File objects in all collections, Update the Project File object by id, Update the Project File object by name and version, Delete the Project File object by id, Delete the Project File object by name and version
+            project:view: List the Project objects, Get the Project object by name or id, List the Project File objects, List all Project File objects in all collections, Get the Project File object by id, Get the Project File object by name and version
+            provider-org:manage: Create an Organization Invitation object, Clear the Organization Invitation objects, Update the Organization Invitation object by name or id, Delete the Organization Invitation object by name or id, Create a Group object, Clear the Group objects, Update the Group object by name or id, Delete the Group object by name or id
+            provider-org:view: List the Organization Invitation objects, Get the Organization Invitation object by name or id, List the Group objects, Get the Group object by name or id
+            webhook:manage: Update the Webhook object by name or id
+            webhook:view: List the Webhook objects, Get the Webhook object by name or id
+x-ibm-configuration:
+  testable: false

@@ -1,0 +1,1950 @@
+openapi: 3.2.0
+info:
+  x-ibm-name: compliance
+  version: 2.0.0
+  title: IBM API Connect Governance Compliance API
+  description: This API provides operations for accessing the API Governance capabilities.
+  termsOfService: https://www.ibm.com/legal
+  contact:
+    name: IBM
+    url: https://www.ibm.com
+    email: help@ibm.com
+  license:
+    name: tbd
+    url: https://tbd.com
+servers:
+- url: ''
+  description: Local laptop testing
+tags:
+- name: Compliance
+paths:
+  /orgs/{org}/scans:
+    description: The collection of Scan operations
+    parameters:
+    - $ref: '#/components/parameters/org'
+    get:
+      summary: List the Scan objects
+      operationId: scan_listOrgScope
+      security:
+      - oauth:
+        - org:view
+      parameters:
+      - $ref: '#/components/parameters/fields'
+      - $ref: '#/components/parameters/offset'
+      - $ref: '#/components/parameters/limit'
+      - $ref: '#/components/parameters/collections'
+      - $ref: '#/components/parameters/status'
+      - $ref: '#/components/parameters/type'
+      - $ref: '#/components/parameters/scan_type'
+      - $ref: '#/components/parameters/is_cron'
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ScanList'
+            application/yaml:
+              schema:
+                $ref: '#/components/schemas/ScanList'
+        4XX:
+          $ref: '#/components/responses/Error'
+        5XX:
+          $ref: '#/components/responses/Error'
+      tags:
+      - Compliance
+    delete:
+      summary: Clear the Scan objects
+      operationId: scan_clearOrgScope
+      security:
+      - oauth:
+        - org:manage
+      parameters:
+      - $ref: '#/components/parameters/confirm'
+      - $ref: '#/components/parameters/scan_ids'
+      responses:
+        '204':
+          description: Success
+        4XX:
+          $ref: '#/components/responses/Error'
+        5XX:
+          $ref: '#/components/responses/Error'
+      tags:
+      - Compliance
+  /orgs/{org}/scans/{scan}:
+    description: Scan object operations
+    parameters:
+    - $ref: '#/components/parameters/org'
+    - $ref: '#/components/parameters/scan'
+    get:
+      summary: Get the Scan object by name or id
+      operationId: scan_getOrgScope
+      security:
+      - oauth:
+        - org:view
+      parameters:
+      - $ref: '#/components/parameters/fields'
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Scan'
+            application/yaml:
+              schema:
+                $ref: '#/components/schemas/Scan'
+        4XX:
+          $ref: '#/components/responses/Error'
+        5XX:
+          $ref: '#/components/responses/Error'
+      tags:
+      - Compliance
+    patch:
+      summary: Update the Scan object by name or id
+      description: 'Update the Scan object by name or id
+
+
+        Fields allowed but ignored:
+
+        - name
+
+        - collection
+
+        - config
+
+        - documents
+
+        - progress
+
+        - reports
+
+        - scan_result
+
+        - status
+
+        - scan_type
+
+        - id
+
+        - type
+
+        - api_version
+
+        - scope
+
+        - created_at
+
+        - updated_at
+
+        - url'
+      operationId: scan_updateOrgScope
+      security:
+      - oauth:
+        - org:manage
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Scan'
+          application/yaml:
+            schema:
+              $ref: '#/components/schemas/Scan'
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Scan'
+            application/yaml:
+              schema:
+                $ref: '#/components/schemas/Scan'
+        4XX:
+          $ref: '#/components/responses/Error'
+        5XX:
+          $ref: '#/components/responses/Error'
+      tags:
+      - Compliance
+    delete:
+      summary: Delete the Scan object by name or id
+      operationId: scan_delOrgScope
+      security:
+      - oauth:
+        - org:manage
+      responses:
+        '200':
+          description: Successful delete
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Scan'
+            application/yaml:
+              schema:
+                $ref: '#/components/schemas/Scan'
+        4XX:
+          $ref: '#/components/responses/Error'
+        5XX:
+          $ref: '#/components/responses/Error'
+      tags:
+      - Compliance
+  /orgs/{org}/scans/filters:
+    parameters:
+    - $ref: '#/components/parameters/org'
+    get:
+      summary: Get filters for Scans
+      operationId: scan_getFiltersOrgScope
+      security:
+      - oauth:
+        - org:view
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ScanFiltersResult'
+            application/yaml:
+              schema:
+                $ref: '#/components/schemas/ScanFiltersResult'
+        4XX:
+          $ref: '#/components/responses/Error'
+        5XX:
+          $ref: '#/components/responses/Error'
+      tags:
+      - Compliance
+  /catalogs/{org}/{catalog}/scans/filters:
+    parameters:
+    - $ref: '#/components/parameters/org'
+    - $ref: '#/components/parameters/catalog'
+    get:
+      summary: Get filters for Scans
+      operationId: scan_getFilterCatalogScope
+      security:
+      - oauth:
+        - org:view
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ScanFiltersResult'
+            application/yaml:
+              schema:
+                $ref: '#/components/schemas/ScanFiltersResult'
+        4XX:
+          $ref: '#/components/responses/Error'
+        5XX:
+          $ref: '#/components/responses/Error'
+      tags:
+      - Compliance
+  /spaces/{org}/{catalog}/{space}/scans/filters:
+    parameters:
+    - $ref: '#/components/parameters/org'
+    - $ref: '#/components/parameters/catalog'
+    - $ref: '#/components/parameters/space'
+    get:
+      summary: Get filters for Scans
+      operationId: scan_getFilterSpaceScope
+      security:
+      - oauth:
+        - org:view
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ScanFiltersResult'
+            application/yaml:
+              schema:
+                $ref: '#/components/schemas/ScanFiltersResult'
+        4XX:
+          $ref: '#/components/responses/Error'
+        5XX:
+          $ref: '#/components/responses/Error'
+      tags:
+      - Compliance
+  /orgs/{org}/gateway-scan:
+    parameters:
+    - $ref: '#/components/parameters/org'
+    post:
+      summary: Scan Gateway APIs
+      description: Scan Gateway Related APIs Documents
+      operationId: compliance_gatewayScanOrgScope
+      security:
+      - oauth:
+        - cloud:manage
+      parameters:
+      - $ref: '#/components/parameters/scan_type'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/GatewayScanPostRequest'
+          application/yaml:
+            schema:
+              $ref: '#/components/schemas/GatewayScanPostRequest'
+      responses:
+        '201':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GatewayScanPostResponse'
+            application/yaml:
+              schema:
+                $ref: '#/components/schemas/GatewayScanPostResponse'
+        4XX:
+          $ref: '#/components/responses/Error'
+        5XX:
+          $ref: '#/components/responses/Error'
+      tags:
+      - Compliance
+  /orgs/{org}/gateway-scans:
+    parameters:
+    - $ref: '#/components/parameters/org'
+    get:
+      summary: List Gateway Scans
+      operationId: gateway_scan_listOrgScope
+      parameters:
+      - $ref: '#/components/parameters/include_scan_info'
+      - $ref: '#/components/parameters/status'
+      - $ref: '#/components/parameters/is_cron'
+      security:
+      - oauth:
+        - cloud:view
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GatewayListResponse'
+            application/yaml:
+              schema:
+                $ref: '#/components/schemas/GatewayListResponse'
+        4XX:
+          $ref: '#/components/responses/Error'
+        5XX:
+          $ref: '#/components/responses/Error'
+      tags:
+      - Compliance
+    post:
+      summary: Create Gateway Scan
+      description: Create a new Gateway Scan
+      operationId: gateway_scan_createOrgScope
+      security:
+      - oauth:
+        - cloud:manage
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/GatewayScanCreateRequest'
+          application/yaml:
+            schema:
+              $ref: '#/components/schemas/GatewayScanCreateRequest'
+      responses:
+        '201':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GatewayScanCreateResponse'
+            application/yaml:
+              schema:
+                $ref: '#/components/schemas/GatewayScanCreateResponse'
+        4XX:
+          $ref: '#/components/responses/Error'
+        5XX:
+          $ref: '#/components/responses/Error'
+      tags:
+      - Compliance
+    delete:
+      summary: Clear the Gateway Scan objects
+      operationId: gateway_scan_clearOrgScope
+      security:
+      - oauth:
+        - cloud:manage
+      parameters:
+      - $ref: '#/components/parameters/confirm'
+      - $ref: '#/components/parameters/gateway_scan_ids'
+      responses:
+        '204':
+          description: Success
+        4XX:
+          $ref: '#/components/responses/Error'
+        5XX:
+          $ref: '#/components/responses/Error'
+      tags:
+      - Compliance
+  /orgs/{org}/gateway-scans/{gateway-scan}:
+    parameters:
+    - $ref: '#/components/parameters/org'
+    - $ref: '#/components/parameters/gateway-scan'
+    put:
+      summary: Update Gateway Scan by ID
+      operationId: gateway_scan_updateOrgScope
+      security:
+      - oauth:
+        - cloud:manage
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/GatewayScanUpdateRequest'
+          application/yaml:
+            schema:
+              $ref: '#/components/schemas/GatewayScanUpdateRequest'
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GatewayScanObjectResponse'
+            application/yaml:
+              schema:
+                $ref: '#/components/schemas/GatewayScanObjectResponse'
+        4XX:
+          $ref: '#/components/responses/Error'
+        5XX:
+          $ref: '#/components/responses/Error'
+      tags:
+      - Compliance
+    delete:
+      summary: Delete Gateway Scan by ID
+      operationId: gateway_scan_deleteOrgScope
+      security:
+      - oauth:
+        - cloud:manage
+      responses:
+        '204':
+          description: No Content
+        4XX:
+          $ref: '#/components/responses/Error'
+        5XX:
+          $ref: '#/components/responses/Error'
+      tags:
+      - Compliance
+    get:
+      summary: Get Gateway Scan by ID
+      operationId: gateway_scan_getOrgScope
+      security:
+      - oauth:
+        - cloud:view
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GatewayScanResponse'
+            application/yaml:
+              schema:
+                $ref: '#/components/schemas/GatewayScanResponse'
+        4XX:
+          $ref: '#/components/responses/Error'
+        5XX:
+          $ref: '#/components/responses/Error'
+      tags:
+      - Compliance
+  /catalogs/{org}/{catalog}/scans:
+    description: The collection of Scan operations
+    parameters:
+    - $ref: '#/components/parameters/org'
+    - $ref: '#/components/parameters/catalog'
+    get:
+      summary: List the Scan objects
+      operationId: scan_listCatalogScope
+      security:
+      - oauth:
+        - org:view
+      parameters:
+      - $ref: '#/components/parameters/fields'
+      - $ref: '#/components/parameters/offset'
+      - $ref: '#/components/parameters/limit'
+      - $ref: '#/components/parameters/collections'
+      - $ref: '#/components/parameters/status'
+      - $ref: '#/components/parameters/type'
+      - $ref: '#/components/parameters/scan_type'
+      - $ref: '#/components/parameters/is_cron'
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ScanList'
+            application/yaml:
+              schema:
+                $ref: '#/components/schemas/ScanList'
+        4XX:
+          $ref: '#/components/responses/Error'
+        5XX:
+          $ref: '#/components/responses/Error'
+      tags:
+      - Compliance
+    delete:
+      summary: Clear the Scan objects
+      operationId: scan_clearCatalogScope
+      security:
+      - oauth:
+        - org:manage
+      parameters:
+      - $ref: '#/components/parameters/confirm'
+      - $ref: '#/components/parameters/scan_ids'
+      responses:
+        '204':
+          description: Success
+        4XX:
+          $ref: '#/components/responses/Error'
+        5XX:
+          $ref: '#/components/responses/Error'
+      tags:
+      - Compliance
+  /catalogs/{org}/{catalog}/scans/{scan}:
+    description: Scan object operations
+    parameters:
+    - $ref: '#/components/parameters/org'
+    - $ref: '#/components/parameters/catalog'
+    - $ref: '#/components/parameters/scan'
+    get:
+      summary: Get the Scan object by name or id
+      operationId: scan_getCatalogScope
+      security:
+      - oauth:
+        - org:view
+      parameters:
+      - $ref: '#/components/parameters/fields'
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Scan'
+            application/yaml:
+              schema:
+                $ref: '#/components/schemas/Scan'
+        4XX:
+          $ref: '#/components/responses/Error'
+        5XX:
+          $ref: '#/components/responses/Error'
+      tags:
+      - Compliance
+    patch:
+      summary: Update the Scan object by name or id
+      description: 'Update the Scan object by name or id
+
+
+        Fields allowed but ignored:
+
+        - name
+
+        - collection
+
+        - config
+
+        - documents
+
+        - progress
+
+        - reports
+
+        - scan_result
+
+        - status
+
+        - id
+
+        - type
+
+        - api_version
+
+        - scope
+
+        - created_at
+
+        - updated_at
+
+        - url'
+      operationId: scan_updateCatalogScope
+      security:
+      - oauth:
+        - org:manage
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Scan'
+          application/yaml:
+            schema:
+              $ref: '#/components/schemas/Scan'
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Scan'
+            application/yaml:
+              schema:
+                $ref: '#/components/schemas/Scan'
+        4XX:
+          $ref: '#/components/responses/Error'
+        5XX:
+          $ref: '#/components/responses/Error'
+      tags:
+      - Compliance
+    delete:
+      summary: Delete the Scan object by name or id
+      operationId: scan_delCatalogScope
+      security:
+      - oauth:
+        - org:manage
+      responses:
+        '200':
+          description: Successful delete
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Scan'
+            application/yaml:
+              schema:
+                $ref: '#/components/schemas/Scan'
+        4XX:
+          $ref: '#/components/responses/Error'
+        5XX:
+          $ref: '#/components/responses/Error'
+      tags:
+      - Compliance
+  /spaces/{org}/{catalog}/{space}/scans:
+    description: The collection of Scan operations
+    parameters:
+    - $ref: '#/components/parameters/org'
+    - $ref: '#/components/parameters/catalog'
+    - $ref: '#/components/parameters/space'
+    get:
+      summary: List the Scan objects
+      operationId: scan_listSpaceScope
+      security:
+      - oauth:
+        - org:view
+      parameters:
+      - $ref: '#/components/parameters/fields'
+      - $ref: '#/components/parameters/offset'
+      - $ref: '#/components/parameters/limit'
+      - $ref: '#/components/parameters/collections'
+      - $ref: '#/components/parameters/status'
+      - $ref: '#/components/parameters/type'
+      - $ref: '#/components/parameters/scan_type'
+      - $ref: '#/components/parameters/is_cron'
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ScanList'
+            application/yaml:
+              schema:
+                $ref: '#/components/schemas/ScanList'
+        4XX:
+          $ref: '#/components/responses/Error'
+        5XX:
+          $ref: '#/components/responses/Error'
+      tags:
+      - Compliance
+    delete:
+      summary: Clear the Scan objects
+      operationId: scan_clearSpaceScope
+      security:
+      - oauth:
+        - org:manage
+      parameters:
+      - $ref: '#/components/parameters/confirm'
+      - $ref: '#/components/parameters/scan_ids'
+      responses:
+        '204':
+          description: Success
+        4XX:
+          $ref: '#/components/responses/Error'
+        5XX:
+          $ref: '#/components/responses/Error'
+      tags:
+      - Compliance
+  /spaces/{org}/{catalog}/{space}/scans/{scan}:
+    description: Scan object operations
+    parameters:
+    - $ref: '#/components/parameters/org'
+    - $ref: '#/components/parameters/catalog'
+    - $ref: '#/components/parameters/space'
+    - $ref: '#/components/parameters/scan'
+    get:
+      summary: Get the Scan object by name or id
+      operationId: scan_getSpaceScope
+      security:
+      - oauth:
+        - org:view
+      parameters:
+      - $ref: '#/components/parameters/fields'
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Scan'
+            application/yaml:
+              schema:
+                $ref: '#/components/schemas/Scan'
+        4XX:
+          $ref: '#/components/responses/Error'
+        5XX:
+          $ref: '#/components/responses/Error'
+      tags:
+      - Compliance
+    patch:
+      summary: Update the Scan object by name or id
+      description: 'Update the Scan object by name or id
+
+
+        Fields allowed but ignored:
+
+        - name
+
+        - collection
+
+        - config
+
+        - documents
+
+        - progress
+
+        - reports
+
+        - scan_result
+
+        - status
+
+        - id
+
+        - type
+
+        - api_version
+
+        - scope
+
+        - created_at
+
+        - updated_at
+
+        - url'
+      operationId: scan_updateSpaceScope
+      security:
+      - oauth:
+        - org:manage
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Scan'
+          application/yaml:
+            schema:
+              $ref: '#/components/schemas/Scan'
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Scan'
+            application/yaml:
+              schema:
+                $ref: '#/components/schemas/Scan'
+        4XX:
+          $ref: '#/components/responses/Error'
+        5XX:
+          $ref: '#/components/responses/Error'
+      tags:
+      - Compliance
+    delete:
+      summary: Delete the Scan object by name or id
+      operationId: scan_delSpaceScope
+      security:
+      - oauth:
+        - org:manage
+      responses:
+        '200':
+          description: Successful delete
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Scan'
+            application/yaml:
+              schema:
+                $ref: '#/components/schemas/Scan'
+        4XX:
+          $ref: '#/components/responses/Error'
+        5XX:
+          $ref: '#/components/responses/Error'
+      tags:
+      - Compliance
+  /orgs/{org}/scan-reports:
+    description: The collection of Scan Report operations
+    parameters:
+    - $ref: '#/components/parameters/org'
+    get:
+      summary: List the Scan Report objects
+      operationId: scan_report_listOrgScope
+      security:
+      - oauth:
+        - org:view
+      parameters:
+      - $ref: '#/components/parameters/fields'
+      - $ref: '#/components/parameters/offset'
+      - $ref: '#/components/parameters/limit'
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ScanReportList'
+            application/yaml:
+              schema:
+                $ref: '#/components/schemas/ScanReportList'
+        4XX:
+          $ref: '#/components/responses/Error'
+        5XX:
+          $ref: '#/components/responses/Error'
+      tags:
+      - Compliance
+  /orgs/{org}/scan-reports/{scan-report}:
+    description: Scan Report object operations
+    parameters:
+    - $ref: '#/components/parameters/org'
+    - $ref: '#/components/parameters/scan-report'
+    get:
+      summary: Get the Scan Report object by name or id
+      operationId: scan_report_getOrgScope
+      security:
+      - oauth:
+        - org:view
+      parameters:
+      - $ref: '#/components/parameters/fields'
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ScanReport'
+            application/yaml:
+              schema:
+                $ref: '#/components/schemas/ScanReport'
+        4XX:
+          $ref: '#/components/responses/Error'
+        5XX:
+          $ref: '#/components/responses/Error'
+      tags:
+      - Compliance
+    patch:
+      summary: Update the Scan Report object by name or id
+      description: 'Update the Scan Report object by name or id
+
+
+        Fields allowed but ignored:
+
+        - name
+
+        - title
+
+        - top
+
+        - scan_details
+
+        - scan_url
+
+        - id
+
+        - type
+
+        - api_version
+
+        - scope
+
+        - created_at
+
+        - updated_at
+
+        - url'
+      operationId: scan_report_updateOrgScope
+      security:
+      - oauth:
+        - org:manage
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ScanReport'
+          application/yaml:
+            schema:
+              $ref: '#/components/schemas/ScanReport'
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ScanReport'
+            application/yaml:
+              schema:
+                $ref: '#/components/schemas/ScanReport'
+        4XX:
+          $ref: '#/components/responses/Error'
+        5XX:
+          $ref: '#/components/responses/Error'
+      tags:
+      - Compliance
+    delete:
+      summary: Delete the Scan Report object by name or id
+      operationId: scan_report_delOrgScope
+      security:
+      - oauth:
+        - org:manage
+      responses:
+        '200':
+          description: Successful delete
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ScanReport'
+            application/yaml:
+              schema:
+                $ref: '#/components/schemas/ScanReport'
+        4XX:
+          $ref: '#/components/responses/Error'
+        5XX:
+          $ref: '#/components/responses/Error'
+      tags:
+      - Compliance
+  /catalogs/{org}/{catalog}/scan-reports:
+    description: The collection of Scan Report operations
+    parameters:
+    - $ref: '#/components/parameters/org'
+    - $ref: '#/components/parameters/catalog'
+    get:
+      summary: List the Scan Report objects
+      operationId: scan_report_listCatalogScope
+      security:
+      - oauth:
+        - org:view
+      parameters:
+      - $ref: '#/components/parameters/fields'
+      - $ref: '#/components/parameters/offset'
+      - $ref: '#/components/parameters/limit'
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ScanReportList'
+            application/yaml:
+              schema:
+                $ref: '#/components/schemas/ScanReportList'
+        4XX:
+          $ref: '#/components/responses/Error'
+        5XX:
+          $ref: '#/components/responses/Error'
+      tags:
+      - Compliance
+    delete:
+      summary: Clear the Scan Report objects
+      operationId: scan_report_clearCatalogScope
+      security:
+      - oauth:
+        - org:manage
+      parameters:
+      - $ref: '#/components/parameters/confirm'
+      responses:
+        '204':
+          description: Success
+        4XX:
+          $ref: '#/components/responses/Error'
+        5XX:
+          $ref: '#/components/responses/Error'
+      tags:
+      - Compliance
+  /catalogs/{org}/{catalog}/scan-reports/{scan-report}:
+    description: Scan Report object operations
+    parameters:
+    - $ref: '#/components/parameters/org'
+    - $ref: '#/components/parameters/catalog'
+    - $ref: '#/components/parameters/scan-report'
+    get:
+      summary: Get the Scan Report object by name or id
+      operationId: scan_report_getCatalogScope
+      security:
+      - oauth:
+        - org:view
+      parameters:
+      - $ref: '#/components/parameters/fields'
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ScanReport'
+            application/yaml:
+              schema:
+                $ref: '#/components/schemas/ScanReport'
+        4XX:
+          $ref: '#/components/responses/Error'
+        5XX:
+          $ref: '#/components/responses/Error'
+      tags:
+      - Compliance
+    patch:
+      summary: Update the Scan Report object by name or id
+      description: 'Update the Scan Report object by name or id
+
+
+        Fields allowed but ignored:
+
+        - name
+
+        - title
+
+        - top
+
+        - scan_details
+
+        - scan_url
+
+        - id
+
+        - type
+
+        - api_version
+
+        - scope
+
+        - created_at
+
+        - updated_at
+
+        - url'
+      operationId: scan_report_updateCatalogScope
+      security:
+      - oauth:
+        - org:manage
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ScanReport'
+          application/yaml:
+            schema:
+              $ref: '#/components/schemas/ScanReport'
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ScanReport'
+            application/yaml:
+              schema:
+                $ref: '#/components/schemas/ScanReport'
+        4XX:
+          $ref: '#/components/responses/Error'
+        5XX:
+          $ref: '#/components/responses/Error'
+      tags:
+      - Compliance
+    delete:
+      summary: Delete the Scan Report object by name or id
+      operationId: scan_report_delCatalogScope
+      security:
+      - oauth:
+        - org:manage
+      responses:
+        '200':
+          description: Successful delete
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ScanReport'
+            application/yaml:
+              schema:
+                $ref: '#/components/schemas/ScanReport'
+        4XX:
+          $ref: '#/components/responses/Error'
+        5XX:
+          $ref: '#/components/responses/Error'
+      tags:
+      - Compliance
+  /spaces/{org}/{catalog}/{space}/scan-reports:
+    description: The collection of Scan Report operations
+    parameters:
+    - $ref: '#/components/parameters/org'
+    - $ref: '#/components/parameters/catalog'
+    - $ref: '#/components/parameters/space'
+    get:
+      summary: List the Scan Report objects
+      operationId: scan_report_listSpaceScope
+      security:
+      - oauth:
+        - org:view
+      parameters:
+      - $ref: '#/components/parameters/fields'
+      - $ref: '#/components/parameters/offset'
+      - $ref: '#/components/parameters/limit'
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ScanReportList'
+            application/yaml:
+              schema:
+                $ref: '#/components/schemas/ScanReportList'
+        4XX:
+          $ref: '#/components/responses/Error'
+        5XX:
+          $ref: '#/components/responses/Error'
+      tags:
+      - Compliance
+    delete:
+      summary: Clear the Scan Report objects
+      operationId: scan_report_clearSpaceScope
+      security:
+      - oauth:
+        - org:manage
+      parameters:
+      - $ref: '#/components/parameters/confirm'
+      responses:
+        '204':
+          description: Success
+        4XX:
+          $ref: '#/components/responses/Error'
+        5XX:
+          $ref: '#/components/responses/Error'
+      tags:
+      - Compliance
+  /spaces/{org}/{catalog}/{space}/scan-reports/{scan-report}:
+    description: Scan Report object operations
+    parameters:
+    - $ref: '#/components/parameters/org'
+    - $ref: '#/components/parameters/catalog'
+    - $ref: '#/components/parameters/space'
+    - $ref: '#/components/parameters/scan-report'
+    get:
+      summary: Get the Scan Report object by name or id
+      operationId: scan_report_getSpaceScope
+      security:
+      - oauth:
+        - org:view
+      parameters:
+      - $ref: '#/components/parameters/fields'
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ScanReport'
+            application/yaml:
+              schema:
+                $ref: '#/components/schemas/ScanReport'
+        4XX:
+          $ref: '#/components/responses/Error'
+        5XX:
+          $ref: '#/components/responses/Error'
+      tags:
+      - Compliance
+    patch:
+      summary: Update the Scan Report object by name or id
+      description: 'Update the Scan Report object by name or id
+
+
+        Fields allowed but ignored:
+
+        - name
+
+        - title
+
+        - top
+
+        - scan_details
+
+        - scan_url
+
+        - id
+
+        - type
+
+        - api_version
+
+        - scope
+
+        - created_at
+
+        - updated_at
+
+        - url'
+      operationId: scan_report_updateSpaceScope
+      security:
+      - oauth:
+        - org:manage
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ScanReport'
+          application/yaml:
+            schema:
+              $ref: '#/components/schemas/ScanReport'
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ScanReport'
+            application/yaml:
+              schema:
+                $ref: '#/components/schemas/ScanReport'
+        4XX:
+          $ref: '#/components/responses/Error'
+        5XX:
+          $ref: '#/components/responses/Error'
+      tags:
+      - Compliance
+    delete:
+      summary: Delete the Scan Report object by name or id
+      operationId: scan_report_delSpaceScope
+      security:
+      - oauth:
+        - org:manage
+      responses:
+        '200':
+          description: Successful delete
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ScanReport'
+            application/yaml:
+              schema:
+                $ref: '#/components/schemas/ScanReport'
+        4XX:
+          $ref: '#/components/responses/Error'
+        5XX:
+          $ref: '#/components/responses/Error'
+      tags:
+      - Compliance
+components:
+  parameters:
+    scan_type:
+      name: scan_type
+      in: query
+      description: Optional type for Scan
+      required: false
+      schema:
+        type: string
+    limit:
+      name: limit
+      in: query
+      description: Maximum number of items to return
+      required: false
+      schema:
+        type: integer
+    fields:
+      name: fields
+      in: query
+      description: List of field names to return
+      required: false
+      schema:
+        type: string
+    org:
+      name: org
+      in: path
+      description: Organization name or id
+      required: true
+      schema:
+        type: string
+    collections:
+      name: collections
+      in: query
+      description: Specify an optional comma-separated list of Catalog or Space IDs or Names to filter Scans list.
+      required: false
+      schema:
+        type: string
+    type:
+      name: type
+      in: query
+      description: Specify a type for Scans (e.g. catalog/space) to filter Scans list.
+      required: false
+      schema:
+        type: string
+    offset:
+      name: offset
+      in: query
+      description: Offset item number from list to begin return
+      required: false
+      schema:
+        type: integer
+    status:
+      name: status
+      in: query
+      description: Specify an optional comma-separated list of statuses for Scans to filter Scans list.
+      required: false
+      schema:
+        type: string
+    space:
+      name: space
+      in: path
+      description: Space name or id
+      required: true
+      schema:
+        type: string
+    gateway-scan:
+      name: gateway-scan
+      in: path
+      description: Gateway Scan name or id
+      required: true
+      schema:
+        type: string
+    scan-report:
+      name: scan-report
+      in: path
+      description: Scan Report name or id
+      required: true
+      schema:
+        type: string
+    confirm:
+      name: confirm
+      in: query
+      description: Confirmation for critical updates
+      required: true
+      schema:
+        type: string
+    catalog:
+      name: catalog
+      in: path
+      description: Catalog name or id
+      required: true
+      schema:
+        type: string
+    scan:
+      name: scan
+      in: path
+      description: Scan name or id
+      required: true
+      schema:
+        type: string
+    is_cron:
+      name: is_cron
+      in: query
+      description: When set to true, fetches gateway scans with cron enabled
+      required: false
+      schema:
+        type: boolean
+    include_scan_info:
+      name: include_scan_info
+      in: query
+      description: When set to true, includes detailed scan information in gateway scan list results
+      required: false
+      schema:
+        type: boolean
+    gateway_scan_ids:
+      name: gateway_scan_ids
+      in: query
+      description: Optional comma separated list of Gateway Scan IDs to perform bulk operations.
+      required: false
+      schema:
+        type: string
+    scan_ids:
+      name: scan_ids
+      in: query
+      description: Optional comma separated list of Scan IDs to perform bulk operations.
+      required: false
+      schema:
+        type: string
+  schemas:
+    ScanFilter:
+      type: object
+      additionalProperties: false
+      properties:
+        name:
+          type: string
+        title:
+          type: string
+        values:
+          type: array
+          items:
+            $ref: '#/components/schemas/ScanFilterValue'
+    GatewayScanUpdateRequest:
+      type: object
+      description: Update request for an existing gateway scan
+      properties:
+        id:
+          type: string
+          description: Identifier of a gateway scan.
+        scan_title:
+          type: string
+          description: Title for the scan
+        scan_id:
+          type: string
+          description: Identifier of an existing or scheduled scan
+        cron_expression:
+          type: string
+          description: Cron expression (minute hour * * dayOfWeek)
+        cron_object:
+          $ref: '#/components/schemas/CronObject'
+        is_cron_active:
+          type: boolean
+          default: true
+          description: Whether cron schedule is active
+        last_run:
+          type: string
+          format: date-time
+          description: Last execution time
+        next_run:
+          type: string
+          format: date-time
+          description: Next scheduled execution time
+        path:
+          type: string
+          description: Gateway path URL
+      additionalProperties: true
+    ScanReportList:
+      type: object
+      additionalProperties: false
+      properties:
+        total_results:
+          type: integer
+        results:
+          type: array
+          items:
+            $ref: '#/components/schemas/ScanReport'
+    Error:
+      type: object
+      additionalProperties: false
+      properties:
+        status:
+          type: integer
+          minimum: 400
+          maximum: 599
+        message:
+          type: array
+          items:
+            type: string
+        errors:
+          type: array
+          items:
+            type: string
+    GatewayScanPostRequest:
+      type: object
+      required:
+      - gateways
+      - config
+      properties:
+        gateways:
+          type: array
+          description: List of gateways to scan
+          items:
+            $ref: '#/components/schemas/Gateway'
+        config:
+          $ref: '#/components/schemas/GatewayConfigDefinition'
+        cron:
+          $ref: '#/components/schemas/CronObject'
+      additionalProperties: true
+    ScanReport:
+      type: object
+      additionalProperties: false
+      properties:
+        type:
+          type: string
+          readOnly: true
+          enum:
+          - scan_report
+        api_version:
+          type: string
+          readOnly: true
+          enum:
+          - 2.0.0
+        id:
+          type: string
+          readOnly: true
+        name:
+          type: string
+          maxLength: 255
+        title:
+          type: string
+          maxLength: 1023
+        summary:
+          type: string
+          maxLength: 65535
+        scope:
+          type: string
+        message:
+          type: string
+        scan_details:
+          type: object
+          additionalProperties: true
+        top:
+          type: array
+          items:
+            type: object
+            additionalProperties: true
+        scan_url:
+          type: string
+          format: uri
+        internal_scan_report_id:
+          type: string
+        metadata:
+          type: object
+          additionalProperties:
+            type: string
+        created_at:
+          type: string
+          format: date-time
+          readOnly: true
+        updated_at:
+          type: string
+          format: date-time
+          readOnly: true
+        url:
+          type: string
+          readOnly: true
+          format: uri
+    GatewayScanCreateResponse:
+      $ref: '#/components/schemas/GatewayScanResponse'
+    GatewayScanPostResponse:
+      type: object
+      properties:
+        total_results:
+          type: integer
+        results:
+          type: array
+          items:
+            $ref: '#/components/schemas/GatewayScanResponse'
+      additionalProperties: true
+    ScanList:
+      type: object
+      additionalProperties: false
+      properties:
+        total_results:
+          type: integer
+        results:
+          type: array
+          items:
+            $ref: '#/components/schemas/Scan'
+    Scan:
+      type: object
+      additionalProperties: false
+      properties:
+        type:
+          type: string
+          readOnly: true
+          enum:
+          - scan
+        api_version:
+          type: string
+          readOnly: true
+          enum:
+          - 2.0.0
+        id:
+          type: string
+          readOnly: true
+        name:
+          type: string
+          maxLength: 255
+        title:
+          type: string
+          maxLength: 1023
+        summary:
+          type: string
+          maxLength: 65535
+        scope:
+          type: string
+        collection:
+          type: object
+          additionalProperties: false
+          properties:
+            id:
+              type: string
+            name:
+              type: string
+            title:
+              type: string
+            parent_id:
+              type: string
+            parent_name:
+              type: string
+            parent_title:
+              type: string
+            type:
+              type: string
+              enum:
+              - catalog
+              - space
+              - org
+            location:
+              type: string
+              format: uri
+        config:
+          type: array
+          items:
+            type: object
+            additionalProperties: true
+        documents:
+          type: array
+          items:
+            type: object
+            additionalProperties: true
+        documents_scanned:
+          type: integer
+        progress:
+          type: integer
+        reports:
+          type: array
+          items:
+            type: object
+            additionalProperties: false
+            properties:
+              created_at:
+                type: string
+              report_url:
+                type: string
+                format: uri
+              scan_result:
+                type: object
+                additionalProperties: false
+                properties:
+                  errors:
+                    type: string
+                  warnings:
+                    type: string
+                  infos:
+                    type: string
+                  hints:
+                    type: string
+        scan_result:
+          type: string
+        status:
+          type: integer
+        scan_type:
+          type: string
+        tagged_rulesets:
+          type: object
+          additionalProperties: true
+        raw_tags:
+          type: object
+          additionalProperties: true
+        enforcement_config:
+          type: object
+          additionalProperties: true
+        is_gateway_scan:
+          type: boolean
+        metadata:
+          type: object
+          additionalProperties:
+            type: string
+        created_at:
+          type: string
+          format: date-time
+          readOnly: true
+        updated_at:
+          type: string
+          format: date-time
+          readOnly: true
+        url:
+          type: string
+          readOnly: true
+          format: uri
+        is_cron_active:
+          type: boolean
+          x-bhendi-db-type: transient
+          description: Indicates if the scan schedule is active
+        last_run:
+          type: string
+          format: date-time
+          x-bhendi-db-type: transient
+          description: Timestamp of the last scheduled scan execution
+        next_run:
+          type: string
+          format: date-time
+          x-bhendi-db-type: transient
+          description: Timestamp of the next scheduled scan execution
+        cron_expression:
+          type: string
+          x-bhendi-db-type: transient
+          description: Cron expression defining the scan schedule
+        cron_object:
+          type: object
+          additionalProperties: true
+          x-bhendi-db-type: transient
+          description: Parsed cron schedule object
+    Gateway:
+      type: object
+      additionalProperties: false
+      properties:
+        path:
+          type: string
+          format: uri
+        scan_title:
+          type: string
+    ScanFilterValue:
+      type: object
+      additionalProperties: false
+      properties:
+        name:
+          type: string
+        title:
+          type: string
+        count:
+          type: integer
+    ScanMetadata:
+      type: object
+      description: Common metadata fields for scans
+      additionalProperties: true
+      properties:
+        id:
+          type: string
+          description: Identifier of a gateway scan.
+        scan_title:
+          type: string
+          description: Title for the scan
+        scan_id:
+          type: string
+          description: Identifier of an existing or scheduled scan
+        cron_expression:
+          type: string
+          description: Cron expression (minute hour * * dayOfWeek)
+        cron_object:
+          $ref: '#/components/schemas/CronObject'
+        is_cron_active:
+          type: boolean
+          default: true
+          description: Whether cron schedule is active
+        last_run:
+          type: string
+          format: date-time
+          description: Last execution time
+        next_run:
+          type: string
+          format: date-time
+          description: Next scheduled execution time
+    GatewayScanCreateRequest:
+      type: object
+      description: Create request for a new gateway scan
+      required:
+      - path
+      properties:
+        id:
+          type: string
+          description: Identifier of a gateway scan.
+        scan_title:
+          type: string
+          description: Title for the scan
+        scan_id:
+          type: string
+          description: Identifier of an existing or scheduled scan
+        cron_expression:
+          type: string
+          description: Cron expression (minute hour * * dayOfWeek)
+        cron_object:
+          $ref: '#/components/schemas/CronObject'
+        is_cron_active:
+          type: boolean
+          default: true
+          description: Whether cron schedule is active
+        last_run:
+          type: string
+          format: date-time
+          description: Last execution time
+        next_run:
+          type: string
+          format: date-time
+          description: Next scheduled execution time
+        path:
+          type: string
+          description: Gateway path URL
+        config:
+          $ref: '#/components/schemas/GatewayConfigDefinition'
+        availability_zone:
+          type: string
+          description: Availability zone of the gateway
+        gateway_service:
+          type: string
+          description: Title or name of the gateway service
+      additionalProperties: true
+    GatewayScanObject:
+      type: object
+      description: Full details of a gateway scan
+      properties:
+        id:
+          type: string
+          description: Unique scan identifier
+        path:
+          type: string
+          description: Gateway path URL
+        config:
+          type: array
+          items:
+            $ref: '#/components/schemas/GatewayConfigDefinition'
+        availability_zone:
+          type: string
+        gateway_service:
+          type: string
+        title:
+          type: string
+        status:
+          type: string
+        progress:
+          type: number
+          description: Scan progress percentage (0–100)
+        collection:
+          type: object
+          additionalProperties: true
+        documents:
+          type: array
+          items:
+            type: object
+            additionalProperties: true
+        reports:
+          type: array
+          items:
+            type: object
+            additionalProperties: true
+        scan_title:
+          type: string
+          description: Title for the scan
+        scan_id:
+          type: string
+          description: Identifier of an existing or scheduled scan
+        cron_expression:
+          type: string
+          description: Cron expression (minute hour * * dayOfWeek)
+        cron_object:
+          $ref: '#/components/schemas/CronObject'
+        is_cron_active:
+          type: boolean
+          default: true
+          description: Whether cron schedule is active
+        last_run:
+          type: string
+          format: date-time
+          description: Last execution time
+        next_run:
+          type: string
+          format: date-time
+          description: Next scheduled execution time
+      additionalProperties: true
+    GatewayScanResponse:
+      $ref: '#/components/schemas/GatewayScanObject'
+    GatewayScanObjectResponse:
+      $ref: '#/components/schemas/GatewayScanObject'
+    GatewayConfigDefinition:
+      type: object
+      description: Configuration definition for the scan
+      additionalProperties: true
+    ScanFiltersResult:
+      type: object
+      additionalProperties: false
+      properties:
+        filters:
+          type: array
+          items:
+            $ref: '#/components/schemas/ScanFilter'
+    GatewayListResponse:
+      type: object
+      properties:
+        total_results:
+          type: integer
+        results:
+          type: array
+          items:
+            $ref: '#/components/schemas/ScanMetadata'
+      additionalProperties: true
+    CronObject:
+      type: object
+      description: Cron configuration for scheduled scans
+      additionalProperties: false
+      properties:
+        minute:
+          type: integer
+          description: Minute (0–59)
+        hour:
+          type: integer
+          description: Hour (0–23)
+        frequency:
+          type: string
+          description: Frequency (daily or specific day of week)
+      required:
+      - minute
+      - hour
+      - frequency
+  responses:
+    Error:
+      description: Unexpected error
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+        application/yaml:
+          schema:
+            $ref: '#/components/schemas/Error'
+  securitySchemes:
+    oauth:
+      type: oauth2
+      flows:
+        implicit:
+          authorizationUrl: /oauth2/authorize
+          scopes:
+            org:manage: Delete all user created rulesets, Update the Ruleset object by name or id, Delete the Ruleset object by name or id, Create a Rule object, Delete all versions of a Rule by name for a single version of a Ruleset, Update the Rule object by id, Delete a single user created Rule in a single Ruleset by id, Update the Rule object by name and version, Delete the Rule object by name and version, Create a Scan object, Clear the Scan objects, Update the Scan object by name or id, Delete the Scan object by name or id, Create a Scan Report object, Update the Scan Report object by name or id, Delete the Scan Report object by name or id
+            org:view: List the Ruleset objects, Download the Ruleset object as a file to the current directory by name or id, List information about all Rules of a Ruleset, List information about the specified Rule of a Ruleset, Download the Rule object as a file to the current directory by id, Download the Rule object as a file to the current directory by name:version or id, List the Scan objects, Get the Scan object by name or id, List the Scan Report objects, Get the Scan Report object by name or id
+            cloud:manage: List all rules, Scan Gateway APIs, Create Gateway Scan, Clear the Gateway Scan objects, Update Gateway Scan by ID, Delete Gateway Scan by ID
+            cloud:view: List all rules, List Gateway Scans, Get Gateway Scan by ID
+            product:manage: Create a catalog setting by name or id, Validate product api using catalog governance setting
+        password:
+          tokenUrl: /token
+          refreshUrl: /token
+          scopes:
+            org:manage: Delete all user created rulesets, Update the Ruleset object by name or id, Delete the Ruleset object by name or id, Create a Rule object, Delete all versions of a Rule by name for a single version of a Ruleset, Update the Rule object by id, Delete a single user created Rule in a single Ruleset by id, Update the Rule object by name and version, Delete the Rule object by name and version, Create a Scan object, Clear the Scan objects, Update the Scan object by name or id, Delete the Scan object by name or id, Create a Scan Report object, Update the Scan Report object by name or id, Delete the Scan Report object by name or id
+            org:view: List the Ruleset objects, Download the Ruleset object as a file to the current directory by name or id, List information about all Rules of a Ruleset, List information about the specified Rule of a Ruleset, Download the Rule object as a file to the current directory by id, Download the Rule object as a file to the current directory by name:version or id, List the Scan objects, Get the Scan object by name or id, List the Scan Report objects, Get the Scan Report object by name or id
+            cloud:manage: List all rules, Scan Gateway APIs, Create Gateway Scan, Clear the Gateway Scan objects, Update Gateway Scan by ID, Delete Gateway Scan by ID
+            cloud:view: List all rules, List Gateway Scans, Get Gateway Scan by ID
+            product:manage: Create a catalog setting by name or id, Validate product api using catalog governance setting
+        clientCredentials:
+          tokenUrl: /token
+          scopes:
+            org:manage: Delete all user created rulesets, Update the Ruleset object by name or id, Delete the Ruleset object by name or id, Create a Rule object, Delete all versions of a Rule by name for a single version of a Ruleset, Update the Rule object by id, Delete a single user created Rule in a single Ruleset by id, Update the Rule object by name and version, Delete the Rule object by name and version, Create a Scan object, Clear the Scan objects, Update the Scan object by name or id, Delete the Scan object by name or id, Create a Scan Report object, Update the Scan Report object by name or id, Delete the Scan Report object by name or id
+            org:view: List the Ruleset objects, Download the Ruleset object as a file to the current directory by name or id, List information about all Rules of a Ruleset, List information about the specified Rule of a Ruleset, Download the Rule object as a file to the current directory by id, Download the Rule object as a file to the current directory by name:version or id, List the Scan objects, Get the Scan object by name or id, List the Scan Report objects, Get the Scan Report object by name or id
+            cloud:manage: List all rules, Scan Gateway APIs, Create Gateway Scan, Clear the Gateway Scan objects, Update Gateway Scan by ID, Delete Gateway Scan by ID
+            cloud:view: List all rules, List Gateway Scans, Get Gateway Scan by ID
+            product:manage: Create a catalog setting by name or id, Validate product api using catalog governance setting
+        authorizationCode:
+          authorizationUrl: /oauth2/authorize
+          tokenUrl: /token
+          refreshUrl: /token
+          scopes:
+            org:manage: Delete all user created rulesets, Update the Ruleset object by name or id, Delete the Ruleset object by name or id, Create a Rule object, Delete all versions of a Rule by name for a single version of a Ruleset, Update the Rule object by id, Delete a single user created Rule in a single Ruleset by id, Update the Rule object by name and version, Delete the Rule object by name and version, Create a Scan object, Clear the Scan objects, Update the Scan object by name or id, Delete the Scan object by name or id, Create a Scan Report object, Update the Scan Report object by name or id, Delete the Scan Report object by name or id
+            org:view: List the Ruleset objects, Download the Ruleset object as a file to the current directory by name or id, List information about all Rules of a Ruleset, List information about the specified Rule of a Ruleset, Download the Rule object as a file to the current directory by id, Download the Rule object as a file to the current directory by name:version or id, List the Scan objects, Get the Scan object by name or id, List the Scan Report objects, Get the Scan Report object by name or id
+            cloud:manage: List all rules, Scan Gateway APIs, Create Gateway Scan, Clear the Gateway Scan objects, Update Gateway Scan by ID, Delete Gateway Scan by ID
+            cloud:view: List all rules, List Gateway Scans, Get Gateway Scan by ID
+            product:manage: Create a catalog setting by name or id, Validate product api using catalog governance setting
+externalDocs:
+  description: Additional documentation
+  url: https://www.ibm.com/knowledge-center/api-connect/platform-apis
+x-ibm-configuration:
+  testable: false

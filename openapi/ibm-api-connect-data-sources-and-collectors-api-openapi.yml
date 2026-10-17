@@ -1,0 +1,493 @@
+openapi: 3.2.0
+info:
+  x-ibm-name: discovery
+  version: 2.0.0
+  title: IBM API Connect Discovery Data Sources and Collectors API
+  description: This API provides operations for accessing the API Discovery capabilities.
+  termsOfService: https://www.ibm.com/legal
+  contact:
+    name: IBM
+    url: https://www.ibm.com
+    email: help@ibm.com
+  license:
+    name: tbd
+    url: https://tbd.com
+servers:
+- url: ''
+  description: Local laptop testing
+tags:
+- name: Data Sources and Collectors
+paths:
+  /orgs/{org}/data-sources:
+    description: The collection of Data Source operations
+    parameters:
+    - $ref: '#/components/parameters/org'
+    post:
+      summary: Create a Data Source object
+      description: 'Create a Data Source object
+
+
+        Fields allowed but ignored:
+
+        - id
+
+        - type
+
+        - api_version
+
+        - scope
+
+        - created_at
+
+        - updated_at
+
+        - url'
+      operationId: data_source_create
+      security:
+      - oauth:
+        - org:manage
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/DataSource'
+          application/yaml:
+            schema:
+              $ref: '#/components/schemas/DataSource'
+      responses:
+        '201':
+          description: Successful create
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DataSource'
+            application/yaml:
+              schema:
+                $ref: '#/components/schemas/DataSource'
+        '302':
+          description: Redirect response
+          headers:
+            Location:
+              description: Redirect payload
+              schema:
+                type: string
+        4XX:
+          $ref: '#/components/responses/Error'
+        5XX:
+          $ref: '#/components/responses/Error'
+      tags:
+      - Data Sources and Collectors
+    get:
+      summary: List the Data Source objects
+      operationId: data_source_list
+      security:
+      - oauth:
+        - org:view
+      parameters:
+      - $ref: '#/components/parameters/fields'
+      - $ref: '#/components/parameters/offset'
+      - $ref: '#/components/parameters/limit'
+      - $ref: '#/components/parameters/collector_type'
+      - $ref: '#/components/parameters/state'
+      - $ref: '#/components/parameters/source_type'
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DataSourceList'
+            application/yaml:
+              schema:
+                $ref: '#/components/schemas/DataSourceList'
+        4XX:
+          $ref: '#/components/responses/Error'
+        5XX:
+          $ref: '#/components/responses/Error'
+      tags:
+      - Data Sources and Collectors
+    delete:
+      summary: Clear the Data Source objects
+      operationId: data_source_clear
+      security:
+      - oauth:
+        - org:manage
+      parameters:
+      - $ref: '#/components/parameters/confirm'
+      responses:
+        '204':
+          description: Success
+        4XX:
+          $ref: '#/components/responses/Error'
+        5XX:
+          $ref: '#/components/responses/Error'
+      tags:
+      - Data Sources and Collectors
+  /orgs/{org}/data-sources/{data-source}:
+    description: Data Source object operations
+    parameters:
+    - $ref: '#/components/parameters/org'
+    - $ref: '#/components/parameters/data-source'
+    get:
+      summary: Get the Data Source object by name or id
+      operationId: data_source_get
+      security:
+      - oauth:
+        - org:view
+      parameters:
+      - $ref: '#/components/parameters/fields'
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DataSource'
+            application/yaml:
+              schema:
+                $ref: '#/components/schemas/DataSource'
+        4XX:
+          $ref: '#/components/responses/Error'
+        5XX:
+          $ref: '#/components/responses/Error'
+      tags:
+      - Data Sources and Collectors
+    patch:
+      summary: Update the Data Source object by name or id
+      description: 'Update the Data Source object by name or id
+
+
+        Fields not allowed:
+
+        - name
+
+
+        Fields allowed but ignored:
+
+        - last_run
+
+        - id
+
+        - type
+
+        - api_version
+
+        - scope
+
+        - created_at
+
+        - updated_at
+
+        - url'
+      operationId: data_source_update
+      security:
+      - oauth:
+        - org:manage
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/DataSource'
+          application/yaml:
+            schema:
+              $ref: '#/components/schemas/DataSource'
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DataSource'
+            application/yaml:
+              schema:
+                $ref: '#/components/schemas/DataSource'
+        4XX:
+          $ref: '#/components/responses/Error'
+        5XX:
+          $ref: '#/components/responses/Error'
+      tags:
+      - Data Sources and Collectors
+    delete:
+      summary: Delete the Data Source object by name or id
+      operationId: data_source_del
+      security:
+      - oauth:
+        - org:manage
+      responses:
+        '200':
+          description: Successful delete
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DataSource'
+            application/yaml:
+              schema:
+                $ref: '#/components/schemas/DataSource'
+        4XX:
+          $ref: '#/components/responses/Error'
+        5XX:
+          $ref: '#/components/responses/Error'
+      tags:
+      - Data Sources and Collectors
+  /orgs/{org}/data-sources/limit:
+    description: Data Source object operations Cloud Scope
+    parameters:
+    - $ref: '#/components/parameters/org'
+    get:
+      summary: Get remaining Data Source limit for an organisation
+      description: Get the current value of data sources used and the maximum value of data sources allowed for an organisation
+      operationId: data_source_getLimit
+      security:
+      - oauth:
+        - org:view
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DataSourceLimit'
+            application/yaml:
+              schema:
+                $ref: '#/components/schemas/DataSourceLimit'
+        4XX:
+          $ref: '#/components/responses/Error'
+        5XX:
+          $ref: '#/components/responses/Error'
+      tags:
+      - Data Sources and Collectors
+components:
+  parameters:
+    collector_type:
+      name: collector_type
+      in: query
+      description: Optional collector_type to use to filter the list of Datasources
+      required: false
+      schema:
+        type: string
+    data-source:
+      name: data-source
+      in: path
+      description: Data Source name or id
+      required: true
+      schema:
+        type: string
+    limit:
+      name: limit
+      in: query
+      description: Maximum number of items to return
+      required: false
+      schema:
+        type: integer
+    confirm:
+      name: confirm
+      in: query
+      description: Confirmation for critical updates
+      required: true
+      schema:
+        type: string
+    state:
+      name: state
+      in: query
+      description: Optional state to use to filter Discovered API lists
+      required: false
+      schema:
+        type: string
+    org:
+      name: org
+      in: path
+      description: Organization name or id
+      required: true
+      schema:
+        type: string
+    fields:
+      name: fields
+      in: query
+      description: List of field names to return
+      required: false
+      schema:
+        type: string
+    offset:
+      name: offset
+      in: query
+      description: Offset item number from list to begin return
+      required: false
+      schema:
+        type: integer
+    source_type:
+      name: source_type
+      in: query
+      description: Optional source type to use to filter Discovered API lists (static or dynamic)
+      required: false
+      schema:
+        type: string
+  schemas:
+    Error:
+      type: object
+      additionalProperties: false
+      properties:
+        status:
+          type: integer
+          minimum: 400
+          maximum: 599
+        message:
+          type: array
+          items:
+            type: string
+        errors:
+          type: array
+          items:
+            type: string
+    DataSourceList:
+      type: object
+      additionalProperties: false
+      properties:
+        total_results:
+          type: integer
+        results:
+          type: array
+          items:
+            $ref: '#/components/schemas/DataSource'
+    DataSource:
+      type: object
+      additionalProperties: false
+      properties:
+        type:
+          type: string
+          readOnly: true
+          enum:
+          - data_source
+        api_version:
+          type: string
+          readOnly: true
+          enum:
+          - 2.0.0
+        id:
+          type: string
+          readOnly: true
+        name:
+          type: string
+          maxLength: 255
+        title:
+          type: string
+          maxLength: 1023
+        summary:
+          type: string
+          maxLength: 65535
+        description:
+          type: string
+          maxLength: 65535
+        state:
+          type: string
+          enum:
+          - enabled
+          - disabled
+          - paused
+          - unhealthy
+        source_address:
+          type: string
+        collector_type:
+          type: string
+        source_id:
+          type: string
+        last_run:
+          type: string
+          format: date-time
+        message:
+          type: string
+        options:
+          type: object
+          additionalProperties: true
+          properties:
+            gen_api_grouping:
+              type: string
+              enum:
+              - path0
+              - server-based
+            gen_api_sensitivity:
+              type: number
+            auto_promote:
+              type: boolean
+              default: false
+        metadata:
+          type: object
+          additionalProperties:
+            type: string
+        created_at:
+          type: string
+          format: date-time
+          readOnly: true
+        updated_at:
+          type: string
+          format: date-time
+          readOnly: true
+        url:
+          type: string
+          readOnly: true
+          format: uri
+    DataSourceLimit:
+      type: object
+      additionalProperties: false
+      properties:
+        data_sources:
+          type: integer
+        max_data_source_limit:
+          type: integer
+  responses:
+    Error:
+      description: Unexpected error
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+        application/yaml:
+          schema:
+            $ref: '#/components/schemas/Error'
+  securitySchemes:
+    oauth:
+      type: oauth2
+      flows:
+        implicit:
+          authorizationUrl: /oauth2/authorize
+          scopes:
+            api-drafts:edit: Create a Discovered API object, Clear all Discovered API objects in all collections, Clear the Discovered API objects, Update the Discovered API object by id, Delete the Discovered API object by id, Update the Discovered API object by name and version, Delete the Discovered API object by name and version, Create a Generated API object, Clear all Generated API objects in all collections, Clear the Generated API objects, Update the Generated API object by id, Delete the Generated API object by id, Update the Generated API object by name and version, Delete the Generated API object by name and version
+            api-drafts:view: List all Discovered API objects in all collections, List the Discovered API objects, Get the Discovered API object by id, Get the Discovered API object by name and version, List all Generated API objects in all collections, List the Generated API objects, Get the Generated API object by id, Get the Generated API object by name and version
+            org:manage: Create a Data Source object, Clear the Data Source objects, Update the Data Source object by name or id, Delete the Data Source object by name or id, Create a Discovered API object, Clear all Discovered API objects in all collections, Clear the Discovered API objects, Update the Discovered API object by id, Delete the Discovered API object by id, Update the Discovered API object by name and version, Delete the Discovered API object by name and version, Create a Generated API object, Clear all Generated API objects in all collections, Clear the Generated API objects, Update the Generated API object by id, Delete the Generated API object by id, Update the Generated API object by name and version, Delete the Generated API object by name and version
+            org:view: List the Data Source objects, Get the Data Source object by name or id, List all Discovered API objects in all collections, List the Discovered API objects, Get the Discovered API object by id, Get the Discovered API object by name and version, List all Generated API objects in all collections, List the Generated API objects, Get the Generated API object by id, Get the Generated API object by name and version
+            cloud:manage: Processes a set of API Call Records that are not Org-scoped, Deletes all API Call Records that are not Org-scoped, Processes a set of API Call Records for a pOrg from the Cloud scope, Create a Data Source object at Cloud Scope, Update the Data Source object by name or id for cloud, Generate an OpenAPI in a pOrg for Cloud, Make a Discovered API from a Generated API Cloud Scope, Make a Discovered API from a Generated API by Name and Version Cloud Scope
+            cloud:view: List the Data Source objects across orgs, Get remaining Data Source limit for cloud
+        password:
+          tokenUrl: /token
+          refreshUrl: /token
+          scopes:
+            api-drafts:edit: Create a Discovered API object, Clear all Discovered API objects in all collections, Clear the Discovered API objects, Update the Discovered API object by id, Delete the Discovered API object by id, Update the Discovered API object by name and version, Delete the Discovered API object by name and version, Create a Generated API object, Clear all Generated API objects in all collections, Clear the Generated API objects, Update the Generated API object by id, Delete the Generated API object by id, Update the Generated API object by name and version, Delete the Generated API object by name and version
+            api-drafts:view: List all Discovered API objects in all collections, List the Discovered API objects, Get the Discovered API object by id, Get the Discovered API object by name and version, List all Generated API objects in all collections, List the Generated API objects, Get the Generated API object by id, Get the Generated API object by name and version
+            org:manage: Create a Data Source object, Clear the Data Source objects, Update the Data Source object by name or id, Delete the Data Source object by name or id, Create a Discovered API object, Clear all Discovered API objects in all collections, Clear the Discovered API objects, Update the Discovered API object by id, Delete the Discovered API object by id, Update the Discovered API object by name and version, Delete the Discovered API object by name and version, Create a Generated API object, Clear all Generated API objects in all collections, Clear the Generated API objects, Update the Generated API object by id, Delete the Generated API object by id, Update the Generated API object by name and version, Delete the Generated API object by name and version
+            org:view: List the Data Source objects, Get the Data Source object by name or id, List all Discovered API objects in all collections, List the Discovered API objects, Get the Discovered API object by id, Get the Discovered API object by name and version, List all Generated API objects in all collections, List the Generated API objects, Get the Generated API object by id, Get the Generated API object by name and version
+            cloud:manage: Processes a set of API Call Records that are not Org-scoped, Deletes all API Call Records that are not Org-scoped, Processes a set of API Call Records for a pOrg from the Cloud scope, Create a Data Source object at Cloud Scope, Update the Data Source object by name or id for cloud, Generate an OpenAPI in a pOrg for Cloud, Make a Discovered API from a Generated API Cloud Scope, Make a Discovered API from a Generated API by Name and Version Cloud Scope
+            cloud:view: List the Data Source objects across orgs, Get remaining Data Source limit for cloud
+        clientCredentials:
+          tokenUrl: /token
+          scopes:
+            api-drafts:edit: Create a Discovered API object, Clear all Discovered API objects in all collections, Clear the Discovered API objects, Update the Discovered API object by id, Delete the Discovered API object by id, Update the Discovered API object by name and version, Delete the Discovered API object by name and version, Create a Generated API object, Clear all Generated API objects in all collections, Clear the Generated API objects, Update the Generated API object by id, Delete the Generated API object by id, Update the Generated API object by name and version, Delete the Generated API object by name and version
+            api-drafts:view: List all Discovered API objects in all collections, List the Discovered API objects, Get the Discovered API object by id, Get the Discovered API object by name and version, List all Generated API objects in all collections, List the Generated API objects, Get the Generated API object by id, Get the Generated API object by name and version
+            org:manage: Create a Data Source object, Clear the Data Source objects, Update the Data Source object by name or id, Delete the Data Source object by name or id, Create a Discovered API object, Clear all Discovered API objects in all collections, Clear the Discovered API objects, Update the Discovered API object by id, Delete the Discovered API object by id, Update the Discovered API object by name and version, Delete the Discovered API object by name and version, Create a Generated API object, Clear all Generated API objects in all collections, Clear the Generated API objects, Update the Generated API object by id, Delete the Generated API object by id, Update the Generated API object by name and version, Delete the Generated API object by name and version
+            org:view: List the Data Source objects, Get the Data Source object by name or id, List all Discovered API objects in all collections, List the Discovered API objects, Get the Discovered API object by id, Get the Discovered API object by name and version, List all Generated API objects in all collections, List the Generated API objects, Get the Generated API object by id, Get the Generated API object by name and version
+            cloud:manage: Processes a set of API Call Records that are not Org-scoped, Deletes all API Call Records that are not Org-scoped, Processes a set of API Call Records for a pOrg from the Cloud scope, Create a Data Source object at Cloud Scope, Update the Data Source object by name or id for cloud, Generate an OpenAPI in a pOrg for Cloud, Make a Discovered API from a Generated API Cloud Scope, Make a Discovered API from a Generated API by Name and Version Cloud Scope
+            cloud:view: List the Data Source objects across orgs, Get remaining Data Source limit for cloud
+        authorizationCode:
+          authorizationUrl: /oauth2/authorize
+          tokenUrl: /token
+          refreshUrl: /token
+          scopes:
+            api-drafts:edit: Create a Discovered API object, Clear all Discovered API objects in all collections, Clear the Discovered API objects, Update the Discovered API object by id, Delete the Discovered API object by id, Update the Discovered API object by name and version, Delete the Discovered API object by name and version, Create a Generated API object, Clear all Generated API objects in all collections, Clear the Generated API objects, Update the Generated API object by id, Delete the Generated API object by id, Update the Generated API object by name and version, Delete the Generated API object by name and version
+            api-drafts:view: List all Discovered API objects in all collections, List the Discovered API objects, Get the Discovered API object by id, Get the Discovered API object by name and version, List all Generated API objects in all collections, List the Generated API objects, Get the Generated API object by id, Get the Generated API object by name and version
+            org:manage: Create a Data Source object, Clear the Data Source objects, Update the Data Source object by name or id, Delete the Data Source object by name or id, Create a Discovered API object, Clear all Discovered API objects in all collections, Clear the Discovered API objects, Update the Discovered API object by id, Delete the Discovered API object by id, Update the Discovered API object by name and version, Delete the Discovered API object by name and version, Create a Generated API object, Clear all Generated API objects in all collections, Clear the Generated API objects, Update the Generated API object by id, Delete the Generated API object by id, Update the Generated API object by name and version, Delete the Generated API object by name and version
+            org:view: List the Data Source objects, Get the Data Source object by name or id, List all Discovered API objects in all collections, List the Discovered API objects, Get the Discovered API object by id, Get the Discovered API object by name and version, List all Generated API objects in all collections, List the Generated API objects, Get the Generated API object by id, Get the Generated API object by name and version
+            cloud:manage: Processes a set of API Call Records that are not Org-scoped, Deletes all API Call Records that are not Org-scoped, Processes a set of API Call Records for a pOrg from the Cloud scope, Create a Data Source object at Cloud Scope, Update the Data Source object by name or id for cloud, Generate an OpenAPI in a pOrg for Cloud, Make a Discovered API from a Generated API Cloud Scope, Make a Discovered API from a Generated API by Name and Version Cloud Scope
+            cloud:view: List the Data Source objects across orgs, Get remaining Data Source limit for cloud
+externalDocs:
+  description: Additional documentation
+  url: https://www.ibm.com/knowledge-center/api-connect/platform-apis
+x-ibm-configuration:
+  testable: false

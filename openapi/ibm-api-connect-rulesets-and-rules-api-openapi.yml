@@ -1,0 +1,1330 @@
+openapi: 3.2.0
+info:
+  x-ibm-name: compliance
+  version: 2.0.0
+  title: IBM API Connect Governance Rulesets and Rules API
+  description: This API provides operations for accessing the API Governance capabilities.
+  termsOfService: https://www.ibm.com/legal
+  contact:
+    name: IBM
+    url: https://www.ibm.com
+    email: help@ibm.com
+  license:
+    name: tbd
+    url: https://tbd.com
+servers:
+- url: ''
+  description: Local laptop testing
+tags:
+- name: Rulesets and Rules
+paths:
+  /orgs/{org}/rulesets:
+    description: The collection of Ruleset operations
+    parameters:
+    - $ref: '#/components/parameters/org'
+    get:
+      summary: List the Ruleset objects
+      operationId: ruleset_list
+      security:
+      - oauth:
+        - org:view
+      parameters:
+      - $ref: '#/components/parameters/fields'
+      - $ref: '#/components/parameters/offset'
+      - $ref: '#/components/parameters/limit'
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RulesetList'
+            application/yaml:
+              schema:
+                $ref: '#/components/schemas/RulesetList'
+        4XX:
+          $ref: '#/components/responses/Error'
+        5XX:
+          $ref: '#/components/responses/Error'
+      tags:
+      - Rulesets and Rules
+    delete:
+      summary: Delete all user created rulesets
+      operationId: ruleset_clear
+      security:
+      - oauth:
+        - org:manage
+      parameters:
+      - $ref: '#/components/parameters/confirm'
+      responses:
+        '204':
+          description: Success
+        4XX:
+          $ref: '#/components/responses/Error'
+        5XX:
+          $ref: '#/components/responses/Error'
+      tags:
+      - Rulesets and Rules
+  /orgs/{org}/rulesets/{ruleset}:
+    description: Ruleset object operations
+    parameters:
+    - $ref: '#/components/parameters/org'
+    - $ref: '#/components/parameters/ruleset'
+    get:
+      summary: Download the Ruleset object as a file to the current directory by name or id
+      operationId: ruleset_get
+      security:
+      - oauth:
+        - org:view
+      parameters:
+      - $ref: '#/components/parameters/fields'
+      - $ref: '#/components/parameters/ruleset_version'
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Ruleset'
+            application/yaml:
+              schema:
+                $ref: '#/components/schemas/Ruleset'
+        4XX:
+          $ref: '#/components/responses/Error'
+        5XX:
+          $ref: '#/components/responses/Error'
+      tags:
+      - Rulesets and Rules
+    patch:
+      summary: Update the Ruleset object by name or id
+      description: 'Update the Ruleset object by name or id
+
+
+        Fields not allowed:
+
+        - name
+
+
+        Fields allowed but ignored:
+
+        - id
+
+        - type
+
+        - api_version
+
+        - scope
+
+        - created_at
+
+        - updated_at
+
+        - url'
+      operationId: ruleset_update
+      security:
+      - oauth:
+        - org:manage
+      parameters:
+      - $ref: '#/components/parameters/ruleset_version'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Ruleset'
+          application/yaml:
+            schema:
+              $ref: '#/components/schemas/Ruleset'
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Ruleset'
+            application/yaml:
+              schema:
+                $ref: '#/components/schemas/Ruleset'
+        4XX:
+          $ref: '#/components/responses/Error'
+        5XX:
+          $ref: '#/components/responses/Error'
+      tags:
+      - Rulesets and Rules
+    delete:
+      summary: Delete the Ruleset object by name or id
+      operationId: ruleset_del
+      security:
+      - oauth:
+        - org:manage
+      parameters:
+      - $ref: '#/components/parameters/ruleset_version'
+      responses:
+        '200':
+          description: Successful delete
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Ruleset'
+            application/yaml:
+              schema:
+                $ref: '#/components/schemas/Ruleset'
+        4XX:
+          $ref: '#/components/responses/Error'
+        5XX:
+          $ref: '#/components/responses/Error'
+      tags:
+      - Rulesets and Rules
+  /orgs/{org}/rulesets/create:
+    parameters:
+    - $ref: '#/components/parameters/org'
+    post:
+      summary: Create a new Ruleset
+      description: Create a new Ruleset Fields allowed but ignored:\ - id - type - api_version - scope - created_at - updated_at - url
+      operationId: ruleset_create
+      security:
+      - oauth:
+        - org:manage
+      requestBody:
+        content:
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/SpectralRulesetMultipart'
+          application/json:
+            schema:
+              $ref: '#/components/schemas/RulesetRequest'
+          application/yaml:
+            schema:
+              $ref: '#/components/schemas/RulesetRequest'
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Ruleset'
+            application/yaml:
+              schema:
+                $ref: '#/components/schemas/Ruleset'
+        4XX:
+          $ref: '#/components/responses/Error'
+        5XX:
+          $ref: '#/components/responses/Error'
+      tags:
+      - Rulesets and Rules
+    put:
+      summary: Update a Ruleset
+      description: 'Update a Ruleset
+
+        Fields not allowed:\ - name
+
+        Fields allowed but ignored:\ - id - type - api_version - scope - created_at - updated_at - url'
+      operationId: ruleset_updateRuleset
+      security:
+      - oauth:
+        - org:manage
+      requestBody:
+        content:
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/SpectralRulesetMultipart'
+          application/json:
+            schema:
+              $ref: '#/components/schemas/RulesetRequest'
+          application/yaml:
+            schema:
+              $ref: '#/components/schemas/RulesetRequest'
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Ruleset'
+            application/yaml:
+              schema:
+                $ref: '#/components/schemas/Ruleset'
+        4XX:
+          $ref: '#/components/responses/Error'
+        5XX:
+          $ref: '#/components/responses/Error'
+      tags:
+      - Rulesets and Rules
+  /orgs/{org}/rulesets/all:
+    parameters:
+    - $ref: '#/components/parameters/org'
+    get:
+      summary: List all rulesets and rules under those
+      operationId: ruleset_listAllFull
+      parameters:
+      - $ref: '#/components/parameters/limit'
+      - $ref: '#/components/parameters/offset'
+      - $ref: '#/components/parameters/states'
+      - $ref: '#/components/parameters/show_all_versions'
+      - $ref: '#/components/parameters/ruleset_format_type'
+      - $ref: '#/components/parameters/ruleset_name'
+      - $ref: '#/components/parameters/ruleset_version'
+      - $ref: '#/components/parameters/ruleset_types'
+      - $ref: '#/components/parameters/visibility_types'
+      security:
+      - oauth:
+        - org:view
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RulesetResponseList'
+            application/yaml:
+              schema:
+                $ref: '#/components/schemas/RulesetResponseList'
+        4XX:
+          $ref: '#/components/responses/Error'
+        5XX:
+          $ref: '#/components/responses/Error'
+      tags:
+      - Rulesets and Rules
+  /orgs/{org}/rulesets/collection:
+    parameters:
+    - $ref: '#/components/parameters/org'
+    post:
+      summary: List all rulesets and rules under those for given collection based on tags
+      operationId: ruleset_listAllByCollection
+      parameters:
+      - $ref: '#/components/parameters/states'
+      - $ref: '#/components/parameters/show_all_versions'
+      - $ref: '#/components/parameters/ruleset_format_type'
+      security:
+      - oauth:
+        - org:view
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/RulesetsByDocumentsRequest'
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RulesetsByDocumentsResponseList'
+            application/yaml:
+              schema:
+                $ref: '#/components/schemas/RulesetsByDocumentsResponseList'
+        4XX:
+          $ref: '#/components/responses/Error'
+        5XX:
+          $ref: '#/components/responses/Error'
+      tags:
+      - Rulesets and Rules
+  /orgs/{org}/rulesets/{ruleset}/rules:
+    description: Rule operations across all collections
+    parameters:
+    - $ref: '#/components/parameters/org'
+    - $ref: '#/components/parameters/ruleset'
+    post:
+      summary: Create a Rule object
+      description: 'Create a Rule object
+
+
+        Fields allowed but ignored:
+
+        - id
+
+        - type
+
+        - api_version
+
+        - scope
+
+        - created_at
+
+        - updated_at
+
+        - url'
+      operationId: rule_create
+      security:
+      - oauth:
+        - org:manage
+      parameters:
+      - $ref: '#/components/parameters/ruleset_version'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Rule'
+          application/yaml:
+            schema:
+              $ref: '#/components/schemas/Rule'
+      responses:
+        '201':
+          description: Successful create
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Rule'
+            application/yaml:
+              schema:
+                $ref: '#/components/schemas/Rule'
+        '302':
+          description: Redirect response
+          headers:
+            Location:
+              description: Redirect payload
+              schema:
+                type: string
+        4XX:
+          $ref: '#/components/responses/Error'
+        5XX:
+          $ref: '#/components/responses/Error'
+      tags:
+      - Rulesets and Rules
+    get:
+      summary: List information about all Rules of a Ruleset
+      description: To list all Rules of a global ruleset, you must be logged in as an Admin Organisation owner. To list all Rules of a custom ruleset, you must be logged in as a Provider Organisation owner.
+      operationId: rule_listAll
+      security:
+      - oauth:
+        - org:view
+      parameters:
+      - $ref: '#/components/parameters/fields'
+      - $ref: '#/components/parameters/offset'
+      - $ref: '#/components/parameters/limit'
+      - $ref: '#/components/parameters/ruleset_version'
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RuleList'
+            application/yaml:
+              schema:
+                $ref: '#/components/schemas/RuleList'
+        4XX:
+          $ref: '#/components/responses/Error'
+        5XX:
+          $ref: '#/components/responses/Error'
+      tags:
+      - Rulesets and Rules
+  /orgs/{org}/rulesets/{ruleset}/rules/{rule-name}:
+    description: The collection of Rule operations
+    parameters:
+    - $ref: '#/components/parameters/org'
+    - $ref: '#/components/parameters/ruleset'
+    - $ref: '#/components/parameters/rule-name'
+    get:
+      summary: List information about the specified Rule of a Ruleset
+      description: To list a Rule belonging to a global ruleset you must be logged in as Admin organisation owner. To list a Rule belonging to a custom ruleset, you must be logged in as a Provider organisation owner.
+      operationId: rule_list
+      security:
+      - oauth:
+        - org:view
+      parameters:
+      - $ref: '#/components/parameters/fields'
+      - $ref: '#/components/parameters/offset'
+      - $ref: '#/components/parameters/limit'
+      - $ref: '#/components/parameters/ruleset_version'
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RuleList'
+            application/yaml:
+              schema:
+                $ref: '#/components/schemas/RuleList'
+        4XX:
+          $ref: '#/components/responses/Error'
+        5XX:
+          $ref: '#/components/responses/Error'
+      tags:
+      - Rulesets and Rules
+    delete:
+      summary: Delete all versions of a Rule by name for a single version of a Ruleset
+      operationId: rule_clear
+      security:
+      - oauth:
+        - org:manage
+      parameters:
+      - $ref: '#/components/parameters/confirm'
+      - $ref: '#/components/parameters/ruleset_version'
+      responses:
+        '204':
+          description: Success
+        4XX:
+          $ref: '#/components/responses/Error'
+        5XX:
+          $ref: '#/components/responses/Error'
+      tags:
+      - Rulesets and Rules
+  /orgs/{org}/rulesets/{ruleset}/rules/{rule-id}:
+    description: Rule object operations
+    parameters:
+    - $ref: '#/components/parameters/org'
+    - $ref: '#/components/parameters/ruleset'
+    - $ref: '#/components/parameters/rule-id'
+    get:
+      summary: Download the Rule object as a file to the current directory by id
+      operationId: rule_get
+      security:
+      - oauth:
+        - org:view
+      parameters:
+      - $ref: '#/components/parameters/fields'
+      - $ref: '#/components/parameters/ruleset_version'
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Rule'
+            application/yaml:
+              schema:
+                $ref: '#/components/schemas/Rule'
+        4XX:
+          $ref: '#/components/responses/Error'
+        5XX:
+          $ref: '#/components/responses/Error'
+      tags:
+      - Rulesets and Rules
+    patch:
+      summary: Update the Rule object by id
+      description: 'Update the Rule object by id
+
+
+        Fields not allowed:
+
+        - name
+
+
+        Fields allowed but ignored:
+
+        - version
+
+        - id
+
+        - type
+
+        - api_version
+
+        - scope
+
+        - created_at
+
+        - updated_at
+
+        - url'
+      operationId: rule_update
+      security:
+      - oauth:
+        - org:manage
+      parameters:
+      - $ref: '#/components/parameters/ruleset_version'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Rule'
+          application/yaml:
+            schema:
+              $ref: '#/components/schemas/Rule'
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Rule'
+            application/yaml:
+              schema:
+                $ref: '#/components/schemas/Rule'
+        4XX:
+          $ref: '#/components/responses/Error'
+        5XX:
+          $ref: '#/components/responses/Error'
+      tags:
+      - Rulesets and Rules
+    delete:
+      summary: Delete a single user created Rule in a single Ruleset by id
+      operationId: rule_del
+      security:
+      - oauth:
+        - org:manage
+      parameters:
+      - $ref: '#/components/parameters/ruleset_version'
+      responses:
+        '200':
+          description: Successful delete
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Rule'
+            application/yaml:
+              schema:
+                $ref: '#/components/schemas/Rule'
+        4XX:
+          $ref: '#/components/responses/Error'
+        5XX:
+          $ref: '#/components/responses/Error'
+      tags:
+      - Rulesets and Rules
+  /orgs/{org}/rulesets/{ruleset}/rules/{rule-name}/{rule-version}:
+    description: Rule object operations by name and version
+    parameters:
+    - $ref: '#/components/parameters/org'
+    - $ref: '#/components/parameters/ruleset'
+    - $ref: '#/components/parameters/rule-name'
+    - $ref: '#/components/parameters/rule-version'
+    get:
+      summary: Download the Rule object as a file to the current directory by name:version or…
+      description: Download the Rule object as a file to the current directory by name:version. If you would like to use the id of the Rule object the --id flag must be specified followed by the id of the Rule object.
+      operationId: rule_getByNameVersion
+      security:
+      - oauth:
+        - org:view
+      parameters:
+      - $ref: '#/components/parameters/fields'
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Rule'
+            application/yaml:
+              schema:
+                $ref: '#/components/schemas/Rule'
+        4XX:
+          $ref: '#/components/responses/Error'
+        5XX:
+          $ref: '#/components/responses/Error'
+      tags:
+      - Rulesets and Rules
+    patch:
+      summary: Update the Rule object by name and version
+      description: 'Update the Rule object by name and version
+
+
+        Fields not allowed:
+
+        - name
+
+
+        Fields allowed but ignored:
+
+        - version
+
+        - id
+
+        - type
+
+        - api_version
+
+        - scope
+
+        - created_at
+
+        - updated_at
+
+        - url'
+      operationId: rule_updateByNameVersion
+      security:
+      - oauth:
+        - org:manage
+      parameters:
+      - $ref: '#/components/parameters/ruleset_version'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Rule'
+          application/yaml:
+            schema:
+              $ref: '#/components/schemas/Rule'
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Rule'
+            application/yaml:
+              schema:
+                $ref: '#/components/schemas/Rule'
+        4XX:
+          $ref: '#/components/responses/Error'
+        5XX:
+          $ref: '#/components/responses/Error'
+      tags:
+      - Rulesets and Rules
+    delete:
+      summary: Delete a Rule
+      operationId: rule_delByNameVersion
+      security:
+      - oauth:
+        - org:manage
+      parameters:
+      - $ref: '#/components/parameters/ruleset_version'
+      responses:
+        '200':
+          description: Successful delete
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Rule'
+            application/yaml:
+              schema:
+                $ref: '#/components/schemas/Rule'
+        4XX:
+          $ref: '#/components/responses/Error'
+        5XX:
+          $ref: '#/components/responses/Error'
+      tags:
+      - Rulesets and Rules
+components:
+  schemas:
+    ResourceVisibility:
+      type: object
+      additionalProperties: false
+      properties:
+        type:
+          type: string
+          enum:
+          - public
+          - private
+          - custom
+        org_urls:
+          type:
+          - array
+          - 'null'
+          items:
+            type: string
+            format: uri
+    RulesetResponse:
+      type: object
+      additionalProperties: true
+      properties:
+        name:
+          type: string
+          maxLength: 255
+        ruleset_version:
+          type: string
+          maxLength: 255
+        description:
+          type: string
+          maxLength: 65535
+        ruleset_type:
+          type: string
+          enum:
+          - global-ibm
+          - global-spectral
+          - global-custom
+          - custom
+        ruleset_format_type:
+          type: string
+        visibility:
+          $ref: '#/components/schemas/ResourceVisibility'
+        rules:
+          type: array
+          items:
+            $ref: '#/components/schemas/RuleResponse'
+        id:
+          type: string
+          readOnly: true
+        created_at:
+          type: string
+          format: date-time
+          readOnly: true
+        updated_at:
+          type: string
+          format: date-time
+          readOnly: true
+        url:
+          type: string
+          readOnly: true
+          format: uri
+    Ruleset:
+      type: object
+      additionalProperties: false
+      properties:
+        type:
+          type: string
+          readOnly: true
+          enum:
+          - ruleset
+        api_version:
+          type: string
+          readOnly: true
+          enum:
+          - 2.0.0
+        id:
+          type: string
+          readOnly: true
+        name:
+          type: string
+          maxLength: 255
+        title:
+          type: string
+          maxLength: 1023
+        summary:
+          type: string
+          maxLength: 65535
+        description:
+          type: string
+          maxLength: 65535
+        original_name:
+          type: string
+          maxLength: 255
+        rule_count:
+          type: integer
+        ruleset_version:
+          type: string
+        ruleset_type:
+          type: string
+          enum:
+          - global-ibm
+          - global-spectral
+          - global-custom
+          - custom
+        ruleset_state:
+          type: string
+          enum:
+          - draft
+          - published
+          - archived
+        ruleset_format_type:
+          type: string
+          enum:
+          - '1'
+          - '2'
+        visibility:
+          $ref: '#/components/schemas/ResourceVisibility'
+        rule_urls:
+          type: array
+          items:
+            type: string
+            format: uri
+        tags:
+          type: array
+          items:
+            type: object
+            additionalProperties: true
+        metadata:
+          type: object
+          additionalProperties:
+            type: string
+        created_at:
+          type: string
+          format: date-time
+          readOnly: true
+        updated_at:
+          type: string
+          format: date-time
+          readOnly: true
+        url:
+          type: string
+          readOnly: true
+          format: uri
+    RulesetList:
+      type: object
+      additionalProperties: false
+      properties:
+        total_results:
+          type: integer
+        results:
+          type: array
+          items:
+            $ref: '#/components/schemas/Ruleset'
+    RuleResponse:
+      type: object
+      additionalProperties: true
+      properties:
+        name:
+          type: string
+          maxLength: 255
+        description:
+          type: string
+          maxLength: 65535
+        message:
+          type: string
+        recommended:
+          type: boolean
+        type:
+          type: string
+        given:
+          type: array
+          items:
+            type: string
+        severity:
+          type: string
+          enum:
+          - error
+          - warn
+          - info
+          - hint
+          - 'off'
+        formats:
+          type: array
+          items:
+            type: string
+            enum:
+            - oas2
+            - oas3
+            - oas3_0
+            - oas3_1
+            - aas2
+            - aas3_0
+        resolved:
+          type: boolean
+        then:
+          type: array
+          items:
+            type: object
+            additionalProperties: true
+        metadata:
+          type: object
+          additionalProperties:
+            type: string
+        id:
+          type: string
+          readOnly: true
+        created_at:
+          type: string
+          format: date-time
+          readOnly: true
+        updated_at:
+          type: string
+          format: date-time
+          readOnly: true
+        url:
+          type: string
+          readOnly: true
+          format: uri
+    RuleRequest:
+      type: object
+      properties:
+        name:
+          type: string
+          maxLength: 255
+        description:
+          type: string
+          maxLength: 65535
+        message:
+          type: string
+        recommended:
+          type: boolean
+        type:
+          type: string
+        given:
+          type: array
+          items:
+            type: string
+        severity:
+          type: string
+          enum:
+          - error
+          - warn
+          - info
+          - hint
+          - 'off'
+        formats:
+          type: array
+          items:
+            type: string
+            enum:
+            - oas2
+            - oas3
+            - oas3_0
+            - oas3_1
+            - aas2
+            - aas3_0
+        resolved:
+          type: boolean
+        then:
+          type: array
+          items:
+            type: object
+            additionalProperties: true
+        metadata:
+          type: object
+          additionalProperties:
+            type: string
+    RulesetsByDocumentsResponseList:
+      type: object
+      additionalProperties: true
+      properties:
+        tags:
+          type: object
+        results:
+          type: array
+          items:
+            $ref: '#/components/schemas/RulesetResponse'
+        total_results:
+          type: integer
+    Error:
+      type: object
+      additionalProperties: false
+      properties:
+        status:
+          type: integer
+          minimum: 400
+          maximum: 599
+        message:
+          type: array
+          items:
+            type: string
+        errors:
+          type: array
+          items:
+            type: string
+    RulesetsByDocumentsRequest:
+      type: object
+      properties:
+        collectionUrl:
+          type: string
+          format: uri
+        apiUrls:
+          type: array
+          items:
+            type: string
+            readOnly: true
+        productUrls:
+          type: array
+          items:
+            type: string
+            readOnly: true
+        product:
+          type: object
+        api:
+          type: object
+      oneOf:
+      - required:
+        - product
+      - required:
+        - api
+      - required:
+        - collectionUrl
+      - required:
+        - apiUrls
+      - required:
+        - productUrls
+    RulesetRequest:
+      type: object
+      additionalProperties: true
+      properties:
+        name:
+          type: string
+          maxLength: 255
+        ruleset_version:
+          type: string
+          maxLength: 255
+        description:
+          type: string
+          maxLength: 65535
+        ruleset_type:
+          type: string
+          enum:
+          - global-ibm
+          - global-spectral
+          - global-custom
+          - custom
+        ruleset_format_type:
+          type: string
+          enum:
+          - '1'
+          - '2'
+        visibility:
+          $ref: '#/components/schemas/ResourceVisibility'
+        rules:
+          type: array
+          items:
+            $ref: '#/components/schemas/RuleRequest'
+    Rule:
+      type: object
+      additionalProperties: false
+      properties:
+        type:
+          type: string
+          readOnly: true
+          enum:
+          - rule
+        api_version:
+          type: string
+          readOnly: true
+          enum:
+          - 2.0.0
+        id:
+          type: string
+          readOnly: true
+        name:
+          type: string
+          maxLength: 255
+        version:
+          type: string
+          maxLength: 255
+        title:
+          type: string
+          maxLength: 1023
+        summary:
+          type: string
+          maxLength: 65535
+        description:
+          type: string
+          maxLength: 65535
+        message:
+          type: string
+        recommended:
+          type: boolean
+        type_db:
+          type: string
+        given:
+          type: array
+          items:
+            type: string
+        severity:
+          type: string
+          enum:
+          - error
+          - warn
+          - info
+          - hint
+          - 'off'
+        formats:
+          type: array
+          items:
+            type: string
+            enum:
+            - oas2
+            - oas3
+            - oas3_0
+            - oas3_1
+            - aas2
+            - aas3_0
+        resolved:
+          type: boolean
+        then_db:
+          type: array
+          items:
+            type: object
+            additionalProperties: true
+        ruleset_urls:
+          type: array
+          items:
+            type: string
+            format: uri
+        metadata:
+          type: object
+          additionalProperties:
+            type: string
+        created_at:
+          type: string
+          format: date-time
+          readOnly: true
+        updated_at:
+          type: string
+          format: date-time
+          readOnly: true
+        url:
+          type: string
+          readOnly: true
+          format: uri
+    RulesetResponseList:
+      type: object
+      additionalProperties: false
+      properties:
+        results:
+          type: array
+          items:
+            $ref: '#/components/schemas/RulesetResponse'
+        total_results:
+          type: integer
+    SpectralRulesetMultipart:
+      type: object
+      required:
+      - ruleset
+      properties:
+        ruleset:
+          type: array
+          items:
+            $ref: '#/components/schemas/RulesetRequest'
+    RuleList:
+      type: object
+      additionalProperties: false
+      properties:
+        total_results:
+          type: integer
+        results:
+          type: array
+          items:
+            $ref: '#/components/schemas/Rule'
+  parameters:
+    show_all_versions:
+      name: show_all_versions
+      in: query
+      description: Boolean indication if all versions of a Ruleset should be listed
+      required: false
+      schema:
+        type: boolean
+    rule-id:
+      name: rule-id
+      in: path
+      description: Rule name
+      required: true
+      schema:
+        type: string
+    limit:
+      name: limit
+      in: query
+      description: Maximum number of items to return
+      required: false
+      schema:
+        type: integer
+    rule-version:
+      name: rule-version
+      in: path
+      description: Rule version name
+      required: true
+      schema:
+        type: string
+    rule-name:
+      name: rule-name
+      in: path
+      description: Rule name
+      required: true
+      schema:
+        type: string
+    fields:
+      name: fields
+      in: query
+      description: List of field names to return
+      required: false
+      schema:
+        type: string
+    ruleset:
+      name: ruleset
+      in: path
+      description: Ruleset name or id
+      required: true
+      schema:
+        type: string
+    org:
+      name: org
+      in: path
+      description: Organization name or id
+      required: true
+      schema:
+        type: string
+    ruleset_format_type:
+      name: ruleset_format_type
+      in: query
+      description: List out rulesets that have the queried ruleset format type
+      required: false
+      schema:
+        type: string
+    offset:
+      name: offset
+      in: query
+      description: Offset item number from list to begin return
+      required: false
+      schema:
+        type: integer
+    ruleset_types:
+      name: ruleset_types
+      in: query
+      description: List out rulesets that have the queried ruleset types
+      required: false
+      schema:
+        type: string
+    confirm:
+      name: confirm
+      in: query
+      description: Confirmation for critical updates
+      required: true
+      schema:
+        type: string
+    states:
+      name: states
+      in: query
+      description: List out rulesets that have the queried ruleset states
+      required: false
+      schema:
+        type: string
+    visibility_types:
+      name: visibility_types
+      in: query
+      description: List out rulesets that have the queried visibility types
+      required: false
+      schema:
+        type: string
+    ruleset_version:
+      name: ruleset_version
+      in: query
+      description: Specify an explicit Ruleset version
+      required: false
+      schema:
+        type: string
+    ruleset_name:
+      name: ruleset_name
+      in: query
+      description: Specify the name of the ruleset to be queried
+      required: false
+      schema:
+        type: string
+  responses:
+    Error:
+      description: Unexpected error
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+        application/yaml:
+          schema:
+            $ref: '#/components/schemas/Error'
+  securitySchemes:
+    oauth:
+      type: oauth2
+      flows:
+        implicit:
+          authorizationUrl: /oauth2/authorize
+          scopes:
+            org:manage: Delete all user created rulesets, Update the Ruleset object by name or id, Delete the Ruleset object by name or id, Create a Rule object, Delete all versions of a Rule by name for a single version of a Ruleset, Update the Rule object by id, Delete a single user created Rule in a single Ruleset by id, Update the Rule object by name and version, Delete the Rule object by name and version, Create a Scan object, Clear the Scan objects, Update the Scan object by name or id, Delete the Scan object by name or id, Create a Scan Report object, Update the Scan Report object by name or id, Delete the Scan Report object by name or id
+            org:view: List the Ruleset objects, Download the Ruleset object as a file to the current directory by name or id, List information about all Rules of a Ruleset, List information about the specified Rule of a Ruleset, Download the Rule object as a file to the current directory by id, Download the Rule object as a file to the current directory by name:version or id, List the Scan objects, Get the Scan object by name or id, List the Scan Report objects, Get the Scan Report object by name or id
+            cloud:manage: List all rules, Scan Gateway APIs, Create Gateway Scan, Clear the Gateway Scan objects, Update Gateway Scan by ID, Delete Gateway Scan by ID
+            cloud:view: List all rules, List Gateway Scans, Get Gateway Scan by ID
+            product:manage: Create a catalog setting by name or id, Validate product api using catalog governance setting
+        password:
+          tokenUrl: /token
+          refreshUrl: /token
+          scopes:
+            org:manage: Delete all user created rulesets, Update the Ruleset object by name or id, Delete the Ruleset object by name or id, Create a Rule object, Delete all versions of a Rule by name for a single version of a Ruleset, Update the Rule object by id, Delete a single user created Rule in a single Ruleset by id, Update the Rule object by name and version, Delete the Rule object by name and version, Create a Scan object, Clear the Scan objects, Update the Scan object by name or id, Delete the Scan object by name or id, Create a Scan Report object, Update the Scan Report object by name or id, Delete the Scan Report object by name or id
+            org:view: List the Ruleset objects, Download the Ruleset object as a file to the current directory by name or id, List information about all Rules of a Ruleset, List information about the specified Rule of a Ruleset, Download the Rule object as a file to the current directory by id, Download the Rule object as a file to the current directory by name:version or id, List the Scan objects, Get the Scan object by name or id, List the Scan Report objects, Get the Scan Report object by name or id
+            cloud:manage: List all rules, Scan Gateway APIs, Create Gateway Scan, Clear the Gateway Scan objects, Update Gateway Scan by ID, Delete Gateway Scan by ID
+            cloud:view: List all rules, List Gateway Scans, Get Gateway Scan by ID
+            product:manage: Create a catalog setting by name or id, Validate product api using catalog governance setting
+        clientCredentials:
+          tokenUrl: /token
+          scopes:
+            org:manage: Delete all user created rulesets, Update the Ruleset object by name or id, Delete the Ruleset object by name or id, Create a Rule object, Delete all versions of a Rule by name for a single version of a Ruleset, Update the Rule object by id, Delete a single user created Rule in a single Ruleset by id, Update the Rule object by name and version, Delete the Rule object by name and version, Create a Scan object, Clear the Scan objects, Update the Scan object by name or id, Delete the Scan object by name or id, Create a Scan Report object, Update the Scan Report object by name or id, Delete the Scan Report object by name or id
+            org:view: List the Ruleset objects, Download the Ruleset object as a file to the current directory by name or id, List information about all Rules of a Ruleset, List information about the specified Rule of a Ruleset, Download the Rule object as a file to the current directory by id, Download the Rule object as a file to the current directory by name:version or id, List the Scan objects, Get the Scan object by name or id, List the Scan Report objects, Get the Scan Report object by name or id
+            cloud:manage: List all rules, Scan Gateway APIs, Create Gateway Scan, Clear the Gateway Scan objects, Update Gateway Scan by ID, Delete Gateway Scan by ID
+            cloud:view: List all rules, List Gateway Scans, Get Gateway Scan by ID
+            product:manage: Create a catalog setting by name or id, Validate product api using catalog governance setting
+        authorizationCode:
+          authorizationUrl: /oauth2/authorize
+          tokenUrl: /token
+          refreshUrl: /token
+          scopes:
+            org:manage: Delete all user created rulesets, Update the Ruleset object by name or id, Delete the Ruleset object by name or id, Create a Rule object, Delete all versions of a Rule by name for a single version of a Ruleset, Update the Rule object by id, Delete a single user created Rule in a single Ruleset by id, Update the Rule object by name and version, Delete the Rule object by name and version, Create a Scan object, Clear the Scan objects, Update the Scan object by name or id, Delete the Scan object by name or id, Create a Scan Report object, Update the Scan Report object by name or id, Delete the Scan Report object by name or id
+            org:view: List the Ruleset objects, Download the Ruleset object as a file to the current directory by name or id, List information about all Rules of a Ruleset, List information about the specified Rule of a Ruleset, Download the Rule object as a file to the current directory by id, Download the Rule object as a file to the current directory by name:version or id, List the Scan objects, Get the Scan object by name or id, List the Scan Report objects, Get the Scan Report object by name or id
+            cloud:manage: List all rules, Scan Gateway APIs, Create Gateway Scan, Clear the Gateway Scan objects, Update Gateway Scan by ID, Delete Gateway Scan by ID
+            cloud:view: List all rules, List Gateway Scans, Get Gateway Scan by ID
+            product:manage: Create a catalog setting by name or id, Validate product api using catalog governance setting
+externalDocs:
+  description: Additional documentation
+  url: https://www.ibm.com/knowledge-center/api-connect/platform-apis
+x-ibm-configuration:
+  testable: false

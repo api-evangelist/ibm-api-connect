@@ -1,0 +1,160 @@
+openapi: 3.2.0
+info:
+  x-ibm-name: consumer
+  version: 2.0.0
+  title: IBM API Connect Platform - Consumer User API
+  description: This API provides operations for accessing API consumer content
+  termsOfService: https://www.ibm.com/legal
+  contact:
+    name: IBM
+    url: https://www.ibm.com
+    email: help@ibm.com
+  license:
+    name: tbd
+    url: https://tbd.com
+servers:
+- url: ''
+  description: Consumer apim base path
+tags:
+- name: User
+paths:
+  /consumer/identity-providers:
+    get:
+      summary: List Identity Providers in the consumer realm
+      operationId: user_registry_identityProviderListCatalog
+      parameters:
+      - $ref: '#/components/parameters/fields'
+      - $ref: '#/components/parameters/offset'
+      - $ref: '#/components/parameters/limit'
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/IdentityProviderList'
+            application/yaml:
+              schema:
+                $ref: '#/components/schemas/IdentityProviderList'
+        4XX:
+          $ref: '#/components/responses/Error'
+        5XX:
+          $ref: '#/components/responses/Error'
+      tags:
+      - User
+components:
+  schemas:
+    IdentityProvider:
+      type: object
+      additionalProperties: false
+      properties:
+        name:
+          type: string
+        title:
+          type: string
+        registry_type:
+          type: string
+        user_managed:
+          type: boolean
+        default:
+          type: boolean
+        realm:
+          type: string
+        oidc_type:
+          type:
+          - string
+          - 'null'
+          enum:
+          - google
+          - github
+          - facebook
+          - linkedin
+          - windows_live
+          - slack
+          - twitter
+          - standard
+    Error:
+      type: object
+      additionalProperties: false
+      properties:
+        status:
+          type: integer
+          minimum: 400
+          maximum: 599
+        message:
+          type: array
+          items:
+            type: string
+        errors:
+          type: array
+          items:
+            type: string
+    IdentityProviderList:
+      type: object
+      additionalProperties: false
+      properties:
+        total_results:
+          type: integer
+        results:
+          type: array
+          items:
+            $ref: '#/components/schemas/IdentityProvider'
+  parameters:
+    limit:
+      name: limit
+      in: query
+      description: Maximum number of items to return
+      required: false
+      schema:
+        type: integer
+    fields:
+      name: fields
+      in: query
+      description: field name
+      required: false
+      schema:
+        type: string
+    offset:
+      name: offset
+      in: query
+      description: Offset item number from list to begin return
+      required: false
+      schema:
+        type: integer
+  responses:
+    Error:
+      description: Unexpected error
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+        application/yaml:
+          schema:
+            $ref: '#/components/schemas/Error'
+  securitySchemes:
+    oauth:
+      type: oauth2
+      flows:
+        password:
+          tokenUrl: /token
+          refreshUrl: /token
+          scopes:
+            app:manage: Create a Application object, Clear the Application objects, Update the Application object by name or id, Delete the Application object by name or id, Create a Application Credential object, Clear the Application Credential objects, Update the Application Credential object by name or id, Delete the Application Credential object by name or id, Create a Subscription object, Clear the Subscription objects, Update the Subscription object by name or id, Delete the Subscription object by name or id
+            app:view: List the Application objects, Get the Application object by name or id, List the Application Credential objects, Get the Application Credential object by name or id, List the Subscription objects, Get the Subscription object by name or id
+            my:manage: Update the Me object, Delete the Me object
+            my:view: Get the Me object, List the My Permission objects, List the My Organization objects
+            org:manage: Create a My Organization object, Update the Organization object by name or id, Delete the Organization object by name or id, Create a Member Invitation object, Clear the Member Invitation objects, Delete the Member Invitation object by name or id, Clear the Member objects, Update the Member object by name or id, Delete the Member object by name or id, Create a Payment Method object, Update the Payment Method object by name or id, Delete the Payment Method object by name or id
+            org:view: List all Permission objects in all collections, Get the Organization object by name or id, Get the Group object by name or id, List the Member Invitation objects, Get the Member Invitation object by name or id, List the User Registry objects, Get the User Registry object by name or id, Get the User object by name or id, List the Associate objects, Get the Associate object by name or id, List the Member objects, Get the Member object by name or id, List the Role objects, Get the Role object by name or id, Get the Billing object by name or id, List the Billing objects, List the Payment Method objects, Get the Payment Method object by name or id, List the Payment Method Type objects, Get the Payment Method Type object by name or id
+        authorizationCode:
+          authorizationUrl: /oauth2/authorize
+          tokenUrl: /token
+          refreshUrl: /token
+          scopes:
+            app:manage: Create a Application object, Clear the Application objects, Update the Application object by name or id, Delete the Application object by name or id, Create a Application Credential object, Clear the Application Credential objects, Update the Application Credential object by name or id, Delete the Application Credential object by name or id, Create a Subscription object, Clear the Subscription objects, Update the Subscription object by name or id, Delete the Subscription object by name or id
+            app:view: List the Application objects, Get the Application object by name or id, List the Application Credential objects, Get the Application Credential object by name or id, List the Subscription objects, Get the Subscription object by name or id
+            my:manage: Update the Me object, Delete the Me object
+            my:view: Get the Me object, List the My Permission objects, List the My Organization objects
+            org:manage: Create a My Organization object, Update the Organization object by name or id, Delete the Organization object by name or id, Create a Member Invitation object, Clear the Member Invitation objects, Delete the Member Invitation object by name or id, Clear the Member objects, Update the Member object by name or id, Delete the Member object by name or id, Create a Payment Method object, Update the Payment Method object by name or id, Delete the Payment Method object by name or id
+            org:view: List all Permission objects in all collections, Get the Organization object by name or id, Get the Group object by name or id, List the Member Invitation objects, Get the Member Invitation object by name or id, List the User Registry objects, Get the User Registry object by name or id, Get the User object by name or id, List the Associate objects, Get the Associate object by name or id, List the Member objects, Get the Member object by name or id, List the Role objects, Get the Role object by name or id, Get the Billing object by name or id, List the Billing objects, List the Payment Method objects, Get the Payment Method object by name or id, List the Payment Method Type objects, Get the Payment Method Type object by name or id
+x-ibm-configuration:
+  testable: false

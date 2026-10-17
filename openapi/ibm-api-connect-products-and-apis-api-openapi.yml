@@ -1,0 +1,5608 @@
+openapi: 3.2.0
+info:
+  title: Ibm Api Connect Products and APIs API
+  version: 2.0.0
+  contact:
+    name: IBM
+    url: https://www.ibm.com
+    email: help@ibm.com
+  license:
+    name: tbd
+    url: https://tbd.com
+  termsOfService: https://www.ibm.com/legal
+  x-refined-note:
+  - x-ibm-name differs across the merged source definitions and was not carried
+  description: 'Operations tagged Products and APIs across 2 of this provider''s published API definitions: ibm-api-connect-consumer-api-openapi.yml, ibm-api-connect-management-api-openapi.yml. Each path carries the servers of the definition it was published in.'
+tags:
+- name: Products and APIs
+paths:
+  /public-products:
+    description: Product operations across all collections
+    get:
+      summary: List all Product objects in all collections
+      operationId: product_listAll
+      parameters:
+      - $ref: '#/components/parameters/fields'
+      - $ref: '#/components/parameters/offset'
+      - $ref: '#/components/parameters/limit'
+      - $ref: '#/components/parameters/version'
+      - $ref: '#/components/parameters/name'
+      - $ref: '#/components/parameters/title'
+      - $ref: '#/components/parameters/states'
+      - $ref: '#/components/parameters/search'
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProductList'
+            application/yaml:
+              schema:
+                $ref: '#/components/schemas/ProductList'
+        4XX:
+          $ref: '#/components/responses/Error'
+        5XX:
+          $ref: '#/components/responses/Error'
+      tags:
+      - Products and APIs
+    servers:
+    - url: ''
+      description: Consumer apim base path
+  /public-products/{product-name}:
+    description: The collection of Product operations
+    parameters:
+    - $ref: '#/components/parameters/product-name'
+    get:
+      summary: List the Product objects
+      operationId: product_list
+      parameters:
+      - $ref: '#/components/parameters/fields'
+      - $ref: '#/components/parameters/offset'
+      - $ref: '#/components/parameters/limit'
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProductList'
+            application/yaml:
+              schema:
+                $ref: '#/components/schemas/ProductList'
+        4XX:
+          $ref: '#/components/responses/Error'
+        5XX:
+          $ref: '#/components/responses/Error'
+      tags:
+      - Products and APIs
+    servers:
+    - url: ''
+      description: Consumer apim base path
+  /public-products/{product-id}:
+    description: Product object operations
+    parameters:
+    - $ref: '#/components/parameters/product-id'
+    get:
+      summary: Get the Product object by id
+      operationId: product_get
+      parameters:
+      - $ref: '#/components/parameters/fields'
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Product'
+            application/yaml:
+              schema:
+                $ref: '#/components/schemas/Product'
+        4XX:
+          $ref: '#/components/responses/Error'
+        5XX:
+          $ref: '#/components/responses/Error'
+      tags:
+      - Products and APIs
+    servers:
+    - url: ''
+      description: Consumer apim base path
+  /public-products/{product-name}/{product-version}:
+    description: Product object operations by name and version
+    parameters:
+    - $ref: '#/components/parameters/product-name'
+    - $ref: '#/components/parameters/product-version'
+    get:
+      summary: Get the Product object by name and version
+      operationId: product_getByNameVersion
+      parameters:
+      - $ref: '#/components/parameters/fields'
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Product'
+            application/yaml:
+              schema:
+                $ref: '#/components/schemas/Product'
+        4XX:
+          $ref: '#/components/responses/Error'
+        5XX:
+          $ref: '#/components/responses/Error'
+      tags:
+      - Products and APIs
+    servers:
+    - url: ''
+      description: Consumer apim base path
+  /public-products/{product-id}/document:
+    parameters:
+    - $ref: '#/components/parameters/product-id'
+    get:
+      summary: Get the Product document
+      operationId: product_getDocument
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProductDocument'
+            application/yaml:
+              schema:
+                $ref: '#/components/schemas/ProductDocument'
+        4XX:
+          $ref: '#/components/responses/Error'
+        5XX:
+          $ref: '#/components/responses/Error'
+      tags:
+      - Products and APIs
+    servers:
+    - url: ''
+      description: Consumer apim base path
+  /public-products/{product-name}/{product-version}/document:
+    parameters:
+    - $ref: '#/components/parameters/product-name'
+    - $ref: '#/components/parameters/product-version'
+    get:
+      summary: Get the Product document by name and version
+      operationId: product_getDocumentByNameVersion
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProductDocument'
+            application/yaml:
+              schema:
+                $ref: '#/components/schemas/ProductDocument'
+        4XX:
+          $ref: '#/components/responses/Error'
+        5XX:
+          $ref: '#/components/responses/Error'
+      tags:
+      - Products and APIs
+    servers:
+    - url: ''
+      description: Consumer apim base path
+  /public-apis:
+    description: API operations across all collections
+    get:
+      summary: List all API objects in all collections
+      operationId: api_listAll
+      parameters:
+      - $ref: '#/components/parameters/fields'
+      - $ref: '#/components/parameters/offset'
+      - $ref: '#/components/parameters/limit'
+      - $ref: '#/components/parameters/api_type'
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/APIList'
+            application/yaml:
+              schema:
+                $ref: '#/components/schemas/APIList'
+        4XX:
+          $ref: '#/components/responses/Error'
+        5XX:
+          $ref: '#/components/responses/Error'
+      tags:
+      - Products and APIs
+    servers:
+    - url: ''
+      description: Consumer apim base path
+  /public-apis/{api-name}:
+    description: The collection of API operations
+    parameters:
+    - $ref: '#/components/parameters/api-name'
+    get:
+      summary: List the API objects
+      operationId: api_list
+      parameters:
+      - $ref: '#/components/parameters/fields'
+      - $ref: '#/components/parameters/offset'
+      - $ref: '#/components/parameters/limit'
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/APIList'
+            application/yaml:
+              schema:
+                $ref: '#/components/schemas/APIList'
+        4XX:
+          $ref: '#/components/responses/Error'
+        5XX:
+          $ref: '#/components/responses/Error'
+      tags:
+      - Products and APIs
+    servers:
+    - url: ''
+      description: Consumer apim base path
+  /public-apis/{api-id}:
+    description: API object operations
+    parameters:
+    - $ref: '#/components/parameters/api-id'
+    get:
+      summary: Get the API object by id
+      operationId: api_get
+      parameters:
+      - $ref: '#/components/parameters/fields'
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/API'
+            application/yaml:
+              schema:
+                $ref: '#/components/schemas/API'
+        4XX:
+          $ref: '#/components/responses/Error'
+        5XX:
+          $ref: '#/components/responses/Error'
+      tags:
+      - Products and APIs
+    servers:
+    - url: ''
+      description: Consumer apim base path
+  /public-apis/{api-name}/{api-version}:
+    description: API object operations by name and version
+    parameters:
+    - $ref: '#/components/parameters/api-name'
+    - $ref: '#/components/parameters/api-version'
+    get:
+      summary: Get the API object by name and version
+      operationId: api_getByNameVersion
+      parameters:
+      - $ref: '#/components/parameters/fields'
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/API'
+            application/yaml:
+              schema:
+                $ref: '#/components/schemas/API'
+        4XX:
+          $ref: '#/components/responses/Error'
+        5XX:
+          $ref: '#/components/responses/Error'
+      tags:
+      - Products and APIs
+    servers:
+    - url: ''
+      description: Consumer apim base path
+  /public-apis/{api-id}/document:
+    parameters:
+    - $ref: '#/components/parameters/api-id'
+    get:
+      summary: Get the API document
+      operationId: api_getDocument
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/APIDocument'
+            application/yaml:
+              schema:
+                $ref: '#/components/schemas/APIDocument'
+        4XX:
+          $ref: '#/components/responses/Error'
+        5XX:
+          $ref: '#/components/responses/Error'
+      tags:
+      - Products and APIs
+    servers:
+    - url: ''
+      description: Consumer apim base path
+  /public-apis/{api-name}/{api-version}/document:
+    parameters:
+    - $ref: '#/components/parameters/api-name'
+    - $ref: '#/components/parameters/api-version'
+    get:
+      summary: Get the API document by name and version
+      operationId: api_getDocumentByNameVersion
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/APIDocument'
+            application/yaml:
+              schema:
+                $ref: '#/components/schemas/APIDocument'
+        4XX:
+          $ref: '#/components/responses/Error'
+        5XX:
+          $ref: '#/components/responses/Error'
+      tags:
+      - Products and APIs
+    servers:
+    - url: ''
+      description: Consumer apim base path
+  /public-apis/{api-id}/wsdl:
+    parameters:
+    - $ref: '#/components/parameters/api-id'
+    get:
+      summary: Get the API wsdl document
+      operationId: api_getWsdl
+      parameters:
+      - $ref: '#/components/parameters/endpoint'
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Wsdl'
+            application/yaml:
+              schema:
+                $ref: '#/components/schemas/Wsdl'
+            application/wsdl: {}
+            application/zip: {}
+        4XX:
+          $ref: '#/components/responses/Error'
+        5XX:
+          $ref: '#/components/responses/Error'
+      tags:
+      - Products and APIs
+    servers:
+    - url: ''
+      description: Consumer apim base path
+  /public-apis/{api-name}/{api-version}/wsdl:
+    parameters:
+    - $ref: '#/components/parameters/api-name'
+    - $ref: '#/components/parameters/api-version'
+    get:
+      summary: Get the API wsdl document by name and version
+      operationId: api_getWsdlByNameVersion
+      parameters:
+      - $ref: '#/components/parameters/endpoint'
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Wsdl'
+            application/yaml:
+              schema:
+                $ref: '#/components/schemas/Wsdl'
+            application/wsdl: {}
+            application/zip: {}
+        4XX:
+          $ref: '#/components/responses/Error'
+        5XX:
+          $ref: '#/components/responses/Error'
+      tags:
+      - Products and APIs
+    servers:
+    - url: ''
+      description: Consumer apim base path
+  /products:
+    description: Product operations across all collections
+    get:
+      summary: List all Product objects in all collections
+      operationId: product_listAllOrgScope
+      security:
+      - oauth:
+        - published-product:view
+      parameters:
+      - $ref: '#/components/parameters/fields'
+      - $ref: '#/components/parameters/offset'
+      - $ref: '#/components/parameters/limit'
+      - $ref: '#/components/parameters/consumer_org_url'
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProductList'
+            application/yaml:
+              schema:
+                $ref: '#/components/schemas/ProductList'
+        4XX:
+          $ref: '#/components/responses/Error'
+        5XX:
+          $ref: '#/components/responses/Error'
+      tags:
+      - Products and APIs
+    servers:
+    - url: ''
+      description: Consumer apim base path
+  /products/{product-name}:
+    description: The collection of Product operations
+    parameters:
+    - $ref: '#/components/parameters/product-name'
+    get:
+      summary: List the Product objects
+      operationId: product_listOrgScope
+      security:
+      - oauth:
+        - published-product:view
+      parameters:
+      - $ref: '#/components/parameters/fields'
+      - $ref: '#/components/parameters/offset'
+      - $ref: '#/components/parameters/limit'
+      - $ref: '#/components/parameters/consumer_org_url'
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProductList'
+            application/yaml:
+              schema:
+                $ref: '#/components/schemas/ProductList'
+        4XX:
+          $ref: '#/components/responses/Error'
+        5XX:
+          $ref: '#/components/responses/Error'
+      tags:
+      - Products and APIs
+    servers:
+    - url: ''
+      description: Consumer apim base path
+  /products/{product-id}:
+    description: Product object operations
+    parameters:
+    - $ref: '#/components/parameters/product-id'
+    get:
+      summary: Get the Product object by id
+      operationId: product_getOrgScope
+      security:
+      - oauth:
+        - published-product:view
+      parameters:
+      - $ref: '#/components/parameters/fields'
+      - $ref: '#/components/parameters/consumer_org_url'
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Product'
+            application/yaml:
+              schema:
+                $ref: '#/components/schemas/Product'
+        4XX:
+          $ref: '#/components/responses/Error'
+        5XX:
+          $ref: '#/components/responses/Error'
+      tags:
+      - Products and APIs
+    servers:
+    - url: ''
+      description: Consumer apim base path
+  /products/{product-name}/{product-version}:
+    description: Product object operations by name and version
+    parameters:
+    - $ref: '#/components/parameters/product-name'
+    - $ref: '#/components/parameters/product-version'
+    get:
+      summary: Get the Product object by name and version
+      operationId: product_getByNameVersionOrgScope
+      security:
+      - oauth:
+        - published-product:view
+      parameters:
+      - $ref: '#/components/parameters/fields'
+      - $ref: '#/components/parameters/consumer_org_url'
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Product'
+            application/yaml:
+              schema:
+                $ref: '#/components/schemas/Product'
+        4XX:
+          $ref: '#/components/responses/Error'
+        5XX:
+          $ref: '#/components/responses/Error'
+      tags:
+      - Products and APIs
+    servers:
+    - url: ''
+      description: Consumer apim base path
+  /products/{product-id}/document:
+    parameters:
+    - $ref: '#/components/parameters/product-id'
+    get:
+      summary: Get the Product document
+      operationId: product_getDocumentOrgScope
+      security:
+      - oauth:
+        - published-product:view
+      parameters:
+      - $ref: '#/components/parameters/consumer_org_url'
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProductDocument'
+            application/yaml:
+              schema:
+                $ref: '#/components/schemas/ProductDocument'
+        4XX:
+          $ref: '#/components/responses/Error'
+        5XX:
+          $ref: '#/components/responses/Error'
+      tags:
+      - Products and APIs
+    servers:
+    - url: ''
+      description: Consumer apim base path
+  /products/{product-name}/{product-version}/document:
+    parameters:
+    - $ref: '#/components/parameters/product-name'
+    - $ref: '#/components/parameters/product-version'
+    get:
+      summary: Get the Product document by name and version
+      operationId: product_getDocumentByNameVersionOrgScope
+      security:
+      - oauth:
+        - published-product:view
+      parameters:
+      - $ref: '#/components/parameters/consumer_org_url'
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProductDocument'
+            application/yaml:
+              schema:
+                $ref: '#/components/schemas/ProductDocument'
+        4XX:
+          $ref: '#/components/responses/Error'
+        5XX:
+          $ref: '#/components/responses/Error'
+      tags:
+      - Products and APIs
+    servers:
+    - url: ''
+      description: Consumer apim base path
+  /apis:
+    description: API operations across all collections
+    get:
+      summary: List all API objects in all collections
+      operationId: api_listAllOrgScope
+      security:
+      - oauth:
+        - published-product:view
+      parameters:
+      - $ref: '#/components/parameters/fields'
+      - $ref: '#/components/parameters/offset'
+      - $ref: '#/components/parameters/limit'
+      - $ref: '#/components/parameters/api_type'
+      - $ref: '#/components/parameters/consumer_org_url'
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/APIList'
+            application/yaml:
+              schema:
+                $ref: '#/components/schemas/APIList'
+        4XX:
+          $ref: '#/components/responses/Error'
+        5XX:
+          $ref: '#/components/responses/Error'
+      tags:
+      - Products and APIs
+    servers:
+    - url: ''
+      description: Consumer apim base path
+  /apis/{api-name}:
+    description: The collection of API operations
+    parameters:
+    - $ref: '#/components/parameters/api-name'
+    get:
+      summary: List the API objects
+      operationId: api_listOrgScope
+      security:
+      - oauth:
+        - published-product:view
+      parameters:
+      - $ref: '#/components/parameters/fields'
+      - $ref: '#/components/parameters/offset'
+      - $ref: '#/components/parameters/limit'
+      - $ref: '#/components/parameters/consumer_org_url'
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/APIList'
+            application/yaml:
+              schema:
+                $ref: '#/components/schemas/APIList'
+        4XX:
+          $ref: '#/components/responses/Error'
+        5XX:
+          $ref: '#/components/responses/Error'
+      tags:
+      - Products and APIs
+    servers:
+    - url: ''
+      description: Consumer apim base path
+  /apis/{api-id}:
+    description: API object operations
+    parameters:
+    - $ref: '#/components/parameters/api-id'
+    get:
+      summary: Get the API object by id
+      operationId: api_getOrgScope
+      security:
+      - oauth:
+        - published-product:view
+      parameters:
+      - $ref: '#/components/parameters/fields'
+      - $ref: '#/components/parameters/consumer_org_url'
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/API'
+            application/yaml:
+              schema:
+                $ref: '#/components/schemas/API'
+        4XX:
+          $ref: '#/components/responses/Error'
+        5XX:
+          $ref: '#/components/responses/Error'
+      tags:
+      - Products and APIs
+    servers:
+    - url: ''
+      description: Consumer apim base path
+  /apis/{api-name}/{api-version}:
+    description: API object operations by name and version
+    parameters:
+    - $ref: '#/components/parameters/api-name'
+    - $ref: '#/components/parameters/api-version'
+    get:
+      summary: Get the API object by name and version
+      operationId: api_getByNameVersionOrgScope
+      security:
+      - oauth:
+        - published-product:view
+      parameters:
+      - $ref: '#/components/parameters/fields'
+      - $ref: '#/components/parameters/consumer_org_url'
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/API'
+            application/yaml:
+              schema:
+                $ref: '#/components/schemas/API'
+        4XX:
+          $ref: '#/components/responses/Error'
+        5XX:
+          $ref: '#/components/responses/Error'
+      tags:
+      - Products and APIs
+    servers:
+    - url: ''
+      description: Consumer apim base path
+  /apis/{api-id}/document:
+    parameters:
+    - $ref: '#/components/parameters/api-id'
+    get:
+      summary: Get the API document
+      operationId: api_getDocumentOrgScope
+      security:
+      - oauth:
+        - published-product:view
+      parameters:
+      - $ref: '#/components/parameters/consumer_org_url'
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/APIDocument'
+            application/yaml:
+              schema:
+                $ref: '#/components/schemas/APIDocument'
+        4XX:
+          $ref: '#/components/responses/Error'
+        5XX:
+          $ref: '#/components/responses/Error'
+      tags:
+      - Products and APIs
+    servers:
+    - url: ''
+      description: Consumer apim base path
+  /apis/{api-name}/{api-version}/document:
+    parameters:
+    - $ref: '#/components/parameters/api-name'
+    - $ref: '#/components/parameters/api-version'
+    get:
+      summary: Get the API document by name and version
+      operationId: api_getDocumentByNameVersionOrgScope
+      security:
+      - oauth:
+        - published-product:view
+      parameters:
+      - $ref: '#/components/parameters/consumer_org_url'
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/APIDocument'
+            application/yaml:
+              schema:
+                $ref: '#/components/schemas/APIDocument'
+        4XX:
+          $ref: '#/components/responses/Error'
+        5XX:
+          $ref: '#/components/responses/Error'
+      tags:
+      - Products and APIs
+    servers:
+    - url: ''
+      description: Consumer apim base path
+  /apis/{api-id}/wsdl:
+    parameters:
+    - $ref: '#/components/parameters/api-id'
+    get:
+      summary: Get the API wsdl document
+      operationId: api_getWsdlOrgScope
+      security:
+      - oauth:
+        - published-product:view
+      parameters:
+      - $ref: '#/components/parameters/endpoint'
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Wsdl'
+            application/yaml:
+              schema:
+                $ref: '#/components/schemas/Wsdl'
+            application/wsdl: {}
+            application/zip: {}
+        4XX:
+          $ref: '#/components/responses/Error'
+        5XX:
+          $ref: '#/components/responses/Error'
+      tags:
+      - Products and APIs
+    servers:
+    - url: ''
+      description: Consumer apim base path
+  /apis/{api-name}/{api-version}/wsdl:
+    parameters:
+    - $ref: '#/components/parameters/api-name'
+    - $ref: '#/components/parameters/api-version'
+    get:
+      summary: Get the API wsdl document by name and version
+      operationId: api_getWsdlByNameVersionOrgScope
+      security:
+      - oauth:
+        - published-product:view
+      parameters:
+      - $ref: '#/components/parameters/endpoint'
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Wsdl'
+            application/yaml:
+              schema:
+                $ref: '#/components/schemas/Wsdl'
+            application/wsdl: {}
+            application/zip: {}
+        4XX:
+          $ref: '#/components/responses/Error'
+        5XX:
+          $ref: '#/components/responses/Error'
+      tags:
+      - Products and APIs
+    servers:
+    - url: ''
+      description: Consumer apim base path
+  /catalogs/{org}/{catalog}/products:
+    description: Product operations across all collections
+    parameters:
+    - $ref: '#/components/parameters/org'
+    - $ref: '#/components/parameters/catalog'
+    get:
+      summary: Lists products
+      description: Returns the list of products in a catalog.
+      operationId: product_listAllCatalogScope
+      security:
+      - oauth:
+        - product:view
+      parameters:
+      - $ref: '#/components/parameters/fields_2'
+      - $ref: '#/components/parameters/offset'
+      - $ref: '#/components/parameters/limit'
+      - $ref: '#/components/parameters/expand'
+      - $ref: '#/components/parameters/states_2'
+      - $ref: '#/components/parameters/consumer_org_url'
+      - $ref: '#/components/parameters/version'
+      - $ref: '#/components/parameters/name'
+      - $ref: '#/components/parameters/title'
+      - $ref: '#/components/parameters/search_query'
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProductList'
+            application/yaml:
+              schema:
+                $ref: '#/components/schemas/ProductList'
+        4XX:
+          $ref: '#/components/responses/Error'
+        5XX:
+          $ref: '#/components/responses/Error'
+      tags:
+      - Products and APIs
+    delete:
+      summary: Clears products
+      description: Removes all products from a catalog.
+      operationId: product_clearAllCatalogScope
+      security:
+      - oauth:
+        - product:manage
+      parameters:
+      - $ref: '#/components/parameters/confirm'
+      responses:
+        '204':
+          description: Success
+        4XX:
+          $ref: '#/components/responses/Error'
+        5XX:
+          $ref: '#/components/responses/Error'
+      tags:
+      - Products and APIs
+    servers:
+    - url: ''
+      description: APIM base path
+  /catalogs/{org}/{catalog}/products/{product-name}:
+    description: The collection of Product operations
+    parameters:
+    - $ref: '#/components/parameters/org'
+    - $ref: '#/components/parameters/catalog'
+    - $ref: '#/components/parameters/product-name'
+    get:
+      summary: Lists products
+      description: Returns the list of versions of the named product in a catalog.
+      operationId: product_listCatalogScope
+      security:
+      - oauth:
+        - product:view
+      parameters:
+      - $ref: '#/components/parameters/fields_2'
+      - $ref: '#/components/parameters/offset'
+      - $ref: '#/components/parameters/limit'
+      - $ref: '#/components/parameters/expand'
+      - $ref: '#/components/parameters/states_2'
+      - $ref: '#/components/parameters/consumer_org_url'
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProductList'
+            application/yaml:
+              schema:
+                $ref: '#/components/schemas/ProductList'
+        4XX:
+          $ref: '#/components/responses/Error'
+        5XX:
+          $ref: '#/components/responses/Error'
+      tags:
+      - Products and APIs
+    delete:
+      summary: Clears product versions
+      description: Removes all versions of the named product from a catalog.
+      operationId: product_clearCatalogScope
+      security:
+      - oauth:
+        - product:manage
+      parameters:
+      - $ref: '#/components/parameters/confirm'
+      responses:
+        '204':
+          description: Success
+        4XX:
+          $ref: '#/components/responses/Error'
+        5XX:
+          $ref: '#/components/responses/Error'
+      tags:
+      - Products and APIs
+    servers:
+    - url: ''
+      description: APIM base path
+  /catalogs/{org}/{catalog}/products/{product-id}:
+    description: Product object operations
+    parameters:
+    - $ref: '#/components/parameters/org'
+    - $ref: '#/components/parameters/catalog'
+    - $ref: '#/components/parameters/product-id'
+    get:
+      summary: Returns a product
+      description: Returns a product in a catalog.
+      operationId: product_getCatalogScope
+      security:
+      - oauth:
+        - product:view
+      parameters:
+      - $ref: '#/components/parameters/fields_2'
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Product_2'
+            application/yaml:
+              schema:
+                $ref: '#/components/schemas/Product_2'
+        4XX:
+          $ref: '#/components/responses/Error'
+        5XX:
+          $ref: '#/components/responses/Error'
+      tags:
+      - Products and APIs
+    patch:
+      summary: Updates a product in a catalog
+      description: 'Updates a product in a catalog.
+
+
+        Fields not allowed:
+
+        - product
+
+        - catalog_product
+
+        - space_urls
+
+        - api_urls
+
+        - approval_history
+
+        - superseded_by
+
+        - supersedes
+
+
+        Fields allowed but ignored:
+
+        - id
+
+        - type
+
+        - api_version
+
+        - scope
+
+        - created_at
+
+        - updated_at
+
+        - url
+
+        - org_url
+
+        - catalog_url'
+      operationId: product_updateCatalogScope
+      security:
+      - oauth:
+        - product:manage
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Product_2'
+            examples:
+              Product:
+                summary: Example of product update by id at catalog scope.
+                value:
+                  visibility:
+                    view:
+                      enabled: true
+                      type: authenticated
+                      org_urls: []
+                      group_urls: []
+                    subscribe:
+                      enabled: true
+                      type: custom
+                      org_urls:
+                      - https://api.acme-apim.example.com/api/consumer-orgs/acme-org/acme-catalog/acme-consumer-org
+                      group_urls: []
+          application/yaml:
+            schema:
+              $ref: '#/components/schemas/Product_2'
+            examples:
+              Product:
+                summary: Example of product update by id at catalog scope.
+                value:
+                  visibility:
+                    view:
+                      enabled: true
+                      type: authenticated
+                      org_urls: []
+                      group_urls: []
+                    subscribe:
+                      enabled: true
+                      type: custom
+                      org_urls:
+                      - https://api.acme-apim.example.com/api/consumer-orgs/acme-org/acme-catalog/acme-consumer-org
+                      group_urls: []
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Product_2'
+            application/yaml:
+              schema:
+                $ref: '#/components/schemas/Product_2'
+        4XX:
+          $ref: '#/components/responses/Error'
+        5XX:
+          $ref: '#/components/responses/Error'
+      tags:
+      - Products and APIs
+    delete:
+      summary: Deletes a product
+      description: Removes a product from a catalog.
+      operationId: product_delCatalogScope
+      security:
+      - oauth:
+        - product:manage
+      responses:
+        '200':
+          description: Successful delete
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Product_2'
+            application/yaml:
+              schema:
+                $ref: '#/components/schemas/Product_2'
+        4XX:
+          $ref: '#/components/responses/Error'
+        5XX:
+          $ref: '#/components/responses/Error'
+      tags:
+      - Products and APIs
+    servers:
+    - url: ''
+      description: APIM base path
+  /catalogs/{org}/{catalog}/products/{product-name}/{product-version}:
+    description: Product object operations by name and version
+    parameters:
+    - $ref: '#/components/parameters/org'
+    - $ref: '#/components/parameters/catalog'
+    - $ref: '#/components/parameters/product-name'
+    - $ref: '#/components/parameters/product-version'
+    get:
+      summary: Returns a product
+      description: Returns a product in a catalog.
+      operationId: product_getByNameVersionCatalogScope
+      security:
+      - oauth:
+        - product:view
+      parameters:
+      - $ref: '#/components/parameters/fields_2'
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Product_2'
+            application/yaml:
+              schema:
+                $ref: '#/components/schemas/Product_2'
+        4XX:
+          $ref: '#/components/responses/Error'
+        5XX:
+          $ref: '#/components/responses/Error'
+      tags:
+      - Products and APIs
+    patch:
+      summary: Updates a product in a catalog
+      description: 'Updates a product in a catalog.
+
+
+        Fields not allowed:
+
+        - product
+
+        - catalog_product
+
+        - space_urls
+
+        - api_urls
+
+        - approval_history
+
+        - superseded_by
+
+        - supersedes
+
+
+        Fields allowed but ignored:
+
+        - id
+
+        - type
+
+        - api_version
+
+        - scope
+
+        - created_at
+
+        - updated_at
+
+        - url
+
+        - org_url
+
+        - catalog_url'
+      operationId: product_updateByNameVersionCatalogScope
+      security:
+      - oauth:
+        - product:manage
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Product_2'
+            examples:
+              Product:
+                summary: Example of product update by name and version at catalog scope.
+                value:
+                  visibility:
+                    view:
+                      enabled: true
+                      type: authenticated
+                      org_urls: []
+                      group_urls: []
+                    subscribe:
+                      enabled: true
+                      type: custom
+                      org_urls:
+                      - https://api.acme-apim.example.com/api/consumer-orgs/acme-org/acme-catalog/acme-consumer-org
+                      group_urls: []
+          application/yaml:
+            schema:
+              $ref: '#/components/schemas/Product_2'
+            examples:
+              Product:
+                summary: Example of product update by name and version at catalog scope.
+                value:
+                  visibility:
+                    view:
+                      enabled: true
+                      type: authenticated
+                      org_urls: []
+                      group_urls: []
+                    subscribe:
+                      enabled: true
+                      type: custom
+                      org_urls:
+                      - https://api.acme-apim.example.com/api/consumer-orgs/acme-org/acme-catalog/acme-consumer-org
+                      group_urls: []
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Product_2'
+            application/yaml:
+              schema:
+                $ref: '#/components/schemas/Product_2'
+        4XX:
+          $ref: '#/components/responses/Error'
+        5XX:
+          $ref: '#/components/responses/Error'
+      tags:
+      - Products and APIs
+    delete:
+      summary: Delete a Product
+      operationId: product_delByNameVersionCatalogScope
+      security:
+      - oauth:
+        - product:manage
+      responses:
+        '200':
+          description: Successful delete
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Product_2'
+            application/yaml:
+              schema:
+                $ref: '#/components/schemas/Product_2'
+        4XX:
+          $ref: '#/components/responses/Error'
+        5XX:
+          $ref: '#/components/responses/Error'
+      tags:
+      - Products and APIs
+    servers:
+    - url: ''
+      description: APIM base path
+  /catalogs/{org}/{catalog}/products/{product-id}/replace:
+    parameters:
+    - $ref: '#/components/parameters/org'
+    - $ref: '#/components/parameters/catalog'
+    - $ref: '#/components/parameters/product-id'
+    post:
+      summary: Hot replace a product
+      operationId: product_replaceCatalogScope
+      security:
+      - oauth:
+        - product:manage
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ProductPlanMapping_2'
+          application/yaml:
+            schema:
+              $ref: '#/components/schemas/ProductPlanMapping_2'
+            examples:
+              ProductPlanMapping:
+                summary: Example of supersede, replace and set migration target of product.
+                value:
+                  product_url: https://acme-apim.example.com/api/catalogs/acme-org/acme-catalog/products/product-id
+                  plans:
+                  - source: default-plan
+                    target: 200Per5minHardLimit
+                  - source: 200Per5minHardLimit
+                    target: 100Per5Min
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Product_2'
+            application/yaml:
+              schema:
+                $ref: '#/components/schemas/Product_2'
+        4XX:
+          $ref: '#/components/responses/Error'
+        5XX:
+          $ref: '#/components/responses/Error'
+      tags:
+      - Products and APIs
+    servers:
+    - url: ''
+      description: APIM base path
+  /catalogs/{org}/{catalog}/products/{product-id}/supersede:
+    parameters:
+    - $ref: '#/components/parameters/org'
+    - $ref: '#/components/parameters/catalog'
+    - $ref: '#/components/parameters/product-id'
+    post:
+      summary: Supersede a product
+      operationId: product_supersedeCatalogScope
+      security:
+      - oauth:
+        - product:manage
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ProductPlanMapping_2'
+          application/yaml:
+            schema:
+              $ref: '#/components/schemas/ProductPlanMapping_2'
+            examples:
+              ProductPlanMapping:
+                summary: Example of supersede, replace and set migration target of product.
+                value:
+                  product_url: https://acme-apim.example.com/api/catalogs/acme-org/acme-catalog/products/product-id
+                  plans:
+                  - source: default-plan
+                    target: 200Per5minHardLimit
+                  - source: 200Per5minHardLimit
+                    target: 100Per5Min
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Product_2'
+            application/yaml:
+              schema:
+                $ref: '#/components/schemas/Product_2'
+        4XX:
+          $ref: '#/components/responses/Error'
+        5XX:
+          $ref: '#/components/responses/Error'
+      tags:
+      - Products and APIs
+    servers:
+    - url: ''
+      description: APIM base path
+  /catalogs/{org}/{catalog}/products/{product-id}/set-migration-target:
+    parameters:
+    - $ref: '#/components/parameters/org'
+    - $ref: '#/components/parameters/catalog'
+    - $ref: '#/components/parameters/product-id'
+    post:
+      summary: Set the migration target of a product
+      operationId: product_setMigrationTargetCatalogScope
+      security:
+      - oauth:
+        - product:manage
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ProductPlanMapping_2'
+          application/yaml:
+            schema:
+              $ref: '#/components/schemas/ProductPlanMapping_2'
+            examples:
+              ProductPlanMapping:
+                summary: Example of supersede, replace and set migration target of product.
+                value:
+                  product_url: https://acme-apim.example.com/api/catalogs/acme-org/acme-catalog/products/product-id
+                  plans:
+                  - source: default-plan
+                    target: 200Per5minHardLimit
+                  - source: 200Per5minHardLimit
+                    target: 100Per5Min
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Product_2'
+            application/yaml:
+              schema:
+                $ref: '#/components/schemas/Product_2'
+        4XX:
+          $ref: '#/components/responses/Error'
+        5XX:
+          $ref: '#/components/responses/Error'
+      tags:
+      - Products and APIs
+    servers:
+    - url: ''
+      description: APIM base path
+  /catalogs/{org}/{catalog}/products/{product-id}/migrate-subscriptions:
+    parameters:
+    - $ref: '#/components/parameters/org'
+    - $ref: '#/components/parameters/catalog'
+    - $ref: '#/components/parameters/product-id'
+    post:
+      summary: Migrate list of subscriptions between products
+      operationId: product_migrateSubscriptionsCatalogScope
+      security:
+      - oauth:
+        - product:manage
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/MigrateSubscriptionSubset'
+          application/yaml:
+            schema:
+              $ref: '#/components/schemas/MigrateSubscriptionSubset'
+            examples:
+              MigrateSubscriptionSubset:
+                summary: Example of migrate subscription of products at catalog scope.
+                value:
+                  subscription_urls:
+                  - https://acme-apim.example.com/api/apps/org1/catalog1/consumer-org1/app1/subscriptions/subscription1
+                  - https://acme-apim.example.com/api/apps/org2/catalog2/consumer-org2/app2/subscriptions/subscription2
+                  product_url: https://acme-apim.example.com/api/catalogs/acme-org/acme-catalog/products/product-id
+                  plans:
+                  - source: default-plan
+                    target: 100Per5Min
+                  - source: 200Per5minHardLimit
+                    target: 100Per5Min
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Product_2'
+            application/yaml:
+              schema:
+                $ref: '#/components/schemas/Product_2'
+        4XX:
+          $ref: '#/components/responses/Error'
+        5XX:
+          $ref: '#/components/responses/Error'
+      tags:
+      - Products and APIs
+    servers:
+    - url: ''
+      description: APIM base path
+  /catalogs/{org}/{catalog}/products/{product-id}/execute-migration-target:
+    parameters:
+    - $ref: '#/components/parameters/org'
+    - $ref: '#/components/parameters/catalog'
+    - $ref: '#/components/parameters/product-id'
+    post:
+      summary: Migrate all subscriptions to their migration targets
+      operationId: product_executeMigrationTargetCatalogScope
+      security:
+      - oauth:
+        - product:manage
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Product_2'
+            application/yaml:
+              schema:
+                $ref: '#/components/schemas/Product_2'
+        4XX:
+          $ref: '#/components/responses/Error'
+        5XX:
+          $ref: '#/components/responses/Error'
+      tags:
+      - Products and APIs
+    servers:
+    - url: ''
+      description: APIM base path
+  /catalogs/{org}/{catalog}/products/{product-name}/{product-version}/replace:
+    parameters:
+    - $ref: '#/components/parameters/org'
+    - $ref: '#/components/parameters/catalog'
+    - $ref: '#/components/parameters/product-name'
+    - $ref: '#/components/parameters/product-version'
+    post:
+      summary: Hot replace the product
+      operationId: product_replaceByNameVersionCatalogScope
+      security:
+      - oauth:
+        - product:manage
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ProductPlanMapping_2'
+          application/yaml:
+            schema:
+              $ref: '#/components/schemas/ProductPlanMapping_2'
+            examples:
+              ProductPlanMapping:
+                summary: Example of supersede, replace and set migration target of product.
+                value:
+                  product_url: https://acme-apim.example.com/api/catalogs/acme-org/acme-catalog/products/product-id
+                  plans:
+                  - source: default-plan
+                    target: 200Per5minHardLimit
+                  - source: 200Per5minHardLimit
+                    target: 100Per5Min
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Product_2'
+            application/yaml:
+              schema:
+                $ref: '#/components/schemas/Product_2'
+        4XX:
+          $ref: '#/components/responses/Error'
+        5XX:
+          $ref: '#/components/responses/Error'
+      tags:
+      - Products and APIs
+    servers:
+    - url: ''
+      description: APIM base path
+  /catalogs/{org}/{catalog}/products/{product-name}/{product-version}/supersede:
+    parameters:
+    - $ref: '#/components/parameters/org'
+    - $ref: '#/components/parameters/catalog'
+    - $ref: '#/components/parameters/product-name'
+    - $ref: '#/components/parameters/product-version'
+    post:
+      summary: Supersede a product
+      operationId: product_supersedeByNameVersionCatalogScope
+      security:
+      - oauth:
+        - product:manage
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ProductPlanMapping_2'
+          application/yaml:
+            schema:
+              $ref: '#/components/schemas/ProductPlanMapping_2'
+            examples:
+              ProductPlanMapping:
+                summary: Example of supersede, replace and set migration target of product.
+                value:
+                  product_url: https://acme-apim.example.com/api/catalogs/acme-org/acme-catalog/products/product-id
+                  plans:
+                  - source: default-plan
+                    target: 200Per5minHardLimit
+                  - source: 200Per5minHardLimit
+                    target: 100Per5Min
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Product_2'
+            application/yaml:
+              schema:
+                $ref: '#/components/schemas/Product_2'
+        4XX:
+          $ref: '#/components/responses/Error'
+        5XX:
+          $ref: '#/components/responses/Error'
+      tags:
+      - Products and APIs
+    servers:
+    - url: ''
+      description: APIM base path
+  /catalogs/{org}/{catalog}/products/{product-name}/{product-version}/set-migration-target:
+    parameters:
+    - $ref: '#/components/parameters/org'
+    - $ref: '#/components/parameters/catalog'
+    - $ref: '#/components/parameters/product-name'
+    - $ref: '#/components/parameters/product-version'
+    post:
+      summary: Set the migration target
+      operationId: product_setMigrationTargetByNameVersionCatalogScope
+      security:
+      - oauth:
+        - product:manage
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ProductPlanMapping_2'
+          application/yaml:
+            schema:
+              $ref: '#/components/schemas/ProductPlanMapping_2'
+            examples:
+              ProductPlanMapping:
+                summary: Example of supersede, replace and set migration target of product.
+                value:
+                  product_url: https://acme-apim.example.com/api/catalogs/acme-org/acme-catalog/products/product-id
+                  plans:
+                  - source: default-plan
+                    target: 200Per5minHardLimit
+                  - source: 200Per5minHardLimit
+                    target: 100Per5Min
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Product_2'
+            application/yaml:
+              schema:
+                $ref: '#/components/schemas/Product_2'
+        4XX:
+          $ref: '#/components/responses/Error'
+        5XX:
+          $ref: '#/components/responses/Error'
+      tags:
+      - Products and APIs
+    servers:
+    - url: ''
+      description: APIM base path
+  /catalogs/{org}/{catalog}/products/{product-name}/{product-version}/migrate-subscriptions:
+    parameters:
+    - $ref: '#/components/parameters/org'
+    - $ref: '#/components/parameters/catalog'
+    - $ref: '#/components/parameters/product-name'
+    - $ref: '#/components/parameters/product-version'
+    post:
+      summary: Migrate list of subscriptions between products
+      operationId: product_migrateSubscriptionsByNameVersionCatalogScope
+      security:
+      - oauth:
+        - product:manage
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/MigrateSubscriptionSubset'
+          application/yaml:
+            schema:
+              $ref: '#/components/schemas/MigrateSubscriptionSubset'
+            examples:
+              MigrateSubscriptionSubset:
+                summary: Example of migrate subscription of products at catalog scope.
+                value:
+                  subscription_urls:
+                  - https://acme-apim.example.com/api/apps/org1/catalog1/consumer-org1/app1/subscriptions/subscription1
+                  - https://acme-apim.example.com/api/apps/org2/catalog2/consumer-org2/app2/subscriptions/subscription2
+                  product_url: https://acme-apim.example.com/api/catalogs/acme-org/acme-catalog/products/product-id
+                  plans:
+                  - source: default-plan
+                    target: 100Per5Min
+                  - source: 200Per5minHardLimit
+                    target: 100Per5Min
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Product_2'
+            application/yaml:
+              schema:
+                $ref: '#/components/schemas/Product_2'
+        4XX:
+          $ref: '#/components/responses/Error'
+        5XX:
+          $ref: '#/components/responses/Error'
+      tags:
+      - Products and APIs
+    servers:
+    - url: ''
+      description: APIM base path
+  /catalogs/{org}/{catalog}/products/{product-name}/{product-version}/execute-migration-target:
+    parameters:
+    - $ref: '#/components/parameters/org'
+    - $ref: '#/components/parameters/catalog'
+    - $ref: '#/components/parameters/product-name'
+    - $ref: '#/components/parameters/product-version'
+    post:
+      summary: Migrate all subscriptions to their migration targets
+      operationId: product_executeMigrationTargetByNameVersionCatalogScope
+      security:
+      - oauth:
+        - product:manage
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Product_2'
+            application/yaml:
+              schema:
+                $ref: '#/components/schemas/Product_2'
+        4XX:
+          $ref: '#/components/responses/Error'
+        5XX:
+          $ref: '#/components/responses/Error'
+      tags:
+      - Products and APIs
+    servers:
+    - url: ''
+      description: APIM base path
+  /catalogs/{org}/{catalog}/products/{product-id}/document:
+    parameters:
+    - $ref: '#/components/parameters/org'
+    - $ref: '#/components/parameters/catalog'
+    - $ref: '#/components/parameters/product-id'
+    get:
+      summary: Get the Product document
+      operationId: product_getDocumentCatalogScope
+      security:
+      - oauth:
+        - product:view
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProductDocument'
+            application/yaml:
+              schema:
+                $ref: '#/components/schemas/ProductDocument'
+        4XX:
+          $ref: '#/components/responses/Error'
+        5XX:
+          $ref: '#/components/responses/Error'
+      tags:
+      - Products and APIs
+    servers:
+    - url: ''
+      description: APIM base path
+  /catalogs/{org}/{catalog}/products/{product-name}/{product-version}/document:
+    parameters:
+    - $ref: '#/components/parameters/org'
+    - $ref: '#/components/parameters/catalog'
+    - $ref: '#/components/parameters/product-name'
+    - $ref: '#/components/parameters/product-version'
+    get:
+      summary: Get the Product document by name and version
+      operationId: product_getDocumentByNameVersionCatalogScope
+      security:
+      - oauth:
+        - product:view
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProductDocument'
+            application/yaml:
+              schema:
+                $ref: '#/components/schemas/ProductDocument'
+        4XX:
+          $ref: '#/components/responses/Error'
+        5XX:
+          $ref: '#/components/responses/Error'
+      tags:
+      - Products and APIs
+    servers:
+    - url: ''
+      description: APIM base path
+  /catalogs/{org}/{catalog}/apis:
+    description: API operations across all collections
+    parameters:
+    - $ref: '#/components/parameters/org'
+    - $ref: '#/components/parameters/catalog'
+    get:
+      summary: Lists APIs in a catalog
+      description: Returns a list of all APIs in a catalog.
+      operationId: api_listAllCatalogScope
+      security:
+      - oauth:
+        - product:view
+      parameters:
+      - $ref: '#/components/parameters/fields_2'
+      - $ref: '#/components/parameters/offset'
+      - $ref: '#/components/parameters/limit'
+      - $ref: '#/components/parameters/api_type'
+      - $ref: '#/components/parameters/expand'
+      - $ref: '#/components/parameters/metadata'
+      - $ref: '#/components/parameters/enforced'
+      - $ref: '#/components/parameters/base_path'
+      - $ref: '#/components/parameters/full_path'
+      - $ref: '#/components/parameters/states_2'
+      - $ref: '#/components/parameters/consumer_org_url'
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/APIList'
+            application/yaml:
+              schema:
+                $ref: '#/components/schemas/APIList'
+        4XX:
+          $ref: '#/components/responses/Error'
+        5XX:
+          $ref: '#/components/responses/Error'
+      tags:
+      - Products and APIs
+    servers:
+    - url: ''
+      description: APIM base path
+  /catalogs/{org}/{catalog}/apis/{api-name}:
+    description: The collection of API operations
+    parameters:
+    - $ref: '#/components/parameters/org'
+    - $ref: '#/components/parameters/catalog'
+    - $ref: '#/components/parameters/api-name'
+    get:
+      summary: Lists APIs in a catalog
+      description: Returns a list of all APIs with the given name in a catalog. For a given name, multiple versions may exist.
+      operationId: api_listCatalogScope
+      security:
+      - oauth:
+        - product:view
+      parameters:
+      - $ref: '#/components/parameters/fields_2'
+      - $ref: '#/components/parameters/offset'
+      - $ref: '#/components/parameters/limit'
+      - $ref: '#/components/parameters/api_type'
+      - $ref: '#/components/parameters/expand'
+      - $ref: '#/components/parameters/metadata'
+      - $ref: '#/components/parameters/enforced'
+      - $ref: '#/components/parameters/base_path'
+      - $ref: '#/components/parameters/full_path'
+      - $ref: '#/components/parameters/states_2'
+      - $ref: '#/components/parameters/consumer_org_url'
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/APIList'
+            application/yaml:
+              schema:
+                $ref: '#/components/schemas/APIList'
+        4XX:
+          $ref: '#/components/responses/Error'
+        5XX:
+          $ref: '#/components/responses/Error'
+      tags:
+      - Products and APIs
+    servers:
+    - url: ''
+      description: APIM base path
+  /catalogs/{org}/{catalog}/apis/{api-id}:
+    description: API object operations
+    parameters:
+    - $ref: '#/components/parameters/org'
+    - $ref: '#/components/parameters/catalog'
+    - $ref: '#/components/parameters/api-id'
+    get:
+      summary: Returns an API object
+      description: Returns the API object with the given id in a catalog.
+      operationId: api_getCatalogScope
+      security:
+      - oauth:
+        - product:view
+      parameters:
+      - $ref: '#/components/parameters/fields_2'
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/API_2'
+            application/yaml:
+              schema:
+                $ref: '#/components/schemas/API_2'
+        4XX:
+          $ref: '#/components/responses/Error'
+        5XX:
+          $ref: '#/components/responses/Error'
+      tags:
+      - Products and APIs
+    patch:
+      summary: Updates an API
+      description: 'Updates the API with the given id in a catalog.
+
+
+        Fields not allowed:
+
+        - name
+
+        - version
+
+        - api
+
+        - wsdl
+
+        - catalog_api
+
+        - catalog_url
+
+        - org_url
+
+        - gateway_api
+
+        - consumer_api
+
+        - space_urls
+
+        - gateway_service_urls
+
+        - user_registry_urls
+
+        - oauth_provider_urls
+
+        - jwt_provider_urls
+
+        - tls_client_profile_urls
+
+        - extension_urls
+
+        - policy_urls
+
+        - api_kind_name
+
+
+        Fields allowed but ignored:
+
+        - id
+
+        - type
+
+        - api_version
+
+        - scope
+
+        - created_at
+
+        - updated_at
+
+        - url
+
+        - org_url
+
+        - catalog_url'
+      operationId: api_updateCatalogScope
+      security:
+      - oauth:
+        - product:manage
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/API_2'
+          application/yaml:
+            schema:
+              $ref: '#/components/schemas/API_2'
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/API_2'
+            application/yaml:
+              schema:
+                $ref: '#/components/schemas/API_2'
+        4XX:
+          $ref: '#/components/responses/Error'
+        5XX:
+          $ref: '#/components/responses/Error'
+      tags:
+      - Products and APIs
+    servers:
+    - url: ''
+      description: APIM base path
+  /catalogs/{org}/{catalog}/apis/{api-name}/{api-version}:
+    description: API object operations by name and version
+    parameters:
+    - $ref: '#/components/parameters/org'
+    - $ref: '#/components/parameters/catalog'
+    - $ref: '#/components/parameters/api-name'
+    - $ref: '#/components/parameters/api-version'
+    get:
+      summary: Returns an API object
+      description: Returns the API object with the given name and version in a catalog.
+      operationId: api_getByNameVersionCatalogScope
+      security:
+      - oauth:
+        - product:view
+      parameters:
+      - $ref: '#/components/parameters/fields_2'
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/API_2'
+            application/yaml:
+              schema:
+                $ref: '#/components/schemas/API_2'
+        4XX:
+          $ref: '#/components/responses/Error'
+        5XX:
+          $ref: '#/components/responses/Error'
+      tags:
+      - Products and APIs
+    patch:
+      summary: Updates an API
+      description: 'Updates the API with the given name and version in a catalog.
+
+
+        Fields not allowed:
+
+        - name
+
+        - version
+
+        - api
+
+        - wsdl
+
+        - catalog_api
+
+        - catalog_url
+
+        - org_url
+
+        - gateway_api
+
+        - consumer_api
+
+        - space_urls
+
+        - gateway_service_urls
+
+        - user_registry_urls
+
+        - oauth_provider_urls
+
+        - jwt_provider_urls
+
+        - tls_client_profile_urls
+
+        - extension_urls
+
+        - policy_urls
+
+        - api_kind_name
+
+
+        Fields allowed but ignored:
+
+        - id
+
+        - type
+
+        - api_version
+
+        - scope
+
+        - created_at
+
+        - updated_at
+
+        - url
+
+        - org_url
+
+        - catalog_url'
+      operationId: api_updateByNameVersionCatalogScope
+      security:
+      - oauth:
+        - product:manage
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/API_2'
+          application/yaml:
+            schema:
+              $ref: '#/components/schemas/API_2'
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/API_2'
+            application/yaml:
+              schema:
+                $ref: '#/components/schemas/API_2'
+        4XX:
+          $ref: '#/components/responses/Error'
+        5XX:
+          $ref: '#/components/responses/Error'
+      tags:
+      - Products and APIs
+    servers:
+    - url: ''
+      description: APIM base path
+  /catalogs/{org}/{catalog}/apis/{api-id}/document:
+    parameters:
+    - $ref: '#/components/parameters/org'
+    - $ref: '#/components/parameters/catalog'
+    - $ref: '#/components/parameters/api-id'
+    get:
+      summary: Get the API document
+      operationId: api_getDocumentCatalogScope
+      security:
+      - oauth:
+        - product:view
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/APIDocument'
+            application/yaml:
+              schema:
+                $ref: '#/components/schemas/APIDocument'
+        4XX:
+          $ref: '#/components/responses/Error'
+        5XX:
+          $ref: '#/components/responses/Error'
+      tags:
+      - Products and APIs
+    servers:
+    - url: ''
+      description: APIM base path
+  /catalogs/{org}/{catalog}/apis/{api-name}/{api-version}/document:
+    parameters:
+    - $ref: '#/components/parameters/org'
+    - $ref: '#/components/parameters/catalog'
+    - $ref: '#/components/parameters/api-name'
+    - $ref: '#/components/parameters/api-version'
+    get:
+      summary: Get the API document by name and version
+      operationId: api_getDocumentByNameVersionCatalogScope
+      security:
+      - oauth:
+        - product:view
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/APIDocument'
+            application/yaml:
+              schema:
+                $ref: '#/components/schemas/APIDocument'
+        4XX:
+          $ref: '#/components/responses/Error'
+        5XX:
+          $ref: '#/components/responses/Error'
+      tags:
+      - Products and APIs
+    servers:
+    - url: ''
+      description: APIM base path
+  /catalogs/{org}/{catalog}/apis/{api-id}/consumer-document:
+    parameters:
+    - $ref: '#/components/parameters/org'
+    - $ref: '#/components/parameters/catalog'
+    - $ref: '#/components/parameters/api-id'
+    get:
+      summary: Get the API consumer-document
+      operationId: api_getConsumerDocumentCatalogScope
+      security:
+      - oauth:
+        - product:view
+      parameters:
+      - $ref: '#/components/parameters/consumer_org_url'
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/APIDocument'
+            application/yaml:
+              schema:
+                $ref: '#/components/schemas/APIDocument'
+        4XX:
+          $ref: '#/components/responses/Error'
+        5XX:
+          $ref: '#/components/responses/Error'
+      tags:
+      - Products and APIs
+    servers:
+    - url: ''
+      description: APIM base path
+  /catalogs/{org}/{catalog}/apis/{api-name}/{api-version}/consumer-document:
+    parameters:
+    - $ref: '#/components/parameters/org'
+    - $ref: '#/components/parameters/catalog'
+    - $ref: '#/components/parameters/api-name'
+    - $ref: '#/components/parameters/api-version'
+    get:
+      summary: Get the API document by name and version
+      operationId: api_getConsumerDocumentByNameVersionCatalogScope
+      security:
+      - oauth:
+        - product:view
+      parameters:
+      - $ref: '#/components/parameters/consumer_org_url'
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/APIDocument'
+            application/yaml:
+              schema:
+                $ref: '#/components/schemas/APIDocument'
+        4XX:
+          $ref: '#/components/responses/Error'
+        5XX:
+          $ref: '#/components/responses/Error'
+      tags:
+      - Products and APIs
+    servers:
+    - url: ''
+      description: APIM base path
+  /catalogs/{org}/{catalog}/apis/{api-id}/wsdl:
+    parameters:
+    - $ref: '#/components/parameters/org'
+    - $ref: '#/components/parameters/catalog'
+    - $ref: '#/components/parameters/api-id'
+    get:
+      summary: Get the API wsdl document
+      operationId: api_getWsdlCatalogScope
+      security:
+      - oauth:
+        - product:view
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Wsdl'
+            application/yaml:
+              schema:
+                $ref: '#/components/schemas/Wsdl'
+            application/wsdl: {}
+            application/zip: {}
+        4XX:
+          $ref: '#/components/responses/Error'
+        5XX:
+          $ref: '#/components/responses/Error'
+      tags:
+      - Products and APIs
+    servers:
+    - url: ''
+      description: APIM base path
+  /catalogs/{org}/{catalog}/apis/{api-name}/{api-version}/wsdl:
+    parameters:
+    - $ref: '#/components/parameters/org'
+    - $ref: '#/components/parameters/catalog'
+    - $ref: '#/components/parameters/api-name'
+    - $ref: '#/components/parameters/api-version'
+    get:
+      summary: Get the API wsdl document by name and version
+      operationId: api_getWsdlByNameVersionCatalogScope
+      security:
+      - oauth:
+        - product:view
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Wsdl'
+            application/yaml:
+              schema:
+                $ref: '#/components/schemas/Wsdl'
+            application/wsdl: {}
+            application/zip: {}
+        4XX:
+          $ref: '#/components/responses/Error'
+        5XX:
+          $ref: '#/components/responses/Error'
+      tags:
+      - Products and APIs
+    servers:
+    - url: ''
+      description: APIM base path
+  /spaces/{org}/{catalog}/{space}/products:
+    description: Product operations across all collections
+    parameters:
+    - $ref: '#/components/parameters/org'
+    - $ref: '#/components/parameters/catalog'
+    - $ref: '#/components/parameters/space'
+    get:
+      summary: Lists products
+      description: Returns the list of products in a space.
+      operationId: product_listAllSpaceScope
+      security:
+      - oauth:
+        - product:view
+      parameters:
+      - $ref: '#/components/parameters/fields_2'
+      - $ref: '#/components/parameters/offset'
+      - $ref: '#/components/parameters/limit'
+      - $ref: '#/components/parameters/expand'
+      - $ref: '#/components/parameters/states_2'
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProductList'
+            application/yaml:
+              schema:
+                $ref: '#/components/schemas/ProductList'
+        4XX:
+          $ref: '#/components/responses/Error'
+        5XX:
+          $ref: '#/components/responses/Error'
+      tags:
+      - Products and APIs
+    delete:
+      summary: Clears products
+      description: Removes all products from a space.
+      operationId: product_clearAllSpaceScope
+      security:
+      - oauth:
+        - product:manage
+      parameters:
+      - $ref: '#/components/parameters/confirm'
+      responses:
+        '204':
+          description: Success
+        4XX:
+          $ref: '#/components/responses/Error'
+        5XX:
+          $ref: '#/components/responses/Error'
+      tags:
+      - Products and APIs
+    servers:
+    - url: ''
+      description: APIM base path
+  /spaces/{org}/{catalog}/{space}/products/{product-name}:
+    description: The collection of Product operations
+    parameters:
+    - $ref: '#/components/parameters/org'
+    - $ref: '#/components/parameters/catalog'
+    - $ref: '#/components/parameters/space'
+    - $ref: '#/components/parameters/product-name'
+    get:
+      summary: Lists products
+      description: Returns the list of versions of the named product in a space.
+      operationId: product_listSpaceScope
+      security:
+      - oauth:
+        - product:view
+      parameters:
+      - $ref: '#/components/parameters/fields_2'
+      - $ref: '#/components/parameters/offset'
+      - $ref: '#/components/parameters/limit'
+      - $ref: '#/components/parameters/expand'
+      - $ref: '#/components/parameters/states_2'
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProductList'
+            application/yaml:
+              schema:
+                $ref: '#/components/schemas/ProductList'
+        4XX:
+          $ref: '#/components/responses/Error'
+        5XX:
+          $ref: '#/components/responses/Error'
+      tags:
+      - Products and APIs
+    delete:
+      summary: Clears product versions
+      description: Removes all versions of the named product from a space.
+      operationId: product_clearSpaceScope
+      security:
+      - oauth:
+        - product:manage
+      parameters:
+      - $ref: '#/components/parameters/confirm'
+      responses:
+        '204':
+          description: Success
+        4XX:
+          $ref: '#/components/responses/Error'
+        5XX:
+          $ref: '#/components/responses/Error'
+      tags:
+      - Products and APIs
+    servers:
+    - url: ''
+      description: APIM base path
+  /spaces/{org}/{catalog}/{space}/products/{product-id}:
+    description: Product object operations
+    parameters:
+    - $ref: '#/components/parameters/org'
+    - $ref: '#/components/parameters/catalog'
+    - $ref: '#/components/parameters/space'
+    - $ref: '#/components/parameters/product-id'
+    get:
+      summary: Returns a product
+      description: Returns a product in a space.
+      operationId: product_getSpaceScope
+      security:
+      - oauth:
+        - product:view
+      parameters:
+      - $ref: '#/components/parameters/fields_2'
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Product_2'
+            application/yaml:
+              schema:
+                $ref: '#/components/schemas/Product_2'
+        4XX:
+          $ref: '#/components/responses/Error'
+        5XX:
+          $ref: '#/components/responses/Error'
+      tags:
+      - Products and APIs
+    patch:
+      summary: Updates a product in a space
+      description: 'Updates a product in a space.
+
+
+        Fields not allowed:
+
+        - product
+
+        - catalog_product
+
+        - space_urls
+
+        - api_urls
+
+        - approval_history
+
+        - superseded_by
+
+        - supersedes
+
+
+        Fields allowed but ignored:
+
+        - id
+
+        - type
+
+        - api_version
+
+        - scope
+
+        - created_at
+
+        - updated_at
+
+        - url
+
+        - org_url
+
+        - catalog_url'
+      operationId: product_updateSpaceScope
+      security:
+      - oauth:
+        - product:manage
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Product_2'
+            examples:
+              Product:
+                summary: Example of product update by id at space scope.
+                value:
+                  visibility:
+                    view:
+                      enabled: true
+                      type: authenticated
+                      org_urls: []
+                      group_urls: []
+                    subscribe:
+                      enabled: true
+                      type: custom
+                      org_urls:
+                      - https://api.acme-apim.example.com/api/consumer-orgs/acme-org/acme-catalog/acme-space/acme-consumer-org
+                      group_urls: []
+          application/yaml:
+            schema:
+              $ref: '#/components/schemas/Product_2'
+            examples:
+              Product:
+                summary: Example of product update by id at space scope.
+                value:
+                  visibility:
+                    view:
+                      enabled: true
+                      type: authenticated
+                      org_urls: []
+                      group_urls: []
+                    subscribe:
+                      enabled: true
+                      type: custom
+                      org_urls:
+                      - https://api.acme-apim.example.com/api/consumer-orgs/acme-org/acme-catalog/acme-space/acme-consumer-org
+                      group_urls: []
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Product_2'
+            application/yaml:
+              schema:
+                $ref: '#/components/schemas/Product_2'
+        4XX:
+          $ref: '#/components/responses/Error'
+        5XX:
+          $ref: '#/components/responses/Error'
+      tags:
+      - Products and APIs
+    delete:
+      summary: Deletes a product
+      description: Removes a product from a space.
+      operationId: product_delSpaceScope
+      security:
+      - oauth:
+        - product:manage
+      responses:
+        '200':
+          description: Successful delete
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Product_2'
+            application/yaml:
+              schema:
+                $ref: '#/components/schemas/Product_2'
+        4XX:
+          $ref: '#/components/responses/Error'
+        5XX:
+          $ref: '#/components/responses/Error'
+      tags:
+      - Products and APIs
+    servers:
+    - url: ''
+      description: APIM base path
+  /spaces/{org}/{catalog}/{space}/products/{product-name}/{product-version}:
+    description: Product object operations by name and version
+    parameters:
+    - $ref: '#/components/parameters/org'
+    - $ref: '#/components/parameters/catalog'
+    - $ref: '#/components/parameters/space'
+    - $ref: '#/components/parameters/product-name'
+    - $ref: '#/components/parameters/product-version'
+    get:
+      summary: Returns a product
+      description: Returns a product in a space.
+      operationId: product_getByNameVersionSpaceScope
+      security:
+      - oauth:
+        - product:view
+      parameters:
+      - $ref: '#/components/parameters/fields_2'
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Product_2'
+            application/yaml:
+              schema:
+                $ref: '#/components/schemas/Product_2'
+        4XX:
+          $ref: '#/components/responses/Error'
+        5XX:
+          $ref: '#/components/responses/Error'
+      tags:
+      - Products and APIs
+    patch:
+      summary: Updates a product in a space
+      description: 'Updates a product in a space.
+
+
+        Fields not allowed:
+
+        - product
+
+        - catalog_product
+
+        - space_urls
+
+        - api_urls
+
+        - approval_history
+
+        - superseded_by
+
+        - supersedes
+
+
+        Fields allowed but ignored:
+
+        - id
+
+        - type
+
+        - api_version
+
+        - scope
+
+        - created_at
+
+        - updated_at
+
+        - url
+
+        - org_url
+
+        - catalog_url'
+      operationId: product_updateByNameVersionSpaceScope
+      security:
+      - oauth:
+        - product:manage
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Product_2'
+            examples:
+              Product:
+                summary: Example of product update by name and version at space scope.
+                value:
+                  visibility:
+                    view:
+                      enabled: true
+                      type: authenticated
+                      org_urls: []
+                      group_urls: []
+                    subscribe:
+                      enabled: true
+                      type: custom
+                      org_urls:
+                      - https://api.acme-apim.example.com/api/consumer-orgs/acme-org/acme-catalog/acme-space/acme-consumer-org
+                      group_urls: []
+          application/yaml:
+            schema:
+              $ref: '#/components/schemas/Product_2'
+            examples:
+              Product:
+                summary: Example of product update by name and version at space scope.
+                value:
+                  visibility:
+                    view:
+                      enabled: true
+                      type: authenticated
+                      org_urls: []
+                      group_urls: []
+                    subscribe:
+                      enabled: true
+                      type: custom
+                      org_urls:
+                      - https://api.acme-apim.example.com/api/consumer-orgs/acme-org/acme-catalog/acme-space/acme-consumer-org
+                      group_urls: []
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Product_2'
+            application/yaml:
+              schema:
+                $ref: '#/components/schemas/Product_2'
+        4XX:
+          $ref: '#/components/responses/Error'
+        5XX:
+          $ref: '#/components/responses/Error'
+      tags:
+      - Products and APIs
+    delete:
+      summary: Delete a Product
+      operationId: product_delByNameVersionSpaceScope
+      security:
+      - oauth:
+        - product:manage
+      responses:
+        '200':
+          description: Successful delete
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Product_2'
+            application/yaml:
+              schema:
+                $ref: '#/components/schemas/Product_2'
+        4XX:
+          $ref: '#/components/responses/Error'
+        5XX:
+          $ref: '#/components/responses/Error'
+      tags:
+      - Products and APIs
+    servers:
+    - url: ''
+      description: APIM base path
+  /spaces/{org}/{catalog}/{space}/products/{product-id}/replace:
+    parameters:
+    - $ref: '#/components/parameters/org'
+    - $ref: '#/components/parameters/catalog'
+    - $ref: '#/components/parameters/space'
+    - $ref: '#/components/parameters/product-id'
+    post:
+      summary: Hot replace a product
+      operationId: product_replaceSpaceScope
+      security:
+      - oauth:
+        - product:manage
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ProductPlanMapping_2'
+          application/yaml:
+            schema:
+              $ref: '#/components/schemas/ProductPlanMapping_2'
+            examples:
+              ProductPlanMapping:
+                summary: Example of supersede, replace and set migration target of product at space scope.
+                value:
+                  product_url: https://acme-apim.example.com/api/spaces/acme-org/acme-catalog/acme-space/products/product-id
+                  plans:
+                  - source: default-plan
+                    target: 200Per5minHardLimit
+                  - source: 200Per5minHardLimit
+                    target: 100Per5Min
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Product_2'
+            application/yaml:
+              schema:
+                $ref: '#/components/schemas/Product_2'
+        4XX:
+          $ref: '#/components/responses/Error'
+        5XX:
+          $ref: '#/components/responses/Error'
+      tags:
+      - Products and APIs
+    servers:
+    - url: ''
+      description: APIM base path
+  /spaces/{org}/{catalog}/{space}/products/{product-id}/supersede:
+    parameters:
+    - $ref: '#/components/parameters/org'
+    - $ref: '#/components/parameters/catalog'
+    - $ref: '#/components/parameters/space'
+    - $ref: '#/components/parameters/product-id'
+    post:
+      summary: Supersede a product
+      operationId: product_supersedeSpaceScope
+      security:
+      - oauth:
+        - product:manage
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ProductPlanMapping_2'
+          application/yaml:
+            schema:
+              $ref: '#/components/schemas/ProductPlanMapping_2'
+            examples:
+              ProductPlanMapping:
+                summary: Example of supersede, replace and set migration target of product at space scope.
+                value:
+                  product_url: https://acme-apim.example.com/api/spaces/acme-org/acme-catalog/acme-space/products/product-id
+                  plans:
+                  - source: default-plan
+                    target: 200Per5minHardLimit
+                  - source: 200Per5minHardLimit
+                    target: 100Per5Min
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Product_2'
+            application/yaml:
+              schema:
+                $ref: '#/components/schemas/Product_2'
+        4XX:
+          $ref: '#/components/responses/Error'
+        5XX:
+          $ref: '#/components/responses/Error'
+      tags:
+      - Products and APIs
+    servers:
+    - url: ''
+      description: APIM base path
+  /spaces/{org}/{catalog}/{space}/products/{product-id}/set-migration-target:
+    parameters:
+    - $ref: '#/components/parameters/org'
+    - $ref: '#/components/parameters/catalog'
+    - $ref: '#/components/parameters/space'
+    - $ref: '#/components/parameters/product-id'
+    post:
+      summary: Set the migration target of a product
+      operationId: product_setMigrationTargetSpaceScope
+      security:
+      - oauth:
+        - product:manage
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ProductPlanMapping_2'
+          application/yaml:
+            schema:
+              $ref: '#/components/schemas/ProductPlanMapping_2'
+            examples:
+              ProductPlanMapping:
+                summary: Example of supersede, replace and set migration target of product at space scope.
+                value:
+                  product_url: https://acme-apim.example.com/api/spaces/acme-org/acme-catalog/acme-space/products/product-id
+                  plans:
+                  - source: default-plan
+                    target: 200Per5minHardLimit
+                  - source: 200Per5minHardLimit
+                    target: 100Per5Min
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Product_2'
+            application/yaml:
+              schema:
+                $ref: '#/components/schemas/Product_2'
+        4XX:
+          $ref: '#/components/responses/Error'
+        5XX:
+          $ref: '#/components/responses/Error'
+      tags:
+      - Products and APIs
+    servers:
+    - url: ''
+      description: APIM base path
+  /spaces/{org}/{catalog}/{space}/products/{product-id}/migrate-subscriptions:
+    parameters:
+    - $ref: '#/components/parameters/org'
+    - $ref: '#/components/parameters/catalog'
+    - $ref: '#/components/parameters/space'
+    - $ref: '#/components/parameters/product-id'
+    post:
+      summary: Migrate list of subscriptions between products
+      operationId: product_migrateSubscriptionsSpaceScope
+      security:
+      - oauth:
+        - product:manage
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/MigrateSubscriptionSubset'
+          application/yaml:
+            schema:
+              $ref: '#/components/schemas/MigrateSubscriptionSubset'
+            examples:
+              MigrateSubscriptionSubset:
+                summary: Example of migrate subscription of products at space scope.
+                value:
+                  subscription_urls:
+                  - https://acme-apim.example.com/api/apps/org1/catalog1/space1/consumer-org1/app1/subscriptions/subscription1
+                  - https://acme-apim.example.com/api/apps/org2/catalog2/space2/consumer-org2/app2/subscriptions/subscription2
+                  product_url: https://acme-apim.example.com/api/spaces/acme-org/acme-catalog/acme-space/products/product-id
+                  plans:
+                  - source: default-plan
+                    target: 100Per5Min
+                  - source: 200Per5minHardLimit
+                    target: 100Per5Min
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Product_2'
+            application/yaml:
+              schema:
+                $ref: '#/components/schemas/Product_2'
+        4XX:
+          $ref: '#/components/responses/Error'
+        5XX:
+          $ref: '#/components/responses/Error'
+      tags:
+      - Products and APIs
+    servers:
+    - url: ''
+      description: APIM base path
+  /spaces/{org}/{catalog}/{space}/products/{product-id}/execute-migration-target:
+    parameters:
+    - $ref: '#/components/parameters/org'
+    - $ref: '#/components/parameters/catalog'
+    - $ref: '#/components/parameters/space'
+    - $ref: '#/components/parameters/product-id'
+    post:
+      summary: Migrate all subscriptions to their migration targets
+      operationId: product_executeMigrationTargetSpaceScope
+      security:
+      - oauth:
+        - product:manage
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Product_2'
+            application/yaml:
+              schema:
+                $ref: '#/components/schemas/Product_2'
+        4XX:
+          $ref: '#/components/responses/Error'
+        5XX:
+          $ref: '#/components/responses/Error'
+      tags:
+      - Products and APIs
+    servers:
+    - url: ''
+      description: APIM base path
+  /spaces/{org}/{catalog}/{space}/products/{product-name}/{product-version}/replace:
+    parameters:
+    - $ref: '#/components/parameters/org'
+    - $ref: '#/components/parameters/catalog'
+    - $ref: '#/components/parameters/space'
+    - $ref: '#/components/parameters/product-name'
+    - $ref: '#/components/parameters/product-version'
+    post:
+      summary: Hot replace the product
+      operationId: product_replaceByNameVersionSpaceScope
+      security:
+      - oauth:
+        - product:manage
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ProductPlanMapping_2'
+          application/yaml:
+            schema:
+              $ref: '#/components/schemas/ProductPlanMapping_2'
+            examples:
+              ProductPlanMapping:
+                summary: Example of supersede, replace and set migration target of product at space scope.
+                value:
+                  product_url: https://acme-apim.example.com/api/spaces/acme-org/acme-catalog/acme-space/products/product-id
+                  plans:
+                  - source: default-plan
+                    target: 200Per5minHardLimit
+                  - source: 200Per5minHardLimit
+                    target: 100Per5Min
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Product_2'
+            application/yaml:
+              schema:
+                $ref: '#/components/schemas/Product_2'
+        4XX:
+          $ref: '#/components/responses/Error'
+        5XX:
+          $ref: '#/components/responses/Error'
+      tags:
+      - Products and APIs
+    servers:
+    - url: ''
+      description: APIM base path
+  /spaces/{org}/{catalog}/{space}/products/{product-name}/{product-version}/supersede:
+    parameters:
+    - $ref: '#/components/parameters/org'
+    - $ref: '#/components/parameters/catalog'
+    - $ref: '#/components/parameters/space'
+    - $ref: '#/components/parameters/product-name'
+    - $ref: '#/components/parameters/product-version'
+    post:
+      summary: Supersede a product
+      operationId: product_supersedeByNameVersionSpaceScope
+      security:
+      - oauth:
+        - product:manage
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ProductPlanMapping_2'
+          application/yaml:
+            schema:
+              $ref: '#/components/schemas/ProductPlanMapping_2'
+            examples:
+              ProductPlanMapping:
+                summary: Example of supersede, replace and set migration target of product at space scope.
+                value:
+                  product_url: https://acme-apim.example.com/api/spaces/acme-org/acme-catalog/acme-space/products/product-id
+                  plans:
+                  - source: default-plan
+                    target: 200Per5minHardLimit
+                  - source: 200Per5minHardLimit
+                    target: 100Per5Min
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Product_2'
+            application/yaml:
+              schema:
+                $ref: '#/components/schemas/Product_2'
+        4XX:
+          $ref: '#/components/responses/Error'
+        5XX:
+          $ref: '#/components/responses/Error'
+      tags:
+      - Products and APIs
+    servers:
+    - url: ''
+      description: APIM base path
+  /spaces/{org}/{catalog}/{space}/products/{product-name}/{product-version}/set-migration-target:
+    parameters:
+    - $ref: '#/components/parameters/org'
+    - $ref: '#/components/parameters/catalog'
+    - $ref: '#/components/parameters/space'
+    - $ref: '#/components/parameters/product-name'
+    - $ref: '#/components/parameters/product-version'
+    post:
+      summary: Set the migration target
+      operationId: product_setMigrationTargetByNameVersionSpaceScope
+      security:
+      - oauth:
+        - product:manage
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ProductPlanMapping_2'
+          application/yaml:
+            schema:
+              $ref: '#/components/schemas/ProductPlanMapping_2'
+            examples:
+              ProductPlanMapping:
+                summary: Example of supersede, replace and set migration target of product at space scope.
+                value:
+                  product_url: https://acme-apim.example.com/api/spaces/acme-org/acme-catalog/acme-space/products/product-id
+                  plans:
+                  - source: default-plan
+                    target: 200Per5minHardLimit
+                  - source: 200Per5minHardLimit
+                    target: 100Per5Min
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Product_2'
+            application/yaml:
+              schema:
+                $ref: '#/components/schemas/Product_2'
+        4XX:
+          $ref: '#/components/responses/Error'
+        5XX:
+          $ref: '#/components/responses/Error'
+      tags:
+      - Products and APIs
+    servers:
+    - url: ''
+      description: APIM base path
+  /spaces/{org}/{catalog}/{space}/products/{product-name}/{product-version}/migrate-subscriptions:
+    parameters:
+    - $ref: '#/components/parameters/org'
+    - $ref: '#/components/parameters/catalog'
+    - $ref: '#/components/parameters/space'
+    - $ref: '#/components/parameters/product-name'
+    - $ref: '#/components/parameters/product-version'
+    post:
+      summary: Migrate list of subscriptions between products
+      operationId: product_migrateSubscriptionsByNameVersionSpaceScope
+      security:
+      - oauth:
+        - product:manage
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/MigrateSubscriptionSubset'
+          application/yaml:
+            schema:
+              $ref: '#/components/schemas/MigrateSubscriptionSubset'
+            examples:
+              MigrateSubscriptionSubset:
+                summary: Example of migrate subscription of products at space scope.
+                value:
+                  subscription_urls:
+                  - https://acme-apim.example.com/api/apps/org1/catalog1/space1/consumer-org1/app1/subscriptions/subscription1
+                  - https://acme-apim.example.com/api/apps/org2/catalog2/space2/consumer-org2/app2/subscriptions/subscription2
+                  product_url: https://acme-apim.example.com/api/spaces/acme-org/acme-catalog/acme-space/products/product-id
+                  plans:
+                  - source: default-plan
+                    target: 100Per5Min
+                  - source: 200Per5minHardLimit
+                    target: 100Per5Min
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Product_2'
+            application/yaml:
+              schema:
+                $ref: '#/components/schemas/Product_2'
+        4XX:
+          $ref: '#/components/responses/Error'
+        5XX:
+          $ref: '#/components/responses/Error'
+      tags:
+      - Products and APIs
+    servers:
+    - url: ''
+      description: APIM base path
+  /spaces/{org}/{catalog}/{space}/products/{product-name}/{product-version}/execute-migration-target:
+    parameters:
+    - $ref: '#/components/parameters/org'
+    - $ref: '#/components/parameters/catalog'
+    - $ref: '#/components/parameters/space'
+    - $ref: '#/components/parameters/product-name'
+    - $ref: '#/components/parameters/product-version'
+    post:
+      summary: Migrate all subscriptions to their migration targets
+      operationId: product_executeMigrationTargetByNameVersionSpaceScope
+      security:
+      - oauth:
+        - product:manage
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Product_2'
+            application/yaml:
+              schema:
+                $ref: '#/components/schemas/Product_2'
+        4XX:
+          $ref: '#/components/responses/Error'
+        5XX:
+          $ref: '#/components/responses/Error'
+      tags:
+      - Products and APIs
+    servers:
+    - url: ''
+      description: APIM base path
+  /spaces/{org}/{catalog}/{space}/products/{product-id}/document:
+    parameters:
+    - $ref: '#/components/parameters/org'
+    - $ref: '#/components/parameters/catalog'
+    - $ref: '#/components/parameters/space'
+    - $ref: '#/components/parameters/product-id'
+    get:
+      summary: Get the Product document
+      operationId: product_getDocumentSpaceScope
+      security:
+      - oauth:
+        - product:view
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProductDocument'
+            application/yaml:
+              schema:
+                $ref: '#/components/schemas/ProductDocument'
+        4XX:
+          $ref: '#/components/responses/Error'
+        5XX:
+          $ref: '#/components/responses/Error'
+      tags:
+      - Products and APIs
+    servers:
+    - url: ''
+      description: APIM base path
+  /spaces/{org}/{catalog}/{space}/products/{product-name}/{product-version}/document:
+    parameters:
+    - $ref: '#/components/parameters/org'
+    - $ref: '#/components/parameters/catalog'
+    - $ref: '#/components/parameters/space'
+    - $ref: '#/components/parameters/product-name'
+    - $ref: '#/components/parameters/product-version'
+    get:
+      summary: Get the Product document by name and version
+      operationId: product_getDocumentByNameVersionSpaceScope
+      security:
+      - oauth:
+        - product:view
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProductDocument'
+            application/yaml:
+              schema:
+                $ref: '#/components/schemas/ProductDocument'
+        4XX:
+          $ref: '#/components/responses/Error'
+        5XX:
+          $ref: '#/components/responses/Error'
+      tags:
+      - Products and APIs
+    servers:
+    - url: ''
+      description: APIM base path
+  /spaces/{org}/{catalog}/{space}/apis:
+    description: API operations across all collections
+    parameters:
+    - $ref: '#/components/parameters/org'
+    - $ref: '#/components/parameters/catalog'
+    - $ref: '#/components/parameters/space'
+    get:
+      summary: Lists APIs in a space
+      description: Returns a list of all APIs in a space within a catalog.
+      operationId: api_listAllSpaceScope
+      security:
+      - oauth:
+        - product:view
+      parameters:
+      - $ref: '#/components/parameters/fields_2'
+      - $ref: '#/components/parameters/offset'
+      - $ref: '#/components/parameters/limit'
+      - $ref: '#/components/parameters/api_type'
+      - $ref: '#/components/parameters/expand'
+      - $ref: '#/components/parameters/metadata'
+      - $ref: '#/components/parameters/states_2'
+      - $ref: '#/components/parameters/consumer_org_url'
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/APIList'
+            application/yaml:
+              schema:
+                $ref: '#/components/schemas/APIList'
+        4XX:
+          $ref: '#/components/responses/Error'
+        5XX:
+          $ref: '#/components/responses/Error'
+      tags:
+      - Products and APIs
+    servers:
+    - url: ''
+      description: APIM base path
+  /spaces/{org}/{catalog}/{space}/apis/{api-name}:
+    description: The collection of API operations
+    parameters:
+    - $ref: '#/components/parameters/org'
+    - $ref: '#/components/parameters/catalog'
+    - $ref: '#/components/parameters/space'
+    - $ref: '#/components/parameters/api-name'
+    get:
+      summary: Lists APIs in a space
+      description: Returns a list of all APIs with the given name in a space within a catalog. For a given name, multiple versions may exist.
+      operationId: api_listSpaceScope
+      security:
+      - oauth:
+        - product:view
+      parameters:
+      - $ref: '#/components/parameters/fields_2'
+      - $ref: '#/components/parameters/offset'
+      - $ref: '#/components/parameters/limit'
+      - $ref: '#/components/parameters/api_type'
+      - $ref: '#/components/parameters/expand'
+      - $ref: '#/components/parameters/metadata'
+      - $ref: '#/components/parameters/states_2'
+      - $ref: '#/components/parameters/consumer_org_url'
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/APIList'
+            application/yaml:
+              schema:
+                $ref: '#/components/schemas/APIList'
+        4XX:
+          $ref: '#/components/responses/Error'
+        5XX:
+          $ref: '#/components/responses/Error'
+      tags:
+      - Products and APIs
+    servers:
+    - url: ''
+      description: APIM base path
+  /spaces/{org}/{catalog}/{space}/apis/{api-id}:
+    description: API object operations
+    parameters:
+    - $ref: '#/components/parameters/org'
+    - $ref: '#/components/parameters/catalog'
+    - $ref: '#/components/parameters/space'
+    - $ref: '#/components/parameters/api-id'
+    get:
+      summary: Returns an API object
+      description: Returns the API object with the given id in a space within a catalog.
+      operationId: api_getSpaceScope
+      security:
+      - oauth:
+        - product:view
+      parameters:
+      - $ref: '#/components/parameters/fields_2'
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/API_2'
+            application/yaml:
+              schema:
+                $ref: '#/components/schemas/API_2'
+        4XX:
+          $ref: '#/components/responses/Error'
+        5XX:
+          $ref: '#/components/responses/Error'
+      tags:
+      - Products and APIs
+    patch:
+      summary: Updates an API
+      description: 'Updates the API with the given id in a space within a catalog.
+
+
+        Fields not allowed:
+
+        - name
+
+        - version
+
+        - api
+
+        - wsdl
+
+        - catalog_api
+
+        - catalog_url
+
+        - org_url
+
+        - gateway_api
+
+        - consumer_api
+
+        - space_urls
+
+        - gateway_service_urls
+
+        - user_registry_urls
+
+        - oauth_provider_urls
+
+        - jwt_provider_urls
+
+        - tls_client_profile_urls
+
+        - extension_urls
+
+        - policy_urls
+
+
+        Fields allowed but ignored:
+
+        - id
+
+        - type
+
+        - api_version
+
+        - scope
+
+        - created_at
+
+        - updated_at
+
+        - url
+
+        - org_url
+
+        - catalog_url'
+      operationId: api_updateSpaceScope
+      security:
+      - oauth:
+        - product:manage
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/API_2'
+          application/yaml:
+            schema:
+              $ref: '#/components/schemas/API_2'
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/API_2'
+            application/yaml:
+              schema:
+                $ref: '#/components/schemas/API_2'
+        4XX:
+          $ref: '#/components/responses/Error'
+        5XX:
+          $ref: '#/components/responses/Error'
+      tags:
+      - Products and APIs
+    servers:
+    - url: ''
+      description: APIM base path
+  /spaces/{org}/{catalog}/{space}/apis/{api-name}/{api-version}:
+    description: API object operations by name and version
+    parameters:
+    - $ref: '#/components/parameters/org'
+    - $ref: '#/components/parameters/catalog'
+    - $ref: '#/components/parameters/space'
+    - $ref: '#/components/parameters/api-name'
+    - $ref: '#/components/parameters/api-version'
+    get:
+      summary: Returns an API object
+      description: Returns the API object with the given name and version in a space within a catalog.
+      operationId: api_getByNameVersionSpaceScope
+      security:
+      - oauth:
+        - product:view
+      parameters:
+      - $ref: '#/components/parameters/fields_2'
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/API_2'
+            application/yaml:
+              schema:
+                $ref: '#/components/schemas/API_2'
+        4XX:
+          $ref: '#/components/responses/Error'
+        5XX:
+          $ref: '#/components/responses/Error'
+      tags:
+      - Products and APIs
+    patch:
+      summary: Updates an API
+      description: 'Updates the API with the given name and version in a space within a catalog.
+
+
+        Fields not allowed:
+
+        - name
+
+        - version
+
+        - api
+
+        - wsdl
+
+        - catalog_api
+
+        - catalog_url
+
+        - org_url
+
+        - gateway_api
+
+        - consumer_api
+
+        - space_urls
+
+        - gateway_service_urls
+
+        - user_registry_urls
+
+        - oauth_provider_urls
+
+        - jwt_provider_urls
+
+        - tls_client_profile_urls
+
+        - extension_urls
+
+        - policy_urls
+
+
+        Fields allowed but ignored:
+
+        - id
+
+        - type
+
+        - api_version
+
+        - scope
+
+        - created_at
+
+        - updated_at
+
+        - url
+
+        - org_url
+
+        - catalog_url'
+      operationId: api_updateByNameVersionSpaceScope
+      security:
+      - oauth:
+        - product:manage
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/API_2'
+          application/yaml:
+            schema:
+              $ref: '#/components/schemas/API_2'
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/API_2'
+            application/yaml:
+              schema:
+                $ref: '#/components/schemas/API_2'
+        4XX:
+          $ref: '#/components/responses/Error'
+        5XX:
+          $ref: '#/components/responses/Error'
+      tags:
+      - Products and APIs
+    servers:
+    - url: ''
+      description: APIM base path
+  /spaces/{org}/{catalog}/{space}/apis/{api-id}/document:
+    parameters:
+    - $ref: '#/components/parameters/org'
+    - $ref: '#/components/parameters/catalog'
+    - $ref: '#/components/parameters/space'
+    - $ref: '#/components/parameters/api-id'
+    get:
+      summary: Get the API document
+      operationId: api_getDocumentSpaceScope
+      security:
+      - oauth:
+        - product:view
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/APIDocument'
+            application/yaml:
+              schema:
+                $ref: '#/components/schemas/APIDocument'
+        4XX:
+          $ref: '#/components/responses/Error'
+        5XX:
+          $ref: '#/components/responses/Error'
+      tags:
+      - Products and APIs
+    servers:
+    - url: ''
+      description: APIM base path
+  /spaces/{org}/{catalog}/{space}/apis/{api-name}/{api-version}/document:
+    parameters:
+    - $ref: '#/components/parameters/org'
+    - $ref: '#/components/parameters/catalog'
+    - $ref: '#/components/parameters/space'
+    - $ref: '#/components/parameters/api-name'
+    - $ref: '#/components/parameters/api-version'
+    get:
+      summary: Get the API document by name and version
+      operationId: api_getDocumentByNameVersionSpaceScope
+      security:
+      - oauth:
+        - product:view
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/APIDocument'
+            application/yaml:
+              schema:
+                $ref: '#/components/schemas/APIDocument'
+        4XX:
+          $ref: '#/components/responses/Error'
+        5XX:
+          $ref: '#/components/responses/Error'
+      tags:
+      - Products and APIs
+    servers:
+    - url: ''
+      description: APIM base path
+  /spaces/{org}/{catalog}/{space}/apis/{api-id}/consumer-document:
+    parameters:
+    - $ref: '#/components/parameters/org'
+    - $ref: '#/components/parameters/catalog'
+    - $ref: '#/components/parameters/space'
+    - $ref: '#/components/parameters/api-id'
+    get:
+      summary: Get the API consumer-document
+      operationId: api_getConsumerDocumentSpaceScope
+      security:
+      - oauth:
+        - product:view
+      parameters:
+      - $ref: '#/components/parameters/consumer_org_url'
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/APIDocument'
+            application/yaml:
+              schema:
+                $ref: '#/components/schemas/APIDocument'
+        4XX:
+          $ref: '#/components/responses/Error'
+        5XX:
+          $ref: '#/components/responses/Error'
+      tags:
+      - Products and APIs
+    servers:
+    - url: ''
+      description: APIM base path
+  /spaces/{org}/{catalog}/{space}/apis/{api-name}/{api-version}/consumer-document:
+    parameters:
+    - $ref: '#/components/parameters/org'
+    - $ref: '#/components/parameters/catalog'
+    - $ref: '#/components/parameters/space'
+    - $ref: '#/components/parameters/api-name'
+    - $ref: '#/components/parameters/api-version'
+    get:
+      summary: Get the API document by name and version
+      operationId: api_getConsumerDocumentByNameVersionSpaceScope
+      security:
+      - oauth:
+        - product:view
+      parameters:
+      - $ref: '#/components/parameters/consumer_org_url'
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/APIDocument'
+            application/yaml:
+              schema:
+                $ref: '#/components/schemas/APIDocument'
+        4XX:
+          $ref: '#/components/responses/Error'
+        5XX:
+          $ref: '#/components/responses/Error'
+      tags:
+      - Products and APIs
+    servers:
+    - url: ''
+      description: APIM base path
+  /spaces/{org}/{catalog}/{space}/apis/{api-id}/wsdl:
+    parameters:
+    - $ref: '#/components/parameters/org'
+    - $ref: '#/components/parameters/catalog'
+    - $ref: '#/components/parameters/space'
+    - $ref: '#/components/parameters/api-id'
+    get:
+      summary: Get the API wsdl document
+      operationId: api_getWsdlSpaceScope
+      security:
+      - oauth:
+        - product:view
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Wsdl'
+            application/yaml:
+              schema:
+                $ref: '#/components/schemas/Wsdl'
+            application/wsdl: {}
+            application/zip: {}
+        4XX:
+          $ref: '#/components/responses/Error'
+        5XX:
+          $ref: '#/components/responses/Error'
+      tags:
+      - Products and APIs
+    servers:
+    - url: ''
+      description: APIM base path
+  /spaces/{org}/{catalog}/{space}/apis/{api-name}/{api-version}/wsdl:
+    parameters:
+    - $ref: '#/components/parameters/org'
+    - $ref: '#/components/parameters/catalog'
+    - $ref: '#/components/parameters/space'
+    - $ref: '#/components/parameters/api-name'
+    - $ref: '#/components/parameters/api-version'
+    get:
+      summary: Get the API wsdl document by name and version
+      operationId: api_getWsdlByNameVersionSpaceScope
+      security:
+      - oauth:
+        - product:view
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Wsdl'
+            application/yaml:
+              schema:
+                $ref: '#/components/schemas/Wsdl'
+            application/wsdl: {}
+            application/zip: {}
+        4XX:
+          $ref: '#/components/responses/Error'
+        5XX:
+          $ref: '#/components/responses/Error'
+      tags:
+      - Products and APIs
+    servers:
+    - url: ''
+      description: APIM base path
+  /orgs/{org}/apis/{api-name}/{api-version}:
+    description: The collection of API operations across catalogs by name and version
+    parameters:
+    - $ref: '#/components/parameters/org'
+    - $ref: '#/components/parameters/api-name'
+    - $ref: '#/components/parameters/api-version'
+    get:
+      summary: List all the API objects across catalogs by name and version
+      operationId: getOrgsByOrgApisByApiNameByApiVersion
+      security:
+      - oauth:
+        - product:view
+      parameters:
+      - $ref: '#/components/parameters/fields_2'
+      - $ref: '#/components/parameters/offset'
+      - $ref: '#/components/parameters/limit'
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/APIList'
+            application/yaml:
+              schema:
+                $ref: '#/components/schemas/APIList'
+        4XX:
+          $ref: '#/components/responses/Error'
+        5XX:
+          $ref: '#/components/responses/Error'
+      tags:
+      - Products and APIs
+      x-operation-id-source: normalized
+      x-operation-id-original: api_listOrgScope
+    servers:
+    - url: ''
+      description: APIM base path
+components:
+  parameters:
+    api-name:
+      name: api-name
+      in: path
+      description: API name
+      required: true
+      schema:
+        type: string
+    product-name:
+      name: product-name
+      in: path
+      description: Product name
+      required: true
+      schema:
+        type: string
+    limit:
+      name: limit
+      in: query
+      description: Maximum number of items to return
+      required: false
+      schema:
+        type: integer
+    endpoint:
+      name: endpoint
+      in: query
+      description: endpoint
+      required: false
+      schema:
+        type: string
+    fields:
+      name: fields
+      in: query
+      description: field name
+      required: false
+      schema:
+        type: string
+    api-id:
+      name: api-id
+      in: path
+      description: API name
+      required: true
+      schema:
+        type: string
+    offset:
+      name: offset
+      in: query
+      description: Offset item number from list to begin return
+      required: false
+      schema:
+        type: integer
+    consumer_org_url:
+      name: consumer_org_url
+      in: query
+      description: Consumer Org Url
+      required: false
+      schema:
+        type: string
+    product-id:
+      name: product-id
+      in: path
+      description: Product name
+      required: true
+      schema:
+        type: string
+    states:
+      name: states
+      in: query
+      description: Filter by product state
+      required: false
+      schema:
+        type: string
+    version:
+      name: version
+      in: query
+      description: Filter by version (exact match)
+      required: false
+      schema:
+        type: string
+    title:
+      name: title
+      in: query
+      description: Filter by title (case-insensitive partial match)
+      required: false
+      schema:
+        type: string
+    name:
+      name: name
+      in: query
+      description: Filter by name (case-insensitive partial match)
+      required: false
+      schema:
+        type: string
+    api-version:
+      name: api-version
+      in: path
+      description: API version name
+      required: true
+      schema:
+        type: string
+    search:
+      name: search
+      in: query
+      description: Full-text search across product name, title, summary, and related metadata with prefix matching support
+      required: false
+      schema:
+        type: string
+    api_type:
+      name: api_type
+      in: query
+      description: The type of api (asyncapi, rest, graphql, wsdl_to_rest, or wsdl)
+      required: false
+      schema:
+        type: string
+    product-version:
+      name: product-version
+      in: path
+      description: Product version name
+      required: true
+      schema:
+        type: string
+    enforced:
+      name: enforced
+      in: query
+      description: Whether the API is enforced or not
+      required: false
+      schema:
+        type: boolean
+    full_path:
+      name: full_path
+      in: query
+      description: full path of the API
+      required: false
+      schema:
+        type: string
+    org:
+      name: org
+      in: path
+      description: Organization name or id
+      required: true
+      schema:
+        type: string
+    fields_2:
+      name: fields
+      in: query
+      description: List of field names to return
+      required: false
+      schema:
+        type: string
+    expand:
+      name: expand
+      in: query
+      description: List of transient field to expand
+      required: false
+      schema:
+        type: string
+    search_query:
+      name: search
+      in: query
+      description: Full-text search across product name, title, summary, and related metadata with prefix matching support
+      required: false
+      schema:
+        type: string
+    metadata:
+      name: metadata
+      in: query
+      description: List of metadata fields in the api to filter on
+      required: false
+      schema:
+        type: string
+    space:
+      name: space
+      in: path
+      description: Space name or id
+      required: true
+      schema:
+        type: string
+    confirm:
+      name: confirm
+      in: query
+      description: Confirmation for critical updates
+      required: true
+      schema:
+        type: string
+    states_2:
+      name: states
+      in: query
+      description: The list states of the queried resources
+      required: false
+      schema:
+        type: string
+    catalog:
+      name: catalog
+      in: path
+      description: Catalog name or id
+      required: true
+      schema:
+        type: string
+    base_path:
+      name: base_path
+      in: query
+      description: Base path of the API
+      required: false
+      schema:
+        type: string
+  schemas:
+    ProductPlanMapping:
+      type: object
+      additionalProperties: false
+      properties:
+        product_url:
+          type:
+          - string
+          - 'null'
+          format: uri
+        plans:
+          type: array
+          items:
+            $ref: '#/components/schemas/SourceTargetPairs'
+    Error:
+      type: object
+      additionalProperties: false
+      properties:
+        status:
+          type: integer
+          minimum: 400
+          maximum: 599
+        message:
+          type: array
+          items:
+            type: string
+        errors:
+          type: array
+          items:
+            type: string
+    APIDocument:
+      type: object
+      additionalProperties: true
+    API:
+      type: object
+      additionalProperties: false
+      properties:
+        type:
+          type: string
+          readOnly: true
+          enum:
+          - api
+        api_version:
+          type: string
+          readOnly: true
+          enum:
+          - 2.0.0
+        id:
+          type: string
+          readOnly: true
+        name:
+          type: string
+          maxLength: 255
+        version:
+          type: string
+          maxLength: 255
+        title:
+          type: string
+          maxLength: 1023
+        summary:
+          type: string
+          maxLength: 65535
+        state:
+          type: string
+          enum:
+          - staged
+          - online
+          - offline
+          - retired
+        api:
+          type: object
+          additionalProperties: true
+          properties:
+            swagger:
+              type: string
+            info:
+              type: object
+              additionalProperties: true
+              required:
+              - title
+              - version
+              properties:
+                title:
+                  type: string
+                x-ibm-name:
+                  type: string
+                version:
+                  type: string
+                x-ibm-summary:
+                  type: string
+        api_type:
+          type: string
+          enum:
+          - rest
+          - wsdl
+          - graphql
+          - asyncapi
+        oai_version:
+          type: string
+          enum:
+          - openapi2
+          - openapi3
+        enforced:
+          type: boolean
+        product_urls:
+          type: array
+          items:
+            type: string
+            format: uri
+        org_url:
+          type: string
+          format: uri
+        metadata:
+          type: object
+          additionalProperties:
+            type: string
+        created_at:
+          type: string
+          format: date-time
+          readOnly: true
+        updated_at:
+          type: string
+          format: date-time
+          readOnly: true
+        url:
+          type: string
+          readOnly: true
+          format: uri
+    Wsdl:
+      type: object
+      additionalProperties: true
+    APIList:
+      type: object
+      additionalProperties: false
+      properties:
+        total_results:
+          type: integer
+        results:
+          type: array
+          items:
+            $ref: '#/components/schemas/API'
+    SourceTargetPairs:
+      type: object
+      additionalProperties: false
+      required:
+      - source
+      - target
+      properties:
+        source:
+          type: string
+        target:
+          type: string
+    ProductList:
+      type: object
+      additionalProperties: false
+      properties:
+        total_results:
+          type: integer
+        results:
+          type: array
+          items:
+            $ref: '#/components/schemas/Product'
+    ProductDocument:
+      type: object
+      additionalProperties: true
+    Product:
+      type: object
+      additionalProperties: false
+      properties:
+        type:
+          type: string
+          readOnly: true
+          enum:
+          - product
+        api_version:
+          type: string
+          readOnly: true
+          enum:
+          - 2.0.0
+        id:
+          type: string
+          readOnly: true
+        name:
+          type: string
+          maxLength: 255
+        version:
+          type: string
+          maxLength: 255
+        title:
+          type: string
+          maxLength: 1023
+        summary:
+          type: string
+          maxLength: 65535
+        state:
+          type: string
+          enum:
+          - published
+          - deprecated
+        product:
+          type: object
+          additionalProperties: true
+        api_urls:
+          type: array
+          items:
+            type: string
+            format: uri
+        billing_urls:
+          type: array
+          items:
+            type: string
+            format: uri
+        billing_identifiers:
+          description: mapping of configured_billing ids to externally managed, non-sensitive identifiers of billing system resources
+          type: object
+          additionalProperties: true
+        superseded_by:
+          $ref: '#/components/schemas/ProductPlanMapping'
+        supersedes:
+          type: array
+          items:
+            $ref: '#/components/schemas/ProductPlanMapping'
+        state_pending:
+          type:
+          - string
+          - 'null'
+          enum:
+          - pending
+          - staged
+          - published
+          - deprecated
+          - retired
+          - archived
+        org_url:
+          type: string
+          format: uri
+        metadata:
+          type: object
+          additionalProperties:
+            type: string
+        created_at:
+          type: string
+          format: date-time
+          readOnly: true
+        updated_at:
+          type: string
+          format: date-time
+          readOnly: true
+        url:
+          type: string
+          readOnly: true
+          format: uri
+    ProjectPath:
+      type: object
+      required:
+      - $path
+      additionalProperties: false
+      properties:
+        $path:
+          description: Field 'path' with JSON name '$path' accepts the value of either 'path' or '$path' from the YAML file. If both 'path' and '$path' are specified, the value of '$path' takes priority.
+          type: string
+    ProjectMetadata:
+      description: Defines a message named Metadata
+      type: object
+      required:
+      - name
+      - version
+      additionalProperties: false
+      properties:
+        description:
+          type: string
+        name:
+          type: string
+        namespace:
+          type: string
+        tags:
+          items:
+            type: string
+          type: array
+        type:
+          enum:
+          - REST
+          - SWAGGER
+          - SOAP
+          - GRAPHQL
+          - ODATA
+          type: string
+        version:
+          type: string
+        domain:
+          enum:
+          - api
+          - ai-platform
+          - mcp
+          type: string
+        labels:
+          type: object
+          additionalProperties: true
+          properties:
+            gatewayTypes:
+              type: array
+              items:
+                type: string
+    ProjectReferenceList:
+      type: array
+      items:
+        $ref: '#/components/schemas/ProjectReference'
+    ProductPlanMapping_2:
+      type:
+      - object
+      - 'null'
+      additionalProperties: false
+      properties:
+        product_url:
+          type:
+          - string
+          - 'null'
+          format: uri
+        plans:
+          type: array
+          items:
+            $ref: '#/components/schemas/SourceTargetPairs'
+    ProductSpecialization:
+      type:
+      - object
+      - 'null'
+      properties:
+        spaces:
+          type: object
+          additionalProperties:
+            type: object
+            properties:
+              gateway_service_urls:
+                type: array
+                items:
+                  type: string
+                  format: uri
+              oauth_provider_urls:
+                type: array
+                items:
+                  type: string
+                  format: uri
+              jwt_provider_urls:
+                type: array
+                items:
+                  type: string
+                  format: uri
+              task_urls:
+                type: array
+                items:
+                  type: string
+                  format: uri
+              url:
+                type: string
+                format: uri
+    ProjectReference:
+      type: object
+      required:
+      - $ref
+      additionalProperties: false
+      properties:
+        $ref:
+          description: Field 'ref' with JSON name '$ref' accepts the value of either 'ref' or '$ref' from the YAML file. If both 'ref' and '$ref' are specified, the value of '$ref' takes priority.
+          type: string
+    APISpecialization:
+      type:
+      - object
+      - 'null'
+      properties:
+        spaces:
+          type: object
+          additionalProperties:
+            type: object
+            properties:
+              gateway_service_urls:
+                type: array
+                items:
+                  type: string
+                  format: uri
+              user_registry_urls:
+                type: array
+                items:
+                  type: string
+                  format: uri
+              oauth_provider_urls:
+                type: array
+                items:
+                  type: string
+                  format: uri
+              jwt_provider_urls:
+                type: array
+                items:
+                  type: string
+                  format: uri
+              tls_client_profile_urls:
+                type: array
+                items:
+                  type: string
+                  format: uri
+              extension_urls:
+                type: array
+                items:
+                  type: string
+                  format: uri
+              policy_urls:
+                type: array
+                items:
+                  type: string
+                  format: uri
+              url:
+                type: string
+                format: uri
+    ProductVisibility:
+      type: object
+      additionalProperties: false
+      required:
+      - view
+      - subscribe
+      properties:
+        view:
+          type: object
+          additionalProperties: false
+          required:
+          - type
+          properties:
+            type:
+              type: string
+              enum:
+              - public
+              - authenticated
+              - custom
+            enabled:
+              type: boolean
+            group_urls:
+              type:
+              - array
+              - 'null'
+              items:
+                type: string
+                format: uri
+            org_urls:
+              type:
+              - array
+              - 'null'
+              items:
+                type: string
+                format: uri
+        subscribe:
+          type: object
+          additionalProperties: false
+          required:
+          - type
+          properties:
+            type:
+              type: string
+              enum:
+              - authenticated
+              - custom
+            enabled:
+              type: boolean
+            group_urls:
+              type:
+              - array
+              - 'null'
+              items:
+                type: string
+                format: uri
+            org_urls:
+              type:
+              - array
+              - 'null'
+              items:
+                type: string
+                format: uri
+    API_2:
+      type: object
+      additionalProperties: false
+      properties:
+        type:
+          type: string
+          readOnly: true
+          enum:
+          - api
+        api_version:
+          type: string
+          readOnly: true
+          enum:
+          - 2.0.0
+        id:
+          type: string
+          readOnly: true
+        name:
+          type: string
+          maxLength: 255
+        version:
+          type: string
+          maxLength: 255
+        title:
+          type: string
+          maxLength: 1023
+        summary:
+          type: string
+          maxLength: 65535
+        scope:
+          type: string
+        state:
+          type: string
+          enum:
+          - staged
+          - online
+          - offline
+          - retired
+        api:
+          type: object
+          additionalProperties: true
+        wsdl:
+          type: object
+          additionalProperties: false
+          required:
+          - content_type
+          - content
+          properties:
+            content_type:
+              type: string
+              enum:
+              - application/wsdl
+              - application/wsdl+xml
+              - text/xml
+              - application/zip
+            content:
+              type: string
+              format: binary
+        api_type:
+          type: string
+          enum:
+          - rest
+          - wsdl
+          - graphql
+          - asyncapi
+        gateway_type:
+          type: string
+          enum:
+          - datapower-gateway
+          - datapower-api-gateway
+          - event-gateway
+          - datapower-nano-gateway
+          - wm-api-gateway
+        api_kind:
+          $ref: '#/components/schemas/ProjectApi'
+        api_kind_name:
+          type: string
+        oai_version:
+          type: string
+          enum:
+          - openapi2
+          - openapi3
+        document_specification:
+          type: string
+          enum:
+          - asyncapi2.0
+          - asyncapi2.1
+          - openapi2
+          - openapi3
+        base_paths:
+          type: array
+          items:
+            type: string
+        enforced:
+          type: boolean
+        catalog_api:
+          type: object
+          additionalProperties: true
+          properties:
+            swagger:
+              type: string
+            info:
+              type: object
+              additionalProperties: true
+              required:
+              - title
+              - version
+              properties:
+                title:
+                  type: string
+                x-ibm-name:
+                  type: string
+                version:
+                  type: string
+                x-ibm-summary:
+                  type: string
+                x-postman-collection-id:
+                  type: string
+                x-postman-workspace-id:
+                  type: string
+        gateway_api:
+          type: object
+          additionalProperties: true
+          properties:
+            swagger:
+              type: string
+            info:
+              type: object
+              additionalProperties: true
+              required:
+              - title
+              - version
+              properties:
+                title:
+                  type: string
+                x-ibm-name:
+                  type: string
+                version:
+                  type: string
+                x-ibm-summary:
+                  type: string
+        consumer_api:
+          type: object
+          additionalProperties: true
+          properties:
+            swagger:
+              type: string
+            info:
+              type: object
+              additionalProperties: true
+              required:
+              - title
+              - version
+              properties:
+                title:
+                  type: string
+                x-ibm-name:
+                  type: string
+                version:
+                  type: string
+                x-ibm-summary:
+                  type: string
+                x-postman-collection-id:
+                  type: string
+                x-postman-workspace-id:
+                  type: string
+        space_urls:
+          type: array
+          items:
+            type: string
+            format: uri
+        gateway_service_urls:
+          type: array
+          items:
+            type: string
+            format: uri
+        portal_service_urls:
+          type: array
+          items:
+            type: string
+            format: uri
+        user_registry_urls:
+          type: array
+          items:
+            type: string
+            format: uri
+        oauth_provider_urls:
+          type: array
+          items:
+            type: string
+            format: uri
+        jwt_provider_urls:
+          type: array
+          items:
+            type: string
+            format: uri
+        tls_client_profile_urls:
+          type: array
+          items:
+            type: string
+            format: uri
+        extension_urls:
+          type: array
+          items:
+            type: string
+            format: uri
+        policy_urls:
+          type: array
+          items:
+            type: string
+            format: uri
+        specialization:
+          $ref: '#/components/schemas/APISpecialization'
+        product_urls:
+          type: array
+          items:
+            type: string
+            format: uri
+        org_url:
+          type: string
+          format: uri
+        catalog_url:
+          type: string
+          format: uri
+        oauth_providers:
+          type: array
+          items:
+            type: object
+            additionalProperties: false
+            properties:
+              id:
+                type: string
+              title:
+                type: string
+              name:
+                type: string
+              provider_type:
+                type: string
+              url:
+                type: string
+                format: uri
+        service_status:
+          type: array
+          items:
+            type: object
+            additionalProperties: false
+            properties:
+              service_url:
+                type: string
+                format: uri
+              status:
+                type: string
+              created_at:
+                type: string
+                format: date-time
+              sent_at:
+                type: string
+                format: date-time
+              processed_at:
+                type: string
+                format: date-time
+        gateway_endpoints:
+          type: array
+          items:
+            type: string
+            format: uri
+        team_urls:
+          type: array
+          items:
+            type: string
+            format: uri
+        metadata:
+          type: object
+          additionalProperties:
+            type: string
+        created_at:
+          type: string
+          format: date-time
+          readOnly: true
+        updated_at:
+          type: string
+          format: date-time
+          readOnly: true
+        url:
+          type: string
+          readOnly: true
+          format: uri
+    MigrateSubscriptionSubset:
+      type: object
+      additionalProperties: false
+      properties:
+        subscription_urls:
+          type: array
+          items:
+            type: string
+            format: uri
+        product_url:
+          type:
+          - string
+          - 'null'
+          format: uri
+        plans:
+          type: array
+          items:
+            $ref: '#/components/schemas/SourceTargetPairs'
+    ProjectApi:
+      type: object
+      required:
+      - kind
+      - apiVersion
+      - metadata
+      - spec
+      additionalProperties: false
+      properties:
+        kind:
+          enum:
+          - API
+          type: string
+        apiVersion:
+          type: string
+        metadata:
+          $ref: '#/components/schemas/ProjectMetadata'
+        spec:
+          type: object
+          required:
+          - api-spec
+          - policy-sequence
+          additionalProperties: false
+          properties:
+            api-spec:
+              type: object
+              required:
+              - $path
+              additionalProperties: false
+              properties:
+                $path:
+                  description: Specifies the path to the referencing resource The path can be relative to the referring file or absolute from the project folder This could point to yaml, json, wsdl or zip files
+                  type: string
+                rootFile:
+                  description: 'Entry point file within ZIP archive (required for ZIP archives containing WSDL) applicable only for WebMethods gateway. Specifies the path to the main WSDL file within the ZIP archive. Example: ''global_weather.wsdl'' or ''wsdl/services/weather/GlobalWeather.wsdl'''
+                  type: string
+            rest-def:
+              oneOf:
+              - $ref: '#/components/schemas/ProjectPath'
+              - $ref: '#/components/schemas/ProjectReference'
+              description: 'REST definition for SOAP APIs: for DataPower gateways, specify the path to the API spec YAML file using $path; for webMethods Gateway, specify a reference to a SOAPToRESTMapping asset using $ref.'
+            uriSchemes:
+              $ref: '#/components/schemas/ProjectReference'
+            properties:
+              $ref: '#/components/schemas/ProjectReference'
+            cors:
+              $ref: '#/components/schemas/ProjectReference'
+            scopes:
+              $ref: '#/components/schemas/ProjectReferenceList'
+            policy-sequence:
+              $ref: '#/components/schemas/ProjectReferenceList'
+            extensions:
+              type: object
+              properties:
+                dp-nano-gateway:
+                  type: object
+                  properties:
+                    apiVersion:
+                      type: string
+                      enum:
+                      - api.ibm.com/v1
+                    spec:
+                      type: object
+                      properties:
+                        api-set:
+                          type: object
+                          required:
+                          - name
+                          properties:
+                            name:
+                              type: string
+                              description: Name of the API set
+    ProjectProduct:
+      type: object
+      required:
+      - kind
+      - apiVersion
+      - metadata
+      - spec
+      properties:
+        apiVersion:
+          type: string
+        kind:
+          enum:
+          - Product
+          type: string
+        metadata:
+          $ref: '#/components/schemas/ProjectMetadata'
+        spec:
+          type: object
+          properties:
+            info:
+              type: object
+              properties:
+                categories:
+                  type: array
+                  items:
+                    type: string
+                contact:
+                  type: object
+                  properties:
+                    name:
+                      type: string
+                    email:
+                      type: string
+                    url:
+                      type: string
+                license:
+                  type: object
+                  properties:
+                    name:
+                      type: string
+                    url:
+                      type: string
+                termsOfService:
+                  type: string
+                summary:
+                  type: string
+            apis:
+              type: array
+              items:
+                type: object
+                properties:
+                  $ref:
+                    type: string
+            plans:
+              type: array
+              items:
+                type: object
+                properties:
+                  $ref:
+                    type: string
+            extensions:
+              type: object
+              properties:
+                portal-config:
+                  type: object
+                  properties:
+                    apiVersion:
+                      type: string
+                    spec:
+                      type: object
+                      properties:
+                        visibility:
+                          type: object
+                          properties:
+                            view:
+                              type: object
+                              properties:
+                                type:
+                                  type: string
+                                  enum:
+                                  - authenticated
+                                  - public
+                                  - custom
+                                orgs:
+                                  type: array
+                                  items:
+                                    type: string
+                                tags:
+                                  type: array
+                                  items:
+                                    type: string
+                                enabled:
+                                  type: boolean
+                            subscribe:
+                              type: object
+                              properties:
+                                type:
+                                  type: string
+                                  enum:
+                                  - authenticated
+                                  - custom
+                                orgs:
+                                  type: array
+                                  items:
+                                    type: string
+                                tags:
+                                  type: array
+                                  items:
+                                    type: string
+                                enabled:
+                                  type: boolean
+                dp-nano-gateway:
+                  type: object
+                  properties:
+                    apiVersion:
+                      type: string
+                      enum:
+                      - api.ibm.com/v1
+                    spec:
+                      type: object
+                      properties:
+                        api-set:
+                          type: object
+                          required:
+                          - isEnabled
+                          properties:
+                            isEnabled:
+                              type: boolean
+                              description: If true, the APIs of this product will be grouped into API sets.
+                        properties:
+                          type: object
+                          additionalProperties:
+                            type: object
+                            properties:
+                              value:
+                                type: string
+                              description:
+                                type: string
+                              encoded:
+                                type: boolean
+                        env:
+                          type: array
+                          items:
+                            type: object
+                            properties:
+                              name:
+                                type: string
+                              value:
+                                type: string
+                              valueFrom:
+                                oneOf:
+                                - type: object
+                                  additionalProperties: false
+                                  properties:
+                                    configMapKeyRef:
+                                      type: object
+                                      properties:
+                                        name:
+                                          type: string
+                                        key:
+                                          type: string
+                                - type: object
+                                  additionalProperties: false
+                                  properties:
+                                    secretKeyRef:
+                                      type: object
+                                      properties:
+                                        name:
+                                          type: string
+                                        key:
+                                          type: string
+                                - type: object
+                                  additionalProperties: false
+                                  properties:
+                                    fieldRef:
+                                      type: object
+                                      properties:
+                                        fieldPath:
+                                          type: string
+                                - type: object
+                                  additionalProperties: false
+                                  properties:
+                                    resourceFieldRef:
+                                      type: object
+                                      properties:
+                                        resource:
+                                          type: string
+                        hostAliases:
+                          type: array
+                          items:
+                            type: object
+                            properties:
+                              ip:
+                                type: string
+                              hostnames:
+                                type: array
+                                items:
+                                  type: string
+                        logLevel:
+                          type: object
+                          properties:
+                            all:
+                              type: string
+                              enum:
+                              - trace
+                              - debug
+                              - info
+                              - warn
+                              - error
+                              - 'off'
+                        quotaService:
+                          type: object
+                          properties:
+                            cache:
+                              type: object
+                              properties:
+                                capacity:
+                                  type: integer
+                                maxAgeMilliseconds:
+                                  type: integer
+                                maxPercent:
+                                  type: integer
+                                fallback:
+                                  type: object
+                                  additionalProperties: false
+                                  properties:
+                                    enabled:
+                                      type: boolean
+                            responseHeaders:
+                              type: string
+                            updateInterval:
+                              type: integer
+                        replicas:
+                          type: integer
+                        resources:
+                          type: object
+                          properties:
+                            limits:
+                              type: object
+                              properties:
+                                cpu:
+                                  type: string
+                                memory:
+                                  type: string
+                            requests:
+                              type: object
+                              properties:
+                                cpu:
+                                  type: string
+                                memory:
+                                  type: string
+                        sqlInjectionFilters:
+                          type: object
+                          properties:
+                            commands:
+                              type: string
+                            escapeSequence:
+                              type: string
+                            keywordInjection:
+                              type: string
+                            likeMatch:
+                              type: string
+                            metacharacters:
+                              type: string
+                            msSqlCommands:
+                              type: string
+                            andOrAttack:
+                              type: string
+                            oracleBufferOverflow:
+                              type: string
+                            simpleMetacharacters:
+                              type: string
+                            custom:
+                              type: object
+                              additionalProperties:
+                                type: string
+                        tlsServerCertificateSecretName:
+                          type: string
+                          description: This is the kubernetes secret name that contains the TLS server certificate that this product will expose. The secret must exist on the kubernetes cluster where DataPower Nano Gateway is deployed.
+                        autoScaling:
+                          type: object
+                          additionalProperties: false
+                          properties:
+                            enabled:
+                              type: boolean
+                              default: false
+                              description: Enable this AutoScaleConfig
+                            fromZero:
+                              type: object
+                              additionalProperties: false
+                              required:
+                              - replicas
+                              properties:
+                                replicas:
+                                  type: integer
+                                  format: int32
+                                  minimum: 1
+                            hpa:
+                              type: object
+                              additionalProperties: false
+                              properties:
+                                enabled:
+                                  type: boolean
+                                  default: true
+                                minReplicas:
+                                  type: integer
+                                  format: int32
+                                  minimum: 1
+                                maxReplicas:
+                                  type: integer
+                                  format: int32
+                                  minimum: 2
+                                targetUtilization:
+                                  type: object
+                                  additionalProperties: false
+                                  properties:
+                                    cpu:
+                                      type: integer
+                                      format: int32
+                                      minimum: 1
+                                      maximum: 100
+                                    memory:
+                                      type: integer
+                                      format: int32
+                                      minimum: 1
+                                      maximum: 100
+                            toZero:
+                              type: object
+                              additionalProperties: false
+                              properties:
+                                strategy:
+                                  type: object
+                                  additionalProperties: false
+                                  properties:
+                                    sinceLastRequest:
+                                      type: object
+                                      additionalProperties: false
+                                      required:
+                                      - seconds
+                                      properties:
+                                        seconds:
+                                          type: integer
+                                          format: int32
+                                          minimum: 60
+                                  required:
+                                  - sinceLastRequest
+                              required:
+                              - strategy
+    Product_2:
+      type: object
+      additionalProperties: false
+      properties:
+        type:
+          type: string
+          readOnly: true
+          enum:
+          - product
+        api_version:
+          type: string
+          readOnly: true
+          enum:
+          - 2.0.0
+        id:
+          type: string
+          readOnly: true
+        name:
+          type: string
+          maxLength: 255
+        version:
+          type: string
+          maxLength: 255
+        title:
+          type: string
+          maxLength: 1023
+        summary:
+          type: string
+          maxLength: 65535
+        scope:
+          type: string
+        state:
+          type: string
+          enum:
+          - pending
+          - staged
+          - published
+          - deprecated
+          - retired
+          - archived
+        product:
+          type: object
+          additionalProperties: true
+        catalog_product:
+          type: object
+          additionalProperties: true
+        state_pending:
+          type:
+          - string
+          - 'null'
+          enum:
+          - pending
+          - staged
+          - published
+          - deprecated
+          - retired
+          - archived
+        gateway_types:
+          type: array
+          items:
+            type: string
+            enum:
+            - datapower-gateway
+            - datapower-api-gateway
+            - event-gateway
+            - datapower-nano-gateway
+            - wm-api-gateway
+        product_kind:
+          $ref: '#/components/schemas/ProjectProduct'
+        portal_types:
+          type: array
+          items:
+            type: string
+            enum:
+            - cms
+            - devportal
+        space_urls:
+          type: array
+          items:
+            type: string
+            format: uri
+        gateway_service_urls:
+          type: array
+          items:
+            type: string
+            format: uri
+        portal_service_urls:
+          type: array
+          items:
+            type: string
+            format: uri
+        visibility:
+          $ref: '#/components/schemas/ProductVisibility'
+        api_urls:
+          type: array
+          items:
+            type: string
+            format: uri
+        plan_urls:
+          type: array
+          items:
+            type: string
+            format: uri
+        oauth_provider_urls:
+          type: array
+          items:
+            type: string
+            format: uri
+        jwt_provider_urls:
+          type: array
+          items:
+            type: string
+            format: uri
+        billing_urls:
+          type: array
+          items:
+            type: string
+            format: uri
+        superseded_by:
+          $ref: '#/components/schemas/ProductPlanMapping_2'
+        supersedes:
+          type: array
+          items:
+            $ref: '#/components/schemas/ProductPlanMapping_2'
+        task_urls:
+          type: array
+          items:
+            type: string
+            format: uri
+        specialization:
+          $ref: '#/components/schemas/ProductSpecialization'
+        subscription_urls:
+          type: array
+          items:
+            type: string
+            format: uri
+        org_url:
+          type: string
+          format: uri
+        catalog_url:
+          type: string
+          format: uri
+        billing_identifiers:
+          description: non-sensitive identifiers of billing system resources
+          type: object
+          additionalProperties: true
+        plans:
+          type: array
+          items:
+            type: object
+            additionalProperties: false
+            properties:
+              title:
+                type: string
+              name:
+                type: string
+              url:
+                type: string
+                format: uri
+              apis:
+                type: array
+                items:
+                  type: object
+                  additionalProperties: false
+                  properties:
+                    id:
+                      type: string
+                    name:
+                      type: string
+                    title:
+                      type: string
+                    version:
+                      type: string
+                    url:
+                      type: string
+                      format: uri
+        gateway_porting_assessment_urls:
+          type: array
+          items:
+            type: string
+            format: uri
+        apis:
+          type: array
+          items:
+            type: object
+            additionalProperties: false
+            properties:
+              id:
+                type: string
+              name:
+                type: string
+              title:
+                type: string
+              version:
+                type: string
+              state:
+                type: string
+              url:
+                type: string
+                format: uri
+              gateway_endpoints:
+                type: array
+                items:
+                  type: string
+                  format: uri
+              api_kind:
+                type: object
+        approval_history:
+          type: array
+          items:
+            type: object
+            additionalProperties: false
+            properties:
+              user:
+                type: object
+                additionalProperties: false
+                properties:
+                  username:
+                    type: string
+                  first_name:
+                    type: string
+                  last_name:
+                    type: string
+                  email:
+                    type: string
+                  url:
+                    type: string
+              target_life_cycle:
+                type: string
+                enum:
+                - staged
+                - published
+                - deprecated
+                - retired
+                - archived
+                - replace
+                - supersede
+              user_action:
+                type: string
+                enum:
+                - requested
+                - approved
+                - rejected
+                - cancelled
+              comment:
+                type: string
+              updated_at:
+                type: string
+                format: date-time
+              display_text:
+                type: string
+        warnings:
+          type: array
+          items:
+            type: string
+        service_status:
+          type: array
+          items:
+            type: object
+            additionalProperties: false
+            properties:
+              service_url:
+                type: string
+                format: uri
+              status:
+                type: string
+              created_at:
+                type: string
+                format: date-time
+              sent_at:
+                type: string
+                format: date-time
+              processed_at:
+                type: string
+                format: date-time
+        team_urls:
+          type: array
+          items:
+            type: string
+            format: uri
+        metadata:
+          type: object
+          additionalProperties:
+            type: string
+        created_at:
+          type: string
+          format: date-time
+          readOnly: true
+        updated_at:
+          type: string
+          format: date-time
+          readOnly: true
+        url:
+          type: string
+          readOnly: true
+          format: uri
+  responses:
+    Error:
+      description: Unexpected error
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+        application/yaml:
+          schema:
+            $ref: '#/components/schemas/Error'
+  securitySchemes:
+    oauth:
+      type: oauth2
+      flows:
+        password:
+          tokenUrl: /token
+          refreshUrl: /token
+          scopes:
+            app:manage: Create a Application object, Clear the Application objects, Update the Application object by name or id, Delete the Application object by name or id, Create a Application Credential object, Clear the Application Credential objects, Update the Application Credential object by name or id, Delete the Application Credential object by name or id, Create a Subscription object, Clear the Subscription objects, Update the Subscription object by name or id, Delete the Subscription object by name or id
+            app:view: List the Application objects, Get the Application object by name or id, List the Application Credential objects, Get the Application Credential object by name or id, List the Subscription objects, Get the Subscription object by name or id
+            my:manage: Update the Me object, Delete the Me object
+            my:view: Get the Me object, List the My Permission objects, List the My Organization objects
+            org:manage: Create a My Organization object, Update the Organization object by name or id, Delete the Organization object by name or id, Create a Member Invitation object, Clear the Member Invitation objects, Delete the Member Invitation object by name or id, Clear the Member objects, Update the Member object by name or id, Delete the Member object by name or id, Create a Payment Method object, Update the Payment Method object by name or id, Delete the Payment Method object by name or id
+            org:view: List all Permission objects in all collections, Get the Organization object by name or id, Get the Group object by name or id, List the Member Invitation objects, Get the Member Invitation object by name or id, List the User Registry objects, Get the User Registry object by name or id, Get the User object by name or id, List the Associate objects, Get the Associate object by name or id, List the Member objects, Get the Member object by name or id, List the Role objects, Get the Role object by name or id, Get the Billing object by name or id, List the Billing objects, List the Payment Method objects, Get the Payment Method object by name or id, List the Payment Method Type objects, Get the Payment Method Type object by name or id
+        authorizationCode:
+          authorizationUrl: /oauth2/authorize
+          tokenUrl: /token
+          refreshUrl: /token
+          scopes:
+            app:manage: Create a Application object, Clear the Application objects, Update the Application object by name or id, Delete the Application object by name or id, Create a Application Credential object, Clear the Application Credential objects, Update the Application Credential object by name or id, Delete the Application Credential object by name or id, Create a Subscription object, Clear the Subscription objects, Update the Subscription object by name or id, Delete the Subscription object by name or id
+            app:view: List the Application objects, Get the Application object by name or id, List the Application Credential objects, Get the Application Credential object by name or id, List the Subscription objects, Get the Subscription object by name or id
+            my:manage: Update the Me object, Delete the Me object
+            my:view: Get the Me object, List the My Permission objects, List the My Organization objects
+            org:manage: Create a My Organization object, Update the Organization object by name or id, Delete the Organization object by name or id, Create a Member Invitation object, Clear the Member Invitation objects, Delete the Member Invitation object by name or id, Clear the Member objects, Update the Member object by name or id, Delete the Member object by name or id, Create a Payment Method object, Update the Payment Method object by name or id, Delete the Payment Method object by name or id
+            org:view: List all Permission objects in all collections, Get the Organization object by name or id, Get the Group object by name or id, List the Member Invitation objects, Get the Member Invitation object by name or id, List the User Registry objects, Get the User Registry object by name or id, Get the User object by name or id, List the Associate objects, Get the Associate object by name or id, List the Member objects, Get the Member object by name or id, List the Role objects, Get the Role object by name or id, Get the Billing object by name or id, List the Billing objects, List the Payment Method objects, Get the Payment Method object by name or id, List the Payment Method Type objects, Get the Payment Method Type object by name or id
+x-refined-from:
+- ibm-api-connect-consumer-api-openapi.yml
+- ibm-api-connect-management-api-openapi.yml
+x-ibm-configuration:
+  testable: false

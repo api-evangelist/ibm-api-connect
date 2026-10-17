@@ -1,0 +1,1260 @@
+openapi: 3.2.0
+info:
+  x-ibm-name: consumer
+  version: 2.0.0
+  title: IBM API Connect Platform - Consumer Organization…
+  description: This API provides operations for accessing API consumer content
+  termsOfService: https://www.ibm.com/legal
+  contact:
+    name: IBM
+    url: https://www.ibm.com
+    email: help@ibm.com
+  license:
+    name: tbd
+    url: https://tbd.com
+servers:
+- url: ''
+  description: Consumer apim base path
+tags:
+- name: Organization Application
+paths:
+  /orgs/{org}/apps:
+    description: The collection of Application operations
+    parameters:
+    - $ref: '#/components/parameters/org'
+    post:
+      summary: Create a Application object
+      description: 'Create a Application object
+
+
+        Fields allowed but ignored:
+
+        - id
+
+        - type
+
+        - api_version
+
+        - scope
+
+        - created_at
+
+        - updated_at
+
+        - url
+
+        - org_url'
+      operationId: app_create
+      security:
+      - oauth:
+        - app:manage
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/App'
+          application/yaml:
+            schema:
+              $ref: '#/components/schemas/App'
+      responses:
+        '201':
+          description: Successful create
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/App'
+            application/yaml:
+              schema:
+                $ref: '#/components/schemas/App'
+        '302':
+          description: Redirect response
+          headers:
+            Location:
+              description: Redirect payload
+              schema:
+                type: string
+        4XX:
+          $ref: '#/components/responses/Error'
+        5XX:
+          $ref: '#/components/responses/Error'
+      tags:
+      - Organization Application
+    get:
+      summary: List the Application objects
+      operationId: app_list
+      security:
+      - oauth:
+        - app:view
+      parameters:
+      - $ref: '#/components/parameters/fields'
+      - $ref: '#/components/parameters/offset'
+      - $ref: '#/components/parameters/limit'
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AppList'
+            application/yaml:
+              schema:
+                $ref: '#/components/schemas/AppList'
+        4XX:
+          $ref: '#/components/responses/Error'
+        5XX:
+          $ref: '#/components/responses/Error'
+      tags:
+      - Organization Application
+    delete:
+      summary: Clear the Application objects
+      operationId: app_clear
+      security:
+      - oauth:
+        - app:manage
+      parameters:
+      - $ref: '#/components/parameters/confirm'
+      responses:
+        '204':
+          description: Success
+        4XX:
+          $ref: '#/components/responses/Error'
+        5XX:
+          $ref: '#/components/responses/Error'
+      tags:
+      - Organization Application
+  /apps/{org}/{app}:
+    description: Application object operations
+    parameters:
+    - $ref: '#/components/parameters/org'
+    - $ref: '#/components/parameters/app'
+    get:
+      summary: Get the Application object by name or id
+      operationId: app_get
+      security:
+      - oauth:
+        - app:view
+      parameters:
+      - $ref: '#/components/parameters/fields'
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/App'
+            application/yaml:
+              schema:
+                $ref: '#/components/schemas/App'
+        4XX:
+          $ref: '#/components/responses/Error'
+        5XX:
+          $ref: '#/components/responses/Error'
+      tags:
+      - Organization Application
+    patch:
+      summary: Update the Application object by name or id
+      description: 'Update the Application object by name or id
+
+
+        Fields allowed but ignored:
+
+        - id
+
+        - type
+
+        - api_version
+
+        - scope
+
+        - created_at
+
+        - updated_at
+
+        - url
+
+        - org_url'
+      operationId: app_update
+      security:
+      - oauth:
+        - app:manage
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/App'
+          application/yaml:
+            schema:
+              $ref: '#/components/schemas/App'
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/App'
+            application/yaml:
+              schema:
+                $ref: '#/components/schemas/App'
+        4XX:
+          $ref: '#/components/responses/Error'
+        5XX:
+          $ref: '#/components/responses/Error'
+      tags:
+      - Organization Application
+    delete:
+      summary: Delete the Application object by name or id
+      operationId: app_del
+      security:
+      - oauth:
+        - app:manage
+      responses:
+        '200':
+          description: Successful delete
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/App'
+            application/yaml:
+              schema:
+                $ref: '#/components/schemas/App'
+        4XX:
+          $ref: '#/components/responses/Error'
+        5XX:
+          $ref: '#/components/responses/Error'
+      tags:
+      - Organization Application
+  /apps/{org}/{app}/credentials:
+    description: The collection of Application Credential operations
+    parameters:
+    - $ref: '#/components/parameters/org'
+    - $ref: '#/components/parameters/app'
+    post:
+      summary: Create a Application Credential object
+      description: 'Create a Application Credential object
+
+
+        Fields allowed but ignored:
+
+        - id
+
+        - type
+
+        - api_version
+
+        - scope
+
+        - created_at
+
+        - updated_at
+
+        - url
+
+        - org_url
+
+        - app_url'
+      operationId: credential_create
+      security:
+      - oauth:
+        - app:manage
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Credential'
+          application/yaml:
+            schema:
+              $ref: '#/components/schemas/Credential'
+      responses:
+        '201':
+          description: Successful create
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Credential'
+            application/yaml:
+              schema:
+                $ref: '#/components/schemas/Credential'
+        '302':
+          description: Redirect response
+          headers:
+            Location:
+              description: Redirect payload
+              schema:
+                type: string
+        4XX:
+          $ref: '#/components/responses/Error'
+        5XX:
+          $ref: '#/components/responses/Error'
+      tags:
+      - Organization Application
+    get:
+      summary: List the Application Credential objects
+      operationId: credential_list
+      security:
+      - oauth:
+        - app:view
+      parameters:
+      - $ref: '#/components/parameters/fields'
+      - $ref: '#/components/parameters/offset'
+      - $ref: '#/components/parameters/limit'
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CredentialList'
+            application/yaml:
+              schema:
+                $ref: '#/components/schemas/CredentialList'
+        4XX:
+          $ref: '#/components/responses/Error'
+        5XX:
+          $ref: '#/components/responses/Error'
+      tags:
+      - Organization Application
+    delete:
+      summary: Clear the Application Credential objects
+      operationId: credential_clear
+      security:
+      - oauth:
+        - app:manage
+      parameters:
+      - $ref: '#/components/parameters/confirm'
+      responses:
+        '204':
+          description: Success
+        4XX:
+          $ref: '#/components/responses/Error'
+        5XX:
+          $ref: '#/components/responses/Error'
+      tags:
+      - Organization Application
+  /apps/{org}/{app}/credentials/{credential}:
+    description: Application Credential object operations
+    parameters:
+    - $ref: '#/components/parameters/org'
+    - $ref: '#/components/parameters/app'
+    - $ref: '#/components/parameters/credential'
+    get:
+      summary: Get the Application Credential object by name or id
+      operationId: credential_get
+      security:
+      - oauth:
+        - app:view
+      parameters:
+      - $ref: '#/components/parameters/fields'
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Credential'
+            application/yaml:
+              schema:
+                $ref: '#/components/schemas/Credential'
+        4XX:
+          $ref: '#/components/responses/Error'
+        5XX:
+          $ref: '#/components/responses/Error'
+      tags:
+      - Organization Application
+    patch:
+      summary: Update the Application Credential object by name or id
+      description: 'Update the Application Credential object by name or id
+
+
+        Fields allowed but ignored:
+
+        - id
+
+        - type
+
+        - api_version
+
+        - scope
+
+        - created_at
+
+        - updated_at
+
+        - url
+
+        - org_url
+
+        - app_url'
+      operationId: credential_update
+      security:
+      - oauth:
+        - app:manage
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Credential'
+          application/yaml:
+            schema:
+              $ref: '#/components/schemas/Credential'
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Credential'
+            application/yaml:
+              schema:
+                $ref: '#/components/schemas/Credential'
+        4XX:
+          $ref: '#/components/responses/Error'
+        5XX:
+          $ref: '#/components/responses/Error'
+      tags:
+      - Organization Application
+    delete:
+      summary: Delete the Application Credential object by name or id
+      operationId: credential_del
+      security:
+      - oauth:
+        - app:manage
+      responses:
+        '200':
+          description: Successful delete
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Credential'
+            application/yaml:
+              schema:
+                $ref: '#/components/schemas/Credential'
+        4XX:
+          $ref: '#/components/responses/Error'
+        5XX:
+          $ref: '#/components/responses/Error'
+      tags:
+      - Organization Application
+  /apps/{org}/{app}/credentials/{credential}/reset:
+    parameters:
+    - $ref: '#/components/parameters/org'
+    - $ref: '#/components/parameters/app'
+    - $ref: '#/components/parameters/credential'
+    post:
+      summary: Reset the client id and client secret
+      operationId: credential_reset
+      security:
+      - oauth:
+        - app:manage
+      responses:
+        '201':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Credential'
+            application/yaml:
+              schema:
+                $ref: '#/components/schemas/Credential'
+        '302':
+          description: Redirect response
+          headers:
+            Location:
+              description: Redirect payload
+              schema:
+                type: string
+        4XX:
+          $ref: '#/components/responses/Error'
+        5XX:
+          $ref: '#/components/responses/Error'
+      tags:
+      - Organization Application
+  /apps/{org}/{app}/credentials/{credential}/reset-client-secret:
+    parameters:
+    - $ref: '#/components/parameters/org'
+    - $ref: '#/components/parameters/app'
+    - $ref: '#/components/parameters/credential'
+    post:
+      summary: Reset the client secret
+      operationId: credential_resetClientSecret
+      security:
+      - oauth:
+        - app:manage
+      responses:
+        '201':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Credential'
+            application/yaml:
+              schema:
+                $ref: '#/components/schemas/Credential'
+        '302':
+          description: Redirect response
+          headers:
+            Location:
+              description: Redirect payload
+              schema:
+                type: string
+        4XX:
+          $ref: '#/components/responses/Error'
+        5XX:
+          $ref: '#/components/responses/Error'
+      tags:
+      - Organization Application
+  /apps/{org}/{app}/credentials/{credential}/verify-client-secret:
+    parameters:
+    - $ref: '#/components/parameters/org'
+    - $ref: '#/components/parameters/app'
+    - $ref: '#/components/parameters/credential'
+    post:
+      summary: Verify the client secret
+      operationId: credential_verifyClientSecret
+      security:
+      - oauth:
+        - app:manage
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Credential'
+          application/yaml:
+            schema:
+              $ref: '#/components/schemas/Credential'
+      responses:
+        '201':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Credential'
+            application/yaml:
+              schema:
+                $ref: '#/components/schemas/Credential'
+        '302':
+          description: Redirect response
+          headers:
+            Location:
+              description: Redirect payload
+              schema:
+                type: string
+        4XX:
+          $ref: '#/components/responses/Error'
+        5XX:
+          $ref: '#/components/responses/Error'
+      tags:
+      - Organization Application
+  /apps/{org}/{app}/subscriptions:
+    description: The collection of Subscription operations
+    parameters:
+    - $ref: '#/components/parameters/org'
+    - $ref: '#/components/parameters/app'
+    post:
+      summary: Create a Subscription object
+      description: 'Create a Subscription object
+
+
+        Fields allowed but ignored:
+
+        - id
+
+        - type
+
+        - api_version
+
+        - scope
+
+        - created_at
+
+        - updated_at
+
+        - url
+
+        - org_url
+
+        - app_url'
+      operationId: subscription_create
+      security:
+      - oauth:
+        - app:manage
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Subscription'
+          application/yaml:
+            schema:
+              $ref: '#/components/schemas/Subscription'
+      responses:
+        '201':
+          description: Successful create
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Subscription'
+            application/yaml:
+              schema:
+                $ref: '#/components/schemas/Subscription'
+        '302':
+          description: Redirect response
+          headers:
+            Location:
+              description: Redirect payload
+              schema:
+                type: string
+        4XX:
+          $ref: '#/components/responses/Error'
+        5XX:
+          $ref: '#/components/responses/Error'
+      tags:
+      - Organization Application
+    get:
+      summary: List the Subscription objects
+      operationId: subscription_list
+      security:
+      - oauth:
+        - app:view
+      parameters:
+      - $ref: '#/components/parameters/fields'
+      - $ref: '#/components/parameters/offset'
+      - $ref: '#/components/parameters/limit'
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SubscriptionList'
+            application/yaml:
+              schema:
+                $ref: '#/components/schemas/SubscriptionList'
+        4XX:
+          $ref: '#/components/responses/Error'
+        5XX:
+          $ref: '#/components/responses/Error'
+      tags:
+      - Organization Application
+    delete:
+      summary: Clear the Subscription objects
+      operationId: subscription_clear
+      security:
+      - oauth:
+        - app:manage
+      parameters:
+      - $ref: '#/components/parameters/confirm'
+      responses:
+        '204':
+          description: Success
+        4XX:
+          $ref: '#/components/responses/Error'
+        5XX:
+          $ref: '#/components/responses/Error'
+      tags:
+      - Organization Application
+  /apps/{org}/{app}/subscriptions/{subscription}:
+    description: Subscription object operations
+    parameters:
+    - $ref: '#/components/parameters/org'
+    - $ref: '#/components/parameters/app'
+    - $ref: '#/components/parameters/subscription'
+    get:
+      summary: Get the Subscription object by name or id
+      operationId: subscription_get
+      security:
+      - oauth:
+        - app:view
+      parameters:
+      - $ref: '#/components/parameters/fields'
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Subscription'
+            application/yaml:
+              schema:
+                $ref: '#/components/schemas/Subscription'
+        4XX:
+          $ref: '#/components/responses/Error'
+        5XX:
+          $ref: '#/components/responses/Error'
+      tags:
+      - Organization Application
+    patch:
+      summary: Update the Subscription object by name or id
+      description: 'Update the Subscription object by name or id
+
+
+        Fields allowed but ignored:
+
+        - id
+
+        - type
+
+        - api_version
+
+        - scope
+
+        - created_at
+
+        - updated_at
+
+        - url
+
+        - org_url
+
+        - app_url'
+      operationId: subscription_update
+      security:
+      - oauth:
+        - app:manage
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Subscription'
+          application/yaml:
+            schema:
+              $ref: '#/components/schemas/Subscription'
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Subscription'
+            application/yaml:
+              schema:
+                $ref: '#/components/schemas/Subscription'
+        4XX:
+          $ref: '#/components/responses/Error'
+        5XX:
+          $ref: '#/components/responses/Error'
+      tags:
+      - Organization Application
+    delete:
+      summary: Delete the Subscription object by name or id
+      operationId: subscription_del
+      security:
+      - oauth:
+        - app:manage
+      responses:
+        '200':
+          description: Successful delete
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Subscription'
+            application/yaml:
+              schema:
+                $ref: '#/components/schemas/Subscription'
+        4XX:
+          $ref: '#/components/responses/Error'
+        5XX:
+          $ref: '#/components/responses/Error'
+      tags:
+      - Organization Application
+components:
+  schemas:
+    OAuth2Token:
+      type: object
+      properties:
+        clientId:
+          type: string
+          description: unique identifier of the oauth2 client
+        clientName:
+          type: string
+          description: the name of the client
+        clientSecret:
+          type: string
+          description: the client secret
+        expirationInterval:
+          type: string
+          description: the expiration interval
+        redirectUris:
+          type: array
+          description: list of redirect uris
+          items:
+            type: string
+        refreshCount:
+          type: string
+          description: number of times an access token can be refreshed
+        scopes:
+          type: array
+          description: the scopes associated with the client
+          items:
+            type: string
+        type:
+          type: string
+          description: type of the oauth2 client
+    AppList:
+      type: object
+      additionalProperties: false
+      properties:
+        total_results:
+          type: integer
+        results:
+          type: array
+          items:
+            $ref: '#/components/schemas/App'
+    App:
+      type: object
+      additionalProperties: false
+      properties:
+        type:
+          type: string
+          readOnly: true
+          enum:
+          - app
+        api_version:
+          type: string
+          readOnly: true
+          enum:
+          - 2.0.0
+        id:
+          type: string
+          readOnly: true
+        name:
+          type: string
+          maxLength: 255
+        title:
+          type: string
+          maxLength: 1023
+        summary:
+          type: string
+          maxLength: 65535
+        state:
+          type: string
+          enum:
+          - enabled
+          - disabled
+          - pending
+        lifecycle_state:
+          type: string
+          enum:
+          - development
+          - production
+        lifecycle_state_pending:
+          type:
+          - string
+          - 'null'
+          enum:
+          - production
+        app_credential_urls:
+          type: array
+          items:
+            type: string
+            format: uri
+        client_id:
+          type: string
+        client_secret:
+          type: string
+        redirect_endpoints:
+          type:
+          - array
+          - 'null'
+          items:
+            type: string
+            format: uri
+        application_public_certificate_entry:
+          type: string
+        org_url:
+          type: string
+          format: uri
+        task_urls:
+          type: array
+          items:
+            type: string
+            format: uri
+        image_endpoint:
+          type:
+          - string
+          - 'null'
+          format: uri
+        application_type_url:
+          type: string
+          format: uri
+        api_urls:
+          type:
+          - array
+          - 'null'
+          items:
+            type: string
+            format: uri
+        access_tokens:
+          $ref: '#/components/schemas/ApplicationToken'
+        contact_emails:
+          type: array
+          description: list of email contacts
+          items:
+            type: string
+        custom_fields:
+          type: object
+          description: list of all custom fields
+          additionalProperties:
+            type: object
+        icon_byte_array:
+          type: string
+          description: application icon byte array
+        identifiers:
+          type: array
+          description: list of all application identifiers
+          items:
+            $ref: '#/components/schemas/ApplicationIdentifier'
+        js_origins:
+          type: array
+          description: list of all javascript origins
+          items:
+            type: string
+        primary_node:
+          $ref: '#/components/schemas/Node'
+        shell:
+          type: boolean
+        site_urls:
+          type: array
+          description: list of all site URLs
+          items:
+            type: string
+        subscription:
+          type: boolean
+        version:
+          type: string
+        rate_limit_notification_settings:
+          type: object
+          additionalProperties: false
+          properties:
+            enabled:
+              type: boolean
+            thresholds:
+              type: object
+              properties:
+                '70':
+                  type: boolean
+                '80':
+                  type: boolean
+                '95':
+                  type: boolean
+        metadata:
+          type: object
+          additionalProperties:
+            type: string
+        created_at:
+          type: string
+          format: date-time
+          readOnly: true
+        updated_at:
+          type: string
+          format: date-time
+          readOnly: true
+        url:
+          type: string
+          readOnly: true
+          format: uri
+    Error:
+      type: object
+      additionalProperties: false
+      properties:
+        status:
+          type: integer
+          minimum: 400
+          maximum: 599
+        message:
+          type: array
+          items:
+            type: string
+        errors:
+          type: array
+          items:
+            type: string
+    Node:
+      type: object
+      properties:
+        hostId:
+          type: string
+        replica:
+          type: integer
+          minimum: 0
+          maximum: 1000
+    CredentialList:
+      type: object
+      additionalProperties: false
+      properties:
+        total_results:
+          type: integer
+        results:
+          type: array
+          items:
+            $ref: '#/components/schemas/Credential'
+    APIAccessKey:
+      type: object
+      properties:
+        apiAccessKey:
+          type: string
+          description: API access key
+        expirationDate:
+          type: string
+          description: expiration date of the api key
+        expirationInterval:
+          type: string
+          description: expiration interval of the api key
+    Subscription:
+      type: object
+      additionalProperties: false
+      properties:
+        type:
+          type: string
+          readOnly: true
+          enum:
+          - subscription
+        api_version:
+          type: string
+          readOnly: true
+          enum:
+          - 2.0.0
+        id:
+          type: string
+          readOnly: true
+        name:
+          type: string
+          maxLength: 255
+        title:
+          type: string
+          maxLength: 1023
+        summary:
+          type: string
+          maxLength: 65535
+        state:
+          type: string
+          enum:
+          - pending
+          - enabled
+          - rejected
+          - disabled
+        product_url:
+          type: string
+          format: uri
+        mcp_server_url:
+          type: string
+          format: uri
+        plan:
+          type: string
+        task_urls:
+          type: array
+          items:
+            type: string
+            format: uri
+        state_pending:
+          type:
+          - string
+          - 'null'
+          enum:
+          - enabled
+        org_url:
+          type: string
+          format: uri
+        app_url:
+          type: string
+          format: uri
+        billing_identifiers:
+          description: non-sensitive identifiers of billing system resources
+          type: object
+          additionalProperties: true
+        metadata:
+          type: object
+          additionalProperties:
+            type: string
+        created_at:
+          type: string
+          format: date-time
+          readOnly: true
+        updated_at:
+          type: string
+          format: date-time
+          readOnly: true
+        url:
+          type: string
+          readOnly: true
+          format: uri
+    Credential:
+      type: object
+      additionalProperties: false
+      properties:
+        type:
+          type: string
+          readOnly: true
+          enum:
+          - credential
+        api_version:
+          type: string
+          readOnly: true
+          enum:
+          - 2.0.0
+        id:
+          type: string
+          readOnly: true
+        name:
+          type: string
+          maxLength: 255
+        title:
+          type: string
+          maxLength: 1023
+        summary:
+          type: string
+          maxLength: 65535
+        client_id:
+          type: string
+        client_secret_hashed:
+          type: string
+        client_secret:
+          type: string
+        org_url:
+          type: string
+          format: uri
+        app_url:
+          type: string
+          format: uri
+        metadata:
+          type: object
+          additionalProperties:
+            type: string
+        created_at:
+          type: string
+          format: date-time
+          readOnly: true
+        updated_at:
+          type: string
+          format: date-time
+          readOnly: true
+        url:
+          type: string
+          readOnly: true
+          format: uri
+    SubscriptionList:
+      type: object
+      additionalProperties: false
+      properties:
+        total_results:
+          type: integer
+        results:
+          type: array
+          items:
+            $ref: '#/components/schemas/Subscription'
+    ApplicationToken:
+      type: object
+      properties:
+        apiAccessKey:
+          $ref: '#/components/schemas/APIAccessKey'
+        oauth2Token:
+          $ref: '#/components/schemas/OAuth2Token'
+    ApplicationIdentifier:
+      type: object
+      properties:
+        id:
+          type: string
+          description: unique identifier of the application identifier
+        key:
+          type: string
+          description: identifier type
+        name:
+          type: string
+          description: name of the identifier
+        value:
+          type: array
+          description: list of identifier values
+          items:
+            type: string
+  parameters:
+    limit:
+      name: limit
+      in: query
+      description: Maximum number of items to return
+      required: false
+      schema:
+        type: integer
+    credential:
+      name: credential
+      in: path
+      description: Application Credential name or id
+      required: true
+      schema:
+        type: string
+    fields:
+      name: fields
+      in: query
+      description: field name
+      required: false
+      schema:
+        type: string
+    org:
+      name: org
+      in: path
+      description: Organization name or id
+      required: true
+      schema:
+        type: string
+    subscription:
+      name: subscription
+      in: path
+      description: Subscription name or id
+      required: true
+      schema:
+        type: string
+    offset:
+      name: offset
+      in: query
+      description: Offset item number from list to begin return
+      required: false
+      schema:
+        type: integer
+    app:
+      name: app
+      in: path
+      description: Application name or id
+      required: true
+      schema:
+        type: string
+    confirm:
+      name: confirm
+      in: query
+      description: confirm clear
+      required: false
+      schema:
+        type: string
+  responses:
+    Error:
+      description: Unexpected error
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+        application/yaml:
+          schema:
+            $ref: '#/components/schemas/Error'
+  securitySchemes:
+    oauth:
+      type: oauth2
+      flows:
+        password:
+          tokenUrl: /token
+          refreshUrl: /token
+          scopes:
+            app:manage: Create a Application object, Clear the Application objects, Update the Application object by name or id, Delete the Application object by name or id, Create a Application Credential object, Clear the Application Credential objects, Update the Application Credential object by name or id, Delete the Application Credential object by name or id, Create a Subscription object, Clear the Subscription objects, Update the Subscription object by name or id, Delete the Subscription object by name or id
+            app:view: List the Application objects, Get the Application object by name or id, List the Application Credential objects, Get the Application Credential object by name or id, List the Subscription objects, Get the Subscription object by name or id
+            my:manage: Update the Me object, Delete the Me object
+            my:view: Get the Me object, List the My Permission objects, List the My Organization objects
+            org:manage: Create a My Organization object, Update the Organization object by name or id, Delete the Organization object by name or id, Create a Member Invitation object, Clear the Member Invitation objects, Delete the Member Invitation object by name or id, Clear the Member objects, Update the Member object by name or id, Delete the Member object by name or id, Create a Payment Method object, Update the Payment Method object by name or id, Delete the Payment Method object by name or id
+            org:view: List all Permission objects in all collections, Get the Organization object by name or id, Get the Group object by name or id, List the Member Invitation objects, Get the Member Invitation object by name or id, List the User Registry objects, Get the User Registry object by name or id, Get the User object by name or id, List the Associate objects, Get the Associate object by name or id, List the Member objects, Get the Member object by name or id, List the Role objects, Get the Role object by name or id, Get the Billing object by name or id, List the Billing objects, List the Payment Method objects, Get the Payment Method object by name or id, List the Payment Method Type objects, Get the Payment Method Type object by name or id
+        authorizationCode:
+          authorizationUrl: /oauth2/authorize
+          tokenUrl: /token
+          refreshUrl: /token
+          scopes:
+            app:manage: Create a Application object, Clear the Application objects, Update the Application object by name or id, Delete the Application object by name or id, Create a Application Credential object, Clear the Application Credential objects, Update the Application Credential object by name or id, Delete the Application Credential object by name or id, Create a Subscription object, Clear the Subscription objects, Update the Subscription object by name or id, Delete the Subscription object by name or id
+            app:view: List the Application objects, Get the Application object by name or id, List the Application Credential objects, Get the Application Credential object by name or id, List the Subscription objects, Get the Subscription object by name or id
+            my:manage: Update the Me object, Delete the Me object
+            my:view: Get the Me object, List the My Permission objects, List the My Organization objects
+            org:manage: Create a My Organization object, Update the Organization object by name or id, Delete the Organization object by name or id, Create a Member Invitation object, Clear the Member Invitation objects, Delete the Member Invitation object by name or id, Clear the Member objects, Update the Member object by name or id, Delete the Member object by name or id, Create a Payment Method object, Update the Payment Method object by name or id, Delete the Payment Method object by name or id
+            org:view: List all Permission objects in all collections, Get the Organization object by name or id, Get the Group object by name or id, List the Member Invitation objects, Get the Member Invitation object by name or id, List the User Registry objects, Get the User Registry object by name or id, Get the User object by name or id, List the Associate objects, Get the Associate object by name or id, List the Member objects, Get the Member object by name or id, List the Role objects, Get the Role object by name or id, Get the Billing object by name or id, List the Billing objects, List the Payment Method objects, Get the Payment Method object by name or id, List the Payment Method Type objects, Get the Payment Method Type object by name or id
+x-ibm-configuration:
+  testable: false

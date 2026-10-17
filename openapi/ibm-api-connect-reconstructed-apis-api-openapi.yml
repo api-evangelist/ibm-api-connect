@@ -1,0 +1,1307 @@
+openapi: 3.2.0
+info:
+  x-ibm-name: discovery
+  version: 2.0.0
+  title: IBM API Connect Discovery Reconstructed APIs API
+  description: This API provides operations for accessing the API Discovery capabilities.
+  termsOfService: https://www.ibm.com/legal
+  contact:
+    name: IBM
+    url: https://www.ibm.com
+    email: help@ibm.com
+  license:
+    name: tbd
+    url: https://tbd.com
+servers:
+- url: ''
+  description: Local laptop testing
+tags:
+- name: Reconstructed APIs
+paths:
+  /cloud/api-call-records/process:
+    post:
+      summary: Processes a set of API Call Records that are not Org-scoped
+      operationId: api_call_record_process
+      security:
+      - oauth:
+        - cloud:manage
+      parameters:
+      - $ref: '#/components/parameters/generate_apis'
+      - $ref: '#/components/parameters/autodiscover'
+      - $ref: '#/components/parameters/basepath'
+      - $ref: '#/components/parameters/discovered'
+      - $ref: '#/components/parameters/openapi_version'
+      - $ref: '#/components/parameters/title'
+      - $ref: '#/components/parameters/version'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/DiscoveredAPICalls'
+          application/yaml:
+            schema:
+              $ref: '#/components/schemas/DiscoveredAPICalls'
+      responses:
+        '201':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/APICallRecordsProcessResult'
+            application/yaml:
+              schema:
+                $ref: '#/components/schemas/APICallRecordsProcessResult'
+        4XX:
+          $ref: '#/components/responses/Error'
+        5XX:
+          $ref: '#/components/responses/Error'
+      tags:
+      - Reconstructed APIs
+  /cloud/api-call-records/clear:
+    delete:
+      summary: Deletes all API Call Records that are not Org-scoped
+      operationId: api_call_record_cloudclear
+      security:
+      - oauth:
+        - cloud:manage
+      parameters:
+      - $ref: '#/components/parameters/confirm'
+      responses:
+        '204':
+          description: Success
+        4XX:
+          $ref: '#/components/responses/Error'
+        5XX:
+          $ref: '#/components/responses/Error'
+      tags:
+      - Reconstructed APIs
+  /cloud/{org}/api-call-records/process:
+    parameters:
+    - $ref: '#/components/parameters/org'
+    post:
+      summary: Processes a set of API Call Records for a pOrg from the Cloud scope
+      operationId: api_call_record_processOrgCloudScope
+      security:
+      - oauth:
+        - cloud:manage
+      parameters:
+      - $ref: '#/components/parameters/generate_apis'
+      - $ref: '#/components/parameters/autodiscover'
+      - $ref: '#/components/parameters/basepath'
+      - $ref: '#/components/parameters/discovered'
+      - $ref: '#/components/parameters/openapi_version'
+      - $ref: '#/components/parameters/title'
+      - $ref: '#/components/parameters/version'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/DiscoveredAPICalls'
+          application/yaml:
+            schema:
+              $ref: '#/components/schemas/DiscoveredAPICalls'
+      responses:
+        '201':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/APICallRecordsProcessResult'
+            application/yaml:
+              schema:
+                $ref: '#/components/schemas/APICallRecordsProcessResult'
+        4XX:
+          $ref: '#/components/responses/Error'
+        5XX:
+          $ref: '#/components/responses/Error'
+      tags:
+      - Reconstructed APIs
+  /orgs/{org}/api-call-records/process:
+    parameters:
+    - $ref: '#/components/parameters/org'
+    post:
+      summary: Processes a set of API Call Records for a pOrg
+      operationId: api_call_record_processOrgScope
+      security:
+      - oauth:
+        - org:manage
+        - api-drafts:edit
+      parameters:
+      - $ref: '#/components/parameters/generate_apis'
+      - $ref: '#/components/parameters/autodiscover'
+      - $ref: '#/components/parameters/basepath'
+      - $ref: '#/components/parameters/discovered'
+      - $ref: '#/components/parameters/openapi_version'
+      - $ref: '#/components/parameters/title'
+      - $ref: '#/components/parameters/version'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/DiscoveredAPICalls'
+          application/yaml:
+            schema:
+              $ref: '#/components/schemas/DiscoveredAPICalls'
+      responses:
+        '201':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/APICallRecordsProcessResult'
+            application/yaml:
+              schema:
+                $ref: '#/components/schemas/APICallRecordsProcessResult'
+        4XX:
+          $ref: '#/components/responses/Error'
+        5XX:
+          $ref: '#/components/responses/Error'
+      tags:
+      - Reconstructed APIs
+  /orgs/{org}/generated-apis:
+    description: Generated API operations across all collections
+    parameters:
+    - $ref: '#/components/parameters/org'
+    post:
+      summary: Create a Generated API object
+      description: 'Create a Generated API object
+
+
+        Fields allowed but ignored:
+
+        - id
+
+        - type
+
+        - api_version
+
+        - scope
+
+        - created_at
+
+        - updated_at
+
+        - url'
+      operationId: generated_api_create
+      security:
+      - oauth:
+        - org:manage
+        - api-drafts:edit
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/GeneratedAPI'
+          application/yaml:
+            schema:
+              $ref: '#/components/schemas/GeneratedAPI'
+      responses:
+        '201':
+          description: Successful create
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GeneratedAPI'
+            application/yaml:
+              schema:
+                $ref: '#/components/schemas/GeneratedAPI'
+        '302':
+          description: Redirect response
+          headers:
+            Location:
+              description: Redirect payload
+              schema:
+                type: string
+        4XX:
+          $ref: '#/components/responses/Error'
+        5XX:
+          $ref: '#/components/responses/Error'
+      tags:
+      - Reconstructed APIs
+    get:
+      summary: List all Generated API objects in all collections
+      operationId: generated_api_listAll
+      security:
+      - oauth:
+        - org:view
+        - api-drafts:view
+      parameters:
+      - $ref: '#/components/parameters/fields'
+      - $ref: '#/components/parameters/offset'
+      - $ref: '#/components/parameters/limit'
+      - $ref: '#/components/parameters/source'
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GeneratedAPIList'
+            application/yaml:
+              schema:
+                $ref: '#/components/schemas/GeneratedAPIList'
+        4XX:
+          $ref: '#/components/responses/Error'
+        5XX:
+          $ref: '#/components/responses/Error'
+      tags:
+      - Reconstructed APIs
+    delete:
+      summary: Clear all Generated API objects in all collections
+      operationId: generated_api_clearAll
+      security:
+      - oauth:
+        - org:manage
+        - api-drafts:edit
+      parameters:
+      - $ref: '#/components/parameters/confirm'
+      responses:
+        '204':
+          description: Success
+        4XX:
+          $ref: '#/components/responses/Error'
+        5XX:
+          $ref: '#/components/responses/Error'
+      tags:
+      - Reconstructed APIs
+  /orgs/{org}/generated-apis/{generated-api-name}:
+    description: The collection of Generated API operations
+    parameters:
+    - $ref: '#/components/parameters/org'
+    - $ref: '#/components/parameters/generated-api-name'
+    get:
+      summary: List the Generated API objects
+      operationId: generated_api_list
+      security:
+      - oauth:
+        - org:view
+        - api-drafts:view
+      parameters:
+      - $ref: '#/components/parameters/fields'
+      - $ref: '#/components/parameters/offset'
+      - $ref: '#/components/parameters/limit'
+      - $ref: '#/components/parameters/source'
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GeneratedAPIList'
+            application/yaml:
+              schema:
+                $ref: '#/components/schemas/GeneratedAPIList'
+        4XX:
+          $ref: '#/components/responses/Error'
+        5XX:
+          $ref: '#/components/responses/Error'
+      tags:
+      - Reconstructed APIs
+    delete:
+      summary: Clear the Generated API objects
+      operationId: generated_api_clear
+      security:
+      - oauth:
+        - org:manage
+        - api-drafts:edit
+      parameters:
+      - $ref: '#/components/parameters/confirm'
+      responses:
+        '204':
+          description: Success
+        4XX:
+          $ref: '#/components/responses/Error'
+        5XX:
+          $ref: '#/components/responses/Error'
+      tags:
+      - Reconstructed APIs
+  /orgs/{org}/generated-apis/{generated-api-id}:
+    description: Generated API object operations
+    parameters:
+    - $ref: '#/components/parameters/org'
+    - $ref: '#/components/parameters/generated-api-id'
+    get:
+      summary: Get the Generated API object by id
+      operationId: generated_api_get
+      security:
+      - oauth:
+        - org:view
+        - api-drafts:view
+      parameters:
+      - $ref: '#/components/parameters/fields'
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GeneratedAPI'
+            application/yaml:
+              schema:
+                $ref: '#/components/schemas/GeneratedAPI'
+        4XX:
+          $ref: '#/components/responses/Error'
+        5XX:
+          $ref: '#/components/responses/Error'
+      tags:
+      - Reconstructed APIs
+    patch:
+      summary: Update the Generated API object by id
+      description: 'Update the Generated API object by id
+
+
+        Fields allowed but ignored:
+
+        - id
+
+        - type
+
+        - api_version
+
+        - scope
+
+        - created_at
+
+        - updated_at
+
+        - url'
+      operationId: generated_api_update
+      security:
+      - oauth:
+        - org:manage
+        - api-drafts:edit
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/GeneratedAPI'
+          application/yaml:
+            schema:
+              $ref: '#/components/schemas/GeneratedAPI'
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GeneratedAPI'
+            application/yaml:
+              schema:
+                $ref: '#/components/schemas/GeneratedAPI'
+        4XX:
+          $ref: '#/components/responses/Error'
+        5XX:
+          $ref: '#/components/responses/Error'
+      tags:
+      - Reconstructed APIs
+    delete:
+      summary: Delete the Generated API object by id
+      operationId: generated_api_del
+      security:
+      - oauth:
+        - org:manage
+        - api-drafts:edit
+      responses:
+        '200':
+          description: Successful delete
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GeneratedAPI'
+            application/yaml:
+              schema:
+                $ref: '#/components/schemas/GeneratedAPI'
+        4XX:
+          $ref: '#/components/responses/Error'
+        5XX:
+          $ref: '#/components/responses/Error'
+      tags:
+      - Reconstructed APIs
+  /orgs/{org}/generated-apis/{generated-api-name}/{generated-api-version}:
+    description: Generated API object operations by name and version
+    parameters:
+    - $ref: '#/components/parameters/org'
+    - $ref: '#/components/parameters/generated-api-name'
+    - $ref: '#/components/parameters/generated-api-version'
+    get:
+      summary: Get the Generated API object by name and version
+      operationId: generated_api_getByNameVersion
+      security:
+      - oauth:
+        - org:view
+        - api-drafts:view
+      parameters:
+      - $ref: '#/components/parameters/fields'
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GeneratedAPI'
+            application/yaml:
+              schema:
+                $ref: '#/components/schemas/GeneratedAPI'
+        4XX:
+          $ref: '#/components/responses/Error'
+        5XX:
+          $ref: '#/components/responses/Error'
+      tags:
+      - Reconstructed APIs
+    patch:
+      summary: Update the Generated API object by name and version
+      description: 'Update the Generated API object by name and version
+
+
+        Fields allowed but ignored:
+
+        - id
+
+        - type
+
+        - api_version
+
+        - scope
+
+        - created_at
+
+        - updated_at
+
+        - url'
+      operationId: generated_api_updateByNameVersion
+      security:
+      - oauth:
+        - org:manage
+        - api-drafts:edit
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/GeneratedAPI'
+          application/yaml:
+            schema:
+              $ref: '#/components/schemas/GeneratedAPI'
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GeneratedAPI'
+            application/yaml:
+              schema:
+                $ref: '#/components/schemas/GeneratedAPI'
+        4XX:
+          $ref: '#/components/responses/Error'
+        5XX:
+          $ref: '#/components/responses/Error'
+      tags:
+      - Reconstructed APIs
+    delete:
+      summary: Delete a Generated API
+      operationId: generated_api_delByNameVersion
+      security:
+      - oauth:
+        - org:manage
+        - api-drafts:edit
+      responses:
+        '200':
+          description: Successful delete
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GeneratedAPI'
+            application/yaml:
+              schema:
+                $ref: '#/components/schemas/GeneratedAPI'
+        4XX:
+          $ref: '#/components/responses/Error'
+        5XX:
+          $ref: '#/components/responses/Error'
+      tags:
+      - Reconstructed APIs
+  /orgs/{org}/generated-apis/generate:
+    parameters:
+    - $ref: '#/components/parameters/org'
+    post:
+      summary: Generate an OpenAPI in a pOrg
+      operationId: generated_api_generateOrgScope
+      security:
+      - oauth:
+        - org:manage
+        - api-drafts:edit
+      parameters:
+      - $ref: '#/components/parameters/autodiscover'
+      - $ref: '#/components/parameters/basepath'
+      - $ref: '#/components/parameters/discovered'
+      - $ref: '#/components/parameters/openapi_version'
+      - $ref: '#/components/parameters/sensitivity'
+      - $ref: '#/components/parameters/title'
+      - $ref: '#/components/parameters/version'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/DiscoveredAPICalls'
+          application/yaml:
+            schema:
+              $ref: '#/components/schemas/DiscoveredAPICalls'
+      responses:
+        '201':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GeneratedAPIList'
+            application/yaml:
+              schema:
+                $ref: '#/components/schemas/GeneratedAPIList'
+        4XX:
+          $ref: '#/components/responses/Error'
+        5XX:
+          $ref: '#/components/responses/Error'
+      tags:
+      - Reconstructed APIs
+  /cloud/{org}/generated-apis/generate:
+    parameters:
+    - $ref: '#/components/parameters/org'
+    post:
+      summary: Generate an OpenAPI in a pOrg for Cloud
+      description: Generate an OpenAPIfor a pOrg
+      operationId: generated_api_generateCloudScope
+      security:
+      - oauth:
+        - cloud:manage
+      parameters:
+      - $ref: '#/components/parameters/autodiscover'
+      - $ref: '#/components/parameters/basepath'
+      - $ref: '#/components/parameters/discovered'
+      - $ref: '#/components/parameters/openapi_version'
+      - $ref: '#/components/parameters/sensitivity'
+      - $ref: '#/components/parameters/title'
+      - $ref: '#/components/parameters/version'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/DiscoveredAPICalls'
+          application/yaml:
+            schema:
+              $ref: '#/components/schemas/DiscoveredAPICalls'
+      responses:
+        '201':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GeneratedAPIList'
+            application/yaml:
+              schema:
+                $ref: '#/components/schemas/GeneratedAPIList'
+        4XX:
+          $ref: '#/components/responses/Error'
+        5XX:
+          $ref: '#/components/responses/Error'
+      tags:
+      - Reconstructed APIs
+  /orgs/{org}/generated-apis/discover/{generated-api-id}:
+    parameters:
+    - $ref: '#/components/parameters/org'
+    - $ref: '#/components/parameters/generated-api-id'
+    put:
+      summary: Make a Discovered API from a Generated API
+      operationId: generated_api_discoverOrgScope
+      security:
+      - oauth:
+        - org:manage
+        - api-drafts:edit
+      responses:
+        '201':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DiscoveredAPI'
+            application/yaml:
+              schema:
+                $ref: '#/components/schemas/DiscoveredAPI'
+        4XX:
+          $ref: '#/components/responses/Error'
+        5XX:
+          $ref: '#/components/responses/Error'
+      tags:
+      - Reconstructed APIs
+  /orgs/{org}/generated-apis/discover/{generated-api-name}/{generated-api-version}:
+    parameters:
+    - $ref: '#/components/parameters/org'
+    - $ref: '#/components/parameters/generated-api-name'
+    - $ref: '#/components/parameters/generated-api-version'
+    put:
+      summary: Make a Discovered API from a Generated API by Name and Version
+      operationId: generated_api_discoverByNameVersionOrgScope
+      security:
+      - oauth:
+        - org:manage
+        - api-drafts:edit
+      responses:
+        '201':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DiscoveredAPI'
+            application/yaml:
+              schema:
+                $ref: '#/components/schemas/DiscoveredAPI'
+        4XX:
+          $ref: '#/components/responses/Error'
+        5XX:
+          $ref: '#/components/responses/Error'
+      tags:
+      - Reconstructed APIs
+  /cloud/{org}/generated-apis/discover/{generated-api-id}:
+    parameters:
+    - $ref: '#/components/parameters/org'
+    - $ref: '#/components/parameters/generated-api-id'
+    put:
+      summary: Make a Discovered API from a Generated API Cloud Scope
+      operationId: generated_api_discoverCloudScope
+      security:
+      - oauth:
+        - cloud:manage
+      responses:
+        '201':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DiscoveredAPI'
+            application/yaml:
+              schema:
+                $ref: '#/components/schemas/DiscoveredAPI'
+        4XX:
+          $ref: '#/components/responses/Error'
+        5XX:
+          $ref: '#/components/responses/Error'
+      tags:
+      - Reconstructed APIs
+  /cloud/{org}/generated-apis/discover/{generated-api-name}/{generated-api-version}:
+    parameters:
+    - $ref: '#/components/parameters/org'
+    - $ref: '#/components/parameters/generated-api-name'
+    - $ref: '#/components/parameters/generated-api-version'
+    put:
+      summary: Make a Discovered API from a Generated API by Name and Version Cloud Scope
+      operationId: generated_api_discoverByNameVersionCloudScope
+      security:
+      - oauth:
+        - cloud:manage
+      responses:
+        '201':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DiscoveredAPI'
+            application/yaml:
+              schema:
+                $ref: '#/components/schemas/DiscoveredAPI'
+        4XX:
+          $ref: '#/components/responses/Error'
+        5XX:
+          $ref: '#/components/responses/Error'
+      tags:
+      - Reconstructed APIs
+components:
+  parameters:
+    generated-api-id:
+      name: generated-api-id
+      in: path
+      description: Generated API name
+      required: true
+      schema:
+        type: string
+    limit:
+      name: limit
+      in: query
+      description: Maximum number of items to return
+      required: false
+      schema:
+        type: integer
+    generate_apis:
+      name: generate_apis
+      in: query
+      description: Optional flag that, if set to true will disable the generation of APIs when API Call records are sent
+      required: false
+      schema:
+        type: boolean
+    fields:
+      name: fields
+      in: query
+      description: List of field names to return
+      required: false
+      schema:
+        type: string
+    org:
+      name: org
+      in: path
+      description: Organization name or id
+      required: true
+      schema:
+        type: string
+    discovered:
+      name: discovered
+      in: query
+      description: Optional flag to automatically create a Discovered API from a Generated API if true
+      required: false
+      schema:
+        type: string
+    offset:
+      name: offset
+      in: query
+      description: Offset item number from list to begin return
+      required: false
+      schema:
+        type: integer
+    openapi_version:
+      name: openapi_version
+      in: query
+      description: OpenAPI version to be used in generated Document
+      required: false
+      schema:
+        type: string
+    sensitivity:
+      name: sensitivity
+      in: query
+      description: Optional sensitivity for path parameter detection
+      required: false
+      schema:
+        type: string
+    confirm:
+      name: confirm
+      in: query
+      description: Confirmation for critical updates
+      required: true
+      schema:
+        type: string
+    version:
+      name: version
+      in: query
+      description: Version to be used for generated OpenAPI Document
+      required: false
+      schema:
+        type: string
+    title:
+      name: title
+      in: query
+      description: Title to be used for generated OpenAPI Document
+      required: false
+      schema:
+        type: string
+    generated-api-version:
+      name: generated-api-version
+      in: path
+      description: Generated API version name
+      required: true
+      schema:
+        type: string
+    basepath:
+      name: basepath
+      in: query
+      description: Basepath to be used for generated OpenAPI 2 Document
+      required: false
+      schema:
+        type: string
+    source:
+      name: source
+      in: query
+      description: Optional source to use to filter Discovered API lists
+      required: false
+      schema:
+        type: string
+    generated-api-name:
+      name: generated-api-name
+      in: path
+      description: Generated API name
+      required: true
+      schema:
+        type: string
+    autodiscover:
+      name: autodiscover
+      in: query
+      description: Optional flag that will automatically create a Discovered API from a Generated API if true
+      required: false
+      schema:
+        type: boolean
+  schemas:
+    OpenApiOperationDefinition:
+      type: object
+      additionalProperties: true
+      required:
+      - method
+      properties:
+        method:
+          type: string
+        description:
+          type: string
+        summary:
+          type: string
+        operation_id:
+          type: string
+        tags:
+          type: array
+          items:
+            type: string
+    GeneratedAPI:
+      type: object
+      additionalProperties: false
+      properties:
+        type:
+          type: string
+          readOnly: true
+          enum:
+          - generated_api
+        api_version:
+          type: string
+          readOnly: true
+          enum:
+          - 2.0.0
+        id:
+          type: string
+          readOnly: true
+        name:
+          type: string
+          maxLength: 255
+        version:
+          type: string
+          maxLength: 255
+        title:
+          type: string
+          maxLength: 1023
+        summary:
+          type: string
+          maxLength: 65535
+        api:
+          type: object
+          additionalProperties: true
+          properties:
+            swagger:
+              type: string
+            info:
+              type: object
+              additionalProperties: true
+              required:
+              - title
+              - version
+              properties:
+                title:
+                  type: string
+                x-ibm-name:
+                  type: string
+                version:
+                  type: string
+                x-ibm-summary:
+                  type: string
+        api_type:
+          type: string
+          enum:
+          - rest
+          - wsdl
+          - graphql
+          - asyncapi
+        oai_version:
+          type: string
+          enum:
+          - openapi2
+          - openapi3
+        document_specification:
+          type: string
+          enum:
+          - asyncapi2.0
+          - asyncapi2.1
+          - openapi2
+          - openapi3
+        data_source:
+          type: object
+          additionalProperties: false
+          properties:
+            source:
+              type: string
+            collector_type:
+              type: string
+            source_address:
+              type: string
+            source_id:
+              type: string
+            options:
+              type: object
+              additionalProperties: true
+        source:
+          type: string
+        source_type:
+          type: string
+        metadata:
+          type: object
+          additionalProperties:
+            type: string
+        created_at:
+          type: string
+          format: date-time
+          readOnly: true
+        updated_at:
+          type: string
+          format: date-time
+          readOnly: true
+        url:
+          type: string
+          readOnly: true
+          format: uri
+    OpenApiTagDefinition:
+      type: object
+      additionalProperties: true
+      required:
+      - name
+      properties:
+        name:
+          type: string
+        description:
+          type: string
+    Error:
+      type: object
+      additionalProperties: false
+      properties:
+        status:
+          type: integer
+          minimum: 400
+          maximum: 599
+        message:
+          type: array
+          items:
+            type: string
+        errors:
+          type: array
+          items:
+            type: string
+    DiscoveredAPIPromotionEvent:
+      type: object
+      additionalProperties: false
+      properties:
+        name:
+          type: string
+        title:
+          type: string
+        version:
+          type: string
+        copied_at:
+          type: string
+          format: date-time
+          readOnly: true
+        reference:
+          type: string
+          format: uri
+    APICallRecordsProcessResult:
+      type: object
+      additionalProperties: true
+      properties:
+        message:
+          type: string
+    OpenApi3ServerDefinition:
+      type: object
+      additionalProperties: true
+      properties:
+        url:
+          type: string
+          format: uri
+        server_address:
+          type: string
+          format: uri
+        description:
+          type: string
+    OpenApiPathDefinition:
+      type: object
+      additionalProperties: true
+      properties:
+        path:
+          type: string
+        description:
+          type: string
+        summary:
+          type: string
+        operations:
+          type: array
+          items:
+            $ref: '#/components/schemas/OpenApiOperationDefinition'
+    GeneratedAPIList:
+      type: object
+      additionalProperties: false
+      properties:
+        total_results:
+          type: integer
+        results:
+          type: array
+          items:
+            $ref: '#/components/schemas/GeneratedAPI'
+    APICallRecordRequest:
+      type: object
+      additionalProperties: true
+      properties:
+        name:
+          type: string
+          maxLength: 255
+        title:
+          type: string
+          maxLength: 1023
+        summary:
+          type: string
+          maxLength: 65535
+        source_id:
+          type: string
+        source_batchid:
+          type: string
+        process_stage:
+          type: integer
+        calls_count:
+          type: integer
+        calls_datetime:
+          type: string
+          format: date-time
+        call_client_id:
+          type: string
+        call_src_ip:
+          type: string
+        call_src_port:
+          type: integer
+        call_dest_ip:
+          type: string
+        call_dest_port:
+          type: integer
+        call_dest_hostname:
+          type: string
+        gateway_ip:
+          type: string
+        operation:
+          type: string
+          enum:
+          - put
+          - get
+          - post
+          - patch
+          - options
+          - head
+          - delete
+          - trace
+          - connect
+        path:
+          type: string
+        user_agent:
+          type: string
+        req_headers:
+          type: object
+          additionalProperties: true
+        rsp_code:
+          type: string
+        metadata:
+          type: object
+          additionalProperties:
+            type: string
+    DiscoveredAPICalls:
+      type: object
+      additionalProperties: true
+      properties:
+        discovered-api-calls:
+          type: array
+          items:
+            $ref: '#/components/schemas/APICallRecordRequest'
+    DiscoveredAPI:
+      type: object
+      additionalProperties: false
+      properties:
+        type:
+          type: string
+          readOnly: true
+          enum:
+          - discovered_api
+        api_version:
+          type: string
+          readOnly: true
+          enum:
+          - 2.0.0
+        id:
+          type: string
+          readOnly: true
+        name:
+          type: string
+          maxLength: 255
+        version:
+          type: string
+          maxLength: 255
+        title:
+          type: string
+          maxLength: 1023
+        summary:
+          type: string
+          maxLength: 65535
+        description:
+          type: string
+          maxLength: 65535
+        hidden:
+          type: boolean
+        state:
+          type: string
+          enum:
+          - discovered
+          - copied
+        api:
+          type: object
+          additionalProperties: true
+        info:
+          type: object
+          additionalProperties: true
+          required:
+          - title
+          - version
+          properties:
+            title:
+              type: string
+            version:
+              type: string
+        api_type:
+          type: string
+          enum:
+          - rest
+          - graphql
+          - asyncapi
+        document_specification:
+          type: string
+          enum:
+          - asyncapi2.0
+          - asyncapi2.1
+          - openapi2
+          - openapi3
+        base_paths:
+          type: array
+          items:
+            type: string
+        host:
+          type: string
+        schemes:
+          type: array
+          items:
+            type: string
+        servers:
+          type: array
+          items:
+            $ref: '#/components/schemas/OpenApi3ServerDefinition'
+        paths:
+          type: array
+          items:
+            $ref: '#/components/schemas/OpenApiPathDefinition'
+        tags:
+          type: array
+          items:
+            $ref: '#/components/schemas/OpenApiTagDefinition'
+        original_format:
+          type: string
+          enum:
+          - json
+          - yaml
+        data_source:
+          type: object
+          additionalProperties: false
+          properties:
+            source:
+              type: string
+            collector_type:
+              type: string
+            source_address:
+              type: string
+            source_id:
+              type: string
+            options:
+              type: object
+              additionalProperties: true
+        source:
+          type: string
+        source_type:
+          type: string
+        promotion_events:
+          type: array
+          items:
+            $ref: '#/components/schemas/DiscoveredAPIPromotionEvent'
+        generated_url:
+          type: string
+          format: uri
+        metadata:
+          type: object
+          additionalProperties:
+            type: string
+        created_at:
+          type: string
+          format: date-time
+          readOnly: true
+        updated_at:
+          type: string
+          format: date-time
+          readOnly: true
+        url:
+          type: string
+          readOnly: true
+          format: uri
+  responses:
+    Error:
+      description: Unexpected error
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+        application/yaml:
+          schema:
+            $ref: '#/components/schemas/Error'
+  securitySchemes:
+    oauth:
+      type: oauth2
+      flows:
+        implicit:
+          authorizationUrl: /oauth2/authorize
+          scopes:
+            api-drafts:edit: Create a Discovered API object, Clear all Discovered API objects in all collections, Clear the Discovered API objects, Update the Discovered API object by id, Delete the Discovered API object by id, Update the Discovered API object by name and version, Delete the Discovered API object by name and version, Create a Generated API object, Clear all Generated API objects in all collections, Clear the Generated API objects, Update the Generated API object by id, Delete the Generated API object by id, Update the Generated API object by name and version, Delete the Generated API object by name and version
+            api-drafts:view: List all Discovered API objects in all collections, List the Discovered API objects, Get the Discovered API object by id, Get the Discovered API object by name and version, List all Generated API objects in all collections, List the Generated API objects, Get the Generated API object by id, Get the Generated API object by name and version
+            org:manage: Create a Data Source object, Clear the Data Source objects, Update the Data Source object by name or id, Delete the Data Source object by name or id, Create a Discovered API object, Clear all Discovered API objects in all collections, Clear the Discovered API objects, Update the Discovered API object by id, Delete the Discovered API object by id, Update the Discovered API object by name and version, Delete the Discovered API object by name and version, Create a Generated API object, Clear all Generated API objects in all collections, Clear the Generated API objects, Update the Generated API object by id, Delete the Generated API object by id, Update the Generated API object by name and version, Delete the Generated API object by name and version
+            org:view: List the Data Source objects, Get the Data Source object by name or id, List all Discovered API objects in all collections, List the Discovered API objects, Get the Discovered API object by id, Get the Discovered API object by name and version, List all Generated API objects in all collections, List the Generated API objects, Get the Generated API object by id, Get the Generated API object by name and version
+            cloud:manage: Processes a set of API Call Records that are not Org-scoped, Deletes all API Call Records that are not Org-scoped, Processes a set of API Call Records for a pOrg from the Cloud scope, Create a Data Source object at Cloud Scope, Update the Data Source object by name or id for cloud, Generate an OpenAPI in a pOrg for Cloud, Make a Discovered API from a Generated API Cloud Scope, Make a Discovered API from a Generated API by Name and Version Cloud Scope
+            cloud:view: List the Data Source objects across orgs, Get remaining Data Source limit for cloud
+        password:
+          tokenUrl: /token
+          refreshUrl: /token
+          scopes:
+            api-drafts:edit: Create a Discovered API object, Clear all Discovered API objects in all collections, Clear the Discovered API objects, Update the Discovered API object by id, Delete the Discovered API object by id, Update the Discovered API object by name and version, Delete the Discovered API object by name and version, Create a Generated API object, Clear all Generated API objects in all collections, Clear the Generated API objects, Update the Generated API object by id, Delete the Generated API object by id, Update the Generated API object by name and version, Delete the Generated API object by name and version
+            api-drafts:view: List all Discovered API objects in all collections, List the Discovered API objects, Get the Discovered API object by id, Get the Discovered API object by name and version, List all Generated API objects in all collections, List the Generated API objects, Get the Generated API object by id, Get the Generated API object by name and version
+            org:manage: Create a Data Source object, Clear the Data Source objects, Update the Data Source object by name or id, Delete the Data Source object by name or id, Create a Discovered API object, Clear all Discovered API objects in all collections, Clear the Discovered API objects, Update the Discovered API object by id, Delete the Discovered API object by id, Update the Discovered API object by name and version, Delete the Discovered API object by name and version, Create a Generated API object, Clear all Generated API objects in all collections, Clear the Generated API objects, Update the Generated API object by id, Delete the Generated API object by id, Update the Generated API object by name and version, Delete the Generated API object by name and version
+            org:view: List the Data Source objects, Get the Data Source object by name or id, List all Discovered API objects in all collections, List the Discovered API objects, Get the Discovered API object by id, Get the Discovered API object by name and version, List all Generated API objects in all collections, List the Generated API objects, Get the Generated API object by id, Get the Generated API object by name and version
+            cloud:manage: Processes a set of API Call Records that are not Org-scoped, Deletes all API Call Records that are not Org-scoped, Processes a set of API Call Records for a pOrg from the Cloud scope, Create a Data Source object at Cloud Scope, Update the Data Source object by name or id for cloud, Generate an OpenAPI in a pOrg for Cloud, Make a Discovered API from a Generated API Cloud Scope, Make a Discovered API from a Generated API by Name and Version Cloud Scope
+            cloud:view: List the Data Source objects across orgs, Get remaining Data Source limit for cloud
+        clientCredentials:
+          tokenUrl: /token
+          scopes:
+            api-drafts:edit: Create a Discovered API object, Clear all Discovered API objects in all collections, Clear the Discovered API objects, Update the Discovered API object by id, Delete the Discovered API object by id, Update the Discovered API object by name and version, Delete the Discovered API object by name and version, Create a Generated API object, Clear all Generated API objects in all collections, Clear the Generated API objects, Update the Generated API object by id, Delete the Generated API object by id, Update the Generated API object by name and version, Delete the Generated API object by name and version
+            api-drafts:view: List all Discovered API objects in all collections, List the Discovered API objects, Get the Discovered API object by id, Get the Discovered API object by name and version, List all Generated API objects in all collections, List the Generated API objects, Get the Generated API object by id, Get the Generated API object by name and version
+            org:manage: Create a Data Source object, Clear the Data Source objects, Update the Data Source object by name or id, Delete the Data Source object by name or id, Create a Discovered API object, Clear all Discovered API objects in all collections, Clear the Discovered API objects, Update the Discovered API object by id, Delete the Discovered API object by id, Update the Discovered API object by name and version, Delete the Discovered API object by name and version, Create a Generated API object, Clear all Generated API objects in all collections, Clear the Generated API objects, Update the Generated API object by id, Delete the Generated API object by id, Update the Generated API object by name and version, Delete the Generated API object by name and version
+            org:view: List the Data Source objects, Get the Data Source object by name or id, List all Discovered API objects in all collections, List the Discovered API objects, Get the Discovered API object by id, Get the Discovered API object by name and version, List all Generated API objects in all collections, List the Generated API objects, Get the Generated API object by id, Get the Generated API object by name and version
+            cloud:manage: Processes a set of API Call Records that are not Org-scoped, Deletes all API Call Records that are not Org-scoped, Processes a set of API Call Records for a pOrg from the Cloud scope, Create a Data Source object at Cloud Scope, Update the Data Source object by name or id for cloud, Generate an OpenAPI in a pOrg for Cloud, Make a Discovered API from a Generated API Cloud Scope, Make a Discovered API from a Generated API by Name and Version Cloud Scope
+            cloud:view: List the Data Source objects across orgs, Get remaining Data Source limit for cloud
+        authorizationCode:
+          authorizationUrl: /oauth2/authorize
+          tokenUrl: /token
+          refreshUrl: /token
+          scopes:
+            api-drafts:edit: Create a Discovered API object, Clear all Discovered API objects in all collections, Clear the Discovered API objects, Update the Discovered API object by id, Delete the Discovered API object by id, Update the Discovered API object by name and version, Delete the Discovered API object by name and version, Create a Generated API object, Clear all Generated API objects in all collections, Clear the Generated API objects, Update the Generated API object by id, Delete the Generated API object by id, Update the Generated API object by name and version, Delete the Generated API object by name and version
+            api-drafts:view: List all Discovered API objects in all collections, List the Discovered API objects, Get the Discovered API object by id, Get the Discovered API object by name and version, List all Generated API objects in all collections, List the Generated API objects, Get the Generated API object by id, Get the Generated API object by name and version
+            org:manage: Create a Data Source object, Clear the Data Source objects, Update the Data Source object by name or id, Delete the Data Source object by name or id, Create a Discovered API object, Clear all Discovered API objects in all collections, Clear the Discovered API objects, Update the Discovered API object by id, Delete the Discovered API object by id, Update the Discovered API object by name and version, Delete the Discovered API object by name and version, Create a Generated API object, Clear all Generated API objects in all collections, Clear the Generated API objects, Update the Generated API object by id, Delete the Generated API object by id, Update the Generated API object by name and version, Delete the Generated API object by name and version
+            org:view: List the Data Source objects, Get the Data Source object by name or id, List all Discovered API objects in all collections, List the Discovered API objects, Get the Discovered API object by id, Get the Discovered API object by name and version, List all Generated API objects in all collections, List the Generated API objects, Get the Generated API object by id, Get the Generated API object by name and version
+            cloud:manage: Processes a set of API Call Records that are not Org-scoped, Deletes all API Call Records that are not Org-scoped, Processes a set of API Call Records for a pOrg from the Cloud scope, Create a Data Source object at Cloud Scope, Update the Data Source object by name or id for cloud, Generate an OpenAPI in a pOrg for Cloud, Make a Discovered API from a Generated API Cloud Scope, Make a Discovered API from a Generated API by Name and Version Cloud Scope
+            cloud:view: List the Data Source objects across orgs, Get remaining Data Source limit for cloud
+externalDocs:
+  description: Additional documentation
+  url: https://www.ibm.com/knowledge-center/api-connect/platform-apis
+x-ibm-configuration:
+  testable: false
