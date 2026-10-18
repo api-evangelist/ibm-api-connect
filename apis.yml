@@ -520,6 +520,8 @@ apis:
   humanURL: https://apic-api.apiconnect.ibmcloud.com/v12/
   baseURL: https://{platform-api-endpoint}/api
   tags:
+  - org-settings
+  tags_raw:
   - Org Settings
   properties:
   - type: OpenAPI
@@ -968,6 +970,8 @@ apis:
   humanURL: https://apic-api.apiconnect.ibmcloud.com/v12/
   baseURL: https://{platform-api-endpoint}/api
   tags:
+  - Webhook
+  tags_raw:
   - Webhooks
   properties:
   - type: OpenAPI
