@@ -66,7 +66,7 @@
 
 IBM API Connect is a comprehensive end-to-end API management solution that enables organizations to create, secure, manage, share, monetize, and analyze APIs across clouds. It provides an API gateway, developer portal, and lifecycle management capabilities.
 
-**URL:** [Visit APIs.json URL](https://raw.githubusercontent.com/api-evangelist/ibm-api-connect/refs/heads/main/apis.yml)
+**URL:** [Visit APIs.json URL](https://apic-api.apiconnect.ibmcloud.com/apis.json)
 
 ## Scope
 
@@ -81,7 +81,7 @@ IBM API Connect is a comprehensive end-to-end API management solution that enabl
 ## Timestamps
 
 - **Created:** 2026-03-16 
-- **Modified:** 2026-10-10 
+- **Modified:** 2026-10-28 
 
 ## APIs
 
@@ -260,6 +260,7 @@ Validates API definitions against governance rulesets at cloud and provider orga
 - [Documentation](https://www.ibm.com/docs/en/api-connect/)
 - [Getting Started](https://www.ibm.com/docs/en/api-connect/cloud/12.1.1_saas?topic=overview-getting-started)
 - [API Reference](https://apic-api.apiconnect.ibmcloud.com/v12/)
+- [API Catalog (/.well-known/api-catalog)](https://apic-api.apiconnect.ibmcloud.com/.well-known/api-catalog)
 - [Authentication](https://www.ibm.com/docs/en/api-connect/software/12.1.1?topic=reference-api-connect-rest-apis)
 - [Support](https://www.ibm.com/mysupport)
 - [Pricing](https://www.ibm.com/products/api-connect/pricing)
@@ -271,7 +272,7 @@ Validates API definitions against governance rulesets at cloud and provider orga
 - [YouTube](https://www.youtube.com/@IBMTechnology)
 - [Terms of Service](https://www.ibm.com/support/customer/csol/terms/)
 - [Privacy Policy](https://www.ibm.com/privacy)
-- [Status](https://cloud.ibm.com/status)
+- [Status](https://status.platform.saas.ibm.com/status/overview)
 - [Rules](rules/ibm-api-connect-rules.yml)
 - [MCP Server](https://github.com/ibm-apiconnect/apic-mcp-server)
 - [API Connect Flow Pilot (agent skills and MCP servers)](https://www.ibm.com/docs/en/api-connect/software/12.1.1?topic=studio-api-connect-flow-pilot-api-development)
